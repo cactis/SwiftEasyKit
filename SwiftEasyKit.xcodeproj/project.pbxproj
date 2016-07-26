@@ -11,6 +11,7 @@
 		37E9F4631D472D6A00D4DBD9 /* SwiftEasyKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37E9F4581D472D6A00D4DBD9 /* SwiftEasyKit.framework */; };
 		37E9F4681D472D6A00D4DBD9 /* SwiftEasyKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E9F4671D472D6A00D4DBD9 /* SwiftEasyKitTests.swift */; };
 		37E9F4731D472F3B00D4DBD9 /* SwiftEasyKit.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 37E9F4721D472F3B00D4DBD9 /* SwiftEasyKit.podspec */; };
+		37EF16C21D47348F00F51E17 /* Source in Resources */ = {isa = PBXBuildFile; fileRef = 37EF16C11D47348F00F51E17 /* Source */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -31,6 +32,7 @@
 		37E9F4671D472D6A00D4DBD9 /* SwiftEasyKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftEasyKitTests.swift; sourceTree = "<group>"; };
 		37E9F4691D472D6A00D4DBD9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		37E9F4721D472F3B00D4DBD9 /* SwiftEasyKit.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SwiftEasyKit.podspec; sourceTree = "<group>"; };
+		37EF16C11D47348F00F51E17 /* Source */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Source; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +58,7 @@
 			isa = PBXGroup;
 			children = (
 				37E9F4721D472F3B00D4DBD9 /* SwiftEasyKit.podspec */,
+				37EF16C11D47348F00F51E17 /* Source */,
 				37E9F45A1D472D6A00D4DBD9 /* SwiftEasyKit */,
 				37E9F4661D472D6A00D4DBD9 /* SwiftEasyKitTests */,
 				37E9F4591D472D6A00D4DBD9 /* Products */,
@@ -181,6 +184,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				37E9F4731D472F3B00D4DBD9 /* SwiftEasyKit.podspec in Resources */,
+				37EF16C21D47348F00F51E17 /* Source in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -382,6 +386,7 @@
 				37E9F46E1D472D6A00D4DBD9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		37E9F46F1D472D6A00D4DBD9 /* Build configuration list for PBXNativeTarget "SwiftEasyKitTests" */ = {
 			isa = XCConfigurationList;
@@ -390,6 +395,7 @@
 				37E9F4711D472D6A00D4DBD9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
