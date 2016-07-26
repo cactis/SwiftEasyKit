@@ -135,5 +135,10 @@ Pod::Spec.new do |s|
   # s.xcconfig = { "HEADER_SEARCH_PATHS" => "$(SDKROOT)/usr/include/libxml2" }
   s.dependency 'LoremIpsum'
   s.dependency 'FontAwesome.swift'
+  s.dependency 'Neon'
+  s.dependency 'SwiftRandom'
+  s.dependency 'RandomKit'
+  s.dependency 'Facade'
+  s.dependency 'FontAwesomeKit'
 
 end
