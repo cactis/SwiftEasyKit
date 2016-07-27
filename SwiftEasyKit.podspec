@@ -139,6 +139,9 @@ Pod::Spec.new do |s|
   s.dependency 'SwiftRandom'
   s.dependency 'RandomKit'
   s.dependency 'Facade'
+  s.dependency 'Fakery'
   s.dependency 'FontAwesomeKit'
+  s.dependency 'Alamofire'
+  s.dependency 'KDCircularProgress'
 
 end
