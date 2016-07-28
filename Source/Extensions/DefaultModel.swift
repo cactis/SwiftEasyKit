@@ -5,6 +5,6 @@
 
 import Foundation
 
-class DefaultModel: NSObject {
+public class DefaultModel: NSObject {
   
 }

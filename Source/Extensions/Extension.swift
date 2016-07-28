@@ -18,7 +18,7 @@ public let faker = Faker()
 
 //extension AppDelegate: UITabBarControllerDelegate {
 //
-//  func enableTabBarController(viewControllers: [UIViewController]!, titles: [String]!, images: [UIImage], selectedImages: [UIImage] = []) -> (UIWindow?, UITabBarController!) {
+public //  func enableTabBarController(viewControllers: [UIViewController]!, titles: [String]!, images: [UIImage], selectedImages: [UIImage] = []) -> (UIWindow?, UITabBarController!) {
 //    var _selectedImages = [UIImage]()
 //    if selectedImages.count > 0 {
 //      _selectedImages = selectedImages
@@ -39,11 +39,11 @@ public let faker = Faker()
 
 class Lorem: LoremIpsum {
 
-  class func message() -> String {
+  public class func message() -> String {
     return Lorem.array(1, upper: 5).map({ _ in Randoms.randomFakeConversation() }).joinWithSeparator(" ")
   }
 
-  class func array(lower: Int = 3, upper: Int = 5) -> Array<Int> {
+  public class func array(lower: Int = 3, upper: Int = 5) -> Array<Int> {
     return Array((1...wizRandomInt(lower, upper: upper)))
   }
 
@@ -55,52 +55,52 @@ class Lorem: LoremIpsum {
   //    return NSDate().addDay(wizRandomInt(-30, upper: 30)).addHour(wizRandomInt(-10, upper: 10))
   //  }
 
-  class func user() -> String {
+  public class func user() -> String {
     return K.Sample.users.randomItem()
   }
 
-  class func bool() -> Bool {
+  public class func bool() -> Bool {
     let bool = (wizRandomInt() % 2) == 1
     return bool
   }
 
-  class func tel() -> String {
+  public class func tel() -> String {
     return "0986168168"
   }
 
-  class func image() -> String {
+  public class func image() -> String {
     return randomImageName()
   }
 
-  class func imageUrl() -> String {
+  public class func imageUrl() -> String {
     return randomImageUrl()
   }
 
-  class func address() -> String {
+  public class func address() -> String {
     return faker.address.streetAddress()
   }
 
-  class func city() -> String {
+  public class func city() -> String {
     return faker.address.city()
   }
 
-  class func area() -> String {
+  public class func area() -> String {
     return faker.address.country()
   }
 
-  class func creditCart() -> String {
+  public class func creditCart() -> String {
     return "．．．．\(wizRandomInt(1999, upper: 9999))"
   }
 
-  class func postcode() -> String {
+  public class func postcode() -> String {
     return faker.address.postcode()
   }
 
-  class func token() -> String {
+  public class func token() -> String {
     return String.random()
   }
 
-  class func password() -> String {
+  public class func password() -> String {
     return String.random()
   }
 
@@ -108,11 +108,11 @@ class Lorem: LoremIpsum {
     return _isSimulator() //|| !_isSimulator()
   }
 
-  class func string() -> String {
+  public class func string() -> String {
     return name()
   }
 
-  class func int() -> Int {
+  public class func int() -> Int {
     if condition() {
       return wizRandomInt()
     } else {
@@ -120,11 +120,11 @@ class Lorem: LoremIpsum {
     }
   }
 
-  class func phone() -> String {
+  public class func phone() -> String {
     return faker.phoneNumber.phoneNumber()
   }
 
-  override class func name() -> String {
+  override public class func name() -> String {
     if condition() {
       return super.name()
     } else {
@@ -135,7 +135,7 @@ class Lorem: LoremIpsum {
 }
 
 extension UIGestureRecognizer {
-  func indexPathInTableView(tableView: UITableView) -> NSIndexPath {
+  public func indexPathInTableView(tableView: UITableView) -> NSIndexPath {
     let position = view?.convertPoint(CGPointZero, toView: tableView)
     return tableView.indexPathForRowAtPoint(position!)!
   }
@@ -144,15 +144,15 @@ extension UIGestureRecognizer {
 extension String {
 
 
-  func split() -> [String] {
+  public func split() -> [String] {
     return self.characters.split{$0 == " "}.map(String.init)
   }
 
-  func formatedAs(format: String = "%02d") -> String {
+  public func formatedAs(format: String = "%02d") -> String {
     return NSString.localizedStringWithFormat(format, self) as String
   }
 
-  func toNSMutableAttributedString() -> NSMutableAttributedString {
+  public func toNSMutableAttributedString() -> NSMutableAttributedString {
     do {
       let result = try NSMutableAttributedString(data: dataUsingEncoding(NSUnicodeStringEncoding, allowLossyConversion: true)!, options: [NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType], documentAttributes: nil)
       return result
@@ -161,11 +161,11 @@ extension String {
     }
   }
 
-  func toAttributedString() -> NSAttributedString {
+  public func toAttributedString() -> NSAttributedString {
     return toHtml()
   }
-  
-  func toHtml() -> NSAttributedString {
+
+  public func toHtml() -> NSAttributedString {
     do {
       let result = try NSAttributedString(data: dataUsingEncoding(NSUnicodeStringEncoding, allowLossyConversion: true)!, options: [NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType], documentAttributes: nil)
       return result
@@ -174,13 +174,13 @@ extension String {
     }
   }
 
-  func taggedWith(tag: String = "div") -> String! {
+  public func taggedWith(tag: String = "div") -> String! {
     let headTag = "<\(tag)>"
     let footTag = "</\(tag)>"
     return "\(headTag)\(self)\(footTag)"
   }
 
-  func toDate() -> NSDate {
+  public func toDate() -> NSDate {
     let df = NSDateFormatter()
     df.dateFormat = "yyyy-MM-dd HH:mm:SS +0000"
     return df.dateFromString(self.stringByReplacingOccurrencesOfString("T", withString: " "))!
@@ -188,12 +188,12 @@ extension String {
 }
 
 extension Float {
-  var int: Int { get { return Int(self) } }
+  public var int: Int { get { return Int(self) } }
 }
 
 extension LoremIpsum {
 
-  class func paragraphsAsHtmlWithNumber(numberOfParagraphs: Int) -> String! {
+  public class func paragraphsAsHtmlWithNumber(numberOfParagraphs: Int) -> String! {
     var paragraphs = ""
     for _ in (1...numberOfParagraphs) {
       paragraphs += self.paragraph().taggedWith("p")
@@ -201,7 +201,7 @@ extension LoremIpsum {
     return paragraphs
   }
 
-  class func sentencesAsArrayWithNumber(numberOfSentences: Int) -> [String] {
+  public class func sentencesAsArrayWithNumber(numberOfSentences: Int) -> [String] {
     var sentences = [String]()
     for _ in 1...numberOfSentences {
       sentences.append(self.sentence())
@@ -212,18 +212,18 @@ extension LoremIpsum {
 
 extension NSBundle {
 
-  var releaseVersionNumber: String? {
+  public var releaseVersionNumber: String? {
     return self.infoDictionary?["CFBundleShortVersionString"] as? String
   }
 
-  var buildVersionNumber: String? {
+  public var buildVersionNumber: String? {
     return self.infoDictionary?["CFBundleVersion"] as? String
   }
 }
 
 extension NSNumber {
 
-  func asDecimal() -> String {
+  public func asDecimal() -> String {
     let f = NSNumberFormatter()
     f.numberStyle = NSNumberFormatterStyle.DecimalStyle
     return f.stringFromNumber(self)!
@@ -232,27 +232,27 @@ extension NSNumber {
 }
 
 extension Int {
-  func asDecimal() -> String {
+  public func asDecimal() -> String {
     return NSNumber(integer: self).asDecimal()
   }
 
-  var string: String {
+  public var string: String {
     return String(self)
   }
 
-  var float: Float {
+  public var float: Float {
     get { return Float(self) }
   }
 
-  var cgFloat: CGFloat {
+  public var cgFloat: CGFloat {
     get { return CGFloat(self) }
   }
 
-  var em: CGFloat {
+  public var em: CGFloat {
     get { return CGFloat(self).em }
   }
 
-  var dollar: String {
+  public var dollar: String {
     get {
       return "$\(NSNumber(integer: self).asDecimal())"
     }
@@ -261,7 +261,7 @@ extension Int {
 
 extension NSDate{
 
-  class func Parse(dateString:String!)->NSDate?{
+  public class func Parse(dateString:String!)->NSDate?{
     if dateString == nil {
       return nil
     }
@@ -284,97 +284,97 @@ extension NSDate{
     return nil
   }
 
-  func Hour()->String{
+  public func Hour()->String{
     let hour = NSCalendar.currentCalendar().components(NSCalendarUnit.Hour, fromDate: self).hour
     return String(format: "%02d", hour)
   }
 
-  func Minute()->String{
+  public func Minute()->String{
     let minute = NSCalendar.currentCalendar().components(NSCalendarUnit.Minute, fromDate: self).minute
     return String(format: "%02d", minute)
   }
 
-  func Day()->String{
+  public func Day()->String{
     let day = NSCalendar.currentCalendar().components(NSCalendarUnit.Day, fromDate: self).day
     return String(format: "%02d", day)
   }
 
-  func Week()->String{
+  public func Week()->String{
     let Weekday = NSCalendar.currentCalendar().components(NSCalendarUnit.Weekday, fromDate: self).weekday
     let map = ["","日","一","二","三","四","五","六"]
 
     return map[Weekday]
   }
 
-  func Month()->String{
+  public func Month()->String{
     let month = NSCalendar.currentCalendar().components(NSCalendarUnit.Month, fromDate: self).month
     //let map = ["","1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月","12月"]
 
     return String(format: "%02d", month)
   }
 
-  func Year()->String{
+  public func Year()->String{
     let year = NSCalendar.currentCalendar().components(NSCalendarUnit.Year, fromDate: self).year
     return "\(year)"
   }
 
-  func toLongString()->String{
+  public func toLongString()->String{
     if self == "" { return "" }
     let dateFormatter = NSDateFormatter()
     dateFormatter.dateFormat = "yyyy/MM/dd HH:mm:ss"
     return dateFormatter.stringFromDate(self)
   }
 
-  func toShortString()->String{
+  public func toShortString()->String{
     if self == "" { return "" }
     let dateFormatter = NSDateFormatter()
     dateFormatter.dateFormat = "yyyy/MM/dd"
     return dateFormatter.stringFromDate(self)
   }
 
-  func toString()->String{
+  public func toString()->String{
     if self == "" { return "" }
     let dateFormatter = NSDateFormatter()
     dateFormatter.dateFormat = "yyyy/MM/dd HH:mm"
     return dateFormatter.stringFromDate(self)
   }
 
-  func toNormalString()->String{
+  public func toNormalString()->String{
     if self == "" { return "" }
     let dateFormatter = NSDateFormatter()
     dateFormatter.dateFormat = "MM/dd HH:mm"
     return dateFormatter.stringFromDate(self)
   }
 
-  func addMonths(month:Int)->NSDate{
+  public func addMonths(month:Int)->NSDate{
     let calendar = NSCalendar.currentCalendar()
     let offsetComponents = NSDateComponents()
     offsetComponents.month = month
     return calendar.dateByAddingComponents(offsetComponents, toDate: self, options: NSCalendarOptions())!
   }
 
-  func addSecond(sec:Int)->NSDate{
+  public func addSecond(sec:Int)->NSDate{
     let calendar = NSCalendar.currentCalendar()
     let offsetComponents = NSDateComponents()
     offsetComponents.second = sec
     return calendar.dateByAddingComponents(offsetComponents, toDate: self, options: NSCalendarOptions())!
   }
 
-  func addHour(hour:Int)->NSDate{
+  public func addHour(hour:Int)->NSDate{
     let calendar = NSCalendar.currentCalendar()
     let offsetComponents = NSDateComponents()
     offsetComponents.hour = hour
     return calendar.dateByAddingComponents(offsetComponents, toDate: self, options: NSCalendarOptions())!
   }
 
-  func addDay(day:Int)->NSDate{
+  public func addDay(day:Int)->NSDate{
     let calendar = NSCalendar.currentCalendar()
     let offsetComponents = NSDateComponents()
     offsetComponents.day = day
     return calendar.dateByAddingComponents(offsetComponents, toDate: self, options: NSCalendarOptions())!
   }
 
-  func firstDateOfMonth(calendar:NSCalendar! = NSCalendar.currentCalendar())->NSDate{
+  public func firstDateOfMonth(calendar:NSCalendar! = NSCalendar.currentCalendar())->NSDate{
     let components = calendar.components(
       [NSCalendarUnit.Year, NSCalendarUnit.Month, NSCalendarUnit.Day]
       , fromDate: self)
@@ -383,7 +383,7 @@ extension NSDate{
     return calendar.dateFromComponents(components)!
   }
 
-  func lastDateOfMonth(calendar:NSCalendar! = NSCalendar.currentCalendar())->NSDate{
+  public func lastDateOfMonth(calendar:NSCalendar! = NSCalendar.currentCalendar())->NSDate{
     let components = calendar.components(
       [NSCalendarUnit.Year, NSCalendarUnit.Month, NSCalendarUnit.Day]
       , fromDate: self)
@@ -393,7 +393,7 @@ extension NSDate{
     return calendar.dateFromComponents(components)!
   }
 
-  func beginningOfDay(calendar:NSCalendar! = NSCalendar.currentCalendar())->NSDate{
+  public func beginningOfDay(calendar:NSCalendar! = NSCalendar.currentCalendar())->NSDate{
     let components = calendar.components(
       [NSCalendarUnit.Year, NSCalendarUnit.Month, NSCalendarUnit.Day]
       , fromDate: self)
@@ -402,7 +402,7 @@ extension NSDate{
     return calendar.dateFromComponents(components)!
   }
 
-  func dateWithDay(day:Int , calendar:NSCalendar! = NSCalendar.currentCalendar())->NSDate{
+  public func dateWithDay(day:Int , calendar:NSCalendar! = NSCalendar.currentCalendar())->NSDate{
     let components = calendar.components(
       [NSCalendarUnit.Year, NSCalendarUnit.Month, NSCalendarUnit.Day]
       , fromDate: self)
@@ -411,7 +411,7 @@ extension NSDate{
     return calendar.dateFromComponents(components)!
   }
 
-  func nextFirstDateOfMonth(calendar:NSCalendar! = NSCalendar.currentCalendar())->NSDate{
+  public func nextFirstDateOfMonth(calendar:NSCalendar! = NSCalendar.currentCalendar())->NSDate{
     let components = calendar.components(
       [NSCalendarUnit.Year, NSCalendarUnit.Month, NSCalendarUnit.Day]
       , fromDate: self)
@@ -421,31 +421,31 @@ extension NSDate{
     return calendar.dateFromComponents(components)!
   }
 
-  func yearsFrom(date:NSDate) -> Int{
+  public func yearsFrom(date:NSDate) -> Int{
     return NSCalendar.currentCalendar().components(NSCalendarUnit.Year, fromDate: date, toDate: self, options: []).year
   }
-  func monthsFrom(date:NSDate) -> Int{
+  public func monthsFrom(date:NSDate) -> Int{
     return NSCalendar.currentCalendar().components(NSCalendarUnit.Month, fromDate: date, toDate: self, options: []).month
   }
-  func weeksFrom(date:NSDate) -> Int{
+  public func weeksFrom(date:NSDate) -> Int{
     return NSCalendar.currentCalendar().components(NSCalendarUnit.WeekOfYear, fromDate: date, toDate: self, options: []).weekOfYear
   }
-  func daysFrom(date:NSDate) -> Int{
+  public func daysFrom(date:NSDate) -> Int{
 
     let fromDay = NSDate.Parse(date.toShortString())!
     let toDay = NSDate.Parse(self.toShortString())!
     return NSCalendar.currentCalendar().components(NSCalendarUnit.Day, fromDate: fromDay, toDate: toDay, options: []).day
   }
-  func hoursFrom(date:NSDate) -> Int{
+  public func hoursFrom(date:NSDate) -> Int{
     return NSCalendar.currentCalendar().components(NSCalendarUnit.Hour, fromDate: date, toDate: self, options: []).hour
   }
-  func minutesFrom(date:NSDate) -> Int{
+  public func minutesFrom(date:NSDate) -> Int{
     return NSCalendar.currentCalendar().components(NSCalendarUnit.Minute, fromDate: date, toDate: self, options: []).minute
   }
-  func secondsFrom(date:NSDate) -> Int{
+  public func secondsFrom(date:NSDate) -> Int{
     return NSCalendar.currentCalendar().components(NSCalendarUnit.Second, fromDate: date, toDate: self, options: []).second
   }
-  func offsetFrom(date:NSDate) -> String {
+  public func offsetFrom(date:NSDate) -> String {
     if yearsFrom(date)   > 0 { return "\(yearsFrom(date))y"   }
     if monthsFrom(date)  > 0 { return "\(monthsFrom(date))M"  }
     if daysFrom(date)    > 0 { return "\(daysFrom(date))d"    }
@@ -459,14 +459,14 @@ extension NSDate{
     return self.beginningOfDay()
   }
 
-  func isTheSameDay(date:NSDate)->Bool{
+  public func isTheSameDay(date:NSDate)->Bool{
     return self.toShortString() == date.toShortString()
   }
 }
 
 extension UIResponder {
 
-  func parentViewController() -> UIViewController? {
+  public func parentViewController() -> UIViewController? {
     if self.nextResponder() is UIViewController {
       return self.nextResponder() as? UIViewController
     } else {
@@ -477,7 +477,7 @@ extension UIResponder {
     }
   }
 
-  func bootFrom(vc: UIViewController) -> UIWindow? {
+  public func bootFrom(vc: UIViewController) -> UIWindow? {
     let window: UIWindow?  = UIWindow(frame: UIScreen.mainScreen().bounds)
     window!.backgroundColor = K.Color.body
     window!.rootViewController = vc
@@ -485,24 +485,24 @@ extension UIResponder {
     return window!
   }
 
-  func pushServerAppID() -> String {
+  public func pushServerAppID() -> String {
     return ""
   }
 
-  func getDeviceName() -> String {
+  public func getDeviceName() -> String {
     let name = UIDevice.currentDevice().name
     //    _log(name, title: "\(__FUNCTION__): name")
     return name
   }
-  
-  public func getDeviceToken() -> String {
-    return Session.getValue(getDeviceName())!
-  }
 
-  func saveDeviceToken(token: String, name: String) {
+ public func getDeviceToken() -> String {
+   return Session.getValue(getDeviceName())!
+ }
+
+  public func saveDeviceToken(token: String, name: String) {
 //    Session.setValue(name, key: token)
-    Session.setValue(token, key: name)
-    
+//    Session.setValue(token, key: name)
+
     //    let manager = HttpManager.getManagerWithoutCache()
     //    let url = HttpManager.requestPath("/users/0")
     //    let params = ["user[ios_device_token]": token, "user[ios_device_name]": name]
@@ -520,42 +520,42 @@ extension UIResponder {
 //    return true
 //  }
 
-  func application(application: UIApplication, didRegisterUserNotificationSettings notificationSettings: UIUserNotificationSettings){
+  public func application(application: UIApplication, didRegisterUserNotificationSettings notificationSettings: UIUserNotificationSettings){
 //    _logForAnyMode()
     application.registerForRemoteNotifications()
   }
 
-  func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
+  public func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
 //    _logForAnyMode()
     PushServer.saveToken(pushServerAppID(), user: getDeviceName(), deviceToken: deviceToken, success: { (deviceTokenString) -> () in
       self.saveDeviceToken(PushServer.getDeviceTokenString(deviceToken), name: self.getDeviceName())
     })
   }
 
-  func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
+  public func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
 //    _logForAnyMode(error.localizedDescription)
 //    _logForAnyMode(error.description)
   }
 
-  func applicationWillResignActive(application: UIApplication) {
+  public func applicationWillResignActive(application: UIApplication) {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
   }
 
-  func applicationDidEnterBackground(application: UIApplication) {
+  public func applicationDidEnterBackground(application: UIApplication) {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
   }
 
-  func applicationWillEnterForeground(application: UIApplication) {
+  public func applicationWillEnterForeground(application: UIApplication) {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
   }
 
-  func applicationDidBecomeActive(application: UIApplication) {
+  public func applicationDidBecomeActive(application: UIApplication) {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
   }
 
-  func applicationWillTerminate(application: UIApplication) {
+  public func applicationWillTerminate(application: UIApplication) {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
   }
 
@@ -564,7 +564,7 @@ extension UIResponder {
 
 extension CollectionType {
   /// Return a copy of `self` with its elements shuffled
-  func shuffle() -> [Generator.Element] {
+  public func shuffle() -> [Generator.Element] {
     var list = Array(self)
     list.shuffleInPlace()
     return list
@@ -573,11 +573,11 @@ extension CollectionType {
 
 extension Double {
 
-  func string() -> String {
+  public func string() -> String {
     return "\(self)"
   }
 
-  var em: CGFloat {
+  public var em: CGFloat {
     get {
       return CGFloat(self).em
     }
@@ -586,30 +586,30 @@ extension Double {
 
 extension CGFloat {
 
-  var int: Int {
+  public var int: Int {
     get { return Int(self) }
   }
 
-  func or(n: Int = 10) -> CGFloat {
+  public func or(n: Int = 10) -> CGFloat {
     return CGFloat([n, Int(self)].maxElement()!)
   }
 
-  var em: CGFloat {
+  public var em: CGFloat {
     //    _logForUIMode(screenWidth(), title: "screenWidth()")
     return self * screenWidth() / 320
   }
 
-  func smaller(n: CGFloat = 1) -> CGFloat {
+  public func smaller(n: CGFloat = 1) -> CGFloat {
     return self - n
   }
 
-  func larger(n: CGFloat = 1) -> CGFloat {
+  public func larger(n: CGFloat = 1) -> CGFloat {
     return self + n
   }
 }
 
 extension Array {
-  func compact() -> [Element] {
+  public func compact() -> [Element] {
     return flatMap({$0})
   }
   //  }
@@ -630,8 +630,8 @@ extension NSMutableAttributedString {
 }
 
 extension UITextField {
-  
-  func scrolledToVisible(scrollView: UIScrollView, keyboardSize: CGSize) {
+
+  public func scrolledToVisible(scrollView: UIScrollView, keyboardSize: CGSize) {
     let target = superview!
     var viewRect = target.frame
     viewRect.size.height -= keyboardSize.height
@@ -643,26 +643,26 @@ extension UITextField {
 
 extension UITableView {
 
-  func indexOfTapped(sender: UITapGestureRecognizer) -> NSIndexPath {
+  public func indexOfTapped(sender: UITapGestureRecognizer) -> NSIndexPath {
     return indexPathForRowAtPoint(sender.view!.convertPoint(CGPointZero, toView: self))!
   }
 
-  func reloadDataAndRun(completion: ()->() = {}) {
+  public func reloadDataAndRun(completion: ()->() = {}) {
     UIView.animateWithDuration(0, animations: { self.reloadData() })
     { _ in completion() }
   }
 
-  func setOffsetToBottom(animated: Bool) {
+  public func setOffsetToBottom(animated: Bool) {
     self.setContentOffset(CGPointMake(0, self.contentSize.height - self.frame.size.height), animated: true)
   }
 
-  func scrollToLastRow(animated: Bool) {
+  public func scrollToLastRow(animated: Bool) {
     if self.numberOfRowsInSection(0) > 0 {
       self.scrollToRowAtIndexPath(NSIndexPath(forRow: self.numberOfRowsInSection(0) - 1, inSection: 0), atScrollPosition: .Bottom, animated: animated)
     }
   }
 
-  func styled() -> UITableView {
+  public func styled() -> UITableView {
     estimatedRowHeight = 20.0
     rowHeight = UITableViewAutomaticDimension
     separatorStyle = .None

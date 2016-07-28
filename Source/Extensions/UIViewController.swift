@@ -191,7 +191,7 @@ public   func setRightBarButtonItem(image: UIImage, action: Selector) -> UIBarBu
   }
 
   @nonobjc
-  public func addRightBarButtonItem(image: UIImage, action: Selector, withOffset: Bool = true) -> UIBarButtonItem {
+  public func addRightBarButtonItem(image: UIImage, action: Selector, withOffset: Bool = true) -> ENMBadgedBarButtonItem {
     let item = newBarButtonItem(image, action: action)
     appendItemToBar(item, withOffset: withOffset)
     return item
@@ -230,7 +230,7 @@ public   func setRightBarButtonItem(image: UIImage, action: Selector) -> UIBarBu
     return item
   }
 
-  public func newBarButtonItem(image: UIImage, action: Selector, count: Int = 0) -> UIBarButtonItem { // ENMBadgedBarButtonItem {
+  public func newBarButtonItem(image: UIImage, action: Selector, count: Int = 0) -> ENMBadgedBarButtonItem {
     let button = UIButton(type: .Custom)
     button.frame = CGRect(x: 0, y: 0, width: K.BarButtonItem.size, height: K.BarButtonItem.size)
     ////    if let knownImage = image {

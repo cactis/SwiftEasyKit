@@ -14,12 +14,12 @@ import UIKit
 
 public class DefaultViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate {
 
-  var swipeRight: UISwipeGestureRecognizer!
+  public var swipeRight: UISwipeGestureRecognizer!
 
-  var didFixedConstraints = false
-  var keyboardSize: CGSize! = CGSizeZero
+  public var didFixedConstraints = false
+  public var keyboardSize: CGSize! = CGSizeZero
 
-  var tabBarHidden = false
+  public var tabBarHidden = false
 
   override public func viewDidLoad() {
     super.viewDidLoad()

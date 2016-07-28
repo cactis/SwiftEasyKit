@@ -14,11 +14,11 @@ import SwiftRandom
 
 extension UIImageView {
 
-  func scaledHeight(width: CGFloat) -> CGFloat {
+  public func scaledHeight(width: CGFloat) -> CGFloat {
     return image!.size.height / (image!.size.width / width)
   }
 
-  func imaged(name: String!) -> UIImageView {
+  public func imaged(name: String!) -> UIImageView {
     //    self.image = UIImage.sample()
     //    _logForUIMode(name.containsString("http"), title: "name.containsString(http)")
     if name.containsString("http") {
@@ -34,11 +34,11 @@ extension UIImageView {
     return self
   }
 
-  func loadImageWithString(name: String!) -> UIImageView {
+  public func loadImageWithString(name: String!) -> UIImageView {
     return imaged(name)
   }
 
-  func loadImage(image: UIImage? = placeHoderImage()) -> UIImageView {
+  public func loadImage(image: UIImage? = placeHoderImage()) -> UIImageView {
     if image != nil {
       //      UIView.transitionWithView(self, duration: 0.5, options: .TransitionCrossDissolve, animations: { () -> Void in
       self.image = image
@@ -54,26 +54,26 @@ extension UIImageView {
     return self
   }
 
-  func styled() -> UIImageView {
+  public func styled() -> UIImageView {
     contentMode = .ScaleAspectFit
     autoresizingMask = [.FlexibleHeight, .FlexibleWidth]
     layer.masksToBounds = true
     return self
   }
 
-  func styled(image: UIImage) -> UIImageView{
+  public func styled(image: UIImage) -> UIImageView{
     self.image = image
     styled()
     return self
   }
 
-  func styledAsFill() -> UIImageView {
+  public func styledAsFill() -> UIImageView {
     styled()
     contentMode = .ScaleAspectFill
     return self
   }
 
-  func styledAsFill(image: UIImage) -> UIImageView {
+  public func styledAsFill(image: UIImage) -> UIImageView {
     self.image = image
     styledAsFill()
     return self

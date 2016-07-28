@@ -14,7 +14,7 @@ import SwiftRandom
 
 extension UIColor {
 
-  var hexString: String {
+  public var hexString: String {
     let components = CGColorGetComponents(self.CGColor)
 
     let red = Float(components[0])
@@ -27,15 +27,15 @@ extension UIColor {
     return UIColor.init(red: red / 255, green: green / 255, blue: blue / 255, alpha: alpha)
   }
 
-  func tinyLighter() -> UIColor {
+  public func tinyLighter() -> UIColor {
     return lighter(0.1)
   }
 
-  func tinyDarker() -> UIColor {
+  public func tinyDarker() -> UIColor {
     return darker(0.1)
   }
 
-  func lighter(diff: CGFloat = 0.2) -> UIColor {
+  public func lighter(diff: CGFloat = 0.2) -> UIColor {
     let color = self
     var r:CGFloat = 0, g:CGFloat = 0, b:CGFloat = 0, a:CGFloat = 0
     if color.getRed(&r, green: &g, blue: &b, alpha: &a){
@@ -44,7 +44,7 @@ extension UIColor {
     return UIColor()
   }
 
-  func darker(diff: CGFloat = 0.2) -> UIColor {
+  public func darker(diff: CGFloat = 0.2) -> UIColor {
     let color = self
     var r:CGFloat = 0, g:CGFloat = 0, b:CGFloat = 0, a:CGFloat = 0
     if color.getRed(&r, green: &g, blue: &b, alpha: &a){

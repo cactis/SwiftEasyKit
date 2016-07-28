@@ -3,45 +3,45 @@
 
 import UIKit
 
-class TableViewCell: UITableViewCell {
+public class TableViewCell: UITableViewCell {
 
-  var didFixedConstraints = false
-  var bottomView = UIView()
+  public var didFixedConstraints = false
+  public var bottomView = UIView()
 
-  override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+  override public init(style: UITableViewCellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
     layoutUI()
     styleUI()
     bindUI()
   }
 
-  func layoutUI() {
+  public func layoutUI() {
     bottomView = self
   }
 
-  func styleUI() {
+  public func styleUI() {
     backgroundColor = K.Color.table
   }
 
-  func bindUI() {
-    
+  public func bindUI() {
+
   }
 
-  func bottomPadding() -> CGFloat {
+  public func bottomPadding() -> CGFloat {
     return K.Size.Padding.large
   }
 
-  func autoHeight(padding: CGFloat? = nil) -> CGFloat {
+  public func autoHeight(padding: CGFloat? = nil) -> CGFloat {
     let _padding = padding ?? bottomPadding()
     return bottomView.bottomEdge() + _padding
   }
 
 //
-//  func loadData(data: NSDictionary) {
-//    
+//  public func loadData(data: NSDictionary) {
+//
 //  }
 
-  override func layout(views: [UIView]) -> UIView {
+  override public func layout(views: [UIView]) -> UIView {
     views.forEach { (view) -> () in
       addSubview(view)
       bottomView = view
@@ -50,21 +50,19 @@ class TableViewCell: UITableViewCell {
   }
 
 
-  override func awakeFromNib() {
+  override public func awakeFromNib() {
     super.awakeFromNib()
   }
 
-  override func layoutSubviews() {
+  override public func layoutSubviews() {
     super.layoutSubviews()
     contentView.fillSuperview(left: 10, right: 10, top: 10, bottom: 10)
   }
 
-  override func setSelected(selected: Bool, animated: Bool) {
+  override public func setSelected(selected: Bool, animated: Bool) {
     super.setSelected(selected, animated: animated)
   }
 
-  required init?(coder aDecoder: NSCoder) {
-    fatalError("init(coder:) has not been implemented")
-  }
+  required public init?(coder aDecoder: NSCoder) { fatalError("init(coder:) has not been implemented") }
 
 }

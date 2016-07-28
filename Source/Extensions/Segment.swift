@@ -5,25 +5,25 @@
 
 import UIKit
 
-enum Direction {
+public enum Direction {
   case Horizontal
   case Vertical
 }
 
-class SegmentWithViews: DefaultView, UIScrollViewDelegate {
+public class SegmentWithViews: DefaultView, UIScrollViewDelegate {
 
-  var header = UIView()
-  var segment: Segment!
-  var scrollView = UIScrollView()
-  var views = [UIView]()
-  var segmentHeight: CGFloat = 40
-  var segmentXPad: CGFloat = 0
-  var segmentYPad: CGFloat = 0
+  public var header = UIView()
+  public var segment: Segment!
+  public var scrollView = UIScrollView()
+  public var views = [UIView]()
+  public var segmentHeight: CGFloat = 40
+  public var segmentXPad: CGFloat = 0
+  public var segmentYPad: CGFloat = 0
 //  var scrollViewXPad: CGFloat = 0
 //  var scrollViewYPad: CGFloat = 0
 
 
-  init(titles: [String]!, iconCodes: [String]! = [], color: (active: UIColor, deactive: UIColor), size: CGFloat = 12, index: Int = 0, views: [UIView], direction: Direction = .Vertical) {
+  public init(titles: [String]!, iconCodes: [String]! = [], color: (active: UIColor, deactive: UIColor), size: CGFloat = 12, index: Int = 0, views: [UIView], direction: Direction = .Vertical) {
 
     if iconCodes.count > 0 {
 //      _logForUIMode("\(direction)", title: "-----")
@@ -35,12 +35,12 @@ class SegmentWithViews: DefaultView, UIScrollViewDelegate {
     super.init(frame: CGRectZero)
   }
 
-  override func layoutUI() {
+  override public func layoutUI() {
     super.layoutUI()
     layout([header.layout([segment]), scrollView.layout(views)])
   }
 
-  override func bindUI() {
+  override public func bindUI() {
     super.bindUI()
     scrollView.delegate = self
     scrollView.pagingEnabled = true
@@ -49,25 +49,25 @@ class SegmentWithViews: DefaultView, UIScrollViewDelegate {
     }
   }
 
-  func tappedAtIndex(index: Int) {
+  public func tappedAtIndex(index: Int) {
     segment.index = index
     segmentTapped()
   }
 
-  func segmentTapped() {
+  public func segmentTapped() {
     self.delayedJobCancelable(0.2, closure: {
       let index = self.segment.index.cgFloat
       self.scrollView.setContentOffset(CGPoint(x: index * self.scrollView.width, y: 0), animated: true)
     })
   }
 
-  func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
+  public func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
     _logForUIMode()
     segment.index = Int(scrollView.contentOffset.x / scrollView.width)
   }
 
 
-  override func layoutSubviews() {
+  override public func layoutSubviews() {
     super.layoutSubviews()
     header.anchorAndFillEdge(.Top, xPad: 0, yPad: 0, otherSize: segmentHeight)
     segment.fillSuperview(left: segmentXPad, right: segmentXPad, top: segmentYPad, bottom: segmentYPad)
@@ -79,17 +79,17 @@ class SegmentWithViews: DefaultView, UIScrollViewDelegate {
     scrollView.contentSize = CGSize(width: scrollView.width * views.count.cgFloat, height: scrollView.height)
   }
 
-  required init?(coder aDecoder: NSCoder) { fatalError("init(coder:) has not been implemented") }
+  required public init?(coder aDecoder: NSCoder) { fatalError("init(coder:) has not been implemented") }
 }
 
-class IconFontSegmentWithUnderline: IconFontSegment {
+public class IconFontSegmentWithUnderline: IconFontSegment {
 //  var indicatorHeight = K.Size.Segment.underline {
 //    didSet {
 //      indicatorConstraints()
 //    }
 //  }
 
-  override func indicatorConstraints() {
+  override public func indicatorConstraints() {
     //    indicator.alignUnder(group.groupMargins[index], matchingLeftAndRightWithTopPadding: indicatorHeight * 3, height: indicatorHeight)
     switch direction {
     case .Horizontal:
@@ -104,19 +104,19 @@ class IconFontSegmentWithUnderline: IconFontSegment {
     }
   }
 
-  override func layoutSubviews() {
+  override public func layoutSubviews() {
     super.layoutSubviews()
   }
 }
 
-class IconFontSegment: TextSegment {
-  var icons = [UILabel]()
+public class IconFontSegment: TextSegment {
+  public var icons = [UILabel]()
 
-  var direction: Direction = .Vertical {
+  public var direction: Direction = .Vertical {
     didSet { layoutSubviews() }
   }
 
-  override func didChange() {
+  override public func didChange() {
     delayedJob(0.3) {
       (0...self.labels.count - 1).forEach { (i) in
         self.labels[i].label.colored(self.deactiveColor)
@@ -127,7 +127,7 @@ class IconFontSegment: TextSegment {
     }
   }
 
-  init(titles: [String]!, iconCodes: [String]!, color: (active: UIColor, deactive: UIColor), size: CGFloat = 12, index: Int = 0, direction: Direction = .Vertical) {
+  public init(titles: [String]!, iconCodes: [String]!, color: (active: UIColor, deactive: UIColor), size: CGFloat = 12, index: Int = 0, direction: Direction = .Vertical) {
     super.init(titles: titles, size: size, index: index)
     ({ self.activeColor = color.active })()
     self.deactiveColor = color.deactive
@@ -141,14 +141,14 @@ class IconFontSegment: TextSegment {
     ({ self.direction = direction })()
   }
 
-  override func bindUI() {
+  override public func bindUI() {
     super.bindUI()
     group.groups.forEach { (tab) -> () in
       tab.whenTapped(self, action: #selector(Segment.tabTapped(_:)))
     }
   }
 
-  override func layoutSubviews() {
+  override public func layoutSubviews() {
     super.layoutSubviews()
     for i in 0...icons.count - 1 {
       switch direction {
@@ -169,14 +169,14 @@ class IconFontSegment: TextSegment {
     }
   }
 
-  required init?(coder aDecoder: NSCoder) { fatalError("init(coder:) has not been implemented") }
+  required public init?(coder aDecoder: NSCoder) { fatalError("init(coder:) has not been implemented") }
 
 }
 
-class IconSegment: Segment {
-  var icons = [UIImageView]()
+public class IconSegment: Segment {
+  public var icons = [UIImageView]()
 
-  init(titles: [String]!, images: [UIImage]!, size: CGFloat = 12, index: Int = 0){
+  public init(titles: [String]!, images: [UIImage]!, size: CGFloat = 12, index: Int = 0){
     super.init(titles: titles, size: size, index: index)
 
     for i in 0...images.count - 1 {
@@ -186,7 +186,7 @@ class IconSegment: Segment {
     }
   }
 
-  override func layoutSubviews() {
+  override public func layoutSubviews() {
     super.layoutSubviews()
     for i in 0...icons.count - 1 {
       icons[i].anchorTopCenterWithTopPadding(10, width: 42, height: 42)
@@ -194,13 +194,13 @@ class IconSegment: Segment {
     }
   }
 
-  required init?(coder aDecoder: NSCoder) { fatalError("init(coder:) has not been implemented") }
+  required public init?(coder aDecoder: NSCoder) { fatalError("init(coder:) has not been implemented") }
 }
 
-class TextSegment: Segment {
+public class TextSegment: Segment {
 
-  var indicatorHeight: CGFloat = K.Size.Segment.underline { didSet { indicatorConstraints() } }
-  override func styleUI() {
+  public var indicatorHeight: CGFloat = K.Size.Segment.underline { didSet { indicatorConstraints() } }
+  override public func styleUI() {
     super.styleUI()
 //    indicator.backgroundColor = K.Color.indicator
   }
@@ -209,7 +209,7 @@ class TextSegment: Segment {
 //    didSet { indicatorConstraints() }
 //  }
 
-  override func indicatorConstraints() {
+  override public func indicatorConstraints() {
     switch style {
     case .Cover:
       let target = group.groupMargins[index]
@@ -221,7 +221,7 @@ class TextSegment: Segment {
     }
   }
 
-  override func layoutSubviews() {
+  override public func layoutSubviews() {
     super.layoutSubviews()
     labels.forEach { (tab) -> () in
       switch style {
@@ -234,35 +234,33 @@ class TextSegment: Segment {
   }
 }
 
-class Segment: DefaultView {
+public class Segment: DefaultView {
 
-  var labels: [BadgeLabel]! = []
-  var indicator = UIView()
-  var indicatorColor = K.Color.indicator {
+  public var labels: [BadgeLabel]! = []
+  public var indicator = UIView()
+  public var indicatorColor = K.Color.indicator {
     didSet { indicator.backgroundColored(indicatorColor) }
   }
 
-  var titles: [String]! = []
-  var size: CGFloat!
-  var group: GroupsView!
+  public var titles: [String]! = []
+  public var size: CGFloat!
+  public var group: GroupsView!
 
-  var changed: () -> () = {}
-  var segmentTapped: () -> () = {}
+  public var changed: () -> () = {}
+  public var segmentTapped: () -> () = {}
 
-  var style: IndicatorStyle = .Underline { didSet { } }
+  public var style: IndicatorStyle = .Underline { didSet { } }
 
-  var textColorFollowedByIndicator = false {
+  public var textColorFollowedByIndicator = false {
     didSet { indicatorConstraints() }
   }
 
-
-  enum IndicatorStyle {
+  public enum IndicatorStyle {
     case Underline
     case Cover
   }
 
-
-  var index: Int = 0 {
+  public var index: Int = 0 {
     didSet {
       reConstraints()
 //      changed()
@@ -270,11 +268,11 @@ class Segment: DefaultView {
     }
   }
 
-  var activeColor: UIColor! = K.Color.indicator { didSet { indicator.backgroundColor = activeColor } }
-  var deactiveColor: UIColor!
-  func didChange() { }
+  public var activeColor: UIColor! = K.Color.indicator { didSet { indicator.backgroundColor = activeColor } }
+  public var deactiveColor: UIColor!
+  public func didChange() { }
 
-  init(iconCodes: [String]!, titles: [String]!, size: CGFloat = 12, index: Int = 0) {
+  public init(iconCodes: [String]!, titles: [String]!, size: CGFloat = 12, index: Int = 0) {
 
     self.titles = titles
     self.size = size
@@ -291,7 +289,7 @@ class Segment: DefaultView {
     super.init(frame: CGRectZero)
   }
 
-  init(titles: [String]!, size: CGFloat = 12, index: Int = 0){
+  public init(titles: [String]!, size: CGFloat = 12, index: Int = 0){
     self.titles = titles
     self.size = size
     self.index = index
@@ -306,38 +304,38 @@ class Segment: DefaultView {
     super.init(frame: CGRectZero)
   }
 
-  override func layoutUI() {
+  override public func layoutUI() {
     super.layoutUI()
     layout([group.layout([indicator])])
   }
 
-  override func styleUI() {
+  override public func styleUI() {
     super.styleUI()
     backgroundColor = UIColor.whiteColor()
     indicator.backgroundColored(indicatorColor)
   }
 
-  override func bindUI() {
+  override public func bindUI() {
     super.bindUI()
     group.groups.forEach { (tab) -> () in
       tab.whenTapped(self, action: #selector(Segment.tabTapped(_:)))
     }
   }
 
-  func tabTapped(sender: AnyObject) {
+  public func tabTapped(sender: AnyObject) {
     index = group.groups.indexOf(sender.view!!)!
     segmentTapped()
     changed()
     reConstraints()
   }
 
-  func reConstraints() {
+  public func reConstraints() {
     UIView.animateWithDuration(0.5) { () -> Void in
       self.indicatorConstraints()
     }
   }
 
-  override func layoutSubviews() {
+  override public func layoutSubviews() {
     super.layoutSubviews()
     group.fillSuperview(left: 0, right: 0, top: 0, bottom: 0)
 //    labels.forEach { (tab) -> () in
@@ -347,7 +345,7 @@ class Segment: DefaultView {
     indicatorConstraints()
   }
 
-  func indicatorConstraints() {
+  public func indicatorConstraints() {
     if textColorFollowedByIndicator {
       labels.forEach({ (label) in label.label.textColor = deactiveColor })
       labels[index].label.textColor = indicatorColor
@@ -357,7 +355,5 @@ class Segment: DefaultView {
   override init(frame: CGRect) {
     super.init(frame: frame)
   }
-  required init?(coder aDecoder: NSCoder) {
-    fatalError("init(coder:) has not been implemented")
-  }
+  required public init?(coder aDecoder: NSCoder) { fatalError("init(coder:) has not been implemented") }
 }

@@ -15,10 +15,10 @@ let kENMDefaultMinSize: CGFloat = 8.0
 let kENMDefaultOriginX: CGFloat = 0.0
 let kENMDefaultOriginY: CGFloat = 0.0
 
-class ENMBadgedBarButtonItem: UIBarButtonItem {
+public class ENMBadgedBarButtonItem: UIBarButtonItem {
 
-  var badgeLabel: UILabel = UILabel()
-  var badgeValue: String {
+  public var badgeLabel: UILabel = UILabel()
+  public var badgeValue: String {
     didSet {
       guard !shouldBadgeHide(badgeValue) else {
         removeBadge()
@@ -40,39 +40,39 @@ class ENMBadgedBarButtonItem: UIBarButtonItem {
       }
     }
   }
-  var badgeBackgroundColor: UIColor = K.Badge.backgroundColor {
+  public var badgeBackgroundColor: UIColor = K.Badge.backgroundColor {
     didSet {
       refreshBadgeLabelProperties()
     }
   }
-  var badgeTextColor: UIColor = K.Badge.color {
+  public var badgeTextColor: UIColor = K.Badge.color {
     didSet {
       refreshBadgeLabelProperties()
     }
   }
-  var badgeFont: UIFont = UIFont.systemFontOfSize(K.Badge.size){
+  public var badgeFont: UIFont = UIFont.systemFontOfSize(K.Badge.size){
     didSet {
       refreshBadgeLabelProperties()
     }
   }
-  var badgePadding: CGFloat {
+  public var badgePadding: CGFloat {
     get {
       return kENMDefaultPadding
     }
   }
-  var badgeMinSize: CGFloat {
+  public var badgeMinSize: CGFloat {
     get {
       return kENMDefaultMinSize
     }
   }
-  var badgeOriginX: CGFloat = kENMDefaultOriginX
-  var badgeOriginY: CGFloat {
+  public var badgeOriginX: CGFloat = kENMDefaultOriginX
+  public var badgeOriginY: CGFloat {
     get {
       return kENMDefaultOriginY
     }
   }
-  var shouldHideBadgeAtZero: Bool = true
-  var shouldAnimateBadge: Bool = true
+  public var shouldHideBadgeAtZero: Bool = true
+  public var shouldAnimateBadge: Bool = true
 
   init(customView: UIView!, value: String!) {
     badgeValue = value
@@ -81,7 +81,7 @@ class ENMBadgedBarButtonItem: UIBarButtonItem {
     self.customView = customView
   }
 
-  required init(coder aDecoder: NSCoder) {
+  required public init(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
 }
@@ -89,13 +89,13 @@ class ENMBadgedBarButtonItem: UIBarButtonItem {
 // MARK: - Utilities
 extension ENMBadgedBarButtonItem {
 
-  func refreshBadgeLabelProperties() {
+  public func refreshBadgeLabelProperties() {
     badgeLabel.textColor = badgeTextColor;
     badgeLabel.backgroundColor = badgeBackgroundColor;
     badgeLabel.font = badgeFont;
   }
 
-  func updateBadgeValueAnimated(animated: Bool) {
+  public func updateBadgeValueAnimated(animated: Bool) {
 
     if (animated && shouldAnimateBadge && (badgeLabel.text != badgeValue)) {
       let animation: CABasicAnimation = CABasicAnimation()
@@ -115,7 +115,7 @@ extension ENMBadgedBarButtonItem {
     }
   }
 
-  func updateBadgeFrame() {
+  public func updateBadgeFrame() {
     let expectedLabelSize: CGSize = badgeExpectedSize()
     var minHeight = expectedLabelSize.height
 
@@ -134,7 +134,7 @@ extension ENMBadgedBarButtonItem {
     self.badgeLabel.layer.cornerRadius = (minHeight + padding) / 2
   }
 
-  func removeBadge() {
+  public func removeBadge() {
     UIView.animateWithDuration(0.2,
                                animations: {
                                 self.badgeLabel.transform = CGAffineTransformMakeScale(0.0, 0.0)
@@ -147,7 +147,7 @@ extension ENMBadgedBarButtonItem {
 // MARK: - Internal Helpers
 extension ENMBadgedBarButtonItem {
 
-  func createBadgeLabel() -> UILabel {
+  public func createBadgeLabel() -> UILabel {
     let frame = CGRectMake(badgeOriginX, badgeOriginY, 15, 15)
     let label = UILabel(frame: frame)
     label.textColor = badgeTextColor
@@ -160,7 +160,7 @@ extension ENMBadgedBarButtonItem {
     return label
   }
 
-  func badgeExpectedSize() -> CGSize {
+  public func badgeExpectedSize() -> CGSize {
     let frameLabel: UILabel = self.duplicateLabel(badgeLabel)
     frameLabel.sizeToFit()
     let expectedLabelSize: CGSize = frameLabel.frame.size;
@@ -168,7 +168,7 @@ extension ENMBadgedBarButtonItem {
     return expectedLabelSize
   }
 
-  func duplicateLabel(labelToCopy: UILabel) -> UILabel {
+  public func duplicateLabel(labelToCopy: UILabel) -> UILabel {
     let dupLabel = UILabel(frame: labelToCopy.frame)
     dupLabel.text = labelToCopy.text
     dupLabel.font = labelToCopy.font
@@ -176,7 +176,7 @@ extension ENMBadgedBarButtonItem {
     return dupLabel
   }
 
-  func shouldBadgeHide(value: NSString) -> Bool {
+  public func shouldBadgeHide(value: NSString) -> Bool {
     let b2: Bool = value.isEqualToString("")
     let b3: Bool = value.isEqualToString("0")
     let b4: Bool = shouldHideBadgeAtZero
@@ -186,7 +186,7 @@ extension ENMBadgedBarButtonItem {
     return false
   }
 
-  func updateBadgeProperties() {
+  public func updateBadgeProperties() {
     badgeOriginX = self.customView!.frame.size.width - badgeLabel.frame.size.width/2
   }
 }

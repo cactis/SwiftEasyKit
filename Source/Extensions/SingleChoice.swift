@@ -5,26 +5,24 @@
 
 import UIKit
 
-class MultipleChoiceTable: ChoiceTable {
+public class MultipleChoiceTable: ChoiceTable {
 
-  var value: [Int] = [] {
+  public var value: [Int] = [] {
     didSet { refreshData() }
   }
 
-  var didChange: (value: [Int]) -> () = { _ in}
+  public var didChange: (value: [Int]) -> () = { _ in}
 
-  init(items: [String], value: [Int]) {
+  public init(items: [String], value: [Int]) {
     super.init(frame: CGRectZero)
     self.items = items
     self.value = value
     refreshData()
   }
-  
-  required init?(coder aDecoder: NSCoder) {
-    fatalError("init(coder:) has not been implemented")
-  }
 
-  func refreshData() {
+  required public init?(coder aDecoder: NSCoder) { fatalError("init(coder:) has not been implemented") }
+
+  public func refreshData() {
     collectionData = []
     (0...items.count - 1).forEach { (index) in
       collectionData.append((title: items[index], checked: value.indexOf(index) != nil))
@@ -32,7 +30,7 @@ class MultipleChoiceTable: ChoiceTable {
     tableView.reloadData()
   }
 
-  override func didSelect(indexPath: NSIndexPath?) {
+  override public func didSelect(indexPath: NSIndexPath?) {
     if let index = value.indexOf(indexPath!.row) {
       value.removeAtIndex(index)
     } else {
@@ -43,30 +41,30 @@ class MultipleChoiceTable: ChoiceTable {
 }
 
 
-class SingleChoiceTable: ChoiceTable {
+public class SingleChoiceTable: ChoiceTable {
 
-  var value: Int = -1 {
+  public var value: Int = -1 {
     didSet {
       refreshData()
     }
   }
 
-  var didChange: (value: Int) -> () = { _ in}
+  public var didChange: (value: Int) -> () = { _ in}
 
-  init(items: [String]) {
+  public init(items: [String]) {
     super.init(frame: CGRectZero)
     self.items = items
     refreshData()
   }
 
-  init(items: [String], value: Int) {
+  public init(items: [String], value: Int) {
     super.init(frame: CGRectZero)
     self.items = items
     self.value = value
     refreshData()
   }
 
-  func refreshData() {
+  public func refreshData() {
     collectionData = []
     (0...items.count - 1).forEach { (index) in
       collectionData.append((title: items[index], checked: index == value))
@@ -74,89 +72,87 @@ class SingleChoiceTable: ChoiceTable {
     tableView.reloadData()
   }
 
-  override func didSelect(indexPath: NSIndexPath?) {
+  override public func didSelect(indexPath: NSIndexPath?) {
     value = indexPath!.row
     didChange(value: value)
   }
 
-  required init?(coder aDecoder: NSCoder) {
-    fatalError("init(coder:) has not been implemented")
-  }
+  required public init?(coder aDecoder: NSCoder) { fatalError("init(coder:) has not been implemented") }
 
 }
 
-class ChoiceTable: DefaultView, UITableViewDelegate, UITableViewDataSource {
-  var tableView: UITableView!
-  var CellIdentifier = "CELL"
-  var items: [String] = []
-  var collectionData: [(title: String, checked: Bool)] = []
+public class ChoiceTable: DefaultView, UITableViewDelegate, UITableViewDataSource {
+  public var tableView: UITableView!
+  public var CellIdentifier = "CELL"
+  public var items: [String] = []
+  public var collectionData: [(title: String, checked: Bool)] = []
 
-  override func layoutUI() {
+  override public func layoutUI() {
     super.layoutUI()
     tableView = tableView(ChoiceCell.self, identifier: CellIdentifier)
     layout([tableView])
   }
 
-  override func styleUI() {
+  override public func styleUI() {
     super.styleUI()
     tableView.separatorStyle = .SingleLine
   }
 
-  func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+  public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCellWithIdentifier(CellIdentifier) as! ChoiceCell
     cell.data = collectionData[indexPath.row]
     cell.whenTapped(self, action: #selector(ChoiceTable.cellTapped))
     return cell
   }
 
-  func cellTapped(sender: UIGestureRecognizer) {
+  public func cellTapped(sender: UIGestureRecognizer) {
     didSelect(sender.indexPathInTableView(tableView))
   }
 
-  func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+  public func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return collectionData.count
   }
 
-  func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+  public func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
     return cellHeight()
   }
 
-  func didSelect(indexPath: NSIndexPath?) { }
+  public func didSelect(indexPath: NSIndexPath?) { }
 
-  func cellHeight() -> CGFloat {
+  public func cellHeight() -> CGFloat {
     return K.Size.Text.normal * 3
   }
 
-  override func layoutSubviews() {
+  override public func layoutSubviews() {
     super.layoutSubviews()
     tableView.fillSuperview()
   }
 
-  class ChoiceCell: TableViewCell {
-    var label = UILabel()
-    var icon = UIImageView()
-    var checked: Bool = false { didSet { refreshIcon() } }
-    var iconSize = 24.em
+  public class ChoiceCell: TableViewCell {
+    public var label = UILabel()
+    public var icon = UIImageView()
+    public var checked: Bool = false { didSet { refreshIcon() } }
+    public var iconSize = 24.em
 
-    var data: (title: String, checked: Bool) = (title: "", checked: false) {
+    public var data: (title: String, checked: Bool) = (title: "", checked: false) {
       didSet {
         label.text(data.title)
         checked = data.checked
       }
     }
 
-    override func layoutUI() {
+    override public func layoutUI() {
       super.layoutUI()
       layout([label, icon])
     }
 
-    override func styleUI() {
+    override public func styleUI() {
       super.styleUI()
       label.styled()
       backgroundColored(UIColor.whiteColor())
     }
 
-    func refreshIcon() {
+    public func refreshIcon() {
       if checked {
         icon.image = getIcon(.Check, options: ["color": K.Color.buttonBg])
       } else {
@@ -164,7 +160,7 @@ class ChoiceTable: DefaultView, UITableViewDelegate, UITableViewDataSource {
       }
     }
 
-    override func layoutSubviews() {
+    override public func layoutSubviews() {
       super.layoutSubviews()
       label.anchorAndFillEdge(.Left, xPad: 20, yPad: 0, otherSize: label.textWidth())
       icon.anchorToEdge(.Right, padding: 10, width: iconSize, height: iconSize)
@@ -174,7 +170,7 @@ class ChoiceTable: DefaultView, UITableViewDelegate, UITableViewDataSource {
       super.init(style: style, reuseIdentifier: reuseIdentifier)
     }
 
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
       fatalError("init(coder:) has not been implemented")
     }
   }

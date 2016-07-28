@@ -7,7 +7,7 @@ import Foundation
 
 // https://github.com/andrei512/magic/blob/master/magic.swift
 extension NSObject {
-  class func fromJson(jsonInfo: NSDictionary) -> Self {
+  public class func fromJson(jsonInfo: NSDictionary) -> Self {
     let object = self.init()
 
     (object as NSObject).load(jsonInfo)
@@ -15,7 +15,7 @@ extension NSObject {
     return object
   }
 
-  func load(jsonInfo: NSDictionary) {
+  public func load(jsonInfo: NSDictionary) {
     for (key, value) in jsonInfo {
       let keyName = key as! String
 
@@ -25,7 +25,7 @@ extension NSObject {
     }
   }
 
-  func propertyNames() -> [String] {
+  public func propertyNames() -> [String] {
     var names: [String] = []
     var count: UInt32 = 0
     let properties = class_copyPropertyList(classForCoder, &count)
@@ -38,7 +38,7 @@ extension NSObject {
     return names
   }
 
-  func asJSON() -> NSDictionary {
+  public func asJSON() -> NSDictionary {
     var json:Dictionary<String, AnyObject> = [:]
     for name in propertyNames() {
       if let value: AnyObject = valueForKey(name) {
@@ -50,9 +50,9 @@ extension NSObject {
     return json
   }
 
-  typealias dispatch_cancelable_closure = (cancel : Bool) -> Void
+  public typealias dispatch_cancelable_closure = (cancel : Bool) -> Void
 
-  func delayedJobCancelable(seconds: NSTimeInterval = 1.5, closure: () -> Void) ->  dispatch_cancelable_closure? {
+  public func delayedJobCancelable(seconds: NSTimeInterval = 1.5, closure: () -> Void) ->  dispatch_cancelable_closure? {
     var indicator = UIActivityIndicatorView()
     indicator.startAnimating()
     //    indicator.center = UIScreen.mainScreen().bounds.center
@@ -87,13 +87,13 @@ extension NSObject {
     return cancelableClosure
   }
 
-  func cancel_delayedJob(closure:dispatch_cancelable_closure?) {
+  public func cancel_delayedJob(closure: dispatch_cancelable_closure?) {
     if closure != nil {
       closure!(cancel: true)
     }
   }
 
-  func _delayedJob(todo: () -> ()) {
+  public func _delayedJob(todo: () -> ()) {
     if _isSimulator() {
       //      #if DEBUG
       delayedJob({ () -> () in
@@ -103,7 +103,7 @@ extension NSObject {
     }
   }
 
-  func toast(vc: UIViewController, superView: UIView, title: String, message: String, style: UIAlertControllerStyle, completion: () -> () = {}) -> Void {
+  public func toast(vc: UIViewController, superView: UIView, title: String, message: String, style: UIAlertControllerStyle, completion: () -> () = {}) -> Void {
     let alert = UIAlertController(title: title, message: message, preferredStyle: style)
     alert.popoverPresentationController?.sourceView = superView
     alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: { (action: UIAlertAction!) -> Void in
@@ -115,7 +115,7 @@ extension NSObject {
     vc.presentViewController(alert, animated: true, completion: nil)
   }
 
-  func toast(vc: UIViewController, superView: UIView, title: String, message: String, completion: () -> () = {}) -> Void {
+  public func toast(vc: UIViewController, superView: UIView, title: String, message: String, completion: () -> () = {}) -> Void {
     let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.ActionSheet)
     //    if !(alert.popoverPresentationController != nil) {
     alert.popoverPresentationController?.sourceView = superView
@@ -131,5 +131,5 @@ extension NSObject {
     }))
     vc.presentViewController(alert, animated: true, completion: nil)
   }
-  
+
 }

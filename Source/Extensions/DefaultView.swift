@@ -4,13 +4,13 @@
 import UIKit
 //import Neon
 
-class DefaultView: UIView {
+public class DefaultView: UIView {
 
-  var didFixedConstraints = false
-  var bottomView: UIView?
-  let cellIdentifier = "CELL"
+  public var didFixedConstraints = false
+  public var bottomView: UIView?
+  public let cellIdentifier = "CELL"
 
-  override init(frame: CGRect) {
+  override public init(frame: CGRect) {
     super.init(frame: frame)
 
     layoutUI() // 建立 UI 框架
@@ -18,11 +18,11 @@ class DefaultView: UIView {
     bindUI()  // 綁定 UI 事件
   }
 
-  func bottomPadding() -> CGFloat {
+  public func bottomPadding() -> CGFloat {
     return K.Size.Padding.large
   }
 
-  func autoHeight(padding: CGFloat? = nil) -> CGFloat {
+  public func autoHeight(padding: CGFloat? = nil) -> CGFloat {
 //    layoutIfNeeded()
     let _padding = padding ?? bottomPadding()
     if (bottomView != nil) {
@@ -32,22 +32,21 @@ class DefaultView: UIView {
     }
   }
 
-  func layoutUI() {
+  public func layoutUI() {
     // loadData() // 在 initUI 末載入資料
   }
 
-  func styleUI() {
+  public func styleUI() {
 
   }
 
-  func bindUI() {
+  public func bindUI() {
 
   }
 
-  override func layoutSubviews() {
-  }
+  override public func layoutSubviews() { }
 
-  override func layout(views: [UIView]) -> UIView {
+  override public func layout(views: [UIView]) -> UIView {
     views.forEach { (view) -> () in
       addSubview(view)
       bottomView = view
@@ -56,8 +55,7 @@ class DefaultView: UIView {
   }
 
 
-  required init?(coder aDecoder: NSCoder) { fatalError("init(coder:) has not been implemented") }
-
+  required public init?(coder aDecoder: NSCoder) { fatalError("init(coder:) has not been implemented") }
 }
 
 

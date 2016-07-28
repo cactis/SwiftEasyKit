@@ -5,38 +5,38 @@
 
 import UIKit
 
-class LabelAndSelectin: LabelWith {
-  
-}
-class LabelWithSelection: LabelWith {
+public class LabelAndSelectin: LabelWith {
 
 }
+public class LabelWithSelection: LabelWith {
 
-class LabelAndField: LabelField {
+}
 
-  override func styleUI() {
+public class LabelAndField: LabelField {
+
+  override public func styleUI() {
     super.styleUI()
     field.bordered(1.0, color: UIColor.lightGrayColor().lighter().CGColor)
   }
 
-  func estimateHeight() -> CGFloat {
+  public func estimateHeight() -> CGFloat {
     return label.textHeight() * 2 + 3 * padding
   }
 
-  override func layoutSubviews() {
+  override public func layoutSubviews() {
     super.layoutSubviews()
     label.anchorAndFillEdge(.Top, xPad: 0, yPad: 0, otherSize: label.textHeight())
     field.alignUnder(label, matchingLeftAndRightFillingHeightWithTopPadding: padding, bottomPadding: 0)
   }
 }
 
-class LabelWithField: LabelField {
+public class LabelWithField: LabelField {
 
-  func estimateHeight() -> CGFloat {
+  public func estimateHeight() -> CGFloat {
     return label.textHeight() * 2.5
   }
-  
-  override func layoutSubviews() {
+
+  override public func layoutSubviews() {
     super.layoutSubviews()
 //    label.anchorAndFillEdge(.Left, xPad: 0, yPad: 0, otherSize: width * 0.2)
     label.anchorInCorner(.TopLeft, xPad: 0, yPad: 0, width: width * 0.2, height: estimateHeight())
@@ -46,45 +46,43 @@ class LabelWithField: LabelField {
   }
 }
 
-class LabelField: LabelWith {
+public class LabelField: LabelWith {
 
-  var padding: CGFloat = K.Size.Padding.tiny
+  public var padding: CGFloat = K.Size.Padding.tiny
 
-  var field = TextView()
-  override func layoutUI() {
+  public var field = TextView()
+  override public func layoutUI() {
     super.layoutUI()
     layout([field])
   }
 
-  override func styleUI() {
+  override public func styleUI() {
     super.styleUI()
     field.styled()
   }
 }
 
 
-class LabelWith: DefaultView {
+public class LabelWith: DefaultView {
 
-  var label = UILabel()
+  public var label = UILabel()
 
-  init(label: String) {
+  public init(label: String) {
     super.init(frame: CGRectZero)
     self.label.text(label)
   }
 
-  override func layoutUI() {
+  override public func layoutUI() {
     super.layoutUI()
     layout([label])
   }
 
-  override func styleUI() {
+  override public func styleUI() {
     super.styleUI()
     label.styled()
   }
-  
-  required init?(coder aDecoder: NSCoder) {
-    fatalError("init(coder:) has not been implemented")
-  }
+
+  required public init?(coder aDecoder: NSCoder) { fatalError("init(coder:) has not been implemented") }
 
 
 }

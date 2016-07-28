@@ -7,9 +7,9 @@
 
 import UIKit
 
-extension UILabel{
+extension UILabel {
 
-  func adjustFontSizeToFitRect(rect : CGRect){
+  public func adjustFontSizeToFitRect(rect : CGRect){
 
     if text == nil{
       return

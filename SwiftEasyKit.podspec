@@ -144,7 +144,7 @@ Pod::Spec.new do |s|
   s.dependency 'Alamofire'
   s.dependency 'KDCircularProgress'
   s.dependency 'SDWebImage'
-  s.dependency 'EZSwiftExtensions'
+  # s.dependency 'EZSwiftExtensions'
   # s.dependency 'ExSwift'
 
 end

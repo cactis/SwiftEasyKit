@@ -3,15 +3,15 @@
 
 import UIKit
 
-class PopupView: DefaultView {
+public class PopupView: DefaultView {
 
-  var wrapper: UIView!
-  var closeBtn: UIImageView!
+  public var wrapper: UIView!
+  public var closeBtn: UIImageView!
 
-  var padding: CGFloat = 40
-  var closeBtnSize: CGFloat = 25
+  public var padding: CGFloat = 40
+  public var closeBtnSize: CGFloat = 25
 
-  override init(frame: CGRect) {
+  override public init(frame: CGRect) {
     super.init(frame: frame)
 
     closeBtn = addImageView(UIImage.fontAwesomeIconWithName(.Close, textColor: K.Color.barButtonItem, size: CGSizeMake(closeBtnSize, closeBtnSize)))
@@ -21,30 +21,28 @@ class PopupView: DefaultView {
     backgroundColor = K.Color.popup
   }
 
-  func closeBtnTapped(sender: AnyObject?) {
+  public func closeBtnTapped(sender: AnyObject?) {
 
     parentViewController()!.dismissViewControllerAnimated(true) { () -> Void in
-      
+
     }
   }
 
-  func layoutBase() {
+  public func layoutBase() {
     anchorInCenter(width: UIScreen.mainScreen().bounds.width / 5 * 4, height: UIScreen.mainScreen().bounds.height / 2)
   }
 
-  override func layoutSubviews() {
+  override public func layoutSubviews() {
     super.layoutSubviews()
     layoutBase()
     fixedConstraints()
     wrapper.fillSuperview(left: padding, right: padding, top: padding, bottom: padding)
   }
 
-  func fixedConstraints() {
+  public func fixedConstraints() {
     closeBtn.anchorTopRightWithRightPadding(10, topPadding: 10, width: closeBtnSize , height: closeBtnSize)
   }
 
-  required init?(coder aDecoder: NSCoder) {
-      fatalError("init(coder:) has not been implemented")
-  }
-  
+  required public init?(coder aDecoder: NSCoder) { fatalError("init(coder:) has not been implemented") }
+
 }

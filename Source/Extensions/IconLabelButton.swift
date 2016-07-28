@@ -4,29 +4,29 @@
 
 import UIKit
 
-class IconLabelButton: UIView {
+public class IconLabelButton: UIView {
 
-  var icon = UIImageView()
-  var label = UILabel()
-  var badge: Badge?
+  public var icon = UIImageView()
+  public var label = UILabel()
+  public var badge: Badge?
 
-  var size: CGFloat!
+  public var size: CGFloat!
 
-  var text: String! = Lorem.name() {
+  public var text: String! = Lorem.name() {
     didSet {
       label.text = text
     }
   }
 
-  var image: UIImage! = UIImage.sample() {
+  public var image: UIImage! = UIImage.sample() {
     didSet {
       icon.image = image
     }
   }
 
-  var padding: CGFloat!
+  public var padding: CGFloat!
 
-  init(image: UIImage!, text: String!, size: CGFloat? = 12) {
+  public init(image: UIImage!, text: String!, size: CGFloat? = 12) {
     self.image = image
     self.text = text
     self.size = size!
@@ -51,7 +51,7 @@ class IconLabelButton: UIView {
     super.init(frame: frame)
   }
 
-  override func layoutSubviews() {
+  override public func layoutSubviews() {
     super.layoutSubviews()
     if icon.image != nil {
       groupAndFill(group: .Vertical, views: [icon, label], padding: 0)
@@ -61,7 +61,7 @@ class IconLabelButton: UIView {
     badge?.layoutSubviews()
   }
 
-  required init?(coder aDecoder: NSCoder) {
+  required public init?(coder aDecoder: NSCoder) {
       fatalError("init(coder:) has not been implemented")
   }
 }

@@ -7,17 +7,17 @@ import Foundation
 
 extension UIScrollView {
 
-  func scrollToBottom(animated: Bool = true) -> UIScrollView {
+  public func scrollToBottom(animated: Bool = true) -> UIScrollView {
     setContentOffset(CGPointMake(0, contentSize.height - bounds.size.height + tabBarHeight()), animated: animated)
     return self
   }
 
-  func scrollToTop() -> UIScrollView {
+  public func scrollToTop() -> UIScrollView {
     setContentOffset(CGPointMake(0, 0), animated: true)
     return self
   }
 
-  func scrollToTop(target: UIView, duration: NSTimeInterval = 0.2, completion: () -> () = {}) -> UIScrollView {
+  public func scrollToTop(target: UIView, duration: NSTimeInterval = 0.2, completion: () -> () = {}) -> UIScrollView {
     //    setContentOffset(CGPointMake(0, target.y), animated: true)
     UIView.animateWithDuration(duration, animations: {
       self.setContentOffset(CGPointMake(0, target.y), animated: false)
@@ -29,7 +29,7 @@ extension UIScrollView {
     return self
   }
 
-  func scrollToVisible(target: UIView) -> UIScrollView {
+  public func scrollToVisible(target: UIView) -> UIScrollView {
     //    var viewRect = target.frame
     //    viewRect.size.height -= keyboardSize.height
     let y = target.bottomEdge()// target.frame.origin.y
@@ -38,7 +38,7 @@ extension UIScrollView {
     return self
   }
 
-  func setLastSubiewAs(subview: UIView, bottomPadding: CGFloat = K.Size.Padding.scrollspace) {
+  public func setLastSubiewAs(subview: UIView, bottomPadding: CGFloat = K.Size.Padding.scrollspace) {
     let width = subview.width()
     //    _logForUIMode(width)
     //    let height = subview.frame.origin.y + subview.frame.size.height

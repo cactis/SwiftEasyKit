@@ -4,20 +4,20 @@
 
 import UIKit
 
-class DefaultTableView: DefaultView {
+public class DefaultTableView: DefaultView {
 
-  var tableView: UITableView!
-  var cell: TableViewCell!
+  public var tableView: UITableView!
+  public var cell: TableViewCell!
 
-  var collectionData = [AnyObject]() {
+  public var collectionData = [AnyObject]() {
     didSet {
       tableView.reloadData()
     }
   }
 
-  func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int { return collectionData.count }
+  public func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int { return collectionData.count }
 
-  func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+  public func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
     if cell != nil {
       cell.layoutIfNeeded()
       cell.layoutSubviews()
@@ -27,10 +27,10 @@ class DefaultTableView: DefaultView {
     }
   }
 
-  override func layoutSubviews() {
+  override public func layoutSubviews() {
     super.layoutSubviews()
     tableView.fillSuperview()
   }
-  
+
 }
 

@@ -5,36 +5,36 @@
 
 import UIKit
 
-class BadgeLabel: DefaultView {
-  var label = UILabel()
-  var badge = Badge(size: 10, value: "")
+public class BadgeLabel: DefaultView {
+  public var label = UILabel()
+  public var badge = Badge(size: 10, value: "")
 
-  var size: CGFloat! = K.Size.Text.small { didSet { label.font = UIFont.systemFontOfSize(size); badge.badgeSize = size } }
-  var text: String! { didSet { label.text(text) } }
-  var value: String! {
+  public var size: CGFloat! = K.Size.Text.small { didSet { label.font = UIFont.systemFontOfSize(size); badge.badgeSize = size } }
+  public var text: String! { didSet { label.text(text) } }
+  public var value: String! {
     didSet {
       badge.value = value
     }
   }
 
-  init(text: String, size: CGFloat = 12, value: String = "") {
+  public init(text: String, size: CGFloat = 12, value: String = "") {
     super.init(frame: CGRectZero)
     ({ self.size = size })()
     ({ self.value = value })()
     ({ self.text = text })()
   }
 
-  override func layoutUI() {
+  override public func layoutUI() {
     super.layoutUI()
     layout([label, badge])
   }
 
-  override func styleUI() {
+  override public func styleUI() {
     super.styleUI()
     label.textAlignment = .Center
   }
 
-  override func layoutSubviews() {
+  override public func layoutSubviews() {
     super.layoutSubviews()
     label.anchorInCenter(width: width, height: label.textHeight())
   }
@@ -43,5 +43,5 @@ class BadgeLabel: DefaultView {
     super.init(frame: frame)
   }
 
-  required init?(coder aDecoder: NSCoder) { fatalError("init(coder:) has not been implemented") }
+  required public init?(coder aDecoder: NSCoder) { fatalError("init(coder:) has not been implemented") }
 }

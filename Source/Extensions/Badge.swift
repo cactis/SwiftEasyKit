@@ -4,17 +4,17 @@
 
 import UIKit
 
-class Badge: DefaultView {
+public class Badge: DefaultView {
 
-  var badgeSize: CGFloat! { didSet { styleUI(); } }
-  var label = UILabel()
-  var body = UIView()
+  public var badgeSize: CGFloat! { didSet { styleUI(); } }
+  public var label = UILabel()
+  public var body = UIView()
 
-  var size: CGFloat!
+  public var size: CGFloat!
 
-  var color = K.Badge.backgroundColor.colorWithAlphaComponent(0.8) { didSet { styleUI() } }
+  public var color = K.Badge.backgroundColor.colorWithAlphaComponent(0.8) { didSet { styleUI() } }
 
-  var bordered = true {
+  public var bordered = true {
     didSet {
       if bordered {
         label.bordered(size! / 12, color: UIColor.whiteColor().CGColor)
@@ -24,7 +24,7 @@ class Badge: DefaultView {
     }
   }
 
-  var value: String! {
+  public var value: String! {
     get {
       return label.text
     }
@@ -38,7 +38,7 @@ class Badge: DefaultView {
     }
   }
 
-  init(size: CGFloat? = K.Badge.size, value: String = "") {
+  public init(size: CGFloat? = K.Badge.size, value: String = "") {
     self.size = size
     self.badgeSize = size! * 1.5
     super.init(frame: CGRectZero)
@@ -48,7 +48,7 @@ class Badge: DefaultView {
     label.hidden = true
   }
 
-  override func styleUI() {
+  override public func styleUI() {
     super.styleUI()
     size = badgeSize / 1.5
     bordered = true
@@ -59,11 +59,11 @@ class Badge: DefaultView {
     label.textAlignment = .Center
   }
 
-  override init(frame: CGRect) {
+  override public init(frame: CGRect) {
     super.init(frame: frame)
   }
 
-  override func layoutSubviews() {
+  override public func layoutSubviews() {
     super.layoutSubviews()
     anchorAndFillEdge(.Top, xPad: 0, yPad: 0, otherSize: badgeSize)
     body.fillSuperview()
@@ -73,10 +73,7 @@ class Badge: DefaultView {
       yPad = 2
     }
     label.anchorInCorner(.TopRight, xPad: (superview!.width - w) / 4.5, yPad: yPad, width: w, height: badgeSize)
-//    label._coloredWithSuperviews()
   }
 
-  required init?(coder aDecoder: NSCoder) {
-    fatalError("init(coder:) has not been implemented")
-  }
+  required public init?(coder aDecoder: NSCoder) { fatalError("init(coder:) has not been implemented") }
 }

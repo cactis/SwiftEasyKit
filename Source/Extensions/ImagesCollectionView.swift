@@ -5,59 +5,59 @@
 
 import UIKit
 
-class ImagesCollectionView: DefaultView, UICollectionViewDataSource, UICollectionViewDelegate {
+public class ImagesCollectionView: DefaultView, UICollectionViewDataSource, UICollectionViewDelegate {
 
-  var collectionView: UICollectionView!
-  var collectionViewLayout = UICollectionViewFlowLayout()
-  let CellIdentifier = "CELL"
-  var checkable: Checkable = .None {
+  public var collectionView: UICollectionView!
+  public var collectionViewLayout = UICollectionViewFlowLayout()
+  public let CellIdentifier = "CELL"
+  public var checkable: Checkable = .None {
     didSet {
     }
   }
 
-  var didChecked = {(items: [ImageCellViewModel]) in }
+  public var didChecked = {(items: [ImageCellViewModel]) in }
 
-  init(checkable: Checkable) {
+  public init(checkable: Checkable) {
     self.checkable = checkable
     super.init(frame: CGRectZero)
   }
-  
-  required init?(coder aDecoder: NSCoder) {
+
+  required public init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
 
-  var collectionData = [ImageCellViewModel]() {
+  public var collectionData = [ImageCellViewModel]() {
     didSet {
       collectionView.reloadData()
     }
   }
 
-  override func layoutUI() {
+  override public func layoutUI() {
     super.layoutUI()
     collectionView = collectionView(collectionViewLayout, registeredClass: ImageCell.self, identifier: CellIdentifier)
     layout([collectionView])
   }
 
-  override func styleUI() {
+  override public func styleUI() {
     super.styleUI()
     collectionView.backgroundColor = UIColor.clearColor()
   }
-  override func bindUI() {
+  override public func bindUI() {
     super.bindUI()
   }
 
-  override func layoutSubviews() {
+  override public func layoutSubviews() {
     super.layoutSubviews()
     collectionView.fillSuperview()
     let s: CGFloat = height / 7 * 5
     collectionViewLayout.itemSize = CGSizeMake(s, s)
   }
 
-  func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+  public func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     return collectionData.count
   }
 
-  func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+  public func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
     let cell = collectionView.dequeueReusableCellWithReuseIdentifier(CellIdentifier, forIndexPath: indexPath) as! ImageCell
     cell.contentView.frame = cell.bounds
     cell.contentView.autoresizingMask = [UIViewAutoresizing.FlexibleWidth, UIViewAutoresizing.FlexibleHeight]
@@ -68,20 +68,20 @@ class ImagesCollectionView: DefaultView, UICollectionViewDataSource, UICollectio
     return cell
   }
 
-  func cellTapped(sender: UIGestureRecognizer) {
+  public func cellTapped(sender: UIGestureRecognizer) {
     collectionData.forEach({ $0.checked = false })
     collectionData[(sender.view?.tag)!].checked = true
     collectionView.reloadData()
     didChecked(collectionData)
   }
 
-  class ImageCell: CollectionViewCell {
+  public class ImageCell: CollectionViewCell {
 
-    var checked = false {
+    public var checked = false {
       didSet { checkedImage.hidden = !checked }
     }
 
-    var data = ImageCellViewModel() {
+    public var data = ImageCellViewModel() {
       didSet {
         if (data.url) != nil {
           photo.loadImageWithString(data.url)
@@ -92,19 +92,19 @@ class ImagesCollectionView: DefaultView, UICollectionViewDataSource, UICollectio
       }
     }
 
-    var checkedImage = UIImageView()
-    var photo = UIImageView()
+    public var checkedImage = UIImageView()
+    public var photo = UIImageView()
 
-    func loadData(data: ImageCellViewModel) {
+    public func loadData(data: ImageCellViewModel) {
       self.data = data
     }
 
-    override func layoutUI() {
+    override public func layoutUI() {
       super.layoutUI()
       layout([photo, checkedImage])
     }
 
-    override func styleUI() {
+    override public func styleUI() {
       super.styleUI()
       photo.styledAsFill()
       bordered(1, color: UIColor.lightGrayColor().CGColor)
@@ -113,7 +113,7 @@ class ImagesCollectionView: DefaultView, UICollectionViewDataSource, UICollectio
       checkedImage.hidden = true
     }
 
-    override func layoutSubviews() {
+    override public func layoutSubviews() {
       super.layoutSubviews()
       photo.fillSuperview()
       let p = width * 0.1
@@ -125,12 +125,12 @@ class ImagesCollectionView: DefaultView, UICollectionViewDataSource, UICollectio
   }
 }
 
-class ImageCellViewModel: NSObject {
-  var image: UIImage!
-  var url: String!
-  var checked: Bool!
+public class ImageCellViewModel: NSObject {
+  public var image: UIImage!
+  public var url: String!
+  public var checked: Bool!
 
-  class func seeds(onComplete: (items: [ImageCellViewModel]) -> ()) {
+  public class func seeds(onComplete: (items: [ImageCellViewModel]) -> ()) {
     var items = [ImageCellViewModel]()
     (0...2).forEach { (i) in
       let item = ImageCellViewModel()
@@ -142,7 +142,7 @@ class ImageCellViewModel: NSObject {
 }
 
 
-enum Checkable {
+public enum Checkable {
   case Single
   case Multiple
   case None

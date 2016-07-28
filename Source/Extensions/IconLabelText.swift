@@ -6,25 +6,25 @@
 
 import UIKit
 
-class IconLabelText: IconLabel {
-  var field = UILabel()
-  var value = "" { didSet { field.text = value } }
+public class IconLabelText: IconLabel {
+  public var field = UILabel()
+  public var value = "" { didSet { field.text = value } }
 
-  override func layoutUI() {
+  override public func layoutUI() {
     super.layoutUI()
     layout([field])
   }
 
-  override func styleUI() {
+  override public func styleUI() {
     super.styleUI()
     field.styled()
   }
 
-  override func layoutSubviews() {
+  override public func layoutSubviews() {
     super.layoutSubviews()
     field.alignToTheRightOf(label, matchingTopAndFillingWidthWithLeftAndRightPadding: paddingBetween, height: label.height)
   }
-  
+
 }
 
 

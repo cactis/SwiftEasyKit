@@ -14,37 +14,37 @@ import SwiftRandom
 
 extension UIButton {
 
-  func imaged(image: UIImage) -> UIButton {
+  public func imaged(image: UIImage) -> UIButton {
     setImage(image, forState: .Normal)
     return self
   }
 
-  func clicked() -> UIButton {
+  public func clicked() -> UIButton {
     self.sendActionsForControlEvents(.TouchUpInside)
     return self
   }
 
-  func sized(size: CGFloat) -> UIButton {
+  public func sized(size: CGFloat) -> UIButton {
     titleLabel?.font = UIFont(name: (titleLabel?.font?.fontName)!, size: size)
     return self
   }
 
-  func colored(color: UIColor) -> UIButton {
+  public func colored(color: UIColor) -> UIButton {
     self.setTitleColor(color, forState: .Normal)
     return self
   }
 
-  override func backgroundColored(color: UIColor) -> UIButton {
+  override public func backgroundColored(color: UIColor) -> UIButton {
     backgroundColor = color
     return self
   }
 
-  func smaller(n: CGFloat = 1) -> UIButton {
+  public func smaller(n: CGFloat = 1) -> UIButton {
     self.titleLabel?.font = UIFont(name: (self.titleLabel?.font.fontName)!, size: (self.titleLabel?.font?.pointSize)! - n)
     return self
   }
 
-  func styled(text: String = Lorem.name(), options: NSDictionary = NSDictionary()) -> UIButton {
+  public func styled(text: String = Lorem.name(), options: NSDictionary = NSDictionary()) -> UIButton {
     let fontSize = options["fontSize"] as? CGFloat ?? options["size"] as? CGFloat ?? K.Size.Submit.size
     let backgroundColor = options["backgroundColor"] as? UIColor ?? UIColor.clearColor()
     let color: UIColor = options["color"] as? UIColor ?? K.Color.button
@@ -56,35 +56,35 @@ extension UIButton {
     return self
   }
 
-  func text() -> String {
+  public func text() -> String {
     return (titleLabel?.text)!
   }
 
-  func darkered(n: CGFloat = 0.2) -> UIButton {
+  public func darkered(n: CGFloat = 0.2) -> UIButton {
     setTitleColor(currentTitleColor.darker(n), forState: .Normal)
     return self
   }
 
-  func buttonWidth() -> CGFloat {
+  public func buttonWidth() -> CGFloat {
     return textWidth() * 1.5
   }
 
-  func buttonHeight() -> CGFloat {
+  public func buttonHeight() -> CGFloat {
     return textHeight() * 2
   }
 
-  func buttonSize() -> (CGFloat, CGFloat) {
+  public func buttonSize() -> (CGFloat, CGFloat) {
     return (buttonWidth(), buttonHeight())
   }
 
-  func text(text: String, options: NSDictionary = NSDictionary()) -> UIButton {
+  public func text(text: String, options: NSDictionary = NSDictionary()) -> UIButton {
     //    titleLabel!.text = text
     setTitle(text, forState: .Normal)
     //    setAttributedTitle(NSAttributedString(string: text), forState: .Normal)
     return self //styled(text, options: options)
   }
 
-  func styledAsSubmit(options: NSDictionary = NSDictionary()) -> UIButton {
+  public func styledAsSubmit(options: NSDictionary = NSDictionary()) -> UIButton {
     backgroundColor = K.Color.buttonBg
     setTitleColor(K.Color.button, forState: .Normal)
     titleLabel!.font = UIFont.systemFontOfSize(options["size"] as? CGFloat ?? K.Size.Submit.size)
@@ -92,29 +92,29 @@ extension UIButton {
     return self
   }
 
-  func disabled() -> UIButton {
+  public func disabled() -> UIButton {
     backgroundColor = UIColor.lightGrayColor()
     return self
   }
 
-  func textHeight() -> CGFloat {
+  public func textHeight() -> CGFloat {
     return titleLabel!.font.pointSize
   }
 
-  func textWidth() -> CGFloat {
+  public func textWidth() -> CGFloat {
     return titleLabel!.intrinsicContentSize().width
   }
 
-  func tapped() {
+  public func tapped() {
     sendActionsForControlEvents(.TouchUpInside)
   }
 
-  func whenTapped(handler: () -> Void) -> UIButton {
+  public func whenTapped(handler: () -> Void) -> UIButton {
     handleControlEvent(.TouchUpInside, handler: handler)
     return self
   }
 
-  func imageFromText(drawText: NSString, color: UIColor = K.Color.button) -> UIButton {
+  public func imageFromText(drawText: NSString, color: UIColor = K.Color.button) -> UIButton {
     let s = height * 0.5
     let textColor: UIColor = color
     let textFont: UIFont = UIFont(name: K.Font.icon, size: s)!

@@ -5,9 +5,9 @@ import UIKit
 
 public class TableViewController: DefaultViewController, UITableViewDataSource, UITableViewDelegate {
 
-  var tableView = UITableView()
-  let CellIdentifier = "CELL"
-  var cell: TableViewCell!
+  public var tableView = UITableView()
+  public let CellIdentifier = "CELL"
+  public var cell: TableViewCell!
 
   override public func viewDidLoad() {
     super.viewDidLoad()
@@ -16,11 +16,11 @@ public class TableViewController: DefaultViewController, UITableViewDataSource, 
 //    loadData()
   }
 
-  func headerHeight() -> CGFloat {
+  public func headerHeight() -> CGFloat {
     return K.Size.Header.height
   }
 
-  func cellExtraHeight() -> CGFloat {
+  public func cellExtraHeight() -> CGFloat {
     return 30
   }
 
@@ -38,7 +38,7 @@ public class TableViewController: DefaultViewController, UITableViewDataSource, 
     super.updateViewConstraints()
     tableView.fillSuperview(left: 0, right: 0, top: 0, bottom: tabBarHeight())
   }
-  
+
   public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCellWithIdentifier(CellIdentifier)! as UITableViewCell
 //    let data = collectionData[indexPath.row]
@@ -49,6 +49,6 @@ public class TableViewController: DefaultViewController, UITableViewDataSource, 
   }
 
   public func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return 0 
+    return 0
   }
 }

@@ -14,44 +14,44 @@ import SwiftRandom
 
 extension UILabel {
 
-  func iconFonted(iconCode: String, iconColor: UIColor = K.Color.Segment.deactive, size: CGFloat = K.BarButtonItem.size) -> UILabel {
+  public func iconFonted(iconCode: String, iconColor: UIColor = K.Color.Segment.deactive, size: CGFloat = K.BarButtonItem.size) -> UILabel {
     self.text(iconCode)
     self.font = UIFont(name: K.Font.icon, size: size)
     self.textColor = iconColor
     return self
   }
 
-  func sized(size: CGFloat) -> UILabel {
+  public func sized(size: CGFloat) -> UILabel {
     font = UIFont(name: font.fontName , size: size)
     return self
   }
 
-  func smaller(n: CGFloat = 1) -> UILabel {
+  public func smaller(n: CGFloat = 1) -> UILabel {
     font = UIFont(name: font.fontName, size: font.pointSize - n)
     return self
   }
 
-  func larger(n: CGFloat = 1) -> UILabel {
+  public func larger(n: CGFloat = 1) -> UILabel {
     smaller(-1 * n)
     return self
   }
 
-  func colored(color: UIColor) -> UILabel {
+  public func colored(color: UIColor) -> UILabel {
     textColor = color
     return self
   }
 
-  func fontName(name: String) -> String {
+  public func fontName(name: String) -> String {
     font = UIFont(name: name, size: font.pointSize)
     return font.fontName
   }
 
-  func styled(value: String, options: NSDictionary = NSDictionary()) -> UILabel {
+  public func styled(value: String, options: NSDictionary = NSDictionary()) -> UILabel {
     self.text(value).styled(options)
     return self
   }
 
-  func styled(options: NSDictionary = NSDictionary()) -> UILabel {
+  public func styled(options: NSDictionary = NSDictionary()) -> UILabel {
     //    text = text ?? Lorem.name()
     let color = options["color"] as? UIColor ?? K.Color.text
     let size: CGFloat = options["fontSize"] as? CGFloat ?? options["size"] as? CGFloat ?? K.Size.Text.normal
@@ -63,22 +63,22 @@ extension UILabel {
     return self
   }
 
-  func html(html: NSAttributedString) -> UILabel {
+  public func html(html: NSAttributedString) -> UILabel {
     self.attributedText = html
     return self
   }
 
-  func aligned(align: NSTextAlignment = .Left) -> UILabel {
+  public func aligned(align: NSTextAlignment = .Left) -> UILabel {
     textAlignment = align
     return self
   }
 
-  func appendText(value: String) -> UILabel {
+  public func appendText(value: String) -> UILabel {
     text("\(text!)\(value)")
     return self
   }
 
-  func text(iconCode: String, text: String, size: CGFloat = K.Size.Text.normal) -> UILabel {
+  public func text(iconCode: String, text: String, size: CGFloat = K.Size.Text.normal) -> UILabel {
 //    let iconAttribute = [NSFontAttributeName: UIFont(name: K.Font.icon, size: size)!, NSBaselineOffsetAttributeName: -1 * size / 4  ]
     let iconAttribute = [NSFontAttributeName: UIFont(name: K.Font.icon, size: size)!]
     let iconString = NSMutableAttributedString(string: iconCode, attributes: iconAttribute )
@@ -91,43 +91,43 @@ extension UILabel {
     return self
   }
 
-  func lighter(diff: CGFloat = 0.2) -> UILabel {
+  public func lighter(diff: CGFloat = 0.2) -> UILabel {
     colored(textColor.lighter(diff))
     return self
   }
 
-  func darker(diff: CGFloat = 0.2) -> UILabel {
+  public func darker(diff: CGFloat = 0.2) -> UILabel {
     colored(textColor.darker(diff))
     return self
   }
 
-  func text(value: String) -> UILabel {
+  public func text(value: String) -> UILabel {
     text = value
     return self
   }
 
-  func attributedText(value: NSAttributedString) -> UILabel {
+  public func attributedText(value: NSAttributedString) -> UILabel {
     attributedText = value
     return self
   }
 
-  func textWidth() -> CGFloat {
+  public func textWidth() -> CGFloat {
     return intrinsicContentSize().width
   }
 
-  func centered() -> UILabel {
+  public func centered() -> UILabel {
     textAlignment = .Center
     return self
   }
 
-  func multilinized() -> UILabel {
+  public func multilinized() -> UILabel {
     numberOfLines = 0
     //    setLineHeight(textHeight())
     lineBreakMode = .ByWordWrapping
     return self
   }
 
-  func setLineHeight(size: CGFloat = 6) -> UILabel {
+  public func setLineHeight(size: CGFloat = 6) -> UILabel {
     let text = self.text ?? ""
     let style = NSMutableParagraphStyle()
     style.lineSpacing = size
@@ -137,11 +137,11 @@ extension UILabel {
     return self
   }
 
-  func textHeight() -> CGFloat {
+  public func textHeight() -> CGFloat {
     return font.pointSize
   }
 
-  func getHeightBySizeThatFitsWithWidth(width: CGFloat) -> CGFloat {
+  public func getHeightBySizeThatFitsWithWidth(width: CGFloat) -> CGFloat {
     return sizeThatFits(CGSizeMake(width, 100000)).height
   }
 }
