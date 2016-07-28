@@ -11,6 +11,7 @@ import FontAwesome_swift
 import Neon
 import RandomKit
 import SwiftRandom
+import Development
 
 public func wizImage(name: String) -> UIImage {
   var img = UIImage(named: name)
