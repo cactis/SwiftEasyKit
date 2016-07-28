@@ -117,7 +117,7 @@ Pod::Spec.new do |s|
   #  the lib prefix of their name.
   #
 
-  # s.framework  = "SomeFramework"
+  s.framework  = "SwiftEasyKitFramework"
   # s.frameworks = "SomeFramework", "AnotherFramework"
 
   # s.library   = "iconv"
@@ -143,5 +143,8 @@ Pod::Spec.new do |s|
   s.dependency 'FontAwesomeKit'
   s.dependency 'Alamofire'
   s.dependency 'KDCircularProgress'
+  s.dependency 'SDWebImage'
+  s.dependency 'EZSwiftExtensions'
+  # s.dependency 'ExSwift'
 
 end
