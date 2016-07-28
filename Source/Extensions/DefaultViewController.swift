@@ -12,7 +12,7 @@ import UIKit
 //import Log
 //import OdyiOS
 
-class DefaultViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate {
+public class DefaultViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate {
 
   var swipeRight: UISwipeGestureRecognizer!
 
@@ -21,7 +21,7 @@ class DefaultViewController: UIViewController, UITextFieldDelegate, UITextViewDe
 
   var tabBarHidden = false
 
-  override func viewDidLoad() {
+  override public func viewDidLoad() {
     super.viewDidLoad()
     navigationItem.title = navigationItem.title ?? K.App.name
 
@@ -31,11 +31,11 @@ class DefaultViewController: UIViewController, UITextFieldDelegate, UITextViewDe
 
   }
 
-  func layoutUI() {
+  public func layoutUI() {
     view.setNeedsUpdateConstraints()
   }
 
-  func styleUI() {
+  public func styleUI() {
     hideBackBarButtonItemTitle()
     view.backgroundColor = K.Color.body
     baseStyle()
@@ -45,7 +45,7 @@ class DefaultViewController: UIViewController, UITextFieldDelegate, UITextViewDe
     //    automaticallyAdjustsScrollViewInsets = false
   }
 
-  func baseStyle() {
+  public func baseStyle() {
     let textAttributes = [NSForegroundColorAttributeName: K.Color.barButtonItem]
 //    UINavigationBar.appearance().titleTextAttributes = textAttributes
 
@@ -55,24 +55,24 @@ class DefaultViewController: UIViewController, UITextFieldDelegate, UITextViewDe
     navigationController?.navigationBar.translucent = false
   }
 
-  func bindUI() {
+  public func bindUI() {
     swipeRight = enableSwipeRightToBack(self)
     view.whenTapped(self, action: #selector(DefaultViewController.viewDidTapped))
     registerKeyboardNotifications()
   }
 
-  func enableSaveBarButtonItem() {
+  public func enableSaveBarButtonItem() {
     setRightBarButtonItem(getIcon(.Save, options: ["size": K.BarButtonItem.size, "color": K.Color.barButtonItem]), action: #selector(saveTapped))
   }
-  func saveTapped() { _logForAnyMode()}
-  func enableCloseBarButtonItem() {
+  public func saveTapped() { _logForAnyMode()}
+  public func enableCloseBarButtonItem() {
     setRightBarButtonItem(getIcon(.Close, options: ["size": K.BarButtonItem.size, "color": K.Color.barButtonItem]), action: #selector(closeTapped))
   }
-  func enableCloseBarButtonItemAtLeft() { setLeftBarButtonItem(getIcon(.Close, options: ["size": K.BarButtonItem.size, "color": K.Color.barButtonItem]), action: #selector(closeTapped)) }
-  func closeTapped() { dismissViewControllerAnimated(true) { () -> Void in }}
-  func viewDidTapped() { view.endEditing(true) }
+  public func enableCloseBarButtonItemAtLeft() { setLeftBarButtonItem(getIcon(.Close, options: ["size": K.BarButtonItem.size, "color": K.Color.barButtonItem]), action: #selector(closeTapped)) }
+  public func closeTapped() { dismissViewControllerAnimated(true) { () -> Void in }}
+  public func viewDidTapped() { view.endEditing(true) }
 
-  func textFieldShouldReturn(textField: UITextField) -> Bool {
+  public func textFieldShouldReturn(textField: UITextField) -> Bool {
     if let field = textField.nextField {
       field.becomeFirstResponder()
     } else {
@@ -81,7 +81,7 @@ class DefaultViewController: UIViewController, UITextFieldDelegate, UITextViewDe
     return true
   }
 
-  func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
+  public func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
     if text == "\n" {
       if let field = textView.nextField {
         field.becomeFirstResponder()
@@ -94,30 +94,30 @@ class DefaultViewController: UIViewController, UITextFieldDelegate, UITextViewDe
     }
   }
 
-  override func viewDidLayoutSubviews() {
+  override public func viewDidLayoutSubviews() {
     super.viewDidLayoutSubviews()
   }
 
-  func fixConstraints() {
+  public func fixConstraints() {
     self.updateViewConstraints()
     self.view.setNeedsUpdateConstraints()
   }
 
-  override func viewWillAppear(animated: Bool) {
+  override public func viewWillAppear(animated: Bool) {
 //    _logForUIMode()
     setTabBarStatus()
   }
 
-  func setTabBarStatus() {
+  public func setTabBarStatus() {
     self.tabBarController?.tabBar.hidden = tabBarHidden
   }
 
-  override func viewWillDisappear(animated: Bool) {
+  override public func viewWillDisappear(animated: Bool) {
     super.viewWillDisappear(animated)
     unregisterKeyboardNotifications()
   }
 
-  func keyboardDidShow(notification: NSNotification) {
+  public func keyboardDidShow(notification: NSNotification) {
     let userInfo: NSDictionary = notification.userInfo!
     keyboardSize = userInfo.objectForKey(UIKeyboardFrameBeginUserInfoKey)!.CGRectValue.size
 //    _logForUIMode(keyboardSize.height, title: "keyboardSize.height")
@@ -129,7 +129,7 @@ class DefaultViewController: UIViewController, UITextFieldDelegate, UITextViewDe
 //    contentView.scrollIndicatorInsets = contentInsets
   }
 
-  func keyboardWillShow(notification: NSNotification) {
+  public func keyboardWillShow(notification: NSNotification) {
 //    _logForUIMode()
    let userInfo: NSDictionary = notification.userInfo!
     keyboardSize = userInfo.objectForKey(UIKeyboardFrameBeginUserInfoKey)!.CGRectValue.size
@@ -137,7 +137,7 @@ class DefaultViewController: UIViewController, UITextFieldDelegate, UITextViewDe
   }
 
 
-  func keyboardWillHide(notification: NSNotification) {
+  public func keyboardWillHide(notification: NSNotification) {
 //    _logForUIMode()
     keyboardSize = CGSizeZero
 //    contentView.contentInset = UIEdgeInsetsZero
@@ -154,7 +154,7 @@ class DefaultViewController: UIViewController, UITextFieldDelegate, UITextViewDe
 //  }
 
 
-  func registerKeyboardNotifications() {
+  public func registerKeyboardNotifications() {
     NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(DefaultViewController.keyboardWillShow(_:)), name: UIKeyboardWillShowNotification, object: nil)
     NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(DefaultViewController.keyboardWillHide(_:)), name: UIKeyboardWillHideNotification, object: nil)
 
@@ -162,7 +162,7 @@ class DefaultViewController: UIViewController, UITextFieldDelegate, UITextViewDe
     NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(DefaultViewController.keyboardWillHide(_:)), name: UIKeyboardWillHideNotification, object: nil)
   }
 
-  func unregisterKeyboardNotifications() {
+  public func unregisterKeyboardNotifications() {
     NSNotificationCenter.defaultCenter().removeObserver(self)
   }
 

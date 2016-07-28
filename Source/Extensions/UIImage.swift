@@ -13,15 +13,15 @@ import RandomKit
 import SwiftRandom
 
 extension UIImage {
-  class func sample() -> UIImage {
+  public class func sample() -> UIImage {
     return UIImage.fontAwesomeIconWithName(.ClockO, textColor: UIColor.lightGrayColor().lighter(), size: CGSize(width: 300, height: 300))
   }
 
-  func flipped() -> UIImage {
+  public func flipped() -> UIImage {
     return UIImage(CGImage: self.CGImage!, scale: self.scale, orientation: .UpMirrored)
   }
 
-  func makeImageWithColorAndSize(color: UIColor, size: CGSize = K.Size.barButtonItem) -> UIImage {
+  public func makeImageWithColorAndSize(color: UIColor, size: CGSize = K.Size.barButtonItem) -> UIImage {
     UIGraphicsBeginImageContextWithOptions(size, false, 0)
     color.setFill()
     UIRectFill(CGRectMake(0, 0, size.width, size.height))
@@ -30,18 +30,18 @@ extension UIImage {
     return image
   }
 
-  func insetsSize(n: Int = 7) -> UIEdgeInsets {
+  public func insetsSize(n: Int = 7) -> UIEdgeInsets {
     let s = CGFloat(CGImageGetHeight(self.CGImage) / n)
     return UIEdgeInsets(top: s, left: s, bottom: s, right: s)
   }
-  func inseted(inset: UIEdgeInsets?) -> UIImage {
+  public func inseted(inset: UIEdgeInsets?) -> UIImage {
     let s = CGFloat(CGImageGetHeight(self.CGImage)) * 0.3
 //    _logForUIMode(s)
     let inset_ = inset ?? UIEdgeInsets(top: s, left: s, bottom: s, right: s)
     return resizableImageWithCapInsets(inset_)
   }
 
-  class func fromCode(drawText: String, color: UIColor = K.Color.barButtonItem, size: CGFloat = K.BarButtonItem.size) -> UIImage {
+  public class func fromCode(drawText: String, color: UIColor = K.Color.barButtonItem, size: CGFloat = K.BarButtonItem.size) -> UIImage {
     let textColor: UIColor = color
     let textFont: UIFont = UIFont(name: K.Font.icon, size: size)!
     let s = size * 1.2

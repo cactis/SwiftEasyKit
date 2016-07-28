@@ -10,9 +10,9 @@ import Foundation
 
 //import FontAwesome_swift
 
-class SwiftEasyKit {
+public class SwiftEasyKit {
 
-  func enableTabBarController(delegate: UITabBarControllerDelegate, viewControllers: [UIViewController]!, titles: [String]!, images: [UIImage], selectedImages: [UIImage] = []) -> (UIWindow?, UITabBarController!) {
+  public class func enableTabBarController(delegate: UITabBarControllerDelegate, viewControllers: [UIViewController]!, titles: [String]!, images: [UIImage], selectedImages: [UIImage] = []) -> (UIWindow?, UITabBarController!) {
     var _selectedImages = [UIImage]()
     if selectedImages.count > 0 {
       _selectedImages = selectedImages
@@ -30,7 +30,7 @@ class SwiftEasyKit {
     return (bootFrom(tabBarViewController), tabBarViewController)
   }
 
-  func bootFrom(vc: UIViewController) -> UIWindow? {
+  public class func bootFrom(vc: UIViewController) -> UIWindow? {
     let window: UIWindow?  = UIWindow(frame: UIScreen.mainScreen().bounds)
 //    window!.backgroundColor = K.Color.body
     window!.rootViewController = vc

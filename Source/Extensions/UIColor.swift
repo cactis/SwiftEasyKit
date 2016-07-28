@@ -22,8 +22,8 @@ extension UIColor {
     let blue = Float(components[2])
     return String(format: "#%02lX%02lX%02lX", lroundf(red * 255), lroundf(green * 255), lroundf(blue * 255))
   }
-  
-  class func fromRGB(red: CGFloat, green: CGFloat, blue: CGFloat, alpha: CGFloat = 1.0) -> UIColor {
+
+  public class func fromRGB(red: CGFloat, green: CGFloat, blue: CGFloat, alpha: CGFloat = 1.0) -> UIColor {
     return UIColor.init(red: red / 255, green: green / 255, blue: blue / 255, alpha: alpha)
   }
 
@@ -53,7 +53,7 @@ extension UIColor {
     return UIColor()
   }
 
-  class func fromHex(colorCode: String, alpha: Float = 1.0) -> UIColor {
+  public class func fromHex(colorCode: String, alpha: Float = 1.0) -> UIColor {
     let scanner = NSScanner(string:colorCode)
     var color:UInt32 = 0;
     scanner.scanHexInt(&color)

@@ -10,7 +10,6 @@
 		3704FD351D49C5B1003A042B /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3704FD341D49C5B1003A042B /* UIViewController.swift */; };
 		3737089D1D48656700AD7822 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3737089C1D48656700AD7822 /* UIKit.framework */; };
 		3737089F1D4865A800AD7822 /* SwiftEasyKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3737089E1D4865A800AD7822 /* SwiftEasyKit.swift */; };
-		3761DFE61D49CDBA00AC0459 /* Development.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3761DFE51D49CDBA00AC0459 /* Development.swift */; };
 		37E9F45C1D472D6A00D4DBD9 /* SwiftEasyKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 37E9F45B1D472D6A00D4DBD9 /* SwiftEasyKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		37E9F4631D472D6A00D4DBD9 /* SwiftEasyKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37E9F4581D472D6A00D4DBD9 /* SwiftEasyKit.framework */; };
 		37E9F4681D472D6A00D4DBD9 /* SwiftEasyKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E9F4671D472D6A00D4DBD9 /* SwiftEasyKitTests.swift */; };
@@ -32,7 +31,6 @@
 		3704FD341D49C5B1003A042B /* UIViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIViewController.swift; path = Source/Extensions/UIViewController.swift; sourceTree = "<group>"; };
 		3737089C1D48656700AD7822 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		3737089E1D4865A800AD7822 /* SwiftEasyKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwiftEasyKit.swift; path = Source/SwiftEasyKit.swift; sourceTree = "<group>"; };
-		3761DFE51D49CDBA00AC0459 /* Development.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Development.swift; path = Source/Development.swift; sourceTree = "<group>"; };
 		37E9F4581D472D6A00D4DBD9 /* SwiftEasyKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftEasyKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		37E9F45B1D472D6A00D4DBD9 /* SwiftEasyKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwiftEasyKit.h; sourceTree = "<group>"; };
 		37E9F45D1D472D6A00D4DBD9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -66,7 +64,6 @@
 		37E9F44E1D472D6A00D4DBD9 = {
 			isa = PBXGroup;
 			children = (
-				3761DFE51D49CDBA00AC0459 /* Development.swift */,
 				3704FD341D49C5B1003A042B /* UIViewController.swift */,
 				3737089E1D4865A800AD7822 /* SwiftEasyKit.swift */,
 				3737089C1D48656700AD7822 /* UIKit.framework */,
@@ -217,7 +214,6 @@
 			files = (
 				3737089F1D4865A800AD7822 /* SwiftEasyKit.swift in Sources */,
 				3704FD351D49C5B1003A042B /* UIViewController.swift in Sources */,
-				3761DFE61D49CDBA00AC0459 /* Development.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
