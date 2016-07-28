@@ -1,7 +1,9 @@
 //
 //  Public.swift
+//  SwiftEasyKit
 //
-//  Created by ctslin on 5/18/16.
+//  Created by ctslin on 7/28/16.
+//  Copyright © 2016 airfont. All rights reserved.
 //
 
 import Foundation
@@ -11,7 +13,6 @@ import FontAwesome_swift
 import Neon
 import RandomKit
 import SwiftRandom
-import Development
 
 public func wizImage(name: String) -> UIImage {
   var img = UIImage(named: name)

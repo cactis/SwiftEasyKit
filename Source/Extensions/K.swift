@@ -4,7 +4,7 @@
 
 import Foundation
 
-struct K {
+public struct K {
 
   struct Api {
     static var host = ""
