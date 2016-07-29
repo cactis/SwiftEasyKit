@@ -143,7 +143,7 @@ Pod::Spec.new do |s|
   s.dependency 'FontAwesomeKit'
   s.dependency 'Alamofire'
   s.dependency 'KDCircularProgress'
-  s.dependency 'SDWebImage'
+  s.dependency 'Kingfisher'
   # s.dependency 'EZSwiftExtensions'
   # s.dependency 'ExSwift'
 

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3704FD351D49C5B1003A042B /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3704FD341D49C5B1003A042B /* UIViewController.swift */; };
+		373478441D4B08DC008D599E /* DefaultAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373478431D4B08DC008D599E /* DefaultAppDelegate.swift */; };
 		3737089D1D48656700AD7822 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3737089C1D48656700AD7822 /* UIKit.framework */; };
 		3737089F1D4865A800AD7822 /* SwiftEasyKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3737089E1D4865A800AD7822 /* SwiftEasyKit.swift */; };
 		37E9F45C1D472D6A00D4DBD9 /* SwiftEasyKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 37E9F45B1D472D6A00D4DBD9 /* SwiftEasyKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -29,6 +30,7 @@
 
 /* Begin PBXFileReference section */
 		3704FD341D49C5B1003A042B /* UIViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIViewController.swift; path = Source/Extensions/UIViewController.swift; sourceTree = "<group>"; };
+		373478431D4B08DC008D599E /* DefaultAppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DefaultAppDelegate.swift; path = Source/Classes/DefaultAppDelegate.swift; sourceTree = "<group>"; };
 		3737089C1D48656700AD7822 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		3737089E1D4865A800AD7822 /* SwiftEasyKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwiftEasyKit.swift; path = Source/SwiftEasyKit.swift; sourceTree = "<group>"; };
 		37E9F4581D472D6A00D4DBD9 /* SwiftEasyKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftEasyKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -64,6 +66,7 @@
 		37E9F44E1D472D6A00D4DBD9 = {
 			isa = PBXGroup;
 			children = (
+				373478431D4B08DC008D599E /* DefaultAppDelegate.swift */,
 				3704FD341D49C5B1003A042B /* UIViewController.swift */,
 				3737089E1D4865A800AD7822 /* SwiftEasyKit.swift */,
 				3737089C1D48656700AD7822 /* UIKit.framework */,
@@ -214,6 +217,7 @@
 			files = (
 				3737089F1D4865A800AD7822 /* SwiftEasyKit.swift in Sources */,
 				3704FD351D49C5B1003A042B /* UIViewController.swift in Sources */,
+				373478441D4B08DC008D599E /* DefaultAppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

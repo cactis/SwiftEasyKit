@@ -11,6 +11,7 @@ import FontAwesome_swift
 import Neon
 import RandomKit
 import SwiftRandom
+import Kingfisher
 
 extension UIImageView {
 
@@ -23,8 +24,8 @@ extension UIImageView {
     //    _logForUIMode(name.containsString("http"), title: "name.containsString(http)")
     if name.containsString("http") {
       //      UIView.transitionWithView(self, duration: 0.5, options: .TransitionCrossDissolve, animations: { () -> Void in
-//      self.sd_setImageWithURL(NSURL(string: name))
-      self.image = UIImage(data: NSData(contentsOfURL: NSURL(string: name)!)!)
+      self.kf_setImageWithURL(NSURL(string: name)!)
+//      self.image = UIImage(data: NSData(contentsOfURL: NSURL(string: name)!)!)
       //        }, completion: { (bool) -> Void in
       //          self.sd_setImageWithURL(NSURL(string: name))
       //      })
