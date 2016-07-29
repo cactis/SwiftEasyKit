@@ -630,6 +630,14 @@ extension UIView: UIImagePickerControllerDelegate, UINavigationControllerDelegat
     return self
   }
 
+  public func leftBordered() -> UIView {
+    let border = CALayer()
+    border.frame = CGRect(x: 0, y: 0, width: K.Line.size, height: height)
+    border.backgroundColor = K.Line.Color.horizontal.CGColor
+    self.layer.addSublayer(border)
+    return self
+  }
+
   public func bottomBordered() -> UIView {
     let border = CALayer()
     border.frame = CGRect(x: 0, y: height - 1, width: width, height: K.Line.size)

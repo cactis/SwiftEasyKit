@@ -26,7 +26,7 @@ extension UIImageView {
       //      UIView.transitionWithView(self, duration: 0.5, options: .TransitionCrossDissolve, animations: { () -> Void in
       self.kf_setImageWithURL(NSURL(string: name)!)
 //      self.image = UIImage(data: NSData(contentsOfURL: NSURL(string: name)!)!)
-      //        }, completion: { (bool) -> Void in
+      //        }, completion: { (bool) -> Void iCn
       //          self.sd_setImageWithURL(NSURL(string: name))
       //      })
     } else {
