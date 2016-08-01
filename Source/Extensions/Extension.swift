@@ -18,7 +18,7 @@ public let faker = Faker()
 
 //extension AppDelegate: UITabBarControllerDelegate {
 //
-public //  func enableTabBarController(viewControllers: [UIViewController]!, titles: [String]!, images: [UIImage], selectedImages: [UIImage] = []) -> (UIWindow?, UITabBarController!) {
+//  func enableTabBarController(viewControllers: [UIViewController]!, titles: [String]!, images: [UIImage], selectedImages: [UIImage] = []) -> (UIWindow?, UITabBarController!) {
 //    var _selectedImages = [UIImage]()
 //    if selectedImages.count > 0 {
 //      _selectedImages = selectedImages
@@ -37,7 +37,7 @@ public //  func enableTabBarController(viewControllers: [UIViewController]!, tit
 //  }
 //}
 
-class Lorem: LoremIpsum {
+public class Lorem: LoremIpsum {
 
   public class func message() -> String {
     return Lorem.array(1, upper: 5).map({ _ in Randoms.randomFakeConversation() }).joinWithSeparator(" ")

@@ -2,15 +2,6 @@
 //  DefaultViewController.swift
 
 import UIKit
-//import FontAwesomeKit
-//import FontAwesome_swift
-//import CocoaLumberjack
-//import LoremIpsum
-//import RandomKit
-//import SwiftRandom
-//import Neon
-//import Log
-//import OdyiOS
 
 public class DefaultViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate {
 

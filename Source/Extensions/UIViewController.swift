@@ -126,7 +126,7 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
     return item
   }
 
-public   func setRightBarButtonItem(image: UIImage, action: Selector) -> UIBarButtonItem {
+  public   func setRightBarButtonItem(image: UIImage, action: Selector) -> UIBarButtonItem {
     let item = newBarButtonItem(image, action: action)
     self.navigationItem.rightBarButtonItems = [item]
     return item
@@ -282,12 +282,11 @@ public   func setRightBarButtonItem(image: UIImage, action: Selector) -> UIBarBu
     self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .Plain, target: nil, action: nil)
   }
 
-  public func enableCaptureSessionWithPreview(liveView: UIView, onComplete: () -> ()) -> AVCaptureStillImageOutput {
+  public func enableCaptureSessionWithPreview(liveView: UIView, onComplete: () -> ()) -> (AVCaptureStillImageOutput, AVCaptureSession) {
     let output = AVCaptureStillImageOutput()
+    let session = AVCaptureSession()
     delayedJob(0.1) {
       do {
-        var session: AVCaptureSession!
-        session = AVCaptureSession()
         session.sessionPreset = AVCaptureSessionPresetPhoto
         let device = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)
         let input = try AVCaptureDeviceInput(device: device)
@@ -304,7 +303,7 @@ public   func setRightBarButtonItem(image: UIImage, action: Selector) -> UIBarBu
         print(error)
       }
     }
-    return output
+    return (output, session)
   }
 
   public func collectionView(layout: UICollectionViewFlowLayout, registeredClass: AnyClass!, identifier: String) -> UICollectionView {
