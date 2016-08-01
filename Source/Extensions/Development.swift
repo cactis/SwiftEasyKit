@@ -10,8 +10,8 @@ import Foundation
 
 public struct Development {
   //  static var simulator = true
-  static var simulator = false
-  static var mode = "UI Design"
+  public static var simulator = false
+  public static var mode = "UI Design"
   //  static var mode = "API Implement"
 }
 

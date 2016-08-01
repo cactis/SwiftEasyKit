@@ -6,13 +6,13 @@
 import Foundation
 import Alamofire
 
-class API {
+public class API {
 
   class func getUserToken() -> String {
     return "/* override getUserToken() */"
   }
 
-  class func request(method: Alamofire.Method = .GET, url: String, parameters: [String: String] = [:], fileName: String? = #file, funcName: String? = #function, run: (response: Response<AnyObject, NSError>) -> ()) {
+  class public func request(method: Alamofire.Method = .GET, url: String, parameters: [String: String] = [:], fileName: String? = #file, funcName: String? = #function, run: (response: Response<AnyObject, NSError>) -> ()) {
 
     _logForAPIMode(url, title: "url")
 
