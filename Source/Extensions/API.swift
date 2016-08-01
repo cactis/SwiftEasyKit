@@ -9,7 +9,7 @@ import Alamofire
 public class API {
 
   class func getUserToken() -> String {
-    return "/* override getUserToken() */"
+    return K.Api.userToken  //"/* override getUserToken() */"
   }
 
   class public func request(method: Alamofire.Method = .GET, url: String, parameters: [String: String] = [:], fileName: String? = #file, funcName: String? = #function, run: (response: Response<AnyObject, NSError>) -> ()) {

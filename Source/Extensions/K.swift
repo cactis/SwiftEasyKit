@@ -11,6 +11,7 @@ public struct K {
     public static var prefix = "api/"
     public static var pushserver = ""
     public static var pushserverSubscribe = ""
+    public static var userToken = ""
   }
 
   public struct Text {
