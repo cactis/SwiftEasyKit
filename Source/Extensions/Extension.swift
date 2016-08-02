@@ -496,10 +496,15 @@ extension UIResponder {
   }
 
  public func getDeviceToken() -> String {
-   return Session.getValue(getDeviceName())!
+  _logForAnyMode(getDeviceName(), title: "getDeviceName()")
+   return Session.getValue("deviceToken")!
  }
 
   public func saveDeviceToken(token: String, name: String) {
+    print("token, name: \((token, name))")
+
+    Session.setValue(token, key: "deviceToken")
+    Session.setValue(name, key: "deviceName")
 //    Session.setValue(name, key: token)
 //    Session.setValue(token, key: name)
 
@@ -526,7 +531,7 @@ extension UIResponder {
   }
 
   public func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
-//    _logForAnyMode()
+    print(1111)
     PushServer.saveToken(pushServerAppID(), user: getDeviceName(), deviceToken: deviceToken, success: { (deviceTokenString) -> () in
       self.saveDeviceToken(PushServer.getDeviceTokenString(deviceToken), name: self.getDeviceName())
     })

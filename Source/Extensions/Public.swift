@@ -103,7 +103,7 @@ private func _autoRun(funcName: String = #function, fileName: String = #file, co
 
 public func runInDeviceMode(run: () -> (), elseRun: () -> () = {}) { if !_isSimulator() { run() } else { elseRun() } }
 
-public func _isSimulator() -> Bool { return TARGET_OS_SIMULATOR != 0 || Development.simulator == true }
+public func _isSimulator() -> Bool { return TARGET_OS_SIMULATOR != 0 || Development.setDeviceAsSimulator == true }
 
 public func _logError(err: NSError!) {
   _log(err.localizedDescription, title: "err")
@@ -150,14 +150,14 @@ private func _log(title: String = "", funcName: String = #function, fileName: St
 private func _log(obj: AnyObject, title: AnyObject = "", funcName: String = #function, fileName: String = #file, column: Int = #column, line: Int = #line) {
   let time = NSDate()
   print("")
-  print("=== \(title) in \(funcName) of \((fileName as NSString).lastPathComponent) \(line):\(column) ===")
+  print("=== \"\(title)\" in \(funcName) of \((fileName as NSString).lastPathComponent) \(line):\(column) ===")
   switch obj.self {
   case is String, is Int, is [String], is [Int]:
     print(obj)
   default:
     print((obj as! NSObject).asJSON())
   }
-  print("=== \(title) in \(funcName) of \((fileName as NSString).lastPathComponent) \(line):\(column) ===")
+  print("=== \"\(title)\" in \(funcName) of \((fileName as NSString).lastPathComponent) \(line):\(column) ===")
   print(time)
   print("")
 }
@@ -166,16 +166,16 @@ private func _log(obj: Int, title: AnyObject = "", funcName: String = #function,
   _log("\(obj)", title: title, funcName: funcName, fileName: fileName)
 }
 
-public func _disableSimulatorMode(status: Bool = true, funcName: String = #function, fileName: String = #file, column: Int = #column, line: Int = #line) {
+public func _disableDeviceAsSimulator(status: Bool = true, funcName: String = #function, fileName: String = #file, column: Int = #column, line: Int = #line) {
   print("")
   print("=== call _disableSimulatorMode in \(funcName) of \((fileName as NSString).lastPathComponent) \(line):\(column) ===")
-  Development.simulator = !status
+  Development.setDeviceAsSimulator = !status
 }
 
-public func _enableSimulatorMode(status: Bool = true, funcName: String = #function, fileName: String = #file, column: Int = #column, line: Int = #line) {
+public func _enableDeviceAsSimulator(status: Bool = true, funcName: String = #function, fileName: String = #file, column: Int = #column, line: Int = #line) {
   print("")
   print("=== call _enableSimulatorMode in \(funcName) of \((fileName as NSString).lastPathComponent) \(line):\(column) ===")
-  Development.simulator = status
+  Development.setDeviceAsSimulator = status
 }
 
 public func delayedJob(todo: () -> ()) {

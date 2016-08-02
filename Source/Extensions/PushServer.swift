@@ -9,14 +9,17 @@ import Foundation
 
 class PushServer {
 
-  class func saveToken(appid: String, user: String, success: (deviceTokenString: String) -> ()) {
-    let deviceTokenString = "anytokenstring"
-    saveToken(appid, user: user, deviceToken: deviceTokenString, success: success)
-  }
+//  class func saveToken(appid: String, user: String, success: (deviceTokenString: String) -> ()) {
+//    let deviceTokenString = "anytokenstring"
+//    print(222)
+//    _logForAnyMode()
+//    saveToken(appid, user: user, deviceToken: deviceTokenString, success: success)
+//  }
 
   class func saveToken(appid: String, user: String, deviceToken: NSData, success: (deviceTokenString: String) -> ()) {
-    let deviceTokenString = getDeviceTokenString(deviceToken)
 
+    let deviceTokenString = getDeviceTokenString(deviceToken)
+    print(444)
     _logForAnyMode(appid, title: "appid")
     _logForAnyMode(user, title: "user")
     _logForAnyMode(deviceTokenString, title: "deviceTokenString")
@@ -25,6 +28,7 @@ class PushServer {
   }
 
   class func saveToken(appid: String, user: String, deviceToken: String, success: (deviceTokenString: String) -> ()) {
+    print(333)
     let url = K.Api.pushserverSubscribe
     let params = ["deviceName":  user, "deviceToken": deviceToken, "deviceType": "ios"]
 
