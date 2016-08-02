@@ -12,6 +12,7 @@ public struct K {
     public static var pushserver = ""
     public static var pushserverSubscribe = ""
     public static var userToken = ""
+    public static var appID = ""
   }
 
   public struct Text {
