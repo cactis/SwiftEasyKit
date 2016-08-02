@@ -81,7 +81,7 @@ public class ImagesCollectionView: DefaultView, UICollectionViewDataSource, UICo
       didSet { checkedImage.hidden = !checked }
     }
 
-    public var data = ImageCellViewModel() {
+    public var data: ImageCellViewModel! {
       didSet {
         if (data.url) != nil {
           photo.loadImageWithString(data.url)
@@ -130,12 +130,20 @@ public class ImageCellViewModel: NSObject {
   public var url: String!
   public var checked: Bool!
 
+  public init(image: UIImage!) {
+    self.image = image
+    super.init()
+  }
+
+  public init(url: String!) {
+    self.url = url
+    super.init()
+  }
+
   public class func seeds(onComplete: (items: [ImageCellViewModel]) -> ()) {
     var items = [ImageCellViewModel]()
     (0...2).forEach { (i) in
-      let item = ImageCellViewModel()
-      item.url = randomImageName()
-      items.append(item)
+      items.append(ImageCellViewModel(url: randomImageName()))
     }
     onComplete(items: items)
   }

@@ -11,8 +11,13 @@ public struct K {
     public static var prefix = "api/"
     public static var pushserver = ""
     public static var pushserverSubscribe = ""
-    public static var userToken = ""
     public static var appID = ""
+    public static var deviceType = "iOS"
+    public static var userTokenKey = "userToken"
+    public static var deviceTokenKey = "deviceToken"
+    public static var deviceNameKey = "deviceName"
+
+
   }
 
   public struct Text {

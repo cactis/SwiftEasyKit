@@ -6,20 +6,6 @@ import Foundation
 
 public class Session {
 
-  public class func setToken(token: String) {
-    let key = "session_token"
-    setValue(token, key: key)
-  }
-
-  public class func getToken() -> String? {
-    let key = "session_token"
-    return store().objectForKey(key) as? String
-  }
-
-  public class func removeToken() {
-    store().removeObjectForKey("session_token")
-  }
-
   public class func setValue(value: String, key: String) {
     store().setObject(value, forKey: key)
   }
