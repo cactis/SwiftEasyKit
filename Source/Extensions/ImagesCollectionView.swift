@@ -121,14 +121,17 @@ public class ImagesCollectionView: DefaultView, UICollectionViewDataSource, UICo
       checkedImage.anchorInCorner(.BottomRight, xPad: p, yPad: p, width: s, height: s)
       checkedImage.radiused(s / 2).bordered(1, color: K.Color.buttonBg.CGColor)
     }
-
   }
 }
 
 public class ImageCellViewModel: NSObject {
-  public var image: UIImage!
-  public var url: String!
+  public var image: UIImage?
+  public var url: String?
   public var checked: Bool!
+
+  public override init() {
+    super.init()
+  }
 
   public init(image: UIImage!) {
     self.image = image
