@@ -44,7 +44,7 @@ extension UIResponder {
   }
 
   public func saveDeviceInfo(token token: String, name: String) {
-    print("token, name: \((token, name))")
+    _logForAnyMode("\((token, name))", title: "(token, name)")
     Session.setValue(token, key: K.Api.deviceTokenKey)
     Session.setValue(name, key: K.Api.deviceNameKey)
   }
