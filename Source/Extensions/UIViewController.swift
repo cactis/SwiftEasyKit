@@ -282,14 +282,24 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
     self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .Plain, target: nil, action: nil)
   }
 
-  public func enableCaptureSessionWithPreview(liveView: UIView, onComplete: () -> ()) -> (AVCaptureStillImageOutput, AVCaptureSession) {
+  public func enableCaptureSessionWithPreview(liveView: UIView, position: AVCaptureDevicePosition = .Back, onComplete: () -> ()) -> (AVCaptureDeviceInput, AVCaptureStillImageOutput, AVCaptureSession) {
+    var input = AVCaptureDeviceInput()
     let output = AVCaptureStillImageOutput()
     let session = AVCaptureSession()
     delayedJob(0.1) {
       do {
         session.sessionPreset = AVCaptureSessionPresetPhoto
-        let device = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)
-        let input = try AVCaptureDeviceInput(device: device)
+//        let device = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)
+        var device: AVCaptureDevice!
+        let devices = AVCaptureDevice.devicesWithMediaType(AVMediaTypeVideo)
+        devices.forEach({ (item) in
+          if item.position == position {
+            device = item as! AVCaptureDevice
+          }
+        })
+
+        input = try AVCaptureDeviceInput(device: device)
+
         session.addInput(input)
         output.outputSettings = [AVVideoCodecKey: AVVideoCodecJPEG]
         session.addOutput(output)
@@ -303,7 +313,7 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
         print(error)
       }
     }
-    return (output, session)
+    return (input, output, session)
   }
 
   public func collectionView(layout: UICollectionViewFlowLayout, registeredClass: AnyClass!, identifier: String) -> UICollectionView {

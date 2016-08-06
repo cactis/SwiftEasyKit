@@ -101,7 +101,7 @@ public class ChoiceTable: DefaultView, UITableViewDelegate, UITableViewDataSourc
   public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCellWithIdentifier(CellIdentifier) as! ChoiceCell
     cell.data = collectionData[indexPath.row]
-    cell.whenTapped(self, action: #selector(ChoiceTable.cellTapped))
+    cell.whenTapped(self, action: #selector(cellTapped))
     return cell
   }
 
