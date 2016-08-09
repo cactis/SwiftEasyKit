@@ -22,11 +22,15 @@ public class PopupView: DefaultView {
   }
 
   public func closeBtnTapped(sender: AnyObject?) {
+    parentViewController()!.dismissViewControllerAnimated(true) { () -> Void in }
+  }
 
-    parentViewController()!.dismissViewControllerAnimated(true) { () -> Void in
-
+  public func closeBtnTapped(disDidmiss didDismiss: () -> () = {}) {
+    parentViewController()!.dismissViewControllerAnimated(true) { 
+      didDismiss()
     }
   }
+
 
   public func layoutBase() {
     anchorInCenter(width: UIScreen.mainScreen().bounds.width / 5 * 4, height: UIScreen.mainScreen().bounds.height / 2)

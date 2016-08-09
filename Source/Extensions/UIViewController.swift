@@ -15,6 +15,18 @@ import SwiftRandom
 
 extension UIViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
+  public func _enableDebugInfo(fileName: String = (#file as NSString).lastPathComponent) {
+    _logForUIMode()
+    if _isSimulator() {
+      _logForUIMode()
+      let _fileName = Label()
+      view.layout([_fileName])
+      _fileName.text(fileName).smaller(2)
+      view.bringSubviewToFront(_fileName)
+      _fileName.anchorInCorner(.BottomRight, xPad: 0, yPad: 0, width: _fileName.textWidth(), height: _fileName.textHeight())
+    }
+  }
+
   public func goBackViewController() {
     navigationController?.popViewControllerAnimated(true)
   }

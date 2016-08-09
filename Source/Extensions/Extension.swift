@@ -143,7 +143,6 @@ extension UIGestureRecognizer {
 
 extension String {
 
-
   public func split() -> [String] {
     return self.characters.split{$0 == " "}.map(String.init)
   }
