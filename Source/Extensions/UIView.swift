@@ -14,6 +14,15 @@ import SwiftRandom
 
 extension UIView: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
+  public func saveAsImageToAlbum() -> UIImage {
+    UIGraphicsBeginImageContextWithOptions(bounds.size, opaque, 0.0)
+    layer.renderInContext(UIGraphicsGetCurrentContext()!)
+    let image = UIGraphicsGetImageFromCurrentImageContext()
+    UIGraphicsEndImageContext()
+    UIImageWriteToSavedPhotosAlbum(image, self, nil, nil)
+    return image
+  }
+
   public func navBarHeight() -> CGFloat {
     return parentViewController()!.navBarHeight()
   }

@@ -4,7 +4,7 @@
 
 import UIKit
 
-class ScrollableViewController: DefaultViewController {
+public class ScrollableViewController: DefaultViewController {
 
   var contentView = UIScrollView()
 
@@ -18,27 +18,27 @@ class ScrollableViewController: DefaultViewController {
     super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
   }
 
-  override func viewDidLoad() {
+  override public func viewDidLoad() {
     super.viewDidLoad()
 
 //    view.addSubview(contentView)
   }
 
-  override func layoutUI() {
+  override public func layoutUI() {
     super.layoutUI()
     view.layout([contentView])
   }
 
-  override func styleUI() {
+  override public func styleUI() {
     super.styleUI()
   }
 
-  override func viewDidLayoutSubviews() {
+  override public func viewDidLayoutSubviews() {
     super.viewDidLayoutSubviews()
     contentView.fillSuperview()
   }
 
-  required init?(coder aDecoder: NSCoder) {
+  required public init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
 
