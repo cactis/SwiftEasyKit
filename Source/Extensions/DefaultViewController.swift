@@ -10,6 +10,8 @@ public class DefaultViewController: UIViewController, UITextFieldDelegate, UITex
   public var didFixedConstraints = false
   public var keyboardSize: CGSize! = CGSizeZero
 
+  public var textViewShouldReturn = false
+
   public var tabBarHidden = false
 
   override public func viewDidLoad() {
@@ -73,7 +75,7 @@ public class DefaultViewController: UIViewController, UITextFieldDelegate, UITex
   }
 
   public func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
-    if text == "\n" {
+    if !textViewShouldReturn && text == "\n" {
       if let field = textView.nextField {
         field.becomeFirstResponder()
       } else {

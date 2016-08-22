@@ -27,12 +27,17 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
     }
   }
 
+  public func goBackToRootViewController(onComplete: () -> () = {}) {
+    self.navigationController?.popToRootViewControllerAnimated(true)
+    delayedJob { onComplete() }
+  }
+
   public func goBackViewController() {
     navigationController?.popViewControllerAnimated(true)
   }
 
-  public func titled(title: String) -> UIViewController {
-    navigationItem.title = title
+  public func titled(title: String, token: String = Lorem.token()) -> UIViewController {
+    navigationItem.title = _isSimulator() ? "\(token)-\(title)" : title
     return self
   }
 
@@ -85,12 +90,22 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
   }
 
   public func setViewsGroup(fields: [UITextView]) -> Void {
+//    let delegate = self as! UITextViewDelegate
+//    for index in 0...fields.count - 2 {
+//      fields[index].delegate = delegate
+//      fields[index].nextField = fields[index + 1]
+//    }
+//    fields.last?.delegate = delegate
+
     let delegate = self as! UITextViewDelegate
-    for index in 0...fields.count - 2 {
-      fields[index].delegate = delegate
-      fields[index].nextField = fields[index + 1]
+    if fields.count > 1 {
+      for index in 0...fields.count - 2 {
+        fields[index].delegate = delegate
+        fields[index].nextField = fields[index + 1]
+      }
     }
     fields.last?.delegate = delegate
+
   }
 
 

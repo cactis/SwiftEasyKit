@@ -132,7 +132,6 @@ public class IconLabel: DefaultView {
     super.layoutSubviews()
     let s = iconBorder.height() * 0.8
     iconFont.font = UIFont(name: K.Font.icon, size: s)
-
     switch alignStyle {
     case .Center:
       let w = (labelWidth_ ?? label.textWidth())
@@ -158,8 +157,12 @@ public class IconLabel: DefaultView {
         label.anchorInCenter(width: label.textWidth(), height: label.textHeight())
       }
     }
+
+    // *** hacked for not center ***
     iconFont.anchorInCenter(width: s, height: s)
     iconImage.anchorInCenter(width: s, height: s)
+//    iconFont.anchorToEdge(.Top, padding: s * 0.2, width: s, height: s)
+//    iconImage.anchorToEdge(.Top, padding: s * 0.2, width: s, height: s)
   }
 
   public func textHeight() -> CGFloat {
