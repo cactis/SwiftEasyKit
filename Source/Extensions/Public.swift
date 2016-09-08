@@ -214,6 +214,15 @@ public func randomBlock(n: Int = 15, m: Int = 30, run: () -> ()) {
   }
 }
 
+public func runOnce(run: () -> ()) -> () {
+  struct TokenContainer {
+    static var token : dispatch_once_t = 0
+  }
+
+  dispatch_once(&TokenContainer.token) {
+    run()
+  }
+}
 
 public func randomImages(n: Int = 2, of: Int = 10, placeHolder: UIImage = UIImage()) -> [UIImage] {
   return (0...of - 1).map({ (i) in if i < n { return UIImage(named: randomImageName())! } else { return placeHolder }})

@@ -101,6 +101,11 @@ extension UILabel {
     return self
   }
 
+  public func bold() -> UILabel {
+    font = UIFont.boldSystemFontOfSize(font.pointSize)
+    return self
+  }
+
   public func text(value: String) -> UILabel {
     text = value
     return self

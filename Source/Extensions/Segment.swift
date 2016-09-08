@@ -346,9 +346,11 @@ public class Segment: DefaultView {
   }
 
   public func indicatorConstraints() {
+    _logForUIMode()
     if textColorFollowedByIndicator {
-      labels.forEach({ (label) in label.label.textColor = deactiveColor })
-      labels[index].label.textColor = indicatorColor
+      labels.forEach({ (label) in label.label.colored(deactiveColor) })
+      _logForUIMode(indicatorColor)
+      labels[index].label.colored(indicatorColor)
     }
   }
 

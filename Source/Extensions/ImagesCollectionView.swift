@@ -14,11 +14,16 @@ public class ImagesCollectionView: DefaultView, UICollectionViewDataSource, UICo
     didSet {
     }
   }
-
+  public var bordered: Bool = true
+  public var radius: CGFloat = 0
+  public var sectionInset: UIEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10)
   public var didChecked = {(items: [ImageCellViewModel]) in }
 
-  public init(checkable: Checkable) {
+  public init(checkable: Checkable, bordered: Bool = true, radius: CGFloat = 0, sectionInset: UIEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10)) {
     self.checkable = checkable
+    self.bordered = bordered
+    self.sectionInset = sectionInset
+    self.radius = radius
     super.init(frame: CGRectZero)
   }
 
@@ -34,13 +39,18 @@ public class ImagesCollectionView: DefaultView, UICollectionViewDataSource, UICo
 
   override public func layoutUI() {
     super.layoutUI()
-    collectionView = collectionView(collectionViewLayout, registeredClass: ImageCell.self, identifier: CellIdentifier)
+    collectionView = collectionView(collectionViewLayout, registeredClass: ImageCell.self, identifier: CellIdentifier, sectionInset: sectionInset)
     layout([collectionView])
   }
 
   override public func styleUI() {
     super.styleUI()
     collectionView.backgroundColor = UIColor.clearColor()
+//    collectionViewLayout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+    let s: CGFloat = height / 7 * 5
+    collectionViewLayout.itemSize = CGSizeMake(s, s)
+//    collectionViewLayout.minimumInteritemSpacing = 0
+//    collectionViewLayout.minimumLineSpacing = 0
   }
   override public func bindUI() {
     super.bindUI()
@@ -49,8 +59,7 @@ public class ImagesCollectionView: DefaultView, UICollectionViewDataSource, UICo
   override public func layoutSubviews() {
     super.layoutSubviews()
     collectionView.fillSuperview()
-    let s: CGFloat = height / 7 * 5
-    collectionViewLayout.itemSize = CGSizeMake(s, s)
+    styleUI()
   }
 
   public func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -63,8 +72,12 @@ public class ImagesCollectionView: DefaultView, UICollectionViewDataSource, UICo
     cell.contentView.autoresizingMask = [UIViewAutoresizing.FlexibleWidth, UIViewAutoresizing.FlexibleHeight]
     cell.loadData(collectionData[indexPath.row])
     cell.whenTapped(self, action: #selector(ImagesCollectionView.cellTapped(_:)))
+    cell.radiused(radius)
     cell.tag = indexPath.row
     cell.layoutIfNeeded()
+    if bordered {
+      cell.bordered(1, color: UIColor.lightGrayColor().CGColor)
+    }
     return cell
   }
 
@@ -107,7 +120,6 @@ public class ImagesCollectionView: DefaultView, UICollectionViewDataSource, UICo
     override public func styleUI() {
       super.styleUI()
       photo.styledAsFill()
-      bordered(1, color: UIColor.lightGrayColor().CGColor)
       checkedImage.backgroundColored(UIColor.whiteColor())
       checkedImage.image = getIcon(.Check, options: ["color": K.Color.buttonBg])
       checkedImage.hidden = true

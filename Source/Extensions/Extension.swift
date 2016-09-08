@@ -143,6 +143,14 @@ extension UIGestureRecognizer {
 
 extension String {
 
+  public func randomTimes(n: Int = 1, m: Int = 3) -> String {
+    var t = self
+    randomBlock(n, m: m) {
+      t += t
+    }
+    return t
+  }
+
   public func split() -> [String] {
     return self.characters.split{$0 == " "}.map(String.init)
   }

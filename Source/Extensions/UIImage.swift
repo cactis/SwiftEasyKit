@@ -44,7 +44,7 @@ extension UIImage {
   public class func fromCode(drawText: String, color: UIColor = K.Color.barButtonItem, size: CGFloat = K.BarButtonItem.size) -> UIImage {
     let textColor: UIColor = color
     let textFont: UIFont = UIFont(name: K.Font.icon, size: size)!
-    let s = size * 1.2
+    let s = size * 1//.2
     let _size = CGSize(width: s, height: s)
     UIGraphicsBeginImageContext(_size)
     let textFontAttributes = [

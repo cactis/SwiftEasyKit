@@ -147,8 +147,8 @@ public struct K {
 
   public struct Line {
     public struct Color {
-      public static var horizontal: UIColor = UIColor.grayColor()
-      public static var vertical: UIColor = UIColor.grayColor().lighter()
+      public static var horizontal: UIColor = UIColor.fromRGB(232, green: 232, blue: 232)
+      public static var vertical: UIColor = UIColor.fromRGB(232, green: 232, blue: 232)
     }
     public static var size: CGFloat = 0.5.em
   }

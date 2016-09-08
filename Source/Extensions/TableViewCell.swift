@@ -36,11 +36,6 @@ public class TableViewCell: UITableViewCell {
     return bottomView.bottomEdge() + _padding
   }
 
-//
-//  public func loadData(data: NSDictionary) {
-//
-//  }
-
   override public func layout(views: [UIView]) -> UIView {
     views.forEach { (view) -> () in
       addSubview(view)
@@ -56,7 +51,8 @@ public class TableViewCell: UITableViewCell {
 
   override public func layoutSubviews() {
     super.layoutSubviews()
-    contentView.fillSuperview(left: 10, right: 10, top: 10, bottom: 10)
+//    contentView.fillSuperview(left: 10, right: 10, top: 10, bottom: 10)
+    contentView.fillSuperview()
   }
 
   override public func setSelected(selected: Bool, animated: Bool) {

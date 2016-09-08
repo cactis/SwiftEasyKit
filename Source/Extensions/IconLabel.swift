@@ -51,7 +51,7 @@ public class IconLabel: DefaultView {
   public var color = K.Color.buttonBg { didSet { iconColor = color; labelColor = color } }
 
   public var autoWidth: CGFloat { get { return height + paddingBetween + label.textWidth() } }
-  public var paddingBetween: CGFloat { get { return paddingBetween_ ?? height * 0.2 } set { paddingBetween_ = newValue } }
+  public var paddingBetween: CGFloat { get { return paddingBetween_ ?? label.textHeight() * 0.05 } set { paddingBetween_ = newValue } }
   public var paddingBetween_: CGFloat?
 
   public var text: String! {
@@ -74,27 +74,35 @@ public class IconLabel: DefaultView {
     super.init(frame: CGRectZero)
   }
 
- public init(iconImage: UIImage!, text: String) {
+  public init(iconImage: UIImage!, text: String) {
     type = .UIImage
     self.iconImage.image = iconImage
     super.init(frame: CGRectZero)
     self.text = text
   }
 
- public init(iconCode: String, text: String) {
+  public init(iconCode: String, text: String) {
     self.type = .IconFont
     super.init(frame: CGRectZero)
     ({ self.iconCode = iconCode })()
     self.text = text
   }
 
- public init(iconCode: String) {
+  public init(iconCode: String) {
     self.type = .IconFont
     super.init(frame: CGRectZero)
     ({ self.iconCode = iconCode })()
   }
 
- public init(iconCode: String, iconColor: UIColor) {
+  public init(iconCode: String, text: String, iconColor: UIColor) {
+    self.type = .IconFont
+    super.init(frame: CGRectZero)
+    ({ self.iconCode = iconCode })()
+    ({ self.text = text })()
+    ({ self.iconColor = iconColor })()
+  }
+
+  public init(iconCode: String, iconColor: UIColor) {
     self.type = .IconFont
     super.init(frame: CGRectZero)
     ({ self.iconCode = iconCode })()
@@ -116,9 +124,8 @@ public class IconLabel: DefaultView {
   public func setIconFont() {
     if !iconCode.isEmpty {
       type = .IconFont
-
       removeSubviews()
-      
+
       layoutUI()
       iconFont.text(iconCode)
       iconFont.font = UIFont(name: K.Font.icon, size: height)
@@ -144,16 +151,16 @@ public class IconLabel: DefaultView {
 
       switch type {
       case .IconFont:
-//        iconFont.anchorInCenter(width: s, height: s)
+        //        iconFont.anchorInCenter(width: s, height: s)
 
         label.alignToTheRightOf(iconBorder, matchingTopWithLeftPadding: paddingBetween, width: w, height: iconBorder.height)
         label.sized(label.height * 0.8)
       case .UIImage:
-//        iconImage.anchorInCenter(width: s, height: s)
+        //        iconImage.anchorInCenter(width: s, height: s)
         label.alignToTheRightOf(iconBorder, matchingTopWithLeftPadding: paddingBetween, width: w, height: iconBorder.height)
         label.sized(label.height * 0.8)
       default:
-        label.sized(height)
+//        label.sized(height )
         label.anchorInCenter(width: label.textWidth(), height: label.textHeight())
       }
     }
@@ -161,8 +168,8 @@ public class IconLabel: DefaultView {
     // *** hacked for not center ***
     iconFont.anchorInCenter(width: s, height: s)
     iconImage.anchorInCenter(width: s, height: s)
-//    iconFont.anchorToEdge(.Top, padding: s * 0.2, width: s, height: s)
-//    iconImage.anchorToEdge(.Top, padding: s * 0.2, width: s, height: s)
+    //    iconFont.anchorToEdge(.Top, padding: s * 0.2, width: s, height: s)
+    //    iconImage.anchorToEdge(.Top, padding: s * 0.2, width: s, height: s)
   }
 
   public func textHeight() -> CGFloat {

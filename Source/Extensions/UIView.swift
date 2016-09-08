@@ -53,22 +53,35 @@ extension UIView: UIImagePickerControllerDelegate, UINavigationControllerDelegat
     return line
   }
 
-  public func addVerticalLineBetween(views: [UIView]) {
+  public func addVerticalLineBetween(views: [UIView], fill: Bool = true) {
     (0...views.count - 2).forEach { (i) in
-      addVerticalLineBetween(views[i], v2: views[i + 1])
+      addVerticalLineBetween(views[i], v2: views[i + 1], fill: fill)
     }
   }
 
-  public func addVerticalLineBetween(v1: UIView, v2: UIView) -> UIView {
+  public func addVerticalLineBetween(v1: UIView, v2: UIView, fill: Bool = true) -> UIView {
     let line = addLine()
-    let p = (v2.x - v1.rightEdge()) / 2
-    let w = [v1.bottomEdge(), v2.bottomEdge()].maxElement()! - [v1.y, v2.y].minElement()!
+
     if v1.y < v2.y {
-//      line.alignRight(v1, matchingLeftWithTopPadding: m, width: w, height: K.Line.size)
-      line.alignToTheRightOf(v1, matchingTopWithLeftPadding: p, width: K.Line.size, height: w)
+      if fill {
+        let p = (v2.x - v1.rightEdge()) / 2
+        let h = [v1.bottomEdge(), v2.bottomEdge()].maxElement()! - [v1.y, v2.y].minElement()!
+        line.alignToTheRightOf(v1, matchingTopWithLeftPadding: p, width: K.Line.size, height: h)
+      } else {
+        let p = (v2.x - v1.rightEdge()) / 2
+        let h = [v1.bottomEdge(), v2.bottomEdge()].minElement()! - [v1.y, v2.y].maxElement()!
+        line.alignToTheLeftOf(v2, matchingTopWithRightPadding: p, width: K.Line.size, height: h)
+      }
     } else {
-//      line.alignAbove(v2, matchingLeftWithBottomPadding: m, width: K.Line.size, height: m)
-      line.alignToTheLeftOf(v2, matchingTopWithRightPadding: p, width: K.Line.size, height: w)
+      if fill {
+        let p = (v2.x - v1.rightEdge()) / 2
+        let h = [v1.bottomEdge(), v2.bottomEdge()].maxElement()! - [v1.y, v2.y].minElement()!
+        line.alignToTheLeftOf(v2, matchingTopWithRightPadding: p, width: K.Line.size, height: h)
+      } else {
+        let p = (v2.x - v1.rightEdge()) / 2
+        let h = [v1.bottomEdge(), v2.bottomEdge()].minElement()! - [v1.y, v2.y].maxElement()!
+        line.alignToTheRightOf(v1, matchingTopWithLeftPadding: p, width: K.Line.size, height: h)
+      }
     }
     return line
   }
@@ -90,12 +103,11 @@ extension UIView: UIImagePickerControllerDelegate, UINavigationControllerDelegat
     })
   }
 
-  public func collectionView(layout: UICollectionViewFlowLayout, registeredClass: AnyClass!, identifier: String) -> UICollectionView {
+  public func collectionView(layout: UICollectionViewFlowLayout, registeredClass: AnyClass!, identifier: String, sectionInset: UIEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10)) -> UICollectionView {
     let collectionView = UICollectionView(frame: CGRectZero, collectionViewLayout: layout)
     layout.scrollDirection = .Horizontal
-    layout.itemSize = CGSizeMake(100, 100)
-    let padding: CGFloat = 10
-    layout.sectionInset = UIEdgeInsetsMake(0, padding, 0, padding)
+//    layout.itemSize = CGSizeMake(100, 100)
+    layout.sectionInset = sectionInset
     collectionView.delegate = self as? UICollectionViewDelegate
     collectionView.dataSource = self as? UICollectionViewDataSource
     collectionView.registerClass(registeredClass, forCellWithReuseIdentifier: identifier)
@@ -639,17 +651,14 @@ extension UIView: UIImagePickerControllerDelegate, UINavigationControllerDelegat
     return self
   }
 
-  public func leftBordered() -> UIView {
-    let border = CALayer()
-    border.frame = CGRect(x: 0, y: 0, width: K.Line.size, height: height)
-    border.backgroundColor = K.Line.Color.horizontal.CGColor
-    self.layer.addSublayer(border)
-    return self
-  }
+  public func leftBordered() -> UIView { return addBorder(CGRect(x: 0, y: 0, width: K.Line.size, height: height)) }
+  public func rightBordered() -> UIView { return addBorder(CGRect(x: width, y: 0, width: K.Line.size, height: height)) }
+  public func bottomBordered() -> UIView { return addBorder(CGRect(x: 0, y: height - 1, width: width, height: K.Line.size)) }
+  public func topBordered() -> UIView { return addBorder(CGRect(x: 0, y: 0, width: width, height: K.Line.size)) }
 
-  public func bottomBordered() -> UIView {
+  func addBorder(frame: CGRect) -> UIView {
     let border = CALayer()
-    border.frame = CGRect(x: 0, y: height - 1, width: width, height: K.Line.size)
+    border.frame = frame
     border.backgroundColor = K.Line.Color.horizontal.CGColor
     self.layer.addSublayer(border)
     return self
