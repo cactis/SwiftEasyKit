@@ -106,7 +106,7 @@ extension UIView: UIImagePickerControllerDelegate, UINavigationControllerDelegat
   public func collectionView(layout: UICollectionViewFlowLayout, registeredClass: AnyClass!, identifier: String, sectionInset: UIEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10)) -> UICollectionView {
     let collectionView = UICollectionView(frame: CGRectZero, collectionViewLayout: layout)
     layout.scrollDirection = .Horizontal
-//    layout.itemSize = CGSizeMake(100, 100)
+    layout.itemSize = CGSizeMake(100, 100)
     layout.sectionInset = sectionInset
     collectionView.delegate = self as? UICollectionViewDelegate
     collectionView.dataSource = self as? UICollectionViewDataSource

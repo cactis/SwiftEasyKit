@@ -47,7 +47,7 @@ public class ImagesCollectionView: DefaultView, UICollectionViewDataSource, UICo
     super.styleUI()
     collectionView.backgroundColor = UIColor.clearColor()
 //    collectionViewLayout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-    let s: CGFloat = height / 7 * 5
+    let s: CGFloat = [height.int, 20].maxElement()!.cgFloat / 7 * 5
     collectionViewLayout.itemSize = CGSizeMake(s, s)
 //    collectionViewLayout.minimumInteritemSpacing = 0
 //    collectionViewLayout.minimumLineSpacing = 0
