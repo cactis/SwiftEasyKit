@@ -54,6 +54,8 @@ public class IconLabel: DefaultView {
   public var paddingBetween: CGFloat { get { return paddingBetween_ ?? label.textHeight() * 0.05 } set { paddingBetween_ = newValue } }
   public var paddingBetween_: CGFloat?
 
+  public var iconSize: CGFloat?
+
   public var text: String! {
     get { return label.text }
     set { label.text = newValue }
@@ -137,7 +139,7 @@ public class IconLabel: DefaultView {
 
   override public func layoutSubviews() {
     super.layoutSubviews()
-    let s = iconBorder.height() * 0.8
+    let s = iconSize ?? iconBorder.height() * 0.8
     iconFont.font = UIFont(name: K.Font.icon, size: s)
     switch alignStyle {
     case .Center:
