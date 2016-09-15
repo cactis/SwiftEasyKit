@@ -43,9 +43,7 @@ public class IconLabelButton: UIView {
     label.centered()
   }
 
-  override init(frame: CGRect) {
-    super.init(frame: frame)
-  }
+  override init(frame: CGRect) { super.init(frame: frame) }
 
   override public func layoutSubviews() {
     super.layoutSubviews()

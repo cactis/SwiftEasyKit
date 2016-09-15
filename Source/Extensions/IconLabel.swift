@@ -76,11 +76,12 @@ public class IconLabel: DefaultView {
     super.init(frame: CGRectZero)
   }
 
-  public init(iconImage: UIImage!, text: String) {
+  public init(iconImage: UIImage!, text: String, align: AlignStyle = .Left) {
     type = .UIImage
     self.iconImage.image = iconImage
     super.init(frame: CGRectZero)
     self.text = text
+    self.alignStyle = align
   }
 
   public init(iconCode: String, text: String) {
@@ -143,33 +144,49 @@ public class IconLabel: DefaultView {
     iconFont.font = UIFont(name: K.Font.icon, size: s)
     switch alignStyle {
     case .Center:
-      let w = (labelWidth_ ?? label.textWidth())
-      iconBorder.anchorAndFillEdge(.Left, xPad: (width - s - paddingBetween - w) / 2, yPad: height * 0.1, otherSize: s)
-      label.alignToTheRightOf(iconBorder, matchingTopWithLeftPadding: paddingBetween * 0.4, width: w, height: iconBorder.height)
-      label.sized(s * 0.7)
+      switch type {
+      case .IconFont:
+        let w = (labelWidth_ ?? label.textWidth())
+        iconBorder.anchorAndFillEdge(.Left, xPad: (width - s - paddingBetween - w) / 2, yPad: height * 0.1, otherSize: s)
+        label.alignToTheRightOf(iconBorder, matchingTopWithLeftPadding: paddingBetween * 0.4, width: w, height: iconBorder.height)
+        label.sized(s * 0.7)
+      case .UIImage:
+        _logForUIMode()
+        let s = height * 0.8
+        let h = height * 0.1
+//        iconBorder.anchorInCenterWithWidth(h, height: h)
+        label.sized(s * 0.6)
+        iconBorder.anchorInCorner(.TopLeft, xPad: (width - s - paddingBetween - label.textWidth()) / 2, yPad: h, width: s, height: s)
+        let p = s * 0.1
+        iconImage.fillSuperview(left: p, right: p, top: p, bottom: p)
+//        iconImage._coloredWithSuperviews()
+        label.alignToTheRightOf(iconBorder, matchingTopWithLeftPadding: paddingBetween, width: width - iconBorder.rightEdge() - 20, height: iconBorder.height)
+      default:
+        break
+      }
+
+
     default:
       let w = (labelWidth_ ?? label.textWidth()) * 1.2
       iconBorder.anchorAndFillEdge(.Left, xPad: 0, yPad: 0, otherSize: height)
 
       switch type {
       case .IconFont:
-        //        iconFont.anchorInCenter(width: s, height: s)
-
         label.alignToTheRightOf(iconBorder, matchingTopWithLeftPadding: paddingBetween, width: w, height: iconBorder.height)
         label.sized(label.height * 0.8)
       case .UIImage:
-        //        iconImage.anchorInCenter(width: s, height: s)
-        label.alignToTheRightOf(iconBorder, matchingTopWithLeftPadding: paddingBetween, width: w, height: iconBorder.height)
-        label.sized(label.height * 0.8)
+        let p = iconBorder.height * 0.2
+        iconImage.fillSuperview(left: p, right: p, top: p, bottom: p)
+        label.alignToTheRightOf(iconBorder, matchingTopWithLeftPadding: paddingBetween, width: width - iconBorder.rightEdge() - 20, height: iconBorder.height)
+        label.sized(iconImage.height * 0.8)
       default:
-//        label.sized(height )
         label.anchorInCenter(width: label.textWidth(), height: label.textHeight())
       }
     }
 
     // *** hacked for not center ***
     iconFont.anchorInCenter(width: s, height: s)
-    iconImage.anchorInCenter(width: s, height: s)
+//    iconImage.anchorInCenter(width: s, height: s)
     //    iconFont.anchorToEdge(.Top, padding: s * 0.2, width: s, height: s)
     //    iconImage.anchorToEdge(.Top, padding: s * 0.2, width: s, height: s)
   }
