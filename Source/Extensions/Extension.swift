@@ -143,6 +143,10 @@ extension UIGestureRecognizer {
 
 extension String {
 
+  public func safeForURL() -> String {
+    return stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLHostAllowedCharacterSet())!
+  }
+
   public func randomTimes(n: Int = 1, m: Int = 3) -> String {
     var t = self
     randomBlock(n, m: m) {

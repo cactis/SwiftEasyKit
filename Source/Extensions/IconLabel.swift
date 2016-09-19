@@ -151,7 +151,6 @@ public class IconLabel: DefaultView {
         label.alignToTheRightOf(iconBorder, matchingTopWithLeftPadding: paddingBetween * 0.4, width: w, height: iconBorder.height)
         label.sized(s * 0.7)
       case .UIImage:
-        _logForUIMode()
         let s = height * 0.8
         let h = height * 0.1
 //        iconBorder.anchorInCenterWithWidth(h, height: h)
@@ -159,8 +158,7 @@ public class IconLabel: DefaultView {
         iconBorder.anchorInCorner(.TopLeft, xPad: (width - s - paddingBetween - label.textWidth()) / 2, yPad: h, width: s, height: s)
         let p = s * 0.1
         iconImage.fillSuperview(left: p, right: p, top: p, bottom: p)
-//        iconImage._coloredWithSuperviews()
-        label.alignToTheRightOf(iconBorder, matchingTopWithLeftPadding: paddingBetween, width: width - iconBorder.rightEdge() - 20, height: iconBorder.height)
+        label.alignToTheRightOf(iconBorder, matchingTopWithLeftPadding: paddingBetween, width: label.textWidth(), height: iconBorder.height)
       default:
         break
       }
@@ -175,7 +173,7 @@ public class IconLabel: DefaultView {
         label.alignToTheRightOf(iconBorder, matchingTopWithLeftPadding: paddingBetween, width: w, height: iconBorder.height)
         label.sized(label.height * 0.8)
       case .UIImage:
-        let p = iconBorder.height * 0.2
+        let p = iconBorder.height * 0.1
         iconImage.fillSuperview(left: p, right: p, top: p, bottom: p)
         label.alignToTheRightOf(iconBorder, matchingTopWithLeftPadding: paddingBetween, width: width - iconBorder.rightEdge() - 20, height: iconBorder.height)
         label.sized(iconImage.height * 0.8)
