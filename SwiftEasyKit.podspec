@@ -134,7 +134,7 @@ Pod::Spec.new do |s|
 
   # s.xcconfig = { "HEADER_SEARCH_PATHS" => "$(SDKROOT)/usr/include/libxml2" }
   s.dependency 'LoremIpsum'
-  s.dependency 'FontAwesome.swift'
+  s.dependency 'FontAwesome.swift', '0.7.3'
   s.dependency 'Neon'
   s.dependency 'SwiftRandom'
   s.dependency 'SwiftyJSON'
@@ -144,7 +144,7 @@ Pod::Spec.new do |s|
   s.dependency 'FontAwesomeKit'
   s.dependency 'Alamofire'
   s.dependency 'KDCircularProgress', '1.4.0'
-  s.dependency 'Kingfisher'
+  s.dependency 'Kingfisher', '2.4.1'
   # s.dependency 'EZSwiftExtensions'
   # s.dependency 'ExSwift'
 
