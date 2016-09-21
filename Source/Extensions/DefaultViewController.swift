@@ -54,8 +54,12 @@ public class DefaultViewController: UIViewController, UITextFieldDelegate, UITex
     registerKeyboardNotifications()
   }
 
-  public func enableSaveBarButtonItem() {
-    setRightBarButtonItem(getIcon(.Save, options: ["size": K.BarButtonItem.size, "color": K.Color.barButtonItem]), action: #selector(saveTapped))
+  public func enableSaveBarButtonItem(title: String = "") {
+    if title != "" {
+      setRightBarButtonItem(title, action: #selector(saveTapped))
+    } else {
+      setRightBarButtonItem(getIcon(.Save, options: ["size": K.BarButtonItem.size, "color": K.Color.barButtonItem]), action: #selector(saveTapped))
+    }
   }
   public func saveTapped() { _logForAnyMode()}
   public func enableCloseBarButtonItem() {
