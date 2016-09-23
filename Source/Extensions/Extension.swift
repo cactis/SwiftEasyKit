@@ -544,6 +544,11 @@ extension NSMutableAttributedString {
 
 extension UITextField {
 
+  public func bold() -> UITextField {
+    font = UIFont.boldSystemFontOfSize(font!.pointSize)
+    return self
+  }
+
   public func scrolledToVisible(scrollView: UIScrollView, keyboardSize: CGSize) {
     let target = superview!
     var viewRect = target.frame

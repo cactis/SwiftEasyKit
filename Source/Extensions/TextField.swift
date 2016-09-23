@@ -5,14 +5,28 @@
 
 import UIKit
 
+public class Password: TextField {
+  public override func textRectForBounds(bounds: CGRect) -> CGRect {
+    secureTextEntry = true
+    return super.textRectForBounds(bounds)
+  }
+}
 
 public class TextField: UITextField {
+
+  public var dx: CGFloat = 10
+
+  private func inset(bounds: CGRect) -> CGRect {
+    let b = CGRect(origin: bounds.origin, size: CGSize(width: bounds.width - 20, height: bounds.height))
+//    return CGRectInset(b, bounds.width * 0.05, bounds.height * -0.03)
+    return CGRectInset(b, dx, bounds.height * -0.03)
+  }
 
   // placeholder position
   override public func textRectForBounds(bounds: CGRect) -> CGRect {
     rightViewMode = .Always
-    let inset = bounds.height * 0.01
-    return CGRectInset(bounds, inset * 10, inset)
+    clearButtonMode = .WhileEditing
+    return inset(bounds)
     //    var rect: CGRect = super.textRectForBounds(bounds)
     //    var insets: UIEdgeInsets = UIEdgeInsetsMake(inset, inset, inset, inset)
     //    return UIEdgeInsetsInsetRect(rect, insets)
@@ -20,8 +34,7 @@ public class TextField: UITextField {
 
   // text position
   override public func editingRectForBounds(bounds: CGRect) -> CGRect {
-    let inset = bounds.height * 0.01
-    return CGRectInset(bounds , inset * 10 , inset)
+    return inset(bounds)
     //    var rect: CGRect = super.editingRectForBounds(bounds)
     //    var insets: UIEdgeInsets = UIEdgeInsetsMake(inset, inset, inset, inset)
     //    return UIEdgeInsetsInsetRect(rect, insets)
