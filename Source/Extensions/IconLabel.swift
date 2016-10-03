@@ -175,7 +175,7 @@ public class IconLabel: DefaultView {
       case .UIImage:
         let p = iconBorder.height * 0.1
         iconImage.fillSuperview(left: p, right: p, top: p, bottom: p)
-        label.alignToTheRightOf(iconBorder, matchingTopWithLeftPadding: paddingBetween, width: width - iconBorder.rightEdge() - 20, height: iconBorder.height)
+        label.alignToTheRightOf(iconBorder, matchingTopWithLeftPadding: paddingBetween, width: width - iconBorder.rightEdge(), height: iconBorder.height)
         label.sized(iconImage.height * 0.8)
       default:
         label.anchorInCenter(width: label.textWidth(), height: label.textHeight())

@@ -16,6 +16,15 @@ public class TextField: UITextField {
 
   public var dx: CGFloat = 10
 
+  public init(placeholder: String = "") {
+    super.init(frame: CGRectZero)
+    self.placeholder = placeholder
+  }
+  
+  required public init?(coder aDecoder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
+
   private func inset(bounds: CGRect) -> CGRect {
     let b = CGRect(origin: bounds.origin, size: CGSize(width: bounds.width - 20, height: bounds.height))
 //    return CGRectInset(b, bounds.width * 0.05, bounds.height * -0.03)

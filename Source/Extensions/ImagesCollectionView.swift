@@ -5,55 +5,20 @@
 
 import UIKit
 
-public class ImagesCollectionView: DefaultView, UICollectionViewDataSource, UICollectionViewDelegate {
-
+public class CollectionView: DefaultView, UICollectionViewDataSource, UICollectionViewDelegate {
   public var collectionView: UICollectionView!
   public var collectionViewLayout = UICollectionViewFlowLayout()
   public let CellIdentifier = "CELL"
-  public var checkable: Checkable = .None {
-    didSet {
-    }
-  }
-  public var bordered: Bool = true
-  public var radius: CGFloat = 0
   public var sectionInset: UIEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10)
-  public var didChecked = {(items: [ImageCellViewModel]) in }
 
-  public init(checkable: Checkable, bordered: Bool = true, radius: CGFloat = 0, sectionInset: UIEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10)) {
-    self.checkable = checkable
-    self.bordered = bordered
-    self.sectionInset = sectionInset
-    self.radius = radius
-    super.init(frame: CGRectZero)
-  }
-
-  required public init?(coder aDecoder: NSCoder) {
-    fatalError("init(coder:) has not been implemented")
-  }
-
-  public var collectionData = [ImageCellViewModel]() {
-    didSet {
-      collectionView.reloadData()
-    }
-  }
-
-  override public func layoutUI() {
+  public override func layoutUI() {
     super.layoutUI()
-    collectionView = collectionView(collectionViewLayout, registeredClass: ImageCell.self, identifier: CellIdentifier, sectionInset: sectionInset)
-    layout([collectionView])
+    collectionView = UICollectionView(frame: CGRectZero, collectionViewLayout: collectionViewLayout)
   }
 
-  override public func styleUI() {
+  public override func styleUI() {
     super.styleUI()
-    collectionView.backgroundColor = UIColor.clearColor()
-//    collectionViewLayout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-    let s: CGFloat = [height.int, 20].maxElement()!.cgFloat / 7 * 5
-    collectionViewLayout.itemSize = CGSizeMake(s, s)
-//    collectionViewLayout.minimumInteritemSpacing = 0
-//    collectionViewLayout.minimumLineSpacing = 0
-  }
-  override public func bindUI() {
-    super.bindUI()
+    collectionView.backgroundColor = K.Color.collectionView
   }
 
   override public func layoutSubviews() {
@@ -62,11 +27,75 @@ public class ImagesCollectionView: DefaultView, UICollectionViewDataSource, UICo
     styleUI()
   }
 
+  public func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+    return UICollectionViewCell()
+  }
+
   public func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    return 0
+  }
+
+  public func registerClass(registeredClass: AnyClass!,  sectionInset: UIEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10), direction: UICollectionViewScrollDirection = .Horizontal) -> UICollectionView {
+    return collectionView(collectionViewLayout, registeredClass: registeredClass, identifier: CellIdentifier, sectionInset: sectionInset, direction: direction)
+  }
+
+}
+
+public class ImagesCollectionView: CollectionView {
+
+  public var checkable: Checkable = .None { didSet { } }
+  public var bordered: Bool = true
+  public var radius: CGFloat = 0
+  public var didChecked = {(items: [ImageCellViewModel]) in }
+
+  public init(checkable: Checkable, bordered: Bool = true, radius: CGFloat = 0, sectionInset: UIEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10)) {
+    self.checkable = checkable
+    self.bordered = bordered
+    self.radius = radius
+    super.init(frame: CGRectZero)
+    self.sectionInset = sectionInset
+  }
+
+  required public init?(coder aDecoder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
+
+  public var collectionData = [ImageCellViewModel]() { didSet { collectionView.reloadData() } }
+
+  override public func layoutUI() {
+    super.layoutUI()
+    collectionView = registerClass(ImageCell.self)
+//    collectionView = collectionView(collectionViewLayout, registeredClass: ImageCell.self, identifier: CellIdentifier, sectionInset: sectionInset)
+    layout([collectionView])
+  }
+
+  override public func styleUI() {
+    super.styleUI()
+    //    collectionViewLayout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+    let s: CGFloat = [height.int, 20].maxElement()!.cgFloat / 7 * 5
+    collectionViewLayout.itemSize = CGSizeMake(s, s)
+    //    collectionViewLayout.minimumInteritemSpacing = 0
+    //    collectionViewLayout.minimumLineSpacing = 0
+  }
+
+
+
+//  override public func styleUI() {
+//    super.styleUI()
+//    collectionView.backgroundColor = UIColor.clearColor()
+////    collectionViewLayout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+//    let s: CGFloat = [height.int, 20].maxElement()!.cgFloat / 7 * 5
+//    collectionViewLayout.itemSize = CGSizeMake(s, s)
+////    collectionViewLayout.minimumInteritemSpacing = 0
+////    collectionViewLayout.minimumLineSpacing = 0
+//  }
+
+
+  public override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     return collectionData.count
   }
 
-  public func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+  public override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
     let cell = collectionView.dequeueReusableCellWithReuseIdentifier(CellIdentifier, forIndexPath: indexPath) as! ImageCell
     cell.contentView.frame = cell.bounds
     cell.contentView.autoresizingMask = [UIViewAutoresizing.FlexibleWidth, UIViewAutoresizing.FlexibleHeight]

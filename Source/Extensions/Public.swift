@@ -263,6 +263,10 @@ public func getIcon(name: FontAwesome, options: NSDictionary = NSDictionary(), i
   return icon
 }
 
+public func getImage(name: String) -> UIImage {
+  return UIImage(named: name)!
+}
+
 public func delayedJob(seconds: Double, todo: () -> ()) {
   let indicator = UIActivityIndicatorView()
   indicator.startAnimating()

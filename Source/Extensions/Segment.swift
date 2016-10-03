@@ -243,7 +243,7 @@ public class Segment: DefaultView {
   }
 
   public var titles: [String]! = []
-  public var size: CGFloat!
+  public var size: CGFloat! { didSet { labels.forEach({$0.label.sized(size)}) }}
   public var group: GroupsView!
 
   public var changed: () -> () = {}

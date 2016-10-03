@@ -51,6 +51,7 @@ public struct K {
     public static var ratings = [UIColor.fromRGB(43, green: 97, blue: 172), UIColor.fromRGB(182, green: 56, blue: 130), UIColor.fromRGB(242, green: 208, blue: 0)]
     public static var body = UIColor.fromRGB(232, green: 232, blue: 232)
     public static var table = UIColor.fromRGB(232, green: 232, blue: 232)
+    public static var collectionView = K.Color.body
     public static var buttonBg = UIColor.fromRGB(38, green: 92, blue: 170)
     public static var button = UIColor.fromRGB(240, green: 240, blue: 240)
     public static var barButtonItem = K.BarButtonItem.color

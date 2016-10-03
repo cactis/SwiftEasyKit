@@ -103,9 +103,9 @@ extension UIView: UIImagePickerControllerDelegate, UINavigationControllerDelegat
     })
   }
 
-  public func collectionView(layout: UICollectionViewFlowLayout, registeredClass: AnyClass!, identifier: String, sectionInset: UIEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10)) -> UICollectionView {
+  public func collectionView(layout: UICollectionViewFlowLayout, registeredClass: AnyClass!, identifier: String, sectionInset: UIEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10), direction: UICollectionViewScrollDirection = .Horizontal) -> UICollectionView {
     let collectionView = UICollectionView(frame: CGRectZero, collectionViewLayout: layout)
-    layout.scrollDirection = .Horizontal
+    layout.scrollDirection = direction
     layout.itemSize = CGSizeMake(100, 100)
     layout.sectionInset = sectionInset
     collectionView.delegate = self as? UICollectionViewDelegate
