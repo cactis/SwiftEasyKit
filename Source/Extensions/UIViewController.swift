@@ -15,6 +15,23 @@ import SwiftRandom
 
 extension UIViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
+  public func enableTabBarController(viewControllers: [UIViewController]!, titles: [String]!, images: [UIImage], selectedImages: [UIImage] = []) -> UITabBarController! {
+    var _selectedImages = [UIImage]()
+    if selectedImages.count > 0 {
+      _selectedImages = selectedImages
+    } else {
+      _selectedImages = images
+    }
+    let tabBarViewController = UITabBarController()
+    let vcs = viewControllers.map({ $0.embededInNavigationController() })
+    for (index, vc) in vcs.enumerate() {
+      vc.tabBarItem = UITabBarItem(title: titles[index], image: images[index], selectedImage: _selectedImages[index])
+      viewControllers[index].titled(titles[index])
+    }
+    tabBarViewController.viewControllers = vcs
+    return tabBarViewController
+  }
+
   public func _enableDebugInfo(fileName: String = (#file as NSString).lastPathComponent) {
     _logForUIMode()
     if _isSimulator() {

@@ -50,8 +50,7 @@ public class SegmentWithViews: DefaultView, UIScrollViewDelegate {
   }
 
   public func tappedAtIndex(index: Int) {
-    segment.index = index
-    segmentTapped()
+    segment.tappedAtIndex(index)
   }
 
   public func segmentTapped() {
@@ -253,6 +252,12 @@ public class Segment: DefaultView {
 
   public var textColorFollowedByIndicator = false {
     didSet { indicatorConstraints() }
+  }
+
+  public func tappedAtIndex(index: Int) {
+    self.index = index
+    segmentTapped()
+    changed()
   }
 
   public enum IndicatorStyle {

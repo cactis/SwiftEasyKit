@@ -263,6 +263,10 @@ public func getIcon(name: FontAwesome, options: NSDictionary = NSDictionary(), i
   return icon
 }
 
+public func getImage(iconCode iconCode: String, color: UIColor = K.Color.barButtonItem, size: CGFloat = K.BarButtonItem.size) -> UIImage {
+  return UIImage.fromCode(iconCode, color: K.Color.facebook, size: 14.em)
+}
+
 public func getImage(name: String) -> UIImage {
   return UIImage(named: name)!
 }
