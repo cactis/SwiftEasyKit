@@ -140,7 +140,7 @@ Pod::Spec.new do |s|
   s.dependency 'SwiftyJSON'
   s.dependency 'RandomKit'
   s.dependency 'Facade'
-  s.dependency 'Fakery'
+  s.dependency 'Fakery', '1.2.0'
   s.dependency 'FontAwesomeKit'
   s.dependency 'Alamofire'
   s.dependency 'KDCircularProgress', '1.4.0'
