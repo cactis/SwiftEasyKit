@@ -588,3 +588,16 @@ extension UITableView {
   }
 
 }
+
+extension UITableViewRowAction {
+  public func setImage(icon: UIImage, size: CGSize, rect: CGRect, bgColor: UIColor) -> UITableViewRowAction {
+    UIGraphicsBeginImageContext(size)
+    bgColor.set()
+    UIRectFill(CGRectMake(0, 0, size.width, size.height))
+    icon.drawInRect(rect)
+    let image = UIGraphicsGetImageFromCurrentImageContext()
+    UIGraphicsEndImageContext()
+    backgroundColor = UIColor(patternImage: image)
+    return self
+  }
+}

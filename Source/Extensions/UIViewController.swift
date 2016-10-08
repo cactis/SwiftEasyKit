@@ -54,7 +54,7 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
   }
 
   public func titled(title: String, token: String = Lorem.token()) -> UIViewController {
-    navigationItem.title = _isSimulator() ? "\(token)-\(title)" : title
+    navigationItem.title = _isSimulator() ? "[\(token)]-\(title)" : title
     return self
   }
 
