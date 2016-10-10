@@ -155,8 +155,8 @@ extension String {
     return t
   }
 
-  public func split() -> [String] {
-    return self.characters.split{$0 == " "}.map(String.init)
+  public func split(char: Character = " ") -> [String] {
+    return self.characters.split{$0 == char}.map(String.init)
   }
 
   public func formatedAs(format: String = "%02d") -> String {

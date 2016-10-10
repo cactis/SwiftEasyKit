@@ -182,8 +182,6 @@ public func delayedJob(todo: () -> ()) {
   delayedJob(0.5, todo: todo)
 }
 
-
-
 public func wizRandomToken() -> String {
   return String.random()
 }
@@ -202,6 +200,10 @@ public func wizRandomPercentage() -> Float {
 
 public func screenWidth() -> CGFloat {
   return UIScreen.mainScreen().bounds.width
+}
+
+public func screenCenter() -> CGPoint {
+  return CGPoint(x: screenWidth() / 2, y: screenHeight() / 2)
 }
 
 public func screenHeight() -> CGFloat {
@@ -228,7 +230,6 @@ public func randomImages(n: Int = 2, of: Int = 10, placeHolder: UIImage = UIImag
   return (0...of - 1).map({ (i) in if i < n { return UIImage(named: randomImageName())! } else { return placeHolder }})
 }
 
-
 public func notNull(s: AnyObject?) -> String! {
   if (s != nil) && !(s!.isEqual(NSNull())) {
     return s as! String
@@ -248,7 +249,6 @@ public func notNullDate(s: NSDate?) -> NSDate! {
 public func logInfo(fileName: String? = #file, funcName: String? = #function) -> [String: String] {
   return ["fileName": (fileName! as NSString).lastPathComponent, "funcName": funcName!]
 }
-
 
 public func barButtonItemImage(name: FontAwesome) -> UIImage {
   return getIcon(name, options: ["size": K.BarButtonItem.size])
@@ -274,13 +274,27 @@ public func getImage(name: String) -> UIImage {
 public func delayedJob(seconds: Double, todo: () -> ()) {
   let indicator = UIActivityIndicatorView()
   indicator.startAnimating()
-  //    indicator.center = UIScreen.mainScreen().bounds.center
+  indicator.center = screenCenter()
+  currentView()?.addSubview(indicator)
   let delay = seconds * Double(NSEC_PER_SEC)
   let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
   dispatch_after(time, dispatch_get_main_queue()) {
     todo()
+    indicator.removeFromSuperview()
     indicator.stopAnimating()
   }
+}
+
+public func currentView() -> UIView? {
+  return window()?.subviews.last
+}
+
+public func window() -> UIWindow? {
+  return appDelegate().window
+}
+
+public func appDelegate() -> DefaultAppDelegate {
+  return UIApplication.sharedApplication().delegate as! DefaultAppDelegate
 }
 
 public func verticalLayout(blocks: [UIView], heights: [CGFloat], padding: CGFloat = 0, xPad: CGFloat = 0, yPad: CGFloat = 0) {

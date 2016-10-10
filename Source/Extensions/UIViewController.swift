@@ -53,14 +53,10 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
     navigationController?.popViewControllerAnimated(true)
   }
 
-  public func titled(title: String, token: String = Lorem.token()) -> UIViewController {
-    navigationItem.title = _isSimulator() ? "[\(token)]-\(title)" : title
+  public func titled(title: String, token: String = #file) -> UIViewController {
+    navigationItem.title = _isSimulator() ? "[\(token.split("/").last!.split(".").first!)]-\(title)" : title
     return self
   }
-
-//  func appDelegate() -> AppDelegate {
-//    return UIApplication.sharedApplication().delegate as! AppDelegate
-//  }
 
   public func openImagePicker(sourceType: UIImagePickerControllerSourceType = .Camera) -> UIImagePickerController {
     var type = sourceType
@@ -79,10 +75,6 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
   public func flipViewController(vc: UIViewController, run: () -> () = {}) {
     openViewController(vc, style: .FlipHorizontal, run: run)
   }
-//
-//  func getViewControllersFromTabBar() -> [UIViewController] {
-//    return appDelegate().tabBarViewController.viewControllers!
-//  }
 
   public func openViewController(vc: UIViewController, style: UIModalTransitionStyle = .CoverVertical, run: ()->() = {}) {
     openControllerWithDelegate(self, vc: vc, style: style, run: run)
@@ -190,15 +182,22 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
     return item
   }
 
+  @nonobjc
+  public func setLeftBarButtonItem(title: String, action: Selector) -> UIBarButtonItem {
+    let item = newBarButtonItem(title, action: action)
+    item.customView?.layoutSubviews()
+    self.navigationItem.leftBarButtonItems = [item]
+    return item
+  }
+
+
   public func addRightBarButtonItemWithBadge(image: UIImage, action: Selector) -> UIBarButtonItem {
     let item = newBarButtonItemWithBadge(image, action: action)
     var items: [UIBarButtonItem] = [UIBarButtonItem]()
     if let _item = self.navigationItem.rightBarButtonItem {
-      _logForUIMode(1)
       item.imageInsets = UIEdgeInsetsMake(0, 0, 0, -25)
       items = [_item, item]
     } else {
-      _logForUIMode(2)
       items = [item]
     }
     item.customView?._coloredWithSuperviews()

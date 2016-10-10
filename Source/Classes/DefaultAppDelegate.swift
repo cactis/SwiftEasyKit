@@ -10,12 +10,14 @@ import Foundation
 
 public class DefaultAppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegate {
 
+  public var window: UIWindow?
+  public var tabBarViewController: UITabBarController!
+
   public func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
     UITabBar.appearance().tintColor = K.Color.tabBar
     UITabBar.appearance().barTintColor = K.Color.tabBarBackgroundColor
     return true
   }
-
 
   public func enableTabBarController(delegate: UITabBarControllerDelegate, viewControllers: [UIViewController]!, titles: [String]!, images: [UIImage], selectedImages: [UIImage] = []) -> (UIWindow?, UITabBarController!) {
     var _selectedImages = [UIImage]()
