@@ -12,7 +12,7 @@ public struct Development {
   //  static var simulator = true
   public static var setDeviceAsSimulator = false
   public static var mode = "UI Design"
-  //  static var mode = "API Implement"
+//  public static var mode = "API Implement"
 }
 
 
