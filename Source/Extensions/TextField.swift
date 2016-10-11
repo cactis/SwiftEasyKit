@@ -15,10 +15,16 @@ public class Password: TextField {
 public class TextField: UITextField {
 
   public var dx: CGFloat = 10
+  public var bordered = false {
+    didSet {
+      if bordered { borderStyle = .RoundedRect } else { borderStyle = .None }
+    }
+  }
 
-  public init(placeholder: String = "") {
+  public init(placeholder: String = "", bordered: Bool = false) {
     super.init(frame: CGRectZero)
     self.placeholder = placeholder
+    ({ self.bordered = bordered })()
   }
   
   required public init?(coder aDecoder: NSCoder) {

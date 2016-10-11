@@ -115,6 +115,11 @@ public struct K {
       public static var height = K.Size.Submit.size * 2.5
     }
 
+    public struct Input {
+      public static var height = 40.cgFloat
+      public static var padding = 20.cgFloat
+    }
+
     public struct Header {
       public static var height: CGFloat = 60.em
     }
