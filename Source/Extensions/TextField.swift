@@ -39,8 +39,10 @@ public class TextField: UITextField {
 
   // placeholder position
   override public func textRectForBounds(bounds: CGRect) -> CGRect {
-    rightViewMode = .Always
-    clearButtonMode = .WhileEditing
+    if bounds.width > 100 {
+      rightViewMode = .Always
+      clearButtonMode = .WhileEditing
+    }
     return inset(bounds)
     //    var rect: CGRect = super.textRectForBounds(bounds)
     //    var insets: UIEdgeInsets = UIEdgeInsetsMake(inset, inset, inset, inset)

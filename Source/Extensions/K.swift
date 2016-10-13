@@ -8,7 +8,12 @@ public struct K {
 
   public struct Api {
     public static var host = ""
+    public static var production = ""
+    public static var stage = ""
+    public static var local = ""
+
     public static var prefix = "api/"
+
     public static var pushserver = ""
     public static var pushserverSubscribe = ""
     public static var appID = ""
@@ -167,6 +172,7 @@ public struct K {
 
   public struct App {
     public static var name = ""
+    public static var mode = "stage" // "production"
   }
 
   public struct Path {

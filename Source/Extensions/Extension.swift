@@ -176,6 +176,12 @@ extension String {
     return toHtml()
   }
 
+  public func toHtmlWithStyle(css: String) -> NSAttributedString {
+    let html = "<html><head><style>\(css)</style></head><body>\(self)</body></html>"
+    _logForUIMode(html, title: "html")
+    return html.toHtml()
+  }
+  
   public func toHtml() -> NSAttributedString {
     do {
       let result = try NSAttributedString(data: dataUsingEncoding(NSUnicodeStringEncoding, allowLossyConversion: true)!, options: [NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType], documentAttributes: nil)

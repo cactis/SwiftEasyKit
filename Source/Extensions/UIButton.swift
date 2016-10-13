@@ -44,6 +44,16 @@ extension UIButton {
     return self
   }
 
+  public func lighter(diff: CGFloat = 0.2) -> UIButton {
+    titleLabel?.lighter(diff)
+    return self
+  }
+
+  public func darker(diff: CGFloat = 0.2) -> UIButton {
+    titleLabel?.darker(diff)
+    return self
+  }
+
   public func styled(text: String = Lorem.name(), options: NSDictionary = NSDictionary()) -> UIButton {
     let fontSize = options["fontSize"] as? CGFloat ?? options["size"] as? CGFloat ?? K.Size.Submit.size
     let backgroundColor = options["backgroundColor"] as? UIColor ?? UIColor.clearColor()

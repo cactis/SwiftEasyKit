@@ -17,7 +17,9 @@ public class API {
     } else {
       headers["token"] = ""
     }
-    Alamofire.request(method, url, parameters: parameters, headers: headers).responseJSON { response in
+    let path = url.containsString("http") ? url : "\(K.Api.host)\(url)"
+    _logForUIMode(path, title: "path")
+    Alamofire.request(method, path, parameters: parameters, headers: headers).responseJSON { response in
       run(response: response)
     }
     delayedJob(5) {
