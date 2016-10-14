@@ -22,7 +22,14 @@ public struct K {
     public static var deviceTokenKey = "deviceToken"
     public static var deviceNameKey = "deviceName"
 
+    public static var sign_in = "/users/sign_in"
+    public static var sign_out = "/users/sign_out"
+    public static var sign_up = "/users"
 
+    public struct Response {
+      public static var success = "success"
+      public static var error = "error"
+    }
   }
 
   public struct Text {
@@ -82,6 +89,11 @@ public struct K {
     public struct Chat {
       public static var primary = UIColor.fromRGB(177, green: 244, blue: 116)
       public static var secondary = UIColor.fromRGB(221, green: 226, blue: 230)
+    }
+
+    public struct Alert {
+      public static var color = UIColor.whiteColor()
+      public static var backgroundColor = UIColor.fromHex("008cc9")
     }
 
     public struct Segment {

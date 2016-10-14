@@ -117,13 +117,11 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
 
   }
 
-
   public func navBarHeight() -> CGFloat {
     return (navigationController?.navigationBar.height)!
   }
 
   public func tabBarHeight() -> CGFloat {
-
     if let tabbar = tabBarController {
       if tabbar.tabBar.hidden == true {
         return 0
@@ -144,7 +142,7 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
   public func viewNetHeight() -> CGFloat {
     var barHeight: CGFloat = 0
     if UIApplication.sharedApplication().statusBarFrame != CGRectZero {
-      barHeight = UIApplication.sharedApplication().statusBarFrame.height
+      barHeight = statusBarHeight()
     }
     return view.height() - barHeight// - 44 //(navigationController?.navigationBar.height)!
   }

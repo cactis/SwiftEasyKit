@@ -14,6 +14,51 @@ import Neon
 import RandomKit
 import SwiftRandom
 
+public func statusBarHeight() -> CGFloat {
+  return UIApplication.sharedApplication().statusBarFrame.height
+}
+
+public func prompt(msg: String) {
+  _logForUIMode(msg)
+  UIApplication.sharedApplication().statusBarHidden = true
+  let notification = UIButton()
+  let block = DefaultView()
+  let label = UILabel()
+  block.backgroundColored(K.Color.Alert.backgroundColor).bottomBordered().shadowed().radiused(3)
+  label.styled().colored(K.Color.Alert.color).text(msg).multilinized().centered().sized(14.em)
+  notification.layout([block.layout([label])])
+  let w = screenWidth() - 40
+  let h = label.getHeightBySizeThatFitsWithWidth(w)
+  label.frame = CGRect(x: 20, y: 30, width: w, height: h)
+  block.frame = CGRect(x: 10, y: statusBarHeight() - 2.em, width: screenWidth() - 20, height: h + label.topEdge() * 2)
+  block.frame = CGRect(x: 10, y: 0, width: screenWidth() - 20, height: h + label.topEdge() * 2)
+  if let v = window() {
+    
+    _logForUIMode(true)
+    v.addSubview(notification)
+    notification.frame = CGRect(x: 0, y: -1 * screenHeight(), width: screenWidth(), height: screenHeight())
+
+    UIView().animate(onComplete: {
+      notification.frame = CGRect(x: 0, y: 0, width: screenWidth(), height: screenHeight())
+    })
+
+    delayedJob(5, withIndicator: false, todo: {
+      notification.tapped()
+    })
+    notification.whenTapped({
+      UIView().animate(onComplete: {
+        notification.frame = CGRect(x: 0, y: -1 * screenHeight(), width: screenWidth(), height: screenHeight())
+      })
+      delayedJob({
+        UIView().animate(onComplete: {
+          notification.removeFromSuperview()
+        })
+      })
+    })
+  }
+}
+
+
 public func wizImage(name: String) -> UIImage {
   var img = UIImage(named: name)
   img = img?.imageWithRenderingMode(.AlwaysOriginal)
@@ -271,11 +316,13 @@ public func getImage(name: String) -> UIImage {
   return UIImage(named: name)!
 }
 
-public func delayedJob(seconds: Double, todo: () -> ()) {
+public func delayedJob(seconds: Double, withIndicator: Bool = true, todo: () -> ()) {
   let indicator = UIActivityIndicatorView()
-  indicator.startAnimating()
-  indicator.center = screenCenter()
-  currentView()?.addSubview(indicator)
+  if withIndicator {
+    indicator.startAnimating()
+    indicator.center = screenCenter()
+    currentView()?.addSubview(indicator)
+  }
   let delay = seconds * Double(NSEC_PER_SEC)
   let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
   dispatch_after(time, dispatch_get_main_queue()) {

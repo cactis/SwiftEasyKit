@@ -8,7 +8,7 @@ import Alamofire
 
 public class API {
 
-  class public func request(method: Alamofire.Method = .GET, url: String, parameters: [String: String] = [:], fileName: String? = #file, funcName: String? = #function, run: (response: Response<AnyObject, NSError>) -> ()) {
+  class public func request(method: Alamofire.Method = .GET, url: String, parameters: [String: AnyObject] = [:], fileName: String? = #file, funcName: String? = #function, run: (response: Response<AnyObject, NSError>) -> ()) {
 
     let appId = K.Api.appID
     var headers = ["app_id": appId, "file_name": (fileName! as NSString).lastPathComponent, "func_name": funcName!]
@@ -21,6 +21,12 @@ public class API {
     _logForUIMode(path, title: "path")
     Alamofire.request(method, path, parameters: parameters, headers: headers).responseJSON { response in
       run(response: response)
+      print("response:", response)
+      if let value = (response.result.value as? NSDictionary) {
+        if let error = value.objectForKey(K.Api.Response.error) {
+          prompt(error as! String)
+        }
+      }
     }
     delayedJob(5) {
       _logForAPIMode("*** make a recall for log server to make sure app not crashed!! ***")
