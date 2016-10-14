@@ -31,7 +31,7 @@ public func prompt(msg: String) {
   let h = label.getHeightBySizeThatFitsWithWidth(w)
   label.frame = CGRect(x: 20, y: 30, width: w, height: h)
   block.frame = CGRect(x: 10, y: statusBarHeight() - 2.em, width: screenWidth() - 20, height: h + label.topEdge() * 2)
-  block.frame = CGRect(x: 10, y: 0, width: screenWidth() - 20, height: h + label.topEdge() * 2)
+//  block.frame = CGRect(x: 10, y: 0, width: screenWidth() - 20, height: h + label.topEdge() * 2)
   if let v = window() {
     
     _logForUIMode(true)
