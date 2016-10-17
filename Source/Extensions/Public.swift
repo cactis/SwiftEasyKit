@@ -18,20 +18,39 @@ public func statusBarHeight() -> CGFloat {
   return UIApplication.sharedApplication().statusBarFrame.height
 }
 
-public func prompt(msg: String) {
+public func prompt(msg: String, title: String = "") {
   _logForUIMode(msg)
   UIApplication.sharedApplication().statusBarHidden = true
   let notification = UIButton()
   let block = DefaultView()
   let label = UILabel()
   block.backgroundColored(K.Color.Alert.backgroundColor).bottomBordered().shadowed().radiused(3)
-  label.styled().colored(K.Color.Alert.color).text(msg).multilinized().centered().sized(14.em)
+  label.styled().colored(K.Color.Alert.color).text(msg).multilinized().centered().sized(12.em)
   notification.layout([block.layout([label])])
-  let w = screenWidth() - 40
+
+  let xPad = 10.em
+  var yPad = 15.em
+
+  let w = screenWidth() - 4 * xPad
   let h = label.getHeightBySizeThatFitsWithWidth(w)
-  label.frame = CGRect(x: 20, y: 30, width: w, height: h)
-  block.frame = CGRect(x: 10, y: statusBarHeight() - 2.em, width: screenWidth() - 20, height: h + label.topEdge() * 2)
-//  block.frame = CGRect(x: 10, y: 0, width: screenWidth() - 20, height: h + label.topEdge() * 2)
+
+  label.frame = CGRect(x: xPad, y: yPad, width: w, height: h)
+  block.frame = CGRect(x: xPad, y: 0, width: w + 2 * xPad, height: label.bottomEdge() + yPad)
+
+  label.userInteractionEnabled = false
+  block.userInteractionEnabled = false
+//  label._bordered()
+
+  print(label.height, label.textHeight() + 4)
+  if label.linesCount > 1 {
+    label.aligned(.Left)
+  }
+
+//  var bar = UIView()
+//  bar.backgroundColored(UIColor.blackColor())
+//  bar.frame = CGRect(x: 0, y: 0, width: screenWidth(), height: statusBarHeight())
+//  notification.layout([bar])
+
   if let v = window() {
     
     _logForUIMode(true)
@@ -39,12 +58,13 @@ public func prompt(msg: String) {
     notification.frame = CGRect(x: 0, y: -1 * screenHeight(), width: screenWidth(), height: screenHeight())
 
     UIView().animate(onComplete: {
-      notification.frame = CGRect(x: 0, y: 0, width: screenWidth(), height: screenHeight())
+      notification.frame = CGRect(x: 0, y: statusBarHeight(), width: screenWidth(), height: screenHeight())
     })
 
     delayedJob(5, withIndicator: false, todo: {
       notification.tapped()
     })
+  
     notification.whenTapped({
       UIView().animate(onComplete: {
         notification.frame = CGRect(x: 0, y: -1 * screenHeight(), width: screenWidth(), height: screenHeight())
@@ -309,7 +329,7 @@ public func getIcon(name: FontAwesome, options: NSDictionary = NSDictionary(), i
 }
 
 public func getImage(iconCode iconCode: String, color: UIColor = K.Color.barButtonItem, size: CGFloat = K.BarButtonItem.size) -> UIImage {
-  return UIImage.fromCode(iconCode, color: K.Color.facebook, size: 14.em)
+  return UIImage.fromCode(iconCode, color: color, size: size)
 }
 
 public func getImage(name: String) -> UIImage {

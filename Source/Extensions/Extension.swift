@@ -121,7 +121,7 @@ public class Lorem: LoremIpsum {
   }
 
   public class func phone() -> String {
-    return faker.phoneNumber.phoneNumber()
+    return "\(wizRandomInt(11111, upper: 99999))\(wizRandomInt(11111, upper: 99999))"
   }
 
   override public class func name() -> String {

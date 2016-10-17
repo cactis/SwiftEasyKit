@@ -63,6 +63,11 @@ extension UILabel {
     return self
   }
 
+  public var linesCount: Int {
+    let size = sizeThatFits(CGSizeMake(self.frame.size.width, CGFloat.max))
+    return [(size.height / self.font.lineHeight).int, 0].maxElement()!
+  }
+
   public func html(html: NSAttributedString) -> UILabel {
     self.attributedText = html
     return self
@@ -98,6 +103,12 @@ extension UILabel {
 
   public func darker(diff: CGFloat = 0.2) -> UILabel {
     colored(textColor.darker(diff))
+    return self
+  }
+
+  @available(iOS 8.2, *)
+  public func weighted(weight: CGFloat = UIFontWeightLight) -> UILabel {
+    font = UIFont.systemFontOfSize(font.pointSize, weight:  weight)
     return self
   }
 
