@@ -28,7 +28,7 @@ public struct K {
 
     public struct Response {
       public static var success = "success"
-      public static var error = "error"
+      public static var message = "error"
     }
   }
 

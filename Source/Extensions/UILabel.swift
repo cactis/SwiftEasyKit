@@ -14,6 +14,11 @@ import SwiftRandom
 
 extension UILabel {
 
+  public convenience init(text: String) {
+    self.init(frame: CGRectZero)
+    self.text = text
+  }
+
   public func iconFonted(iconCode: String, iconColor: UIColor = K.Color.Segment.deactive, size: CGFloat = K.BarButtonItem.size) -> UILabel {
     self.text(iconCode)
     self.font = UIFont(name: K.Font.icon, size: size)

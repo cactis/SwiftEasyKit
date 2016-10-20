@@ -18,20 +18,51 @@ public class API {
       headers["token"] = ""
     }
     let path = url.containsString("http") ? url : "\(K.Api.host)\(url)"
-    _logForUIMode(path, title: "path")
+    print("path", path)
     Alamofire.request(method, path, parameters: parameters, headers: headers).responseJSON { response in
-      run(response: response)
-      print("response:", response)
-      if let value = (response.result.value as? NSDictionary) {
-        if let error = value.objectForKey(K.Api.Response.error) {
-          prompt(error as! String)
+      print("reponse.request", response.request)
+      print("NSProcessInfo.processInfo().environment: ", NSProcessInfo.processInfo().environment)
+      switch response.result {
+      case .Success(let value):
+        print("response: ", response)
+        if let items = value as? NSArray {
+          run(response: response)
+        } else {
+          if let message = value.objectForKey(K.Api.Response.message) {
+            prompt(message as! String)
+          } else {
+            print("response:", response)
+            run(response: response)
+          }
         }
+      case .Failure:
+        print("response:", response)
+        //        #if DEBUG
+        //          prompt((response.result.error?.localizedDescription)!)
+        //        #else
+        //          if _isSimulator() {
+        prompt((response.result.error?.localizedDescription)!)
+        //          }
+        //        #endif
+
       }
+      //      if let value = response.result.value {
+      ////      if let value = (response.result.value as? NSDictionary) {
+      //        if let error = value.objectForKey(K.Api.Response.error) {
+      //          prompt(error as! String)
+      //        } else {
+      //          print("response:", response)
+      //          run(response: response)
+      //        }
+      //      } else {
+      //        print("response:", response)
+      ////        run(response: response)
+      //      }
     }
     delayedJob(5) {
       _logForAPIMode("*** make a recall for log server to make sure app not crashed!! ***")
     }
   }
-
+  
 }
 

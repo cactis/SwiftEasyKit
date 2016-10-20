@@ -125,11 +125,11 @@ public class Lorem: LoremIpsum {
   }
 
   override public class func name() -> String {
-    if condition() {
+//    if condition() {
       return super.name()
-    } else {
-      return ""
-    }
+//    } else {
+//      return ""
+//    }
   }
 
 }
@@ -142,6 +142,10 @@ extension UIGestureRecognizer {
 }
 
 extension String {
+
+  public func gsub(target: String, withString: String) -> String {
+    return stringByReplacingOccurrencesOfString(target, withString: withString)
+  }
 
   public func safeForURL() -> String {
     return stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLHostAllowedCharacterSet())!

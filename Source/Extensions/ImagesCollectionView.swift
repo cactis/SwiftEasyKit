@@ -60,7 +60,7 @@ public class ImagesCollectionView: CollectionView {
     fatalError("init(coder:) has not been implemented")
   }
 
-  public var collectionData = [ImageCellViewModel]() { didSet { collectionView.reloadData() } }
+  public var collectionData = [ImageCellViewModel]() { didSet { _logForUIMode(); collectionView.reloadData() } }
 
   override public func layoutUI() {
     super.layoutUI()
@@ -105,7 +105,7 @@ public class ImagesCollectionView: CollectionView {
     cell.tag = indexPath.row
     cell.layoutIfNeeded()
     if bordered {
-      cell.bordered(1, color: UIColor.lightGrayColor().CGColor)
+      cell.bordered(1, color: UIColor.lightGrayColor().colorWithAlphaComponent(0.5).CGColor)
     }
     return cell
   }
@@ -125,6 +125,8 @@ public class ImagesCollectionView: CollectionView {
 
     public var data: ImageCellViewModel! {
       didSet {
+        print(data.image)
+        print(data.url)
         if (data.url) != nil {
           photo.loadImageWithString(data.url)
         } else {
@@ -160,7 +162,7 @@ public class ImagesCollectionView: CollectionView {
       let p = width * 0.1
       let s = width * 0.3
       checkedImage.anchorInCorner(.BottomRight, xPad: p, yPad: p, width: s, height: s)
-      checkedImage.radiused(s / 2).bordered(1, color: K.Color.buttonBg.CGColor)
+      checkedImage.radiused(s / 2).bordered(1, color: K.Color.buttonBg.colorWithAlphaComponent(0.2).CGColor)
     }
   }
 }

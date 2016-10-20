@@ -24,6 +24,7 @@ public func prompt(msg: String, title: String = "") {
   let notification = UIButton()
   let block = DefaultView()
   let label = UILabel()
+
   block.backgroundColored(K.Color.Alert.backgroundColor).bottomBordered().shadowed().radiused(3)
   label.styled().colored(K.Color.Alert.color).text(msg).multilinized().centered().sized(12.em)
   notification.layout([block.layout([label])])
@@ -39,20 +40,13 @@ public func prompt(msg: String, title: String = "") {
 
   label.userInteractionEnabled = false
   block.userInteractionEnabled = false
-//  label._bordered()
 
   print(label.height, label.textHeight() + 4)
   if label.linesCount > 1 {
     label.aligned(.Left)
   }
 
-//  var bar = UIView()
-//  bar.backgroundColored(UIColor.blackColor())
-//  bar.frame = CGRect(x: 0, y: 0, width: screenWidth(), height: statusBarHeight())
-//  notification.layout([bar])
-
   if let v = window() {
-    
     _logForUIMode(true)
     v.addSubview(notification)
     notification.frame = CGRect(x: 0, y: -1 * screenHeight(), width: screenWidth(), height: screenHeight())
@@ -69,10 +63,8 @@ public func prompt(msg: String, title: String = "") {
       UIView().animate(onComplete: {
         notification.frame = CGRect(x: 0, y: -1 * screenHeight(), width: screenWidth(), height: screenHeight())
       })
-      delayedJob({
-        UIView().animate(onComplete: {
-          notification.removeFromSuperview()
-        })
+      delayedJob(0.1, withIndicator: false, todo: {
+        notification.removeFromSuperview()
       })
     })
   }

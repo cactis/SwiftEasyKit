@@ -17,6 +17,11 @@ extension UIScrollView {
     return self
   }
 
+  public func scrollToTrailing() -> UIScrollView {
+    setContentOffset(CGPointMake(contentSize.width - width, 0), animated: true)
+    return self
+  }
+
   public func scrollToTop(target: UIView, duration: NSTimeInterval = 0.2, completion: () -> () = {}) -> UIScrollView {
     //    setContentOffset(CGPointMake(0, target.y), animated: true)
     UIView.animateWithDuration(duration, animations: {
