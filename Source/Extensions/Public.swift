@@ -58,7 +58,7 @@ public func prompt(msg: String, title: String = "") {
     delayedJob(5, withIndicator: false, todo: {
       notification.tapped()
     })
-  
+
     notification.whenTapped({
       UIView().animate(onComplete: {
         notification.frame = CGRect(x: 0, y: -1 * screenHeight(), width: screenWidth(), height: screenHeight())
@@ -328,19 +328,34 @@ public func getImage(name: String) -> UIImage {
   return UIImage(named: name)!
 }
 
-public func delayedJob(seconds: Double, withIndicator: Bool = true, todo: () -> ()) {
+public func indicatorStart() -> UIView {
+  let bg = UIView()
   let indicator = UIActivityIndicatorView()
-  if withIndicator {
-    indicator.startAnimating()
-    indicator.center = screenCenter()
-    currentView()?.addSubview(indicator)
-  }
+  indicator.startAnimating()
+  bg.frame = CGRectMake(0, 0, screenWidth(), screenHeight())
+  bg.center = screenCenter()
+  bg.userInteractionEnabled = false
+//  bg.backgroundColored(UIColor.blackColor().colorWithAlphaComponent(0.05))
+  indicator.center = screenCenter()
+  currentView()?.addSubview(bg)
+  bg.addSubview(indicator)
+
+  return bg
+}
+
+public func indicatorEnd(indicator: UIView) {
+  indicator.removeFromSuperview()
+  //  indicator.indicator.stopAnimating()
+}
+
+public func delayedJob(seconds: Double, withIndicator: Bool = true, todo: () -> ()) {
+  var indicator = UIView()
+  if withIndicator { indicator =  indicatorStart() }
   let delay = seconds * Double(NSEC_PER_SEC)
   let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
   dispatch_after(time, dispatch_get_main_queue()) {
     todo()
-    indicator.removeFromSuperview()
-    indicator.stopAnimating()
+    indicatorEnd(indicator)
   }
 }
 

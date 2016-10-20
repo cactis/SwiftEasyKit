@@ -19,6 +19,9 @@ public class API {
     }
     let path = url.containsString("http") ? url : "\(K.Api.host)\(url)"
     print("path", path)
+
+
+    let indicator = indicatorStart()
     Alamofire.request(method, path, parameters: parameters, headers: headers).responseJSON { response in
       print("reponse.request", response.request)
       print("NSProcessInfo.processInfo().environment: ", NSProcessInfo.processInfo().environment)
@@ -58,6 +61,7 @@ public class API {
       //        print("response:", response)
       ////        run(response: response)
       //      }
+      indicatorEnd(indicator)
     }
     delayedJob(5) {
       _logForAPIMode("*** make a recall for log server to make sure app not crashed!! ***")

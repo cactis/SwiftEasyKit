@@ -120,6 +120,8 @@ extension UIButton {
   }
 
   public func whenTapped(handler: () -> Void) -> UIButton {
+    self.userInteractionEnabled = false
+    delayedJob({ self.userInteractionEnabled = true })
     handleControlEvent(.TouchUpInside, handler: handler)
     return self
   }

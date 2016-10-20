@@ -81,10 +81,12 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
   }
 
   public func pushViewController(vc: UIViewController, onComplete: () -> () = {}) -> Void {
-    navigationController?.pushViewController(vc, animated: true)
-    //    delayedJob {
-    onComplete()
-    //    }
+    if !(navigationController?.topViewController?.isKindOfClass(vc.dynamicType))! {
+      navigationController?.pushViewController(vc, animated: true)
+      onComplete()
+    } else {
+      _logForUIMode("oh my god, stop!! don't push again")
+    }
   }
 
   public func setFieldsGroup(fields: [UITextField]) -> Void {
