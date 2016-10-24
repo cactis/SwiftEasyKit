@@ -23,6 +23,8 @@ public struct K {
     public static var deviceTokenKey = "deviceToken"
     public static var deviceNameKey = "deviceName"
 
+    public static var timeFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+
     public struct Resource {
       public static var sign_in = "/users/sign_in"
       public static var sign_out = "/users/sign_out"

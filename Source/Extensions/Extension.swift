@@ -203,10 +203,13 @@ extension String {
     return "\(headTag)\(self)\(footTag)"
   }
 
-  public func toDate() -> NSDate {
+  public func toDate(dataFormat: String = K.Api.timeFormat) -> NSDate {
     let df = NSDateFormatter()
-    df.dateFormat = "yyyy-MM-dd HH:mm:SS +0000"
-    return df.dateFromString(self.stringByReplacingOccurrencesOfString("T", withString: " "))!
+    df.dateFormat = dataFormat
+//    var s = self
+    print(self)
+//    s = s.containsString("T") ? self.stringByReplacingOccurrencesOfString("T", withString: " ") : s
+    return df.dateFromString(self)!
   }
 }
 
