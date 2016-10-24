@@ -140,6 +140,7 @@ Pod::Spec.new do |s|
   s.dependency 'SwiftyJSON', '2.3.2'
   s.dependency 'RandomKit'
   s.dependency 'Facade'
+  s.dependency 'mailgun', '~> 1.0.3'
   s.dependency 'Fakery', '1.2.0'
   s.dependency 'FontAwesomeKit'
   s.dependency 'Alamofire'

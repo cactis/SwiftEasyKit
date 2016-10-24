@@ -45,5 +45,12 @@ public class DefaultAppDelegate: UIResponder, UIApplicationDelegate, UITabBarCon
     return window!
   }
 
+  public func redirectToLogin() {
+    _logForUIMode()
+  }
+
+  public func did500Error() {
+    _logForUIMode()
+  }
 
 }

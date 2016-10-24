@@ -19,14 +19,10 @@ public class SegmentWithViews: DefaultView, UIScrollViewDelegate {
   public var segmentHeight: CGFloat = 40
   public var segmentXPad: CGFloat = 0
   public var segmentYPad: CGFloat = 0
-//  var scrollViewXPad: CGFloat = 0
-//  var scrollViewYPad: CGFloat = 0
-
 
   public init(titles: [String]!, iconCodes: [String]! = [], color: (active: UIColor, deactive: UIColor), size: CGFloat = 12, index: Int = 0, views: [UIView], direction: Direction = .Vertical) {
 
     if iconCodes.count > 0 {
-//      _logForUIMode("\(direction)", title: "-----")
       self.segment = IconFontSegment(titles: titles, iconCodes: iconCodes, color: color, size: size, index: index, direction: direction)
     } else {
       self.segment = TextSegment(titles: titles, size: size, index: index)
@@ -71,9 +67,6 @@ public class SegmentWithViews: DefaultView, UIScrollViewDelegate {
     header.anchorAndFillEdge(.Top, xPad: 0, yPad: 0, otherSize: segmentHeight)
     segment.fillSuperview(left: segmentXPad, right: segmentXPad, top: segmentYPad, bottom: segmentYPad)
     scrollView.alignUnder(header, matchingLeftAndRightFillingHeightWithTopPadding: 0, bottomPadding: tabBarHeight())
-//    scrollView.alignUnder(segment, centeredFillingWidthAndHeightWithLeftAndRightPadding: scrollViewXPad, topAndBottomPadding: scrollViewYPad)
-//    scrollView.alignUnder(segment, centeredFillingWidthWithLeftAndRightPadding: scrollViewXPad, topPadding: scrollViewYPad, height: viewNetHeight() - segment.bottomEdge() -  scrollViewYPad - tabBarHeight())
-
     scrollView.groupHorizontally(views.map({$0 as UIView}), fillingHeightWithLeftPadding: 0, spacing: 0, topAndBottomPadding: 0, width: scrollView.width)
     scrollView.contentSize = CGSize(width: scrollView.width * views.count.cgFloat, height: scrollView.height)
   }
@@ -82,14 +75,7 @@ public class SegmentWithViews: DefaultView, UIScrollViewDelegate {
 }
 
 public class IconFontSegmentWithUnderline: IconFontSegment {
-//  var indicatorHeight = K.Size.Segment.underline {
-//    didSet {
-//      indicatorConstraints()
-//    }
-//  }
-
   override public func indicatorConstraints() {
-    //    indicator.alignUnder(group.groupMargins[index], matchingLeftAndRightWithTopPadding: indicatorHeight * 3, height: indicatorHeight)
     switch direction {
     case .Horizontal:
       indicator.opacity(0.2)
@@ -199,20 +185,11 @@ public class IconSegment: Segment {
 public class TextSegment: Segment {
 
   public var indicatorHeight: CGFloat = K.Size.Segment.underline { didSet { indicatorConstraints() } }
-  override public func styleUI() {
-    super.styleUI()
-//    indicator.backgroundColor = K.Color.indicator
-  }
-
-//  var textColorFollowedByIndicator = false {
-//    didSet { indicatorConstraints() }
-//  }
 
   override public func indicatorConstraints() {
     switch style {
     case .Cover:
       let target = group.groupMargins[index]
-//      labels[index].superview!.bringSubviewToFront(labels[index])
       indicator.backgroundColored(K.Color.navigator.lighter().colorWithAlphaComponent(0.25))
       indicator.alignUnder(target, matchingCenterWithTopPadding: -1 * target.height() + 1, width: target.width() - 2, height: target.height() - 2)
     default:
@@ -268,7 +245,6 @@ public class Segment: DefaultView {
   public var index: Int = 0 {
     didSet {
       reConstraints()
-//      changed()
       didChange()
     }
   }
@@ -343,18 +319,12 @@ public class Segment: DefaultView {
   override public func layoutSubviews() {
     super.layoutSubviews()
     group.fillSuperview(left: 0, right: 0, top: 0, bottom: 0)
-//    labels.forEach { (tab) -> () in
-//      tab.anchorBottomCenterWithBottomPadding(10, width: tab.label.textWidth(), height: group.height)
-//      tab.anchorInCenter(width: tab.label.textWidth(), height: tab.label.textHeight())
-//    }
     indicatorConstraints()
   }
 
   public func indicatorConstraints() {
-    _logForUIMode()
     if textColorFollowedByIndicator {
       labels.forEach({ (label) in label.label.colored(deactiveColor) })
-      _logForUIMode(indicatorColor)
       labels[index].label.colored(indicatorColor)
     }
   }

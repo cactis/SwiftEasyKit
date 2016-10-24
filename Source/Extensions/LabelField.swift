@@ -50,7 +50,9 @@ public class LabelField: LabelWith {
 
   public var padding: CGFloat = K.Size.Padding.tiny
 
-  public var field = TextView()
+  public var input = TextView()
+  public var field: UITextView! { get { return input.field } }
+  public var value: String { get { return field.text } set { field.text = newValue } }
   override public func layoutUI() {
     super.layoutUI()
     layout([field])

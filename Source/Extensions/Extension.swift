@@ -143,6 +143,8 @@ extension UIGestureRecognizer {
 
 extension String {
 
+  public func deDecimal() -> Int { return Int(self.gsub(",", withString: ""))! }
+
   public func gsub(target: String, withString: String) -> String {
     return stringByReplacingOccurrencesOfString(target, withString: withString)
   }
@@ -570,6 +572,13 @@ extension UITextField {
 }
 
 extension UITableView {
+
+  public func enableRefreshControl(delegae: UIViewController, action: Selector) -> UITableView {
+    var refreshControl = UIRefreshControl()
+    addSubview(refreshControl)
+    refreshControl.addTarget(delegate, action: action, forControlEvents: .ValueChanged)
+    return self
+  }
 
   public func indexOfTapped(sender: UITapGestureRecognizer) -> NSIndexPath {
     return indexPathForRowAtPoint(sender.view!.convertPoint(CGPointZero, toView: self))!

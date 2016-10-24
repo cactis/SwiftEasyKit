@@ -367,6 +367,7 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
     layout.sectionInset = UIEdgeInsetsMake(0, padding, 0, padding)
     collectionView.delegate = self as? UICollectionViewDelegate
     collectionView.dataSource = self as? UICollectionViewDataSource
+    collectionView.backgroundColored(UIColor.clearColor())
     collectionView.registerClass(registeredClass, forCellWithReuseIdentifier: identifier)
     return collectionView
   }

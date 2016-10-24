@@ -80,12 +80,58 @@ public class TextField: UITextField {
 }
 
 
-public class TextView: UITextView {
+//public class TextView: UITextView {
+//  public func text(value: String) -> TextView {
+//    text = value
+//    return self
+//  }
+//}
+
+public class TextView: DefaultView, UITextViewDelegate {
+
+  public var field = UITextView()
+  public var clearButton = UIButton()
+
+  var text: String! { get { return field.text } }
+
+  public override func layoutUI() {
+    super.layoutUI()
+    layout([field, clearButton])
+  }
+
+  public override func styleUI() {
+    super.styleUI()
+    clearButton.imaged(getIcon(.Remove)).hidden = true
+  }
+
   public func text(value: String) -> TextView {
-    text = value
+    field.text = value
     return self
   }
+
+  public override func bindUI() {
+    super.bindUI()
+    field.delegate = self
+    clearButton.whenTapped { 
+      self.field.text = ""
+    }
+  }
+
+  public override func layoutSubviews() {
+    super.layoutSubviews()
+    clearButton.anchorToEdge(.Right, padding: 0, width: 14, height: 14)
+    field.anchorAndFillEdge(.Left, xPad: 0, yPad: 0, otherSize: clearButton.leftEdge())
+  }
+
+  public func textViewDidBeginEditing(textView: UITextView) {
+    clearButton.hidden = false
+  }
+
+  public func textViewDidEndEditing(textView: UITextView) {
+    clearButton.hidden = true
+  }
 }
+
 
 private var kAssociationKeyNextField: UInt8 = 0
 extension UITextField {

@@ -17,6 +17,10 @@ extension UIImage {
     return UIImage.fontAwesomeIconWithName(.ClockO, textColor: UIColor.lightGrayColor().lighter(), size: CGSize(width: 300, height: 300))
   }
 
+  public func toJPEG(compressionQuality: CGFloat = 0.5) -> NSData {
+    return UIImageJPEGRepresentation(self, compressionQuality)!
+  }
+
   public func flipped() -> UIImage {
     return UIImage(CGImage: self.CGImage!, scale: self.scale, orientation: .UpMirrored)
   }

@@ -208,12 +208,13 @@ private func _log(obj: AnyObject, title: AnyObject = "", funcName: String = #fun
   let time = NSDate()
   print("")
   print("=== \"\(title)\" in \(funcName) of \((fileName as NSString).lastPathComponent) \(line):\(column) ===")
-  switch obj.self {
-  case is String, is Int, is [String], is [Int]:
-    print(obj)
-  default:
-    print((obj as! NSObject).asJSON())
-  }
+//  switch obj.self {
+//  case is String, is Int, is [String], is [Int]:
+//    print(obj)
+//  default:
+//    print((obj as! NSObject).asJSON())
+//  }
+  print(obj)
   print("=== \"\(title)\" in \(funcName) of \((fileName as NSString).lastPathComponent) \(line):\(column) ===")
   print(time)
   print("")
