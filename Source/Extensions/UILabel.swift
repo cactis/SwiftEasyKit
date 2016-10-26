@@ -117,8 +117,12 @@ extension UILabel {
     return self
   }
 
-  public func bold() -> UILabel {
-    font = UIFont.boldSystemFontOfSize(font.pointSize)
+  public func bold(bolded: Bool = true) -> UILabel {
+    if bolded {
+      font = UIFont.boldSystemFontOfSize(font.pointSize)
+    } else {
+      font = UIFont.systemFontOfSize(font.pointSize)
+    }
     return self
   }
 

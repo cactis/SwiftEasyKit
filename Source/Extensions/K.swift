@@ -26,9 +26,10 @@ public struct K {
     public static var timeFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
 
     public struct Resource {
-      public static var sign_in = "/users/sign_in"
-      public static var sign_out = "/users/sign_out"
-      public static var sign_up = "/users"
+      public static var signIn = "/users/sign_in"
+      public static var signOut = "/users/sign_out"
+      public static var signUp = "/users"
+      public static var validateToken = "/validate-token"
     }
 
     public struct Response {

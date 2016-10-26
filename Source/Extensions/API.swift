@@ -19,6 +19,7 @@ public class API {
     _logForUIMode(path, title: "path")
 
     let indicator = indicatorStart()
+
     Alamofire.request(method, path, parameters: parameters, headers: headers).responseJSON { response in
       _logForUIMode(response.request!, title: "response.request")
 //      print("NSProcessInfo.processInfo().environment: ", NSProcessInfo.processInfo().environment)

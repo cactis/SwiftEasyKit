@@ -207,7 +207,7 @@ extension String {
     let df = NSDateFormatter()
     df.dateFormat = dataFormat
 //    var s = self
-    print(self)
+//    print(self)
 //    s = s.containsString("T") ? self.stringByReplacingOccurrencesOfString("T", withString: " ") : s
     return df.dateFromString(self)!
   }
@@ -347,7 +347,7 @@ extension NSDate{
   public func toLongString()->String{
     if self == "" { return "" }
     let dateFormatter = NSDateFormatter()
-    dateFormatter.dateFormat = "yyyy/MM/dd HH:mm:ss"
+    dateFormatter.dateFormat = K.Api.timeFormat// "yyyy/MM/dd HH:mm:ss"
     return dateFormatter.stringFromDate(self)
   }
 

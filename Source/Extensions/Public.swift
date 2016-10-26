@@ -145,6 +145,12 @@ private func autoRun(funcName: String = #function, fileName: String = #file, col
   }
 }
 
+public func _autoRunFor(who: String = "All", funcName: String = #function, fileName: String = #file, column: Int = #column, line: Int = #line, run: () -> ()) {
+  if who == Development.developer {
+    _autoRun(funcName, fileName: fileName, run: run)
+  }
+}
+
 public func _autoRunForUIMode(funcName: String = #function, fileName: String = #file, column: Int = #column, line: Int = #line, run: () -> ()) {
   if _isUIMode() {
     _autoRun(funcName, fileName: fileName, run: run)
@@ -160,6 +166,8 @@ private func _autoRun(funcName: String = #function, fileName: String = #file, co
 
 public func runInDeviceMode(run: () -> (), elseRun: () -> () = {}) { if !_isSimulator() { run() } else { elseRun() } }
 
+
+public func _isWho(who: String) -> Bool { return _isSimulator() && who == Development.developer }
 public func _isSimulator() -> Bool { return TARGET_OS_SIMULATOR != 0 || Development.setDeviceAsSimulator == true }
 
 public func _logError(err: NSError!) {
@@ -171,6 +179,12 @@ public func _logClear() { (0...50).forEach { _ in print("\n") }}
 public func _logForAnyMode(obj: AnyObject = "", title: AnyObject = "", funcName: String = #function, fileName: String = #file, column: Int = #column, line: Int = #line) {
   _logForUIMode(obj, title: title, funcName: funcName, fileName: fileName)
   _logForAPIMode(obj, title: title, funcName: funcName, fileName: fileName)
+}
+
+public func _logFor(who: String, obj: AnyObject, title: String = "", funcName: String = #function, fileName: String = #file, column: Int = #column, line: Int = #line) {
+  if who == Development.developer {
+    _logForUIMode(obj, title: title, funcName: funcName, fileName: fileName)
+  }
 }
 
 public func _logForUIMode(title: String = "", funcName: String = #function, fileName: String = #file, column: Int = #column, line: Int = #line) {

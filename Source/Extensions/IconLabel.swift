@@ -29,6 +29,9 @@ public class IconLabel: DefaultView {
     case Right
   }
 
+
+  public var bolded: Bool = false { didSet { label.bold(bolded) } }
+
   public var type: Type = .None
   public var alignStyle: AlignStyle = .Left
 
@@ -149,12 +152,11 @@ public class IconLabel: DefaultView {
         let w = (labelWidth_ ?? label.textWidth())
         iconBorder.anchorAndFillEdge(.Left, xPad: (width - s - paddingBetween - w) / 2, yPad: height * 0.1, otherSize: s)
         label.alignToTheRightOf(iconBorder, matchingTopWithLeftPadding: paddingBetween * 0.4, width: w, height: iconBorder.height)
-        label.sized(s * 0.7)
+        label.sized(s * 0.7).bold(bolded)
       case .UIImage:
         let s = height * 0.8
         let h = height * 0.1
-//        iconBorder.anchorInCenterWithWidth(h, height: h)
-        label.sized(s * 0.6)
+        label.sized(s * 0.6).bold(bolded)
         iconBorder.anchorInCorner(.TopLeft, xPad: (width - s - paddingBetween - label.textWidth()) / 2, yPad: h, width: s, height: s)
         let p = s * 0.1
         iconImage.fillSuperview(left: p, right: p, top: p, bottom: p)
@@ -163,7 +165,6 @@ public class IconLabel: DefaultView {
         break
       }
 
-
     default:
       let w = (labelWidth_ ?? label.textWidth()) * 1.2
       iconBorder.anchorAndFillEdge(.Left, xPad: 0, yPad: 0, otherSize: height)
@@ -171,12 +172,12 @@ public class IconLabel: DefaultView {
       switch type {
       case .IconFont:
         label.alignToTheRightOf(iconBorder, matchingTopWithLeftPadding: paddingBetween, width: w, height: iconBorder.height)
-        label.sized(label.height * 0.8)
+        label.sized(label.height * 0.8).bold(bolded)
       case .UIImage:
         let p = iconBorder.height * 0.1
         iconImage.fillSuperview(left: p, right: p, top: p, bottom: p)
         label.alignToTheRightOf(iconBorder, matchingTopWithLeftPadding: paddingBetween, width: width - iconBorder.rightEdge(), height: iconBorder.height)
-        label.sized(iconImage.height * 0.8)
+        label.sized(iconImage.height * 0.8).bold(bolded)
       default:
         label.anchorInCenter(width: label.textWidth(), height: label.textHeight())
       }
