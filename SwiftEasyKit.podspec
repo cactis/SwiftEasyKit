@@ -136,7 +136,7 @@ Pod::Spec.new do |s|
   s.dependency 'LoremIpsum'
   s.dependency 'FontAwesome.swift', '0.7.3'
   s.dependency 'Neon'
-  s.dependency 'SwiftRandom'
+  s.dependency 'SwiftRandom', '0.1.7'
   s.dependency 'SwiftyJSON', '2.3.2'
   s.dependency 'RandomKit'
   s.dependency 'Facade'
