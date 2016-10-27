@@ -98,7 +98,7 @@ extension UIButton {
     backgroundColor = K.Color.buttonBg
     setTitleColor(K.Color.button, forState: .Normal)
     titleLabel!.font = UIFont.systemFontOfSize(options["size"] as? CGFloat ?? K.Size.Submit.size)
-    radiused(2)
+    radiused(4)
     return self
   }
 

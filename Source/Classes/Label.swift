@@ -9,10 +9,20 @@
 import UIKit
 
 public class Label: UILabel {
+  var rectInsets: UIEdgeInsets
+
+  public init(rectInsets: UIEdgeInsets = UIEdgeInsetsZero) {
+    self.rectInsets = rectInsets
+    super.init(frame: CGRectZero)
+  }
+  
+  required public init?(coder aDecoder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
 
   override public func drawTextInRect(rect: CGRect) {
-    let padding = height * 0.1
-    super.drawTextInRect(UIEdgeInsetsInsetRect(rect, UIEdgeInsets(top: padding, left: padding, bottom: padding, right: padding)))
+//    padding = height * 0.1
+    super.drawTextInRect(UIEdgeInsetsInsetRect(rect, rectInsets))
   }
 
   override public func textWidth() -> CGFloat {
