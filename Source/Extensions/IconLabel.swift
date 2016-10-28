@@ -152,6 +152,8 @@ public class IconLabel: DefaultView {
         let w = (labelWidth_ ?? label.textWidth())
         iconBorder.anchorAndFillEdge(.Left, xPad: (width - s - paddingBetween - w) / 2, yPad: height * 0.1, otherSize: s)
         label.alignToTheRightOf(iconBorder, matchingTopWithLeftPadding: paddingBetween * 0.4, width: w, height: iconBorder.height)
+//        label.alignToTheRightOf(iconBorder, fillingWidthWithLeftAndRightPadding: paddingBetween * 0.4, topPadding: iconBorder.topEdge(), height: iconBorder.height)
+        label._coloredWithSuperviews()
         label.sized(s * 0.7).bold(bolded)
       case .UIImage:
         let s = height * 0.8
@@ -166,17 +168,17 @@ public class IconLabel: DefaultView {
       }
 
     default:
-      let w = (labelWidth_ ?? label.textWidth()) * 1.2
+      let w = (labelWidth_ ?? width - iconBorder.rightEdge())// * 1.2
       iconBorder.anchorAndFillEdge(.Left, xPad: 0, yPad: 0, otherSize: height)
-
+      label.alignToTheRightOf(iconBorder, matchingTopWithLeftPadding: paddingBetween, width: w, height: iconBorder.height)
       switch type {
       case .IconFont:
-        label.alignToTheRightOf(iconBorder, matchingTopWithLeftPadding: paddingBetween, width: w, height: iconBorder.height)
+//        label.alignToTheRightOf(iconBorder, matchingTopWithLeftPadding: paddingBetween, width: w, height: iconBorder.height)
         label.sized(label.height * 0.8).bold(bolded)
       case .UIImage:
         let p = iconBorder.height * 0.1
         iconImage.fillSuperview(left: p, right: p, top: p, bottom: p)
-        label.alignToTheRightOf(iconBorder, matchingTopWithLeftPadding: paddingBetween, width: width - iconBorder.rightEdge(), height: iconBorder.height)
+//        label.alignToTheRightOf(iconBorder, matchingTopWithLeftPadding: paddingBetween, width: width - iconBorder.rightEdge(), height: iconBorder.height)
         label.sized(iconImage.height * 0.8).bold(bolded)
       default:
         label.anchorInCenter(width: label.textWidth(), height: label.textHeight())
