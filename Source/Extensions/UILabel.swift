@@ -131,6 +131,15 @@ extension UILabel {
     return self
   }
 
+  public func fitTexted(value: String) -> UILabel {
+    return text(value).reFit()
+  }
+
+  public func reFit() -> UILabel {
+    adjustsFontSizeToFitWidth = true
+    return self
+  }
+
   public func attributedText(value: NSAttributedString) -> UILabel {
     attributedText = value
     return self

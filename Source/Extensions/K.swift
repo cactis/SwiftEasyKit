@@ -40,6 +40,9 @@ public struct K {
 
   public struct Text {
     public static var finished = "✓"
+    public struct MultiSelection {
+      public static var seperator = "/"
+    }
   }
 
   public struct Message {

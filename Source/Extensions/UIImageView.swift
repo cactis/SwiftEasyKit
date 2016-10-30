@@ -74,6 +74,11 @@ extension UIImageView {
     return self
   }
 
+  public func imaged(iconCode iconCode: String, color: UIColor = K.Color.barButtonItem, size: CGFloat = K.BarButtonItem.size) -> UIImageView {
+    image = getImage(iconCode: iconCode, color: color, size: size)
+    return self
+  }
+
   public func styledAsFill(image: UIImage) -> UIImageView {
     self.image = image
     styledAsFill()

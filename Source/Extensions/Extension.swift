@@ -37,6 +37,19 @@ public let faker = Faker()
 //  }
 //}
 
+extension UIImagePickerController {
+  public func getImageFromInfo(info: [String: AnyObject]) -> UIImage? {
+    dismissViewControllerAnimated(true, completion: nil)
+    let mediaType = info[UIImagePickerControllerMediaType] as! String
+    if !mediaType.isEmpty {
+      let image = info[UIImagePickerControllerOriginalImage] as! UIImage
+      return image
+    } else {
+      return nil
+    }
+  }
+}
+
 public class Lorem: LoremIpsum {
 
   public class func message() -> String {
@@ -142,6 +155,10 @@ extension UIGestureRecognizer {
 }
 
 extension String {
+
+  public func updateNumberWrappedIn(number: AnyObject) -> String {
+    return split("(")[0] + "(\(number))"
+  }
 
   public func deDecimal() -> Int { return Int(self.gsub(",", withString: ""))! }
 
