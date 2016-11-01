@@ -386,13 +386,17 @@ public func appDelegate() -> DefaultAppDelegate {
   return UIApplication.sharedApplication().delegate as! DefaultAppDelegate
 }
 
-public func verticalLayout(blocks: [UIView], heights: [CGFloat], padding: CGFloat = 0, xPad: CGFloat = 0, yPad: CGFloat = 0) {
+public func verticalLayout(blocks: [UIView], heights: [CGFloat], padding: CGFloat = 0, xPad: CGFloat = 0, yPad: CGFloat = 0, alignUnder: UIView? = nil) {
   var prevBlock: UIView!
   blocks.forEach { (block) in
     let index = blocks.indexOf(block)!
     switch index {
     case 0:
-      block.anchorAndFillEdge(.Top, xPad: xPad, yPad: yPad, otherSize: heights[0])
+      if alignUnder != nil {
+        block.alignUnder(alignUnder, centeredFillingWidthWithLeftAndRightPadding: xPad, topPadding: yPad, height: heights[0])
+      } else {
+        block.anchorAndFillEdge(.Top, xPad: xPad, yPad: yPad, otherSize: heights[0])
+      }
     default:
       block.alignUnder(prevBlock, matchingLeftAndRightWithTopPadding: padding, height: heights[index])
     }

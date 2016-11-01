@@ -375,10 +375,10 @@ extension NSDate{
     return dateFormatter.stringFromDate(self)
   }
 
-  public func toString()->String{
+  public func toString(dateFormat: String = "yyyy/MM/dd HH:mm")->String{
     if self == "" { return "" }
     let dateFormatter = NSDateFormatter()
-    dateFormatter.dateFormat = "yyyy/MM/dd HH:mm"
+    dateFormatter.dateFormat = dateFormat
     return dateFormatter.stringFromDate(self)
   }
 
