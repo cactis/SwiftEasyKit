@@ -52,7 +52,7 @@ public class ImagesCollectionView: CollectionView {
   public var checkable: Checkable = .None { didSet { } }
   public var bordered: Bool = true
   public var radius: CGFloat = 0
-  public var didChecked = {(items: [Photo]) in }
+  public var didChecked = {(items: [Photo], checked: Photo) in }
 
   public init(checkable: Checkable, bordered: Bool = true, radius: CGFloat = 0, sectionInset: UIEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10)) {
     self.checkable = checkable
@@ -86,19 +86,6 @@ public class ImagesCollectionView: CollectionView {
     //    collectionViewLayout.minimumLineSpacing = 0
   }
 
-
-
-//  override public func styleUI() {
-//    super.styleUI()
-//    collectionView.backgroundColor = UIColor.clearColor()
-////    collectionViewLayout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-//    let s: CGFloat = [height.int, 20].maxElement()!.cgFloat / 7 * 5
-//    collectionViewLayout.itemSize = CGSizeMake(s, s)
-////    collectionViewLayout.minimumInteritemSpacing = 0
-////    collectionViewLayout.minimumLineSpacing = 0
-//  }
-
-
   public override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     return collectionData.count
   }
@@ -119,18 +106,19 @@ public class ImagesCollectionView: CollectionView {
   }
 
   public func cellTapped(sender: UIGestureRecognizer) {
+    let photo = collectionData[(sender.view?.tag)!]
     switch checkable {
     case .Single:
       collectionData.forEach({ $0.checked = false })
       collectionData[(sender.view?.tag)!].checked = true
       collectionView.reloadData()
     case .Multiple:
-      collectionData[(sender.view?.tag)!].checked = !collectionData[(sender.view?.tag)!].checked
+      photo.checked = !photo.checked
       collectionView.reloadData()
     default:
       break;
     }
-    didChecked(collectionData)
+    didChecked(collectionData, photo)
   }
 
   public class ImageCell: CollectionViewCell {
@@ -141,8 +129,6 @@ public class ImagesCollectionView: CollectionView {
 
     public var data: Photo! {
       didSet {
-        print(data.image)
-        print(data.url)
         if (data.url) != nil {
           photo.loadImageWithString(data.url)
         } else {
