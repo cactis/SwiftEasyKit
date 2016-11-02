@@ -119,9 +119,17 @@ public class ImagesCollectionView: CollectionView {
   }
 
   public func cellTapped(sender: UIGestureRecognizer) {
-    collectionData.forEach({ $0.checked = false })
-    collectionData[(sender.view?.tag)!].checked = true
-    collectionView.reloadData()
+    switch checkable {
+    case .Single:
+      collectionData.forEach({ $0.checked = false })
+      collectionData[(sender.view?.tag)!].checked = true
+      collectionView.reloadData()
+    case .Multiple:
+      collectionData[(sender.view?.tag)!].checked = !collectionData[(sender.view?.tag)!].checked
+      collectionView.reloadData()
+    default:
+      break;
+    }
     didChecked(collectionData)
   }
 
@@ -180,7 +188,7 @@ public class Photo: NSObject {
   public var id: Int?
   public var image: UIImage?
   public var url: String?
-  public var checked: Bool!
+  public var checked: Bool! = false
 
   public override init() {
     super.init()
