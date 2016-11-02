@@ -43,10 +43,16 @@ public class CollectionView: DefaultView, UICollectionViewDataSource, UICollecti
 
 public class ImagesCollectionView: CollectionView {
 
+  public enum Mode {
+    case Show
+    case Edit
+  }
+
+  public var mode: Mode = .Show
   public var checkable: Checkable = .None { didSet { } }
   public var bordered: Bool = true
   public var radius: CGFloat = 0
-  public var didChecked = {(items: [ImageCellViewModel]) in }
+  public var didChecked = {(items: [Photo]) in }
 
   public init(checkable: Checkable, bordered: Bool = true, radius: CGFloat = 0, sectionInset: UIEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10)) {
     self.checkable = checkable
@@ -60,7 +66,9 @@ public class ImagesCollectionView: CollectionView {
     fatalError("init(coder:) has not been implemented")
   }
 
-  public var collectionData = [ImageCellViewModel]() { didSet { _logForUIMode(); collectionView.reloadData() } }
+  public var collectionData = [Photo]() { didSet {
+    collectionView.reloadData()
+  }}
 
   override public func layoutUI() {
     super.layoutUI()
@@ -123,7 +131,7 @@ public class ImagesCollectionView: CollectionView {
       didSet { checkedImage.hidden = !checked }
     }
 
-    public var data: ImageCellViewModel! {
+    public var data: Photo! {
       didSet {
         print(data.image)
         print(data.url)
@@ -139,7 +147,7 @@ public class ImagesCollectionView: CollectionView {
     public var checkedImage = UIImageView()
     public var photo = UIImageView()
 
-    public func loadData(data: ImageCellViewModel) {
+    public func loadData(data: Photo) {
       self.data = data
     }
 
@@ -167,12 +175,20 @@ public class ImagesCollectionView: CollectionView {
   }
 }
 
-public class ImageCellViewModel: NSObject {
+public class Photo: NSObject {
+
+  public var id: Int?
   public var image: UIImage?
   public var url: String?
   public var checked: Bool!
 
   public override init() {
+    super.init()
+  }
+
+  public init(id: Int, url: String) {
+    self.id = id
+    self.url = url
     super.init()
   }
 
@@ -186,10 +202,10 @@ public class ImageCellViewModel: NSObject {
     super.init()
   }
 
-  public class func seeds(onComplete: (items: [ImageCellViewModel]) -> ()) {
-    var items = [ImageCellViewModel]()
+  public class func seeds(onComplete: (items: [Photo]) -> ()) {
+    var items = [Photo]()
     (0...2).forEach { (i) in
-      items.append(ImageCellViewModel(url: randomImageName()))
+      items.append(Photo(url: randomImageName()))
     }
     onComplete(items: items)
   }
