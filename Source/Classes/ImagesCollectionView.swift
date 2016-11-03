@@ -48,8 +48,6 @@ public class ImagesCollectionView: CollectionView {
     case Edit
   }
 
-
-
   public var style: ImageCell.Style! = .Default
   public var checkedIcon: UIImage! = getIcon(.Check, options: ["color": K.Color.buttonBg])
 
@@ -57,7 +55,7 @@ public class ImagesCollectionView: CollectionView {
   public var checkable: Checkable = .None
   public var bordered: Bool = true
   public var currentBordered: Bool = false
-  public var currentIndex: Int! = -1
+  public var currentIndex: Int! = -1 { didSet { singleChecked(currentIndex) } }
   public var radius: CGFloat = 0
   public var didChecked = {(items: [Photo], checked: Photo) in }
 
@@ -73,6 +71,11 @@ public class ImagesCollectionView: CollectionView {
     self.radius = radius
     super.init(frame: CGRectZero)
     self.sectionInset = sectionInset
+  }
+
+  public func singleChecked(index: Int) {
+    collectionData.forEach({ $0.checked = false })
+    collectionData[index].checked = true
   }
 
   required public init?(coder aDecoder: NSCoder) {
@@ -133,8 +136,7 @@ public class ImagesCollectionView: CollectionView {
     }
     switch checkable {
     case .Single:
-      collectionData.forEach({ $0.checked = false })
-      photo.checked = true
+      singleChecked(index)
     case .Multiple:
       photo.checked = !photo.checked
     default:
