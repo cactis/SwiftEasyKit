@@ -271,13 +271,14 @@ extension UIView: UIImagePickerControllerDelegate, UINavigationControllerDelegat
   }
 
   public func animate(duration: Double = 0.5, onComplete: () -> ()) {
-    UIView.animateWithDuration(duration) { () -> Void in
-      onComplete()
-    }
+//    UIView.animateWithDuration(duration) { () -> Void in
+//      onComplete()
+//    }
+    UIView.transitionWithView(self, duration: duration, options: .TransitionCrossDissolve, animations: onComplete, completion: nil)
   }
 
-  public func asFadable() -> UIView {
-    UIView.transitionWithView(self, duration: 0.5, options: .TransitionCrossDissolve, animations: nil, completion: nil)
+  public func asFadable(duration: Double = 0.5) -> UIView {
+    UIView.transitionWithView(self, duration: duration, options: .TransitionCrossDissolve, animations: nil, completion: nil)
     return self
   }
 
