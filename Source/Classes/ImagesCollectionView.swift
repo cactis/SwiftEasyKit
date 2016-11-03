@@ -48,11 +48,24 @@ public class ImagesCollectionView: CollectionView {
     case Edit
   }
 
+
+
+  public var style: ImageCell.Style! = .Default
+  public var checkedIcon: UIImage! = getIcon(.Check, options: ["color": K.Color.buttonBg])
+
   public var mode: Mode = .Show
-  public var checkable: Checkable = .None { didSet { } }
+  public var checkable: Checkable = .None
   public var bordered: Bool = true
+  public var currentBordered: Bool = false
+  public var currentIndex: Int! = -1
   public var radius: CGFloat = 0
   public var didChecked = {(items: [Photo], checked: Photo) in }
+
+  public convenience init(checkable: Checkable, checkedIcon: UIImage) {
+    self.init(checkable: checkable)
+    self.checkedIcon = checkedIcon
+    self.style = .Custom
+  }
 
   public init(checkable: Checkable, bordered: Bool = true, radius: CGFloat = 0, sectionInset: UIEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10)) {
     self.checkable = checkable
@@ -73,7 +86,6 @@ public class ImagesCollectionView: CollectionView {
   override public func layoutUI() {
     super.layoutUI()
     collectionView = registerClass(ImageCell.self)
-//    collectionView = collectionView(collectionViewLayout, registeredClass: ImageCell.self, identifier: CellIdentifier, sectionInset: sectionInset)
     layout([collectionView])
   }
 
@@ -97,27 +109,38 @@ public class ImagesCollectionView: CollectionView {
     cell.loadData(collectionData[indexPath.row])
     cell.whenTapped(self, action: #selector(ImagesCollectionView.cellTapped(_:)))
     cell.radiused(radius)
+    cell.style = style
     cell.tag = indexPath.row
+    cell.checkedIcon = checkedIcon
     cell.layoutIfNeeded()
     if bordered {
       cell.bordered(1, color: UIColor.lightGrayColor().colorWithAlphaComponent(0.5).CGColor)
+    }
+    if currentIndex == indexPath.row && currentBordered {
+      cell.bordered(5, color: UIColor.fromHex("FFCC00").colorWithAlphaComponent(0.8).CGColor)
     }
     return cell
   }
 
   public func cellTapped(sender: UIGestureRecognizer) {
-    let photo = collectionData[(sender.view?.tag)!]
+    indexTapped((sender.view?.tag)!)
+  }
+
+  public func indexTapped(index: Int) {
+    let photo = collectionData[index]
+    if photo.image != nil {
+      currentIndex = index
+    }
     switch checkable {
     case .Single:
       collectionData.forEach({ $0.checked = false })
-      collectionData[(sender.view?.tag)!].checked = true
-      collectionView.reloadData()
+      photo.checked = true
     case .Multiple:
       photo.checked = !photo.checked
-      collectionView.reloadData()
     default:
       break;
     }
+    collectionView.reloadData()
     didChecked(collectionData, photo)
   }
 
@@ -126,6 +149,13 @@ public class ImagesCollectionView: CollectionView {
     public var checked = false {
       didSet { checkedImage.hidden = !checked }
     }
+
+    public enum Style {
+      case Default
+      case Custom
+    }
+    public var style: Style = .Default
+    public var checkedIcon: UIImage!
 
     public var data: Photo! {
       didSet {
@@ -138,6 +168,7 @@ public class ImagesCollectionView: CollectionView {
       }
     }
 
+//    var checkedIcon: UIImage!
     public var checkedImage = UIImageView()
     public var photo = UIImageView()
 
@@ -153,18 +184,32 @@ public class ImagesCollectionView: CollectionView {
     override public func styleUI() {
       super.styleUI()
       photo.styledAsFill()
-      checkedImage.backgroundColored(UIColor.whiteColor())
-      checkedImage.image = getIcon(.Check, options: ["color": K.Color.buttonBg])
+//      checkedImage.backgroundColored(UIColor.whiteColor())
       checkedImage.hidden = true
+      bringSubviewToFront(checkedImage)
     }
 
     override public func layoutSubviews() {
       super.layoutSubviews()
       photo.fillSuperview()
-      let p = width * 0.1
-      let s = width * 0.3
-      checkedImage.anchorInCorner(.BottomRight, xPad: p, yPad: p, width: s, height: s)
-      checkedImage.radiused(s / 2).bordered(1, color: K.Color.buttonBg.colorWithAlphaComponent(0.2).CGColor)
+      layoutCheckedImage()
+    }
+
+    public func layoutCheckedImage() {
+      switch style {
+      case .Custom:
+        checkedImage.image = checkedIcon
+        checkedImage.backgroundColored(UIColor.clearColor())
+        checkedImage.fillSuperview()
+      default:
+        let p = width * 0.1
+        let s = width * 0.3
+        checkedImage.backgroundColored(UIColor.whiteColor())
+        checkedImage.image = checkedIcon
+        checkedImage.anchorInCorner(.BottomRight, xPad: p, yPad: p, width: s, height: s)
+        checkedImage.radiused(s / 2).bordered(1, color: K.Color.buttonBg.colorWithAlphaComponent(0.2).CGColor)
+
+      }
     }
   }
 }
