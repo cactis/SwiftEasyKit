@@ -55,7 +55,7 @@ public class ImagesCollectionView: CollectionView {
   public var checkable: Checkable = .None
   public var bordered: Bool = true
   public var currentBordered: Bool = false
-  public var currentIndex: Int! = -1 { didSet { singleChecked(currentIndex) } }
+  public var currentIndex: Int! = -1 //{ didSet { singleChecked(currentIndex) } }
   public var radius: CGFloat = 0
   public var didChecked = {(items: [Photo], checked: Photo) in }
 
@@ -76,6 +76,7 @@ public class ImagesCollectionView: CollectionView {
   public func singleChecked(index: Int) {
     collectionData.forEach({ $0.checked = false })
     collectionData[index].checked = true
+    currentIndex = index
   }
 
   required public init?(coder aDecoder: NSCoder) {
@@ -84,7 +85,7 @@ public class ImagesCollectionView: CollectionView {
 
   public var collectionData = [Photo]() { didSet {
     collectionView.reloadData()
-  }}
+    }}
 
   override public func layoutUI() {
     super.layoutUI()
@@ -133,14 +134,14 @@ public class ImagesCollectionView: CollectionView {
     let photo = collectionData[index]
     if photo.image != nil {
       currentIndex = index
-    }
-    switch checkable {
-    case .Single:
-      singleChecked(index)
-    case .Multiple:
-      photo.checked = !photo.checked
-    default:
-      break;
+      switch checkable {
+      case .Single:
+        singleChecked(index)
+      case .Multiple:
+        photo.checked = !photo.checked
+      default:
+        break;
+      }
     }
     collectionView.reloadData()
     didChecked(collectionData, photo)
@@ -170,7 +171,7 @@ public class ImagesCollectionView: CollectionView {
       }
     }
 
-//    var checkedIcon: UIImage!
+    //    var checkedIcon: UIImage!
     public var checkedImage = UIImageView()
     public var photo = UIImageView()
 
@@ -186,7 +187,7 @@ public class ImagesCollectionView: CollectionView {
     override public func styleUI() {
       super.styleUI()
       photo.styledAsFill()
-//      checkedImage.backgroundColored(UIColor.whiteColor())
+      //      checkedImage.backgroundColored(UIColor.whiteColor())
       checkedImage.hidden = true
       bringSubviewToFront(checkedImage)
     }
