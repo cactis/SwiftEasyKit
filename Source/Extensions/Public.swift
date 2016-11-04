@@ -18,6 +18,10 @@ public func statusBarHeight() -> CGFloat {
   return UIApplication.sharedApplication().statusBarFrame.height
 }
 
+public func prompt(msgs: [String], runWith: (msg: String) -> String = { msg in return msg }, title: String = "") {
+  prompt(runWith(msg: msgs.randomItem()), title: title)
+}
+
 public func prompt(msg: String, title: String = "") {
   _logForUIMode(msg)
   UIApplication.sharedApplication().statusBarHidden = true
