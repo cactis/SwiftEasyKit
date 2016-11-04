@@ -48,6 +48,10 @@ public class ImagesCollectionView: CollectionView {
     case Edit
   }
 
+  public var maximum: Int = 0
+
+  public var didTappedOnCell: (index: Int) -> () = { _ in }
+
   public var style: ImageCell.Style! = .Default
   public var checkedIcon: UIImage! = getIcon(.Check, options: ["color": K.Color.buttonBg])
 
@@ -59,7 +63,9 @@ public class ImagesCollectionView: CollectionView {
   public var radius: CGFloat = 0
   public var didChecked = {(items: [Photo], checked: Photo) in }
 
-  public convenience init(checkable: Checkable, checkedIcon: UIImage) {
+  public var collectionData = [Photo]() { didSet { collectionView.reloadData() }}
+
+  public convenience init(checkable: Checkable, checkedIcon: UIImage, maximum: Int = 0) {
     self.init(checkable: checkable)
     self.checkedIcon = checkedIcon
     self.style = .Custom
@@ -82,10 +88,6 @@ public class ImagesCollectionView: CollectionView {
   required public init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
-
-  public var collectionData = [Photo]() { didSet {
-    collectionView.reloadData()
-    }}
 
   override public func layoutUI() {
     super.layoutUI()
@@ -127,12 +129,14 @@ public class ImagesCollectionView: CollectionView {
   }
 
   public func cellTapped(sender: UIGestureRecognizer) {
+    _logForUIMode()
     indexTapped((sender.view?.tag)!)
   }
 
   public func indexTapped(index: Int) {
+    _logForUIMode(index, title: "index")
     let photo = collectionData[index]
-    if photo.image != nil {
+    if photo.image != nil || photo.url != nil {
       currentIndex = index
       switch checkable {
       case .Single:
@@ -145,6 +149,8 @@ public class ImagesCollectionView: CollectionView {
     }
     collectionView.reloadData()
     didChecked(collectionData, photo)
+
+    didTappedOnCell(index: index)
   }
 
   public class ImageCell: CollectionViewCell {
