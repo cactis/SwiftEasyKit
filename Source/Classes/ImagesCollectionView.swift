@@ -5,42 +5,6 @@
 
 import UIKit
 
-public class CollectionView: DefaultView, UICollectionViewDataSource, UICollectionViewDelegate {
-  public var collectionView: UICollectionView!
-  public var collectionViewLayout = UICollectionViewFlowLayout()
-  public let CellIdentifier = "CELL"
-  public var sectionInset: UIEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10)
-
-  public override func layoutUI() {
-    super.layoutUI()
-    collectionView = UICollectionView(frame: CGRectZero, collectionViewLayout: collectionViewLayout)
-  }
-
-  public override func styleUI() {
-    super.styleUI()
-    collectionView.backgroundColor = K.Color.collectionView
-  }
-
-  override public func layoutSubviews() {
-    super.layoutSubviews()
-    collectionView.fillSuperview()
-    styleUI()
-  }
-
-  public func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-    return UICollectionViewCell()
-  }
-
-  public func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return 0
-  }
-
-  public func registerClass(registeredClass: AnyClass!,  sectionInset: UIEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10), direction: UICollectionViewScrollDirection = .Horizontal) -> UICollectionView {
-    return collectionView(collectionViewLayout, registeredClass: registeredClass, identifier: CellIdentifier, sectionInset: sectionInset, direction: direction)
-  }
-
-}
-
 public class ImagesCollectionView: CollectionView {
 
   public enum Mode {
@@ -48,7 +12,7 @@ public class ImagesCollectionView: CollectionView {
     case Edit
   }
 
-  public var maximum: Int = 0
+//  public var maximum: Int = 0
 
   public var didTappedOnCell: (index: Int) -> () = { _ in }
 
@@ -63,12 +27,19 @@ public class ImagesCollectionView: CollectionView {
   public var radius: CGFloat = 0
   public var didChecked = {(items: [Photo], checked: Photo) in }
 
-  public var collectionData = [Photo]() { didSet { collectionView.reloadData() }}
+  public var placeHolder: UIImage?
 
-  public convenience init(checkable: Checkable, checkedIcon: UIImage, maximum: Int = 0) {
+  var photosCount: Int { get {return collectionData.filter({$0.image != nil || $0.url != nil}).count } }
+
+  public var collectionData = [Photo]() { didSet {
+    collectionView.reloadData()
+  }}
+
+  public convenience init(checkable: Checkable, checkedIcon: UIImage, placeHolder: UIImage?) {//, maximum: Int = 0) {
     self.init(checkable: checkable)
     self.checkedIcon = checkedIcon
     self.style = .Custom
+    self.placeHolder = placeHolder
   }
 
   public init(checkable: Checkable, bordered: Bool = true, radius: CGFloat = 0, sectionInset: UIEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10)) {
@@ -118,10 +89,9 @@ public class ImagesCollectionView: CollectionView {
     cell.style = style
     cell.tag = indexPath.row
     cell.checkedIcon = checkedIcon
+    if indexPath.row == photosCount { cell.placeHolder.image = placeHolder } else { cell.placeHolder.image = UIImage()}
     cell.layoutIfNeeded()
-    if bordered {
-      cell.bordered(1, color: UIColor.lightGrayColor().colorWithAlphaComponent(0.5).CGColor)
-    }
+    if bordered { cell.bordered(1, color: UIColor.lightGrayColor().colorWithAlphaComponent(0.5).CGColor) }
     if currentIndex == indexPath.row && currentBordered {
       cell.bordered(5, color: UIColor.fromHex("FFCC00").colorWithAlphaComponent(0.8).CGColor)
     }
@@ -165,6 +135,7 @@ public class ImagesCollectionView: CollectionView {
     }
     public var style: Style = .Default
     public var checkedIcon: UIImage!
+    public var placeHolder = UIImageView()
 
     public var data: Photo! {
       didSet {
@@ -187,11 +158,13 @@ public class ImagesCollectionView: CollectionView {
 
     override public func layoutUI() {
       super.layoutUI()
-      layout([photo, checkedImage])
+      layout([placeHolder, photo, checkedImage])
     }
 
     override public func styleUI() {
       super.styleUI()
+      let w = width * 0.2
+      placeHolder.fillSuperview(left: w, right: w, top: w, bottom: w)
       photo.styledAsFill()
       //      checkedImage.backgroundColored(UIColor.whiteColor())
       checkedImage.hidden = true

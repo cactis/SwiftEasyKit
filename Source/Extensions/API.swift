@@ -6,7 +6,14 @@
 import Foundation
 import Alamofire
 
+extension String {
+  public func hostUrl() -> String {
+    return containsString("http") ? self : "\(K.Api.host)\(self)"
+  }
+}
+
 public class API {
+
 
   class public func request(method: Alamofire.Method = .GET, url: String, parameters: [String: AnyObject] = [:], fileName: String? = #file, funcName: String? = #function, run: (response: Response<AnyObject, NSError>) -> ()) {
 
@@ -15,12 +22,9 @@ public class API {
     headers["Authorization"] = K.Api.userToken
     headers["token"] = (Session.getValueObject(K.Api.userTokenKey) as? String) ?? K.Api.userToken
     _logForUIMode(headers, title: "headers")
-    let path = url.containsString("http") ? url : "\(K.Api.host)\(url)"
-    _logForUIMode(path, title: "path")
-
     let indicator = indicatorStart()
 
-    Alamofire.request(method, path, parameters: parameters, headers: headers).responseJSON { response in
+    Alamofire.request(method, url.hostUrl(), parameters: parameters, headers: headers).responseJSON { response in
       _logForUIMode(response.request!, title: "response.request")
 //      print("NSProcessInfo.processInfo().environment: ", NSProcessInfo.processInfo().environment)
       switch response.result {
