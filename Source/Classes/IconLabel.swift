@@ -29,7 +29,6 @@ public class IconLabel: DefaultView {
     case Right
   }
 
-
   public var bolded: Bool = false { didSet { label.bold(bolded) } }
 
   public var type: Type = .None
