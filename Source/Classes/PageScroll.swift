@@ -6,10 +6,10 @@
 
 import UIKit
 
-class PageScroll: DefaultView, UIScrollViewDelegate {
-  var paginator = UIPageControl()
-  var scrollView = UIScrollView()
-  var views = [UIView]() { didSet {
+public class PageScroll: DefaultView, UIScrollViewDelegate {
+  public var paginator = UIPageControl()
+  public var scrollView = UIScrollView()
+  public var views = [UIView]() { didSet {
     paginator.numberOfPages = views.count
     scrollView.removeSubviews().layout(views)
     self.scrollView.asFadable()
@@ -18,15 +18,15 @@ class PageScroll: DefaultView, UIScrollViewDelegate {
         view.layoutSubviews()
       }
     }
-    }}
+  }}
 
-  var didScrollBeginDragging: (index: Int) -> () = {_ in}
-  var didScrollEndDecelerating: (index: Int) -> () = {_ in}
-  override func layoutUI() {
+  public var didScrollBeginDragging: (index: Int) -> () = {_ in}
+  public var didScrollEndDecelerating: (index: Int) -> () = {_ in}
+  override public func layoutUI() {
     super.layoutUI()
     layout([scrollView, paginator])
   }
-  override func styleUI() {
+  override public func styleUI() {
     super.styleUI()
     scrollView.pagingEnabled = true
     scrollView.delegate = self
@@ -34,18 +34,18 @@ class PageScroll: DefaultView, UIScrollViewDelegate {
     paginator.currentPageIndicatorTintColor = UIColor.grayColor().lighter()
   }
 
-  override func bindUI() {
+  override public func bindUI() {
     super.bindUI()
     paginator.addTarget(self, action: #selector(paginatorChanged(_:)), forControlEvents: .ValueChanged)
   }
 
-  func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
+  public func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
     let index = Int(scrollView.contentOffset.x / width)
     paginator.currentPage = index
     didScrollEndDecelerating(index: index)
   }
 
-  func scrollViewWillBeginDragging(scrollView: UIScrollView) {
+  public func scrollViewWillBeginDragging(scrollView: UIScrollView) {
     let index = Int(scrollView.contentOffset.x / width)
     didScrollBeginDragging(index: index)
   }
@@ -54,7 +54,7 @@ class PageScroll: DefaultView, UIScrollViewDelegate {
     scrollView.setContentOffset(CGPointMake(CGFloat(paginator.currentPage) * width, 0), animated: true)
   }
 
-  override func layoutSubviews() {
+  override public func layoutSubviews() {
     super.layoutSubviews()
     paginator.anchorAndFillEdge(.Bottom, xPad: 0, yPad: 10, otherSize: 30)
     scrollView.fillSuperview()
