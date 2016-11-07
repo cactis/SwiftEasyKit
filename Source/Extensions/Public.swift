@@ -14,23 +14,33 @@ import Neon
 import RandomKit
 import SwiftRandom
 
+
+public class PromptType {
+  public var color: UIColor!
+  public var bgColor: UIColor!
+  public init(color: UIColor = K.Color.Alert.color, bgColor: UIColor = K.Color.Alert.backgroundColor) {
+    self.color = color
+    self.bgColor = bgColor
+  }
+}
+
 public func statusBarHeight() -> CGFloat {
   return UIApplication.sharedApplication().statusBarFrame.height
 }
 
-public func prompt(msgs: [String], runWith: (msg: String) -> String = { msg in return msg }, title: String = "") {
-  prompt(runWith(msg: msgs.randomItem()), title: title)
+public func prompt(msgs: [String], runWith: (msg: String) -> String = { msg in return msg }, style: PromptType = PromptType()) {
+  prompt(runWith(msg: msgs.randomItem()), style: style)
 }
 
-public func prompt(msg: String, title: String = "") {
+public func prompt(msg: String, style: PromptType = PromptType()) {
   _logForUIMode(msg)
   UIApplication.sharedApplication().statusBarHidden = true
   let notification = UIButton()
   let block = DefaultView()
   let label = UILabel()
 
-  block.backgroundColored(K.Color.Alert.backgroundColor).bottomBordered().shadowed().radiused(3)
-  label.styled().colored(K.Color.Alert.color).text(msg).multilinized().centered().sized(12.em)
+  block.backgroundColored(style.bgColor).bottomBordered().shadowed().radiused(3)
+  label.styled().colored(style.color).text(msg).multilinized().centered().sized(12.em)
   notification.layout([block.layout([label])])
 
   let xPad = 10.em

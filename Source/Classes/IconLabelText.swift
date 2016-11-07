@@ -17,7 +17,7 @@ public class IconLabelText: IconLabel {
 
   override public func styleUI() {
     super.styleUI()
-    field.styled()
+    field.styled().bold()
   }
 
   override public func layoutSubviews() {
