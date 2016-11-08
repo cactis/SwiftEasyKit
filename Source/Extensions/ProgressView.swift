@@ -47,11 +47,11 @@ public class ProgressView: DefaultView {
     progress.trackThickness = progress.progressThickness
     progress.clockwise = true
     progress.center = center
-    //    progress.gradientRotateSpeed = 1
+    progress.gradientRotateSpeed = 1
     progress.roundedCorners = false
     progress.glowMode = .NoGlow
     progress.angle = Double(percentage * CGFloat(360))
-    progress.trackColor = UIColor.lightGrayColor().lighter()
+    progress.trackColor = UIColor.clearColor()
     progress.setColors(UIColor.yellowColor().tinyDarker(), UIColor.orangeColor(), UIColor.redColor().tinyLighter(), UIColor.purpleColor(), UIColor.magentaColor(), UIColor.greenColor().tinyDarker())
   }
 
@@ -60,6 +60,7 @@ public class ProgressView: DefaultView {
     if percentage < 1 {
       let p = -1 * width * 0.15
       progress.fillSuperview(left: p, right: p, top: p, bottom: p)
+      progress.trackColor = UIColor.lightGrayColor().lighter()
     } else {
       let q: CGFloat = -6
       complete.fillSuperview(left: q, right: q, top: q, bottom: q)
