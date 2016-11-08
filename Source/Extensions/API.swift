@@ -51,7 +51,7 @@ public class API {
                 prompt(text)
                 response.result.value?.code
               } else if let texts = message as? NSDictionary {
-                let text = texts.map{"\($0.key): \($0.value)"}.joinWithSeparator("\n")
+                let text = texts.map{"\($0.key): \($0.value)"}.join("\n")
                 prompt(text)
               } else {
                 _logForUIMode(message, title: "message")

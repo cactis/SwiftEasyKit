@@ -8,6 +8,7 @@ import UIKit
 
 public class PageScroll: DefaultView, UIScrollViewDelegate {
   public var paginator = UIPageControl()
+  public var paginatorYPad: CGFloat = 10 { didSet { layoutSubviews() } }
   public var scrollView = UIScrollView()
   public var views = [UIView]() { didSet {
     paginator.numberOfPages = views.count
@@ -15,10 +16,20 @@ public class PageScroll: DefaultView, UIScrollViewDelegate {
     self.scrollView.asFadable()
     delayedJob(0.01) {
       self.views.forEach { (view) in
+        view.layoutIfNeeded()
         view.layoutSubviews()
       }
     }
   }}
+
+  init(paginatorYPad: CGFloat = 10) {
+    self.paginatorYPad = paginatorYPad
+    super.init(frame: CGRectZero)
+  }
+  
+  required public init?(coder aDecoder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
 
   public var didScrollBeginDragging: (index: Int) -> () = {_ in}
   public var didScrollEndDecelerating: (index: Int) -> () = {_ in}
@@ -56,9 +67,9 @@ public class PageScroll: DefaultView, UIScrollViewDelegate {
 
   override public func layoutSubviews() {
     super.layoutSubviews()
-    paginator.anchorAndFillEdge(.Bottom, xPad: 0, yPad: 10, otherSize: 30)
     scrollView.fillSuperview()
     scrollView.groupHorizontally(views.map({$0 as UIView}), fillingHeightWithLeftPadding: 0, spacing: 0, topAndBottomPadding: 0, width: width)
     scrollView.contentSize = CGSize(width: scrollView.frame.width * CGFloat(views.count), height: scrollView.frame.height)
+    paginator.anchorAndFillEdge(.Bottom, xPad: 0, yPad: paginatorYPad, otherSize: 30)
   }
 }

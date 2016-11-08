@@ -53,7 +53,7 @@ extension UIImagePickerController {
 public class Lorem: LoremIpsum {
 
   public class func message() -> String {
-    return Lorem.array(1, upper: 5).map({ _ in Randoms.randomFakeConversation() }).joinWithSeparator(" ")
+    return Lorem.array(1, upper: 5).map({ _ in Randoms.randomFakeConversation() }).join(" ")
   }
 
   public class func array(lower: Int = 3, upper: Int = 5) -> Array<Int> {
@@ -560,6 +560,12 @@ extension Array {
   //  }
   //    return self.filter({ (t) -> Bool in t != "" })
   //  }
+}
+
+extension SequenceType where Generator.Element == String {
+  public func join(separator: String) -> String {
+    return joinWithSeparator(separator)
+  }
 }
 
 extension NSMutableAttributedString {
