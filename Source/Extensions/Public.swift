@@ -33,7 +33,7 @@ public func prompt(msgs: [String], runWith: (msg: String) -> String = { msg in r
 }
 
 public func prompt(msg: String, style: PromptType = PromptType()) {
-  _logForUIMode(msg)
+//  _logForUIMode(msg)
   UIApplication.sharedApplication().statusBarHidden = true
   let notification = UIButton()
   let block = DefaultView()
@@ -61,7 +61,7 @@ public func prompt(msg: String, style: PromptType = PromptType()) {
   }
 
   if let v = window() {
-    _logForUIMode(true)
+//    _logForUIMode(true)
     v.addSubview(notification)
     notification.frame = CGRect(x: 0, y: -1 * screenHeight(), width: screenWidth(), height: screenHeight())
 

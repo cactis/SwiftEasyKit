@@ -11,13 +11,15 @@ public class PageScroll: DefaultView, UIScrollViewDelegate {
   public var scrollView = UIScrollView()
   public var views = [UIView]() { didSet {
     paginator.numberOfPages = views.count
+    scrollView.hidden = true
     scrollView.removeSubviews().layout(views)
     self.scrollView.asFadable()
-    delayedJob(0.01) {
-      self.views.forEach { (view) in
-        view.layoutIfNeeded()
+    delayedJob(0.2) {
+      self.scrollView.subviews.forEach { (view) in
+//        view.layoutIfNeeded()
         view.layoutSubviews()
       }
+      self.scrollView.hidden = false
     }
   }}
 

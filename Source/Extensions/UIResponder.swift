@@ -39,7 +39,7 @@ extension UIResponder {
   }
 
   public func getDeviceToken() -> String {
-    _logForAnyMode(getDeviceName(), title: "getDeviceName()")
+//    _logForAnyMode(getDeviceName(), title: "getDeviceName()")
     return Session.getValue(K.Api.deviceTokenKey)!
   }
 
