@@ -39,6 +39,11 @@ extension UIButton {
     return self
   }
 
+  public func larger(n: CGFloat = 1) -> UIButton {
+    smaller(-1 * n)
+    return self
+  }
+
   public func smaller(n: CGFloat = 1) -> UIButton {
     self.titleLabel?.font = UIFont(name: (self.titleLabel?.font.fontName)!, size: (self.titleLabel?.font?.pointSize)! - n)
     return self

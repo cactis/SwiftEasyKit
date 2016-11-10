@@ -465,10 +465,16 @@ extension UIView: UIImagePickerControllerDelegate, UINavigationControllerDelegat
   public func addLabelWithIcon(title: String, icon: FontAwesome, options: NSDictionary = NSDictionary()) -> UIButton {
     let fontSize = options["fontSize"] as? CGFloat ?? K.Size.Text.normal
     let color = options["color"] as? UIColor ?? K.Color.dark
+    let icon = UIImage.fontAwesomeIconWithName(icon, textColor: color, size: CGSize(width: fontSize + 2, height: fontSize + 2))
+    return addLabelWithIcon(title, icon: icon, options: options)
+  }
+  
+  public func addLabelWithIcon(title: String, icon: UIImage, options: NSDictionary = NSDictionary()) -> UIButton {
+    let fontSize = options["fontSize"] as? CGFloat ?? K.Size.Text.normal
+    let color = options["color"] as? UIColor ?? K.Color.dark
     let button = UIButton(type: .Custom)
-    button.setImage(UIImage.fontAwesomeIconWithName(icon, textColor: color, size: CGSize(width: fontSize + 2, height: fontSize + 2)), forState: .Normal)
+    button.setImage(icon, forState: .Normal)
     button.setTitle(title, forState: .Normal)
-    //    _logForUIMode(color)
     button.setTitleColor(color, forState: .Normal)
     button.contentEdgeInsets = UIEdgeInsetsMake(0, 5, 0, 0)
     button.contentHorizontalAlignment = .Left
