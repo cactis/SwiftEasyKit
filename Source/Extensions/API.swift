@@ -56,12 +56,12 @@ public class API {
               } else {
 //                _logForUIMode(message, title: "message")
               }
-            } else {
-              run(response: response)
             }
+            run(response: response)
           }
         } else {
           print(value)
+          run(response: response)
         }
       case .Failure:
 //        print("response:", response)

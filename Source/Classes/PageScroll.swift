@@ -62,6 +62,6 @@ public class PageScroll: DefaultView, UIScrollViewDelegate {
     scrollView.fillSuperview()
     scrollView.groupHorizontally(views.map({$0 as UIView}), fillingHeightWithLeftPadding: 0, spacing: 0, topAndBottomPadding: 0, width: width)
     scrollView.contentSize = CGSize(width: scrollView.frame.width * CGFloat(views.count), height: scrollView.frame.height)
-    paginator.anchorAndFillEdge(.Bottom, xPad: 0, yPad: 10, otherSize: 30)
+    paginator.anchorAndFillEdge(.Bottom, xPad: 0, yPad: 10, otherSize: height * 0.08)
   }
 }
