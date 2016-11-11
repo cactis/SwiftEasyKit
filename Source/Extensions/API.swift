@@ -21,19 +21,19 @@ public class API {
     var headers = ["app_id": appId, "file_name": (fileName! as NSString).lastPathComponent, "func_name": funcName!]
     headers["Authorization"] = K.Api.userToken
     headers["token"] = (Session.getValueObject(K.Api.userTokenKey) as? String) ?? K.Api.userToken
-//    _logForUIMode(headers, title: "headers")
+    _logForUIMode(headers, title: "headers")
     let indicator = indicatorStart()
-
+    
     Alamofire.request(method, url.hostUrl(), parameters: parameters, headers: headers).responseJSON { response in
       _logForUIMode(response.request!, title: "response.request")
 //      print("NSProcessInfo.processInfo().environment: ", NSProcessInfo.processInfo().environment)
       switch response.result {
       case .Success(let value):
-//        _logForUIMode(response.result.value!, title: "response.result.value!")
+        _logForUIMode(response.result.value!, title: "response.result.value!")
         if let items = value as? NSArray {
           run(response: response)
-        } else {
-//          _logForUIMode((response.response?.statusCode)!, title: "(response.response?.statusCode)!")
+        } else if let item = value as? NSDictionary {
+          _logForUIMode((response.response?.statusCode)!, title: "(response.response?.statusCode)!")
           switch (response.response?.statusCode)! {
           case 440:
             prompt((value.objectForKey(K.Api.Response.message) as? String)!)
@@ -45,7 +45,7 @@ public class API {
             prompt("伺服器內部錯誤，請稍後再試。")
             appDelegate().did500Error()
           default:
-            if let message = value.objectForKey(K.Api.Response.message) {
+            if let message = value.objectForKey(K.Api.Response.message) as? String {
               if let text = message as? String {
 //                _logForUIMode(text, title: "text")
                 prompt(text)
@@ -60,7 +60,8 @@ public class API {
               run(response: response)
             }
           }
-
+        } else {
+          print(value)
         }
       case .Failure:
 //        print("response:", response)

@@ -96,9 +96,9 @@ extension NSObject {
   public func _delayedJob(todo: () -> ()) {
     if _isSimulator() {
       //      #if DEBUG
-      delayedJob({ () -> () in
+      delayedJob(1) { () -> () in
         todo()
-      })
+      }
       //      #endif
     }
   }

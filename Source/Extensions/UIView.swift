@@ -438,7 +438,13 @@ extension UIView: UIImagePickerControllerDelegate, UINavigationControllerDelegat
     let size = options["fontSize"] as? CGFloat ?? K.Size.Text.small
     let cgSize = CGSize(width: size, height: size)
     let image = UIImage.fontAwesomeIconWithName(icon, textColor: color, size: cgSize)
-    let iconLabel = IconLabel(iconImage: image, text: title)
+    return iconLabel(title, icon: image, options: options)
+  }
+  
+  public func iconLabel(title: String = Lorem.sentence(), icon: UIImage, options: NSDictionary = NSDictionary()) -> IconLabel {
+    let color = options["color"] as? UIColor ?? K.Color.text
+    let size = options["fontSize"] as? CGFloat ?? K.Size.Text.small
+    let iconLabel = IconLabel(iconImage: icon, text: title)
     iconLabel.label.font = UIFont.systemFontOfSize(size)
     iconLabel.label.textColor = color
     return iconLabel
