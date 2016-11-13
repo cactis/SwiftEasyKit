@@ -553,21 +553,6 @@ extension CGFloat {
   }
 }
 
-extension Array {
-  public func compact() -> [Element] {
-    return flatMap({$0})
-  }
-  //  }
-  //    return self.filter({ (t) -> Bool in t != "" })
-  //  }
-}
-
-extension SequenceType where Generator.Element == String {
-  public func join(separator: String) -> String {
-    return joinWithSeparator(separator)
-  }
-}
-
 extension NSMutableAttributedString {
 
   public func setAsLink(textToFind: String, linkURL: String) -> Bool {

@@ -44,7 +44,9 @@ public class DefaultView: UIView {
 
   }
 
-  override public func layoutSubviews() { }
+  override public func layoutSubviews() {
+    
+  }
 
   override public func layout(views: [UIView]) -> UIView {
     views.forEach { (view) -> () in

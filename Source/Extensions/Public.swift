@@ -55,7 +55,7 @@ public func prompt(msg: String, style: PromptType = PromptType()) {
   label.userInteractionEnabled = false
   block.userInteractionEnabled = false
 
-  print(label.height, label.textHeight() + 4)
+//  print(label.height, label.textHeight() + 4)
   if label.linesCount > 1 {
     label.aligned(.Left)
   }
