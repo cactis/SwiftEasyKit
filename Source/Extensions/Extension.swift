@@ -567,6 +567,21 @@ extension NSMutableAttributedString {
 
 extension UITextField {
 
+  public func text(value: String) -> UITextField {
+    text = value
+    return self
+  }
+  
+  public func colored(color: UIColor) -> UITextField {
+    textColor = color
+    return self
+  }
+  
+  public func aligned(align: NSTextAlignment = .Left) -> UITextField {
+    textAlignment = align
+    return self
+  }
+
   public func bold() -> UITextField {
     font = UIFont.boldSystemFontOfSize(font!.pointSize)
     return self

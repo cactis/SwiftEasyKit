@@ -61,22 +61,6 @@ public class TextField: UITextField {
     let rect: CGRect = super.clearButtonRectForBounds(bounds)
     return CGRectOffset(rect, -5, 0)
   }
-
-  public func text(value: String) -> TextField {
-    text = value
-    return self
-  }
-
-  public func colored(color: UIColor) -> TextField {
-    textColor = color
-    return self
-  }
-
-  public func aligned(align: NSTextAlignment = .Left) -> TextField {
-    textAlignment = align
-    return self
-  }
-
 }
 
 
