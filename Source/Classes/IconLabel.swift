@@ -28,6 +28,8 @@ public class IconLabel: DefaultView {
     case Center
     case Right
   }
+  
+  public var enabled: Bool = true
 
   public var bolded: Bool = false { didSet { label.bold(bolded) } }
 
@@ -49,6 +51,7 @@ public class IconLabel: DefaultView {
   public var iconCode: String = "" { didSet { setIconFont() } }
   public var iconColor = K.Color.buttonBg { didSet { setIconFont() } }
   public var labelColor = K.Color.buttonBg { didSet { setLabelColor() } }
+  public var disabledLabelColor = K.Color.text.lighter(0.4) { didSet { setLabelColor() } }
 
   public var color = K.Color.buttonBg { didSet { iconColor = color; labelColor = color } }
 
@@ -138,7 +141,13 @@ public class IconLabel: DefaultView {
       layoutSubviews()
     }
   }
-  public func setLabelColor() { label.colored(labelColor) }
+  public func setLabelColor() {
+    if enabled {
+      label.colored(labelColor)
+    } else {
+      label.colored(disabledLabelColor)
+    }
+  }
 
   override public func layoutSubviews() {
     super.layoutSubviews()
