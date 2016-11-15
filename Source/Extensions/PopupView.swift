@@ -5,6 +5,8 @@ import UIKit
 
 public class PopupView: DefaultView {
 
+  public var delegate: UIView!
+  
   public var wrapper: UIView!
   public var closeBtn: UIImageView!
 
