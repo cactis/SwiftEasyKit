@@ -227,9 +227,6 @@ extension String {
     if self == "" { return nil }
     let df = NSDateFormatter()
     df.dateFormat = dataFormat
-//    var s = self
-    print(self, "self")
-//    s = s.containsString("T") ? self.stringByReplacingOccurrencesOfString("T", withString: " ") : s
     return df.dateFromString(self)!
   }
 }

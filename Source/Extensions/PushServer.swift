@@ -10,7 +10,6 @@ import Foundation
 class PushServer {
 
   class func subscribeToken(appid: String, user: String, deviceToken: String, success: (deviceTokenString: String) -> ()) {
-    print(333)
     let url = K.Api.pushserverSubscribe
     let params = ["deviceName":  user, "deviceToken": deviceToken, "deviceType": K.Api.deviceType]
     _logForAnyMode(params, title: "params")

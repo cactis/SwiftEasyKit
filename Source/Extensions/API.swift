@@ -32,7 +32,7 @@ public class API {
         if let items = value as? NSArray {
           run(response: response)
         } else if let item = value as? NSDictionary {
-          _logForUIMode((response.response?.statusCode)!, title: "(response.response?.statusCode)!")
+//          _logForUIMode((response.response?.statusCode)!, title: "(response.response?.statusCode)!")
           switch (response.response?.statusCode)! {
           case 400:
             prompt(value.objectForKey(K.Api.Response.message) as? String)
@@ -60,7 +60,7 @@ public class API {
             run(response: response)
           }
         } else {
-          print(value)
+          print(value, "value in API")
           run(response: response)
         }
       case .Failure:
