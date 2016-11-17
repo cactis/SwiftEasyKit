@@ -14,7 +14,6 @@ extension String {
 
 public class API {
 
-
   class public func request(method: Alamofire.Method = .GET, url: String, parameters: [String: AnyObject] = [:], fileName: String? = #file, funcName: String? = #function, run: (response: Response<AnyObject, NSError>) -> ()) {
 
     let appId = K.Api.appID
@@ -29,32 +28,33 @@ public class API {
 //      print("NSProcessInfo.processInfo().environment: ", NSProcessInfo.processInfo().environment)
       switch response.result {
       case .Success(let value):
-//        _logForUIMode(response.result.value!, title: "response.result.value!")
+//        _logForUIMode(value, title: "response.result.value!")
         if let items = value as? NSArray {
           run(response: response)
         } else if let item = value as? NSDictionary {
-//          _logForUIMode((response.response?.statusCode)!, title: "(response.response?.statusCode)!")
+          _logForUIMode((response.response?.statusCode)!, title: "(response.response?.statusCode)!")
           switch (response.response?.statusCode)! {
+          case 400:
+            prompt(value.objectForKey(K.Api.Response.message) as? String)
           case 440:
             prompt((value.objectForKey(K.Api.Response.message) as? String)!)
-//            _logForUIMode("logout!!")
             delayedJob({
               appDelegate().redirectToLogin()
             })
+          case 422:
+            prompt((value.objectForKey(K.Api.Response.message) as? String)!)
           case 500:
             prompt("伺服器內部錯誤，請稍後再試。")
             appDelegate().did500Error()
           default:
             if let message = value.objectForKey(K.Api.Response.message) as? String {
               if let text = message as? String {
-//                _logForUIMode(text, title: "text")
                 prompt(text)
                 response.result.value?.code
               } else if let texts = message as? NSDictionary {
                 let text = texts.map{"\($0.key): \($0.value)"}.join("\n")
                 prompt(text)
               } else {
-//                _logForUIMode(message, title: "message")
               }
             }
             run(response: response)

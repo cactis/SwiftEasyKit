@@ -22,6 +22,7 @@ extension UIImageView {
   public func imaged(name: String!) -> UIImageView {
     //    self.image = UIImage.sample()
     //    _logForUIMode(name.containsString("http"), title: "name.containsString(http)")
+    print(name, "name")
     if name.containsString("http") {
       //      UIView.transitionWithView(self, duration: 0.5, options: .TransitionCrossDissolve, animations: { () -> Void in
       self.kf_setImageWithURL(NSURL(string: name)!)

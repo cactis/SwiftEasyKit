@@ -32,15 +32,16 @@ public func prompt(msgs: [String], runWith: (msg: String) -> String = { msg in r
   prompt(runWith(msg: msgs.randomItem()), style: style)
 }
 
-public func prompt(msg: String, style: PromptType = PromptType()) {
+public func prompt(msg: String?, style: PromptType = PromptType()) {
 //  _logForUIMode(msg)
+  let message = msg ?? "(異常錯誤：未被追蹤到的錯誤。)"
   UIApplication.sharedApplication().statusBarHidden = true
   let notification = UIButton()
   let block = DefaultView()
   let label = UILabel()
 
   block.backgroundColored(style.bgColor).bottomBordered().shadowed().radiused(3)
-  label.styled().colored(style.color).text(msg).multilinized().centered().sized(12.em)
+  label.styled().colored(style.color).text(message).multilinized().centered().sized(12.em)
   notification.layout([block.layout([label])])
 
   let xPad = 10.em
@@ -205,7 +206,7 @@ public func _logForUIMode(title: String = "", funcName: String = #function, file
   _logForUIMode("", title: title, funcName: funcName, fileName: fileName)
 }
 
-public func _logForUIMode(obj: AnyObject, title: AnyObject = "", funcName: String = #function, fileName: String = #file, column: Int = #column, line: Int = #line) {
+public func _logForUIMode(obj: AnyObject?, title: AnyObject = "", funcName: String = #function, fileName: String = #file, column: Int = #column, line: Int = #line) {
   if _isUIMode() {
     _log(obj, title: title, funcName: funcName, fileName: fileName)
   }
@@ -232,7 +233,7 @@ private func _log(title: String = "", funcName: String = #function, fileName: St
   print("\n")
 }
 
-private func _log(obj: AnyObject, title: AnyObject = "", funcName: String = #function, fileName: String = #file, column: Int = #column, line: Int = #line) {
+private func _log(obj: AnyObject?, title: AnyObject = "", funcName: String = #function, fileName: String = #file, column: Int = #column, line: Int = #line) {
   let time = NSDate()
   print("")
   print("=== \"\(title)\" in \(funcName) of \((fileName as NSString).lastPathComponent) \(line):\(column) ===")
@@ -242,7 +243,7 @@ private func _log(obj: AnyObject, title: AnyObject = "", funcName: String = #fun
 //  default:
 //    print((obj as! NSObject).asJSON())
 //  }
-  print(obj)
+  print(obj!)
   print("=== \"\(title)\" in \(funcName) of \((fileName as NSString).lastPathComponent) \(line):\(column) ===")
   print(time)
   print("")

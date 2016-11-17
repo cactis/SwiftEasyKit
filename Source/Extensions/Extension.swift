@@ -160,7 +160,10 @@ extension String {
     return split("(")[0] + "(\(number))"
   }
 
-  public func deDecimal() -> Int { return Int(self.gsub(",", withString: ""))! }
+  public func deDecimal() -> Int? {
+    if self == "" { return nil }
+    return Int(self.gsub(",", withString: ""))!
+  }
 
   public func gsub(target: String, withString: String) -> String {
     return stringByReplacingOccurrencesOfString(target, withString: withString)
@@ -220,11 +223,12 @@ extension String {
     return "\(headTag)\(self)\(footTag)"
   }
 
-  public func toDate(dataFormat: String = K.Api.timeFormat) -> NSDate {
+  public func toDate(dataFormat: String = K.Api.timeFormat) -> NSDate? {
+    if self == "" { return nil }
     let df = NSDateFormatter()
     df.dateFormat = dataFormat
 //    var s = self
-//    print(self)
+    print(self, "self")
 //    s = s.containsString("T") ? self.stringByReplacingOccurrencesOfString("T", withString: " ") : s
     return df.dateFromString(self)!
   }
@@ -567,8 +571,8 @@ extension NSMutableAttributedString {
 
 extension UITextField {
 
-  public func text(value: String) -> UITextField {
-    text = value
+  public func text(value: String?) -> UITextField {
+    if let _ = value { text = value }
     return self
   }
   

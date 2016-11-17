@@ -52,7 +52,8 @@ public class LabelField: LabelWith {
 
   public var input = TextView()
   public var field: UITextView! { get { return input.field } }
-  public var value: String { get { return field.text } set { field.text = newValue } }
+  public var value: String? { get { return field.text } set {
+    if let _ = newValue { field.text = newValue } } }
   override public func layoutUI() {
     super.layoutUI()
     layout([field])

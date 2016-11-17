@@ -4,6 +4,7 @@
 //  Created by ctslin on 3/26/16.
 
 import UIKit
+import ObjectMapper
 
 public class ImagesCollectionView: CollectionView {
 
@@ -196,31 +197,29 @@ public class ImagesCollectionView: CollectionView {
   }
 }
 
-public class Photo: NSObject {
+public class Photo: Mappable {
 
   public var id: Int?
   public var image: UIImage?
   public var url: String?
   public var checked: Bool! = false
-
-  public override init() {
-    super.init()
+  
+  public func mapping(map: Map) {
+    id <- map["id"]
+    url <- map["file_url"]
   }
 
-  public init(id: Int, url: String) {
+  public init(id: Int?, url: String?) {
     self.id = id
     self.url = url
-    super.init()
   }
 
   public init(image: UIImage!) {
     self.image = image
-    super.init()
   }
 
   public init(url: String!) {
     self.url = url
-    super.init()
   }
 
   public class func seeds(onComplete: (items: [Photo]) -> ()) {
@@ -230,6 +229,7 @@ public class Photo: NSObject {
     }
     onComplete(items: items)
   }
+  required public init?(_ map: Map) { }
 }
 
 
