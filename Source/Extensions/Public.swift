@@ -243,7 +243,7 @@ private func _log(obj: AnyObject?, title: AnyObject = "", funcName: String = #fu
 //  default:
 //    print((obj as! NSObject).asJSON())
 //  }
-  print(obj!)
+  if let _ = obj { print(obj!) } else { print(obj) }
   print("=== \"\(title)\" in \(funcName) of \((fileName as NSString).lastPathComponent) \(line):\(column) ===")
   print(time)
   print("")

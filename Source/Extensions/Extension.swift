@@ -125,9 +125,9 @@ public class Lorem: LoremIpsum {
     return name()
   }
 
-  public class func int() -> Int {
+  public class func int(lower: Int = 0, upper: Int = 9999) -> Int {
     if condition() {
-      return wizRandomInt()
+      return wizRandomInt(lower, upper: upper)
     } else {
       return 0
     }
@@ -646,4 +646,13 @@ extension UITableViewRowAction {
     backgroundColor = UIColor(patternImage: image)
     return self
   }
+}
+
+extension UISwitch {
+  
+  public func resize(sx: CGFloat = 0.7, sy: CGFloat = 0.7) -> UISwitch {
+    transform = CGAffineTransformMakeScale(sx, sy)
+    return self
+  }
+  
 }

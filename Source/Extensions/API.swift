@@ -22,7 +22,7 @@ public class API {
     headers["token"] = (Session.getValueObject(K.Api.userTokenKey) as? String) ?? K.Api.userToken
 //    _logForUIMode(headers, title: "headers")
     let indicator = indicatorStart()
-    
+    _logForUIMode(url.hostUrl(), title: "url.hostUrl()")
     Alamofire.request(method, url.hostUrl(), parameters: parameters, headers: headers).responseJSON { response in
 //      _logForUIMode(response.request!, title: "response.request")
 //      print("NSProcessInfo.processInfo().environment: ", NSProcessInfo.processInfo().environment)

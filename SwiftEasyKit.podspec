@@ -140,7 +140,7 @@ s.dependency 'SwiftRandom', '0.1.7'
 s.dependency 'SwiftyJSON', '2.3.2'
 s.dependency 'RandomKit'
 s.dependency 'Facade'
-s.dependency 'ObjectMapper'#, '~> 2.2'
+s.dependency 'ObjectMapper', '1.3.0'
 
 s.dependency 'mailgun', '~> 1.0.3'
 s.dependency 'Fakery', '1.2.0'
