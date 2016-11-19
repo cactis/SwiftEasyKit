@@ -4,7 +4,7 @@
 
 import UIKit
 
-public class IconLabelButton: UIView {
+public class IconLabelButton: DefaultView {
 
   public var icon = UIImageView()
   public var label = UILabel()
@@ -32,7 +32,7 @@ public class IconLabelButton: UIView {
     icon = addImageView(image)
     badge = icon.addView(Badge(size: size! * 0.7)) as? Badge
     label = addLabelWithSize(size, text: text)
-    label.centered()
+    label.centered().multilinized()
   }
 
   init(text: String!, size: CGFloat? = 12) {
@@ -49,7 +49,7 @@ public class IconLabelButton: UIView {
     super.layoutSubviews()
     if icon.image != nil {
       icon.anchorAndFillEdge(.Top, xPad: xPad, yPad: yPad, otherSize: height * 0.75)
-      label.alignUnder(icon, matchingCenterWithTopPadding: padding, width: label.textWidth(), height: label.textHeight())
+      label.alignUnder(icon, matchingCenterWithTopPadding: padding, width: label.textWidth(), height: label.getHeightBySizeThatFitsWithWidth(label.width))
     } else {
       groupAndFill(group: .Vertical, views: [label], padding: padding)
     }
