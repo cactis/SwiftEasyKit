@@ -13,6 +13,11 @@ import RandomKit
 import SwiftRandom
 
 extension UIButton {
+  
+  public convenience init(text: String) {
+    self.init(frame: CGRectZero)
+    self.setTitle(text, forState: .Normal)
+  }
 
   public func imaged(image: UIImage) -> UIButton {
     setImage(image, forState: .Normal)
