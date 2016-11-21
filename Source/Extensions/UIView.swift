@@ -206,14 +206,14 @@ extension UIView: UIImagePickerControllerDelegate, UINavigationControllerDelegat
     }
   }
   
-  public func openPopupDialog(viewClass: NSObject.Type, delegate: UIView = UIView(), completion: () -> () = {}) {
+  public func openPopupDialog(viewClass: NSObject.Type, delegate: UIView = UIView(), onCompletion: () -> () = {}) {
     let popupVC = PopupViewController()
     popupVC.modalPresentationStyle = UIModalPresentationStyle.OverCurrentContext
     let popupView = viewClass.init()
     popupVC.contentView = popupView as! UIView
     (popupView as? PopupView)!.delegate = delegate
     parentViewController()!.presentViewController(popupVC, animated: true) { () -> Void in
-      completion()
+      onCompletion()
     }
   }
   
