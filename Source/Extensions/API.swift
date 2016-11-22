@@ -39,12 +39,12 @@ public class API {
           case 400:
             prompt(value.objectForKey(K.Api.Response.message) as? String)
           case 440:
-            prompt((value.objectForKey(K.Api.Response.message) as? String)!)
+            prompt(value.objectForKey(K.Api.Response.message) as? String)
             delayedJob({
               appDelegate().redirectToLogin()
             })
           case 422:
-            prompt((value.objectForKey(K.Api.Response.message) as? String)!)
+            prompt(value.objectForKey(K.Api.Response.message) as? String)
           case 500:
             prompt("伺服器內部錯誤，請稍後再試。")
             appDelegate().did500Error()

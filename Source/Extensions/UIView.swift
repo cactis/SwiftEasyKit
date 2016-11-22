@@ -678,18 +678,19 @@ extension UIView: UIImagePickerControllerDelegate, UINavigationControllerDelegat
     }
   }
   
-  public func leftBordered() -> UIView { return addBorder(CGRect(x: 0, y: 0, width: K.Line.size, height: height)) }
-  public func rightBordered() -> UIView { return addBorder(CGRect(x: width, y: 0, width: K.Line.size, height: height)) }
-  public func bottomBordered() -> UIView { return addBorder(CGRect(x: 0, y: height - 1, width: width, height: K.Line.size)) }
-  public func topBordered() -> UIView { return addBorder(CGRect(x: 0, y: 0, width: width, height: K.Line.size)) }
+  public func leftBordered() -> UIView { return addBorder(.Left) } //addBorder(CGRect(x: 0, y: 0, width: K.Line.size, height: height)) }
+  public func rightBordered() -> UIView { return addBorder(.Right) } //addBorder(CGRect(x: width, y: 0, width: K.Line.size, height: height)) }
+  public func bottomBordered() -> UIView { return addBorder(.Bottom) } //addBorder(CGRect(x: 0, y: height - 1, width: width, height: K.Line.size)) }
+  public func topBordered() -> UIView { return addBorder(.Top) } // addBorder(CGRect(x: 0, y: 0, width: width, height: K.Line.size)) }
   
-  func addBorder(frame: CGRect) -> UIView {
-    let border = CALayer()
-    border.frame = frame
-    border.backgroundColor = K.Line.Color.horizontal.CGColor
-    self.layer.addSublayer(border)
-    return self
-  }
+  //  func addBorder(frame: CGRect) -> UIView {
+  //    let border = CALayer()
+  //    border.frame = frame
+  //    border.backgroundColor = K.Line.Color.horizontal.CGColor
+  //    self.layer.addSublayer(border)
+  //    return self
+  //  }
+  //
   
   public func openImagePicker(sourceType: UIImagePickerControllerSourceType = .Camera) -> UIImagePickerController {
     var type = sourceType
@@ -711,7 +712,7 @@ public enum viewBorder: String {
 
 extension UIView {
   
-  public func addBorder(vBorder: viewBorder, color: UIColor = K.Line.Color.horizontal, width: CGFloat = 1.0) {
+  public func addBorder(vBorder: viewBorder, color: UIColor = K.Line.Color.horizontal, width: CGFloat = 1.0) -> UIView {
     let border = CALayer()
     border.backgroundColor = color.CGColor
     border.name = vBorder.rawValue
@@ -727,17 +728,20 @@ extension UIView {
       border.frame = CGRectMake(0, self.frame.size.height - width, self.frame.size.width, width)
     }
     self.layer.addSublayer(border)
+    return self
   }
   
   public func removeBorder(border: viewBorder) {
     var layerForRemove: CALayer?
-    for layer in self.layer.sublayers! {
-      if layer.name == border.rawValue {
-        layerForRemove = layer
+    if self.layer.sublayers?.count > 0 {
+      for layer in self.layer.sublayers! {
+        if layer.name == border.rawValue {
+          layerForRemove = layer
+        }
       }
-    }
-    if let layer = layerForRemove {
-      layer.removeFromSuperlayer()
+      if let layer = layerForRemove {
+        layer.removeFromSuperlayer()
+      }
     }
   }
 }
