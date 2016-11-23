@@ -165,10 +165,10 @@ extension UIView: UIImagePickerControllerDelegate, UINavigationControllerDelegat
   }
   
   public func pushViewController(vc: UIViewController) -> Void {
-    if !(parentViewController()?.navigationController?.topViewController?.isKindOfClass(vc.self.dynamicType))! {
-      parentViewController()?.pushViewController(vc)
-    } else {
-      _logForUIMode("oh my god, stop!! don't push again")
+    if let _ = parentViewController() {
+      if !(parentViewController()?.navigationController?.topViewController?.isKindOfClass(vc.self.dynamicType))! {
+        parentViewController()?.pushViewController(vc)
+      }
     }
   }
   

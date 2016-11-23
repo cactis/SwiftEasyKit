@@ -23,12 +23,15 @@ public class API {
     //    _logForUIMode(headers, title: "headers")
     let indicator = indicatorStart()
     //    _logForUIMode(url.hostUrl(), title: "url.hostUrl()")
+    let requestStartTime = NSDate()
+    var requestTime: Double = 0
     Alamofire.request(method, url.hostUrl(), parameters: parameters, headers: headers).responseJSON { response in
       //      _logForUIMode(response.request!, title: "response.request")
       //      print("NSProcessInfo.processInfo().environment: ", NSProcessInfo.processInfo().environment)
+      requestTime = NSDate().timeIntervalSinceDate(requestStartTime)
       switch response.result {
       case .Success(let value):
-        //        _logForUIMode(value, title: "response.result.value!")
+        _logForUIMode(value, title: "response.result.value!")
         if let items = value as? NSArray {
           run(response: response)
         } else if let item = value as? NSDictionary {
@@ -79,6 +82,9 @@ public class API {
     }
     delayedJob(5) {
       _logForAPIMode("*** make a recall for log server to make sure app not crashed!! ***")
+    }
+    delayedJob(120) {
+      _logForUIMode(requestTime, title: "本次請求秒數: \(method),  \(url)")
     }
   }
   
