@@ -61,6 +61,11 @@ public struct K {
     public static var backgroundColor = UIColor.redColor()
     public static var size: CGFloat = 12
   }
+  
+  public struct Icons {
+    public static var check = "\u{e800}"
+    public static var angleRight = "\u{e808}"
+  }
 
   public struct Color {
     public static var tabBar = UIColor.grayColor()
@@ -94,6 +99,8 @@ public struct K {
     public static var image = UIColor.whiteColor()
     public static var likeMagazine = UIColor.fromRGB(163, green: 16, blue: 21)
     public static var field = UIColor.fromRGB(117, green: 172, blue: 226)
+    
+    public static var selectOptionChecked = UIColor.yellowColor()
 
     public struct Chat {
       public static var primary = UIColor.fromRGB(177, green: 244, blue: 116)
