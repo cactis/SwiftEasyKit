@@ -31,7 +31,7 @@ public class API {
       requestTime = NSDate().timeIntervalSinceDate(requestStartTime)
       switch response.result {
       case .Success(let value):
-        _logForUIMode(value, title: "response.result.value!")
+//        _logForUIMode(value, title: "response.result.value!")
         if let items = value as? NSArray {
           run(response: response)
         } else if let item = value as? NSDictionary {
@@ -83,7 +83,8 @@ public class API {
     delayedJob(5) {
       _logForAPIMode("*** make a recall for log server to make sure app not crashed!! ***")
     }
-    delayedJob(120) {
+    
+    delayedJob(20) {
       _logForUIMode(requestTime, title: "本次請求秒數: \(method),  \(url)")
     }
   }

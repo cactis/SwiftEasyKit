@@ -192,33 +192,33 @@ public func _logError(err: NSError!) {
 public func _logClear() { (0...50).forEach { _ in print("\n") }}
 
 public func _logForAnyMode(obj: AnyObject = "", title: AnyObject = "", funcName: String = #function, fileName: String = #file, column: Int = #column, line: Int = #line) {
-  _logForUIMode(obj, title: title, funcName: funcName, fileName: fileName)
-  _logForAPIMode(obj, title: title, funcName: funcName, fileName: fileName)
+  _logForUIMode(obj, title: title, funcName: funcName, fileName: fileName, column: column, line: line)
+  _logForAPIMode(obj, title: title, funcName: funcName, fileName: fileName, column: column, line: line)
 }
 
 public func _logFor(who: String, obj: AnyObject, title: String = "", funcName: String = #function, fileName: String = #file, column: Int = #column, line: Int = #line) {
   if who == Development.developer {
-    _logForUIMode(obj, title: title, funcName: funcName, fileName: fileName)
+    _logForUIMode(obj, title: title, funcName: funcName, fileName: fileName, column: column, line: line)
   }
 }
 
 public func _logForUIMode(title: String = "", funcName: String = #function, fileName: String = #file, column: Int = #column, line: Int = #line) {
-  _logForUIMode("", title: title, funcName: funcName, fileName: fileName)
+  _logForUIMode("", title: title, funcName: funcName, fileName: fileName, column: column, line: line)
 }
 
 public func _logForUIMode(obj: AnyObject?, title: AnyObject = "", funcName: String = #function, fileName: String = #file, column: Int = #column, line: Int = #line) {
   if _isUIMode() {
-    _log(obj, title: title, funcName: funcName, fileName: fileName)
+    _log(obj, title: title, funcName: funcName, fileName: fileName, column: column, line: line)
   }
 }
 
 public func _logForAPIMode(title: String = "", funcName: String = #function, fileName: String = #file, column: Int = #column, line: Int = #line) {
-  _logForAPIMode("", title: title, funcName: funcName, fileName: fileName)
+  _logForAPIMode("", title: title, funcName: funcName, fileName: fileName, column: column, line: line)
 }
 
 public func _logForAPIMode(obj: AnyObject, title: AnyObject = "", funcName: String = #function, fileName: String = #file, column: Int = #column, line: Int = #line) {
   if _isAPIMode() {
-    _log(obj, title: title, funcName: funcName, fileName: fileName)
+    _log(obj, title: title, funcName: funcName, fileName: fileName, column: column, line: line)
   }
 }
 

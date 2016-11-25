@@ -106,7 +106,7 @@ public class Lorem: LoremIpsum {
   }
 
   public class func postcode() -> String {
-    return faker.address.postcode()
+    return faker.address.postcode().split("-").first!
   }
 
   public class func token() -> String {
