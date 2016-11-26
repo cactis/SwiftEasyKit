@@ -14,6 +14,22 @@ extension String {
 
 public class API {
   
+  class public func get(url: String, parameters: [String: AnyObject] = [:], fileName: String? = #file, funcName: String? = #function, run: (response: Response<AnyObject, NSError>) -> ()) {
+    request(url: url, parameters: parameters, run: run)
+  }
+  
+  class public func post(url: String, parameters: [String: AnyObject] = [:], fileName: String? = #file, funcName: String? = #function, run: (response: Response<AnyObject, NSError>) -> ()) {
+    request(.POST, url: url, parameters: parameters, run: run)
+  }
+  
+  class public func put(url: String, parameters: [String: AnyObject] = [:], fileName: String? = #file, funcName: String? = #function, run: (response: Response<AnyObject, NSError>) -> ()) {
+    request(.PUT, url: url, parameters: parameters, run: run)
+  }
+  
+  class public func delete(url: String, parameters: [String: AnyObject] = [:], fileName: String? = #file, funcName: String? = #function, run: (response: Response<AnyObject, NSError>) -> ()) {
+    request(.DELETE, url: url, parameters: parameters, run: run)
+  }
+  
   class public func request(method: Alamofire.Method = .GET, url: String, parameters: [String: AnyObject] = [:], fileName: String? = #file, funcName: String? = #function, run: (response: Response<AnyObject, NSError>) -> ()) {
     
     let appId = K.Api.appID

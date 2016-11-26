@@ -13,6 +13,8 @@ public class DefaultViewController: UIViewController, UITextFieldDelegate, UITex
   public var textViewShouldReturn = false
 
   public var tabBarHidden = false
+  
+  public var onDismissViewController: () -> () = {}
 
   override public func viewDidLoad() {
     super.viewDidLoad()
@@ -22,6 +24,11 @@ public class DefaultViewController: UIViewController, UITextFieldDelegate, UITex
     styleUI()  // 視覺化 UI 框架
     bindUI()   // 綁定 UI 事件
 
+  }
+  
+  public override func viewDidDisappear(animated: Bool) {
+    super.viewDidDisappear(animated)
+    onDismissViewController()
   }
 
   public func layoutUI() {

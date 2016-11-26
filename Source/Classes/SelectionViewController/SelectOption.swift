@@ -38,7 +38,7 @@ public class SelectOption: Mappable {
     children_url <- map["children_url"]
   }
   
-  public var forHuman: String { get { return (family?.asBreadcrumb())! } }
+  public var forHuman: String! { get { return family != nil ? (family?.asBreadcrumb())! : name! } }
   
   public class func seeds(onComplete: (items: [SelectOption]) -> ()) {
     let items = Array(0...wizRandomInt(5, upper: 8)).map({ SelectOption(JSON: ["id": $0, "name": Randoms.randomFakeTag()])! })

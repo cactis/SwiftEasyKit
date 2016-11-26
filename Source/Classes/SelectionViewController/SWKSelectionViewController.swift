@@ -94,7 +94,7 @@ class SelectionViewController: TableViewController {
     let item = collectionData[indexPath.row]
     let selectCell = (cell as! SelectionCell)
     selectCell.loadData(item)
-    selectCell.checked = (selectData?.family?.contains(item))! == true
+    if let _ =  selectData { selectCell.checked = (selectData?.family?.contains(item))! == true }
     cell.whenTapped(self, action: #selector(cellTapped(_:)))
     cell.layoutIfNeeded()
     return cell

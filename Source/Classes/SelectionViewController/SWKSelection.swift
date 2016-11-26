@@ -23,6 +23,8 @@ public class SWKSelection: SWKInput {
   public func setData(collectionData: [SelectOption], selected: SelectOption?) {
     self.collectionData = collectionData
     self.selectData = selected
+    
+    guard let _ = selected else { return }
     if let _ = selected?.family {
       self.selected = selected?.family![(collectionData.first?.level)!]
     } else {

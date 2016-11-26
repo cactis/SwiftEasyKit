@@ -49,8 +49,10 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
     delayedJob { onComplete() }
   }
   
-  public func goBackViewController() {
-    navigationController?.popViewControllerAnimated(true)
+  public func goBackViewController(delayed: Double = 0) {
+    delayedJob(delayed) {
+      self.navigationController?.popViewControllerAnimated(true)
+    }
   }
   
   public func titled(title: String, token: String = #file) -> UIViewController {
@@ -80,7 +82,8 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
     openControllerWithDelegate(self, vc: vc, style: style, run: run)
   }
   
-  public func pushViewController(vc: UIViewController, checked: Bool = true, delayed: Double = 0, onComplete: () -> () = {}) -> Void {
+  public func pushViewController(vc: UIViewController, checked: Bool = true, delayed: Double = 0, onComplete: () -> () = {}, onDismissViewController: () -> () = {}) -> Void {
+    (vc as? DefaultViewController)!.onDismissViewController = onDismissViewController
     delayedJob(delayed) {
       if checked && (self.navigationController?.topViewController?.isKindOfClass(vc.dynamicType))! {
         _logForUIMode("Not push again")
