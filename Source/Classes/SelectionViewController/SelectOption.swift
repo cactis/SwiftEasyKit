@@ -68,6 +68,7 @@ public class SelectOption: Mappable {
 
 extension SequenceType where Generator.Element == SelectOption {
   var ids: [Int] { get { return map({$0.id!}) } }
+  
   func asBreadcrumb(separator: String = "/") -> String {
     return self.map({$0.name!}).join(separator)
   }
@@ -75,6 +76,7 @@ extension SequenceType where Generator.Element == SelectOption {
   public func contains(ele: SelectOption) -> Bool {
     return ids.contains(ele.id!)
   }
+  
 }
 
 //extension SequenceType where Generator.Element == AnyObject {

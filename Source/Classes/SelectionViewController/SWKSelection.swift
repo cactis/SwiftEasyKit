@@ -11,12 +11,7 @@ import UIKit
 public class SWKSelection: SWKInput {
   
   public var selectData: SelectOption! { didSet {
-    if selectData != nil {
-      _logForUIMode(selectData.toJSON(), title: "selectData 33333")
-      value.text(selectData.forHuman)
-//      didSelect(selected: selected)
-    }
-    }}
+    if selectData != nil { value.text(selectData.forHuman) } }}
   public var didSelect: (selected: SelectOption?) -> () = {_ in }
   
   public var icon = IconLabel(iconCode: K.Icons.angleRight, iconColor: K.Color.Text.strong)
@@ -26,7 +21,6 @@ public class SWKSelection: SWKInput {
 
   var vc: SelectionViewController!
   public func setData(collectionData: [SelectOption], selected: SelectOption?) {
-    _logForUIMode(selected?.toJSON(), title: "selected 222222")
     self.collectionData = collectionData
     self.selectData = selected
     if let _ = selected?.family {
@@ -36,7 +30,6 @@ public class SWKSelection: SWKInput {
     }
   }
   
-//  public var cancelableJob: dispatch_cancelable_closure!
   override public func prefix() -> String { return "選取" }
   
   override public func styleUI() {
@@ -69,5 +62,4 @@ public class SWKSelection: SWKInput {
     super.layoutSubviews()
     icon.anchorToEdge(.Right, padding: 0, width: label.textHeight(), height: label.textHeight() * 1.5)
   }
-  //  required init?(coder aDecoder: NSCoder) { fatalError("init(coder:) has not been implemented") }
 }

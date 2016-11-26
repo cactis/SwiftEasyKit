@@ -11,10 +11,7 @@ import UIKit
 class SelectionViewController: TableViewController {
   
   var collectionData = [SelectOption]() { didSet { tableView.reloadData() } }
-  var selectData: SelectOption? { didSet {
-    _logForUIMode(selectData?.toJSON(), title: "selectData")
-    tableView.reloadData()
-    } }
+  var selectData: SelectOption? { didSet { tableView.reloadData() } }
   let cellHeight: CGFloat = 60
   
   var didSelect: (index: NSIndexPath, selected: SelectOption?) -> () = {_ in }
@@ -54,24 +51,23 @@ class SelectionViewController: TableViewController {
       selected.children({ (children) in
         let vc = SelectionViewController(title: selected.forHuman)
         vc.collectionData = children!
-        if ((selected.family?.contains(selected)) != nil) {
-            vc.selectData = self.selectData
+        if ((selected.family?.contains(selected)) == true) {
+          // Important!!!
+          vc.selectData = self.selectData
+          self.selectData = selected
         } else {
           vc.selectData = selected
         }
-        
         vc.didSelect = self.didSelect
-        self.pushViewController(vc, checked: false)
+        self.pushViewController(vc, checked: false, delayed: 0.1)
       })
     } else {
       self.selectData = selected
       didSelect(index: index, selected: selected)
-      delayedJob(0.5) {
-        let vcs = (self.navigationController?.viewControllers)!
-        let i = vcs.indexOf(self)
-        let back = (vcs.count - (selected.level! + 2))
-        self.navigationController?.popToViewController(vcs[back], animated: true)
-      }
+      let vcs = (navigationController?.viewControllers)!
+      let i = vcs.indexOf(self)
+      let back = (vcs.count - (selected.level! + 2))
+      self.popToViewController(vcs[back], delayed: 0.4)
     }
   }
   
@@ -98,20 +94,7 @@ class SelectionViewController: TableViewController {
     let item = collectionData[indexPath.row]
     let selectCell = (cell as! SelectionCell)
     selectCell.loadData(item)
-    
-    selectCell.checked = selectData?.name == item.name
-    selectCell.checked = selectData?.id == item.id
-//    _logForUIMode(selectData?.toJSON(), title: "selectData 中文")
-//    NSLog("aaa", "bbb")
-//    _logForUIMode(selectData?.family?.asJSON(), title: "selectData?.family")
-    
-    if let family = selectData?.family {
-      if (family.map({$0.id!}).indexOf(item.id!) != nil) {
-        selectCell.checked = true
-      }
-    }
-    
-    
+    selectCell.checked = (selectData?.family?.contains(item))! == true
     cell.whenTapped(self, action: #selector(cellTapped(_:)))
     cell.layoutIfNeeded()
     return cell

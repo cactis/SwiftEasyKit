@@ -80,13 +80,22 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
     openControllerWithDelegate(self, vc: vc, style: style, run: run)
   }
   
-  public func pushViewController(vc: UIViewController, checked: Bool = true, onComplete: () -> () = {}) -> Void {
-    if checked && (navigationController?.topViewController?.isKindOfClass(vc.dynamicType))! {
-      _logForUIMode("Not push again")
-      return
+  public func pushViewController(vc: UIViewController, checked: Bool = true, delayed: Double = 0, onComplete: () -> () = {}) -> Void {
+    delayedJob(delayed) {
+      if checked && (self.navigationController?.topViewController?.isKindOfClass(vc.dynamicType))! {
+        _logForUIMode("Not push again")
+        return
+      }
+      self.navigationController?.pushViewController(vc, animated: true)
+      onComplete()
     }
-    navigationController?.pushViewController(vc, animated: true)
-    onComplete()
+  }
+  
+  public func popToViewController(vc: UIViewController, delayed: Double = 0, onComplete: () -> () = {}) {
+    delayedJob(delayed){
+      self.navigationController?.popToViewController(vc, animated: true)
+      onComplete()
+    }
   }
   
   public func setFieldsGroup(fields: [UITextField]) -> Void {

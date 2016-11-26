@@ -70,7 +70,7 @@ public func prompt(msg: String?, style: PromptType = PromptType()) {
       notification.frame = CGRect(x: 0, y: statusBarHeight(), width: screenWidth(), height: screenHeight())
     })
 
-    delayedJob(5, withIndicator: false, todo: {
+    delayedJob(3, withIndicator: false, todo: {
       notification.tapped()
     })
 
