@@ -67,26 +67,31 @@ public class SelectOption: Mappable {
 }
 
 extension SequenceType where Generator.Element == SelectOption {
+  var ids: [Int] { get { return map({$0.id!}) } }
   func asBreadcrumb(separator: String = "/") -> String {
     return self.map({$0.name!}).join(separator)
   }
-}
-
-extension SequenceType where Generator.Element == AnyObject {
-  func toSelectOption() -> [SelectOption] {
-    var selectOptions = [SelectOption]()
-    forEach({ obj in
-      if obj is [String: AnyObject] {
-        selectOptions.append(SelectOption(JSON: [
-          "id": obj.objectForKey("id")!,
-          "name": obj.objectForKey("name")!,
-          "children": (obj.objectForKey("children") as? [AnyObject])!
-          ])!)
-      }
-    })
-    return selectOptions
+  
+  public func contains(ele: SelectOption) -> Bool {
+    return ids.contains(ele.id!)
   }
 }
+
+//extension SequenceType where Generator.Element == AnyObject {
+//  func toSelectOption() -> [SelectOption] {
+//    var selectOptions = [SelectOption]()
+//    forEach({ obj in
+//      if obj is [String: AnyObject] {
+//        selectOptions.append(SelectOption(JSON: [
+//          "id": obj.objectForKey("id")!,
+//          "name": obj.objectForKey("name")!,
+//          "children": (obj.objectForKey("children") as? [AnyObject])!
+//          ])!)
+//      }
+//    })
+//    return selectOptions
+//  }
+//}
 
 
 

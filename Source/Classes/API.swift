@@ -35,7 +35,7 @@ public class API {
         if let items = value as? NSArray {
           run(response: response)
         } else if let item = value as? NSDictionary {
-          _logForUIMode((response.response?.statusCode)!, title: "(response.response?.statusCode)!")
+//          _logForUIMode((response.response?.statusCode)!, title: "(response.response?.statusCode)!")
           switch (response.response?.statusCode)! {
           case 404:
             prompt(value.objectForKey(K.Api.Response.message) as? String ?? "路徑錯誤!")

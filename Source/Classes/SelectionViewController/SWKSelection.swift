@@ -12,7 +12,7 @@ public class SWKSelection: SWKInput {
   
   public var selectData: SelectOption! { didSet {
     if selectData != nil {
-//      _logForUIMode()
+      _logForUIMode(selectData.toJSON(), title: "selectData 33333")
       value.text(selectData.forHuman)
 //      didSelect(selected: selected)
     }
@@ -23,20 +23,17 @@ public class SWKSelection: SWKInput {
   
   public var collectionData = [SelectOption]()
   public var selected: SelectOption?
-  
-  
-//  public var delegate: UIViewController?
-  
+
   var vc: SelectionViewController!
   public func setData(collectionData: [SelectOption], selected: SelectOption?) {
-//    _logForUIMode()
+    _logForUIMode(selected?.toJSON(), title: "selected 222222")
     self.collectionData = collectionData
+    self.selectData = selected
     if let _ = selected?.family {
       self.selected = selected?.family![(collectionData.first?.level)!]
     } else {
       self.selected = selected
     }
-    selfTapped()
   }
   
 //  public var cancelableJob: dispatch_cancelable_closure!
@@ -63,7 +60,7 @@ public class SWKSelection: SWKInput {
       self.selectData = selected
       self.didSelect(selected: selected)
     }
-    vc.selectData = selected
+    vc.selectData = selectData
     vc.collectionData = collectionData
     self.pushViewController(vc as! UIViewController)
   }

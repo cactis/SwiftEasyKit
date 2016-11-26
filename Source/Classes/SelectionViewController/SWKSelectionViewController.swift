@@ -11,7 +11,10 @@ import UIKit
 class SelectionViewController: TableViewController {
   
   var collectionData = [SelectOption]() { didSet { tableView.reloadData() } }
-  var selectData: SelectOption? { didSet { tableView.reloadData() } }
+  var selectData: SelectOption? { didSet {
+    _logForUIMode(selectData?.toJSON(), title: "selectData")
+    tableView.reloadData()
+    } }
   let cellHeight: CGFloat = 60
   
   var didSelect: (index: NSIndexPath, selected: SelectOption?) -> () = {_ in }
@@ -20,7 +23,7 @@ class SelectionViewController: TableViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    titled("請選擇\(titleText!)", token: "SVS")
+    titled(titleText!, token: "SVS")
   }
   
   init(title: String?) {
@@ -51,7 +54,12 @@ class SelectionViewController: TableViewController {
       selected.children({ (children) in
         let vc = SelectionViewController(title: selected.forHuman)
         vc.collectionData = children!
-        vc.selectData = selected
+        if ((selected.family?.contains(selected)) != nil) {
+            vc.selectData = self.selectData
+        } else {
+          vc.selectData = selected
+        }
+        
         vc.didSelect = self.didSelect
         self.pushViewController(vc, checked: false)
       })
@@ -93,10 +101,11 @@ class SelectionViewController: TableViewController {
     
     selectCell.checked = selectData?.name == item.name
     selectCell.checked = selectData?.id == item.id
-    
+//    _logForUIMode(selectData?.toJSON(), title: "selectData 中文")
+//    NSLog("aaa", "bbb")
 //    _logForUIMode(selectData?.family?.asJSON(), title: "selectData?.family")
     
-    if let family = selectData!.family {
+    if let family = selectData?.family {
       if (family.map({$0.id!}).indexOf(item.id!) != nil) {
         selectCell.checked = true
       }
