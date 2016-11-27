@@ -267,7 +267,8 @@ extension NSBundle {
 
 extension NSNumber {
 
-  public func asDecimal() -> String {
+  public func asDecimal() -> String? {
+    guard self != 0 else { return nil }
     let f = NSNumberFormatter()
     f.numberStyle = NSNumberFormatterStyle.DecimalStyle
     return f.stringFromNumber(self)!
@@ -276,7 +277,8 @@ extension NSNumber {
 }
 
 extension Int {
-  public func asDecimal() -> String {
+  public func asDecimal() -> String? {
+    guard self != 0 else { return nil }
     return NSNumber(integer: self).asDecimal()
   }
 

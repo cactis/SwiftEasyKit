@@ -197,8 +197,9 @@ public class IconLabel: DefaultView {
     return label.textHeight()
   }
 
-  public func text(text: String) -> IconLabel {
-    label.text(text).colored(labelColor)
+  public func text(text: String?) -> IconLabel {
+    guard let _ = text else { return self }
+    label.text(text!).colored(labelColor)
     return self
   }
 

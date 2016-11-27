@@ -16,17 +16,18 @@ public class SWKSelection: SWKInput {
   
   public var icon = IconLabel(iconCode: K.Icons.angleRight, iconColor: K.Color.Text.strong)
   
-  public var collectionData = [SelectOption]()
+  public var collectionData: [SelectOption]? = [SelectOption]()
   public var selected: SelectOption?
 
   var vc: SelectionViewController!
-  public func setData(collectionData: [SelectOption], selected: SelectOption?) {
-    self.collectionData = collectionData
+  public func setData(selectOptions: [SelectOption]?, selected: SelectOption?) {
+    self.collectionData = selectOptions
     self.selectData = selected
     
     guard let _ = selected else { return }
-    if let _ = selected?.family {
-      self.selected = selected?.family![(collectionData.first?.level)!]
+    guard let _ = collectionData else { return }
+    if let _ = selected!.family {
+      self.selected = selected!.family![(collectionData!.first?.level)!]
     } else {
       self.selected = selected
     }
@@ -50,13 +51,14 @@ public class SWKSelection: SWKInput {
   }
   
   public func selfTapped() {
+    _logForUIMode()
     vc = SelectionViewController(title: self.label.text!)
     vc.didSelect = { index, selected in
       self.selectData = selected
       self.didSelect(selected: selected)
     }
     vc.selectData = selectData
-    vc.collectionData = collectionData
+    vc.collectionData = collectionData!
     self.pushViewController(vc as! UIViewController)
   }
   
