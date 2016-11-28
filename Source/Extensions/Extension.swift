@@ -300,7 +300,7 @@ extension Int {
 
   public var dollar: String {
     get {
-      return "$\(NSNumber(integer: self).asDecimal())"
+      return "$\(NSNumber(integer: self).asDecimal()!)"
     }
   }
 }
