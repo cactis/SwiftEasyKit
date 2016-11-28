@@ -100,9 +100,9 @@ public class API {
       _logForAPIMode("*** make a recall for log server to make sure app not crashed!! ***")
     }
     
-//    delayedJob(20) {
-//      _logForUIMode(requestTime, title: "本次請求秒數: \(method),  \(url)")
-//    }
+    delayedJob(20) {
+      _logForUIMode(requestTime, title: "本次請求秒數: \(method),  \(url)")
+    }
   }
   
 }
