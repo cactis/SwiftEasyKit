@@ -19,11 +19,12 @@ extension UIImageView {
     return image!.size.height / (image!.size.width / width)
   }
 
-  public func imaged(name: String!) -> UIImageView {
-    if name.containsString("http") {
-      self.kf_setImageWithURL(NSURL(string: name)!)
+  public func imaged(name: String?) -> UIImageView {
+    guard let _ = name else { return self }
+    if name!.containsString("http") {
+      self.kf_setImageWithURL(NSURL(string: name!)!)
     } else {
-      loadImage(UIImage(named: name))
+      loadImage(UIImage(named: name!))
     }
     return self
   }

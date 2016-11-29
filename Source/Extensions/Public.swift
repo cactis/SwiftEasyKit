@@ -70,7 +70,7 @@ public func prompt(msg: String?, style: PromptType = PromptType()) {
       notification.frame = CGRect(x: 0, y: statusBarHeight(), width: screenWidth(), height: screenHeight())
     })
 
-    delayedJob(3, withIndicator: false, todo: {
+    delayedJob(5, withIndicator: false, todo: {
       notification.tapped()
     })
 
@@ -245,7 +245,8 @@ private func _log(obj: AnyObject?, title: AnyObject = "", funcName: String = #fu
 //  }
   if let _ = obj { print(obj!) } else { print(obj) }
   print("=== \"\(title)\" in \(funcName) of \((fileName as NSString).lastPathComponent) \(line):\(column) ===")
-  print(time)
+  print("\(time) in \(Development.mode) mode")
+  
   print("")
 }
 
