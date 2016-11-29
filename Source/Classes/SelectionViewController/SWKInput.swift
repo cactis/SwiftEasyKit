@@ -13,7 +13,7 @@ public class SWKInput: DefaultView {
   
   public var label = UILabel()
   public var value = UITextField()
-  public var data = "" { didSet { value.text(data) } }
+  public var data: String? { didSet { value.text(data) } }
   public var text: String { get { return value.text! } set { value.text = newValue } }
   public func prefix() -> String { return "輸入" }
   

@@ -164,7 +164,7 @@ extension UIView: UIImagePickerControllerDelegate, UINavigationControllerDelegat
     return tableView
   }
   
-  public func pushViewController(vc: UIViewController) -> Void {
+  public func pushViewController(vc: UIViewController, checked: Bool = true, delayed: Double = 0, onComplete: () -> () = {}, onDismissViewController: () -> () = {}) {
     if let _ = parentViewController() {
       if !(parentViewController()?.navigationController?.topViewController?.isKindOfClass(vc.self.dynamicType))! {
         parentViewController()?.pushViewController(vc)
