@@ -101,7 +101,7 @@ public class API {
     //    }
     
     delayedJob(K.Api.Development.delayed) {
-      _logForUIMode(requestTime, title: "本次請求秒數: \(method),  \(url)")
+      _logForAnyMode(requestTime, title: "本次請求秒數: \(method),  \(url)")
     }
   }
   

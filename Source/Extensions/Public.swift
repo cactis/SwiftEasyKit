@@ -368,7 +368,7 @@ public func indicatorStart() -> UIView {
   bg.userInteractionEnabled = false
 //  bg.backgroundColored(UIColor.blackColor().colorWithAlphaComponent(0.05))
   indicator.center = screenCenter()
-  currentView()?.addSubview(bg)
+//  currentView()?.addSubview(bg)
   bg.addSubview(indicator)
 
   return bg
