@@ -678,10 +678,10 @@ extension UIView: UIImagePickerControllerDelegate, UINavigationControllerDelegat
     }
   }
   
-  public func leftBordered() -> UIView { return addBorder(.Left) } //addBorder(CGRect(x: 0, y: 0, width: K.Line.size, height: height)) }
-  public func rightBordered() -> UIView { return addBorder(.Right) } //addBorder(CGRect(x: width, y: 0, width: K.Line.size, height: height)) }
-  public func bottomBordered() -> UIView { return addBorder(.Bottom) } //addBorder(CGRect(x: 0, y: height - 1, width: width, height: K.Line.size)) }
-  public func topBordered() -> UIView { return addBorder(.Top) } // addBorder(CGRect(x: 0, y: 0, width: width, height: K.Line.size)) }
+  public func leftBordered(padding: CGFloat = 0) -> UIView { return addBorder(.Left, padding: padding) } //addBorder(CGRect(x: 0, y: 0, width: K.Line.size, height: height)) }
+  public func rightBordered(padding: CGFloat = 0) -> UIView { return addBorder(.Right, padding: padding) } //addBorder(CGRect(x: width, y: 0, width: K.Line.size, height: height)) }
+  public func bottomBordered(padding: CGFloat = 0) -> UIView { return addBorder(.Bottom, padding: padding) } //addBorder(CGRect(x: 0, y: height - 1, width: width, height: K.Line.size)) }
+  public func topBordered(padding: CGFloat = 0) -> UIView { return addBorder(.Top, padding: padding) } // addBorder(CGRect(x: 0, y: 0, width: width, height: K.Line.size)) }
   
   //  func addBorder(frame: CGRect) -> UIView {
   //    let border = CALayer()
@@ -712,20 +712,20 @@ public enum viewBorder: String {
 
 extension UIView {
   
-  public func addBorder(vBorder: viewBorder, color: UIColor = K.Line.Color.horizontal, width: CGFloat = 1.0) -> UIView {
+  public func addBorder(vBorder: viewBorder, color: UIColor = K.Line.Color.horizontal, width: CGFloat = 1.0, padding: CGFloat = 0) -> UIView {
     let border = CALayer()
     border.backgroundColor = color.CGColor
     border.name = vBorder.rawValue
     removeBorder(vBorder)
     switch vBorder {
     case .Left:
-      border.frame = CGRectMake(0, 0, width, self.frame.size.height)
+      border.frame = CGRectMake(0 - padding, 0, width, self.frame.size.height)
     case .Right:
-      border.frame = CGRectMake(self.frame.size.width - width, 0, width, self.frame.size.height)
+      border.frame = CGRectMake(self.frame.size.width - width + padding, 0, width, self.frame.size.height)
     case .Top:
-      border.frame = CGRectMake(0, 0, self.frame.size.width, width)
+      border.frame = CGRectMake(0, 0 - padding, self.frame.size.width, width)
     case .Bottom:
-      border.frame = CGRectMake(0, self.frame.size.height - width, self.frame.size.width, width)
+      border.frame = CGRectMake(0, self.frame.size.height - width + padding, self.frame.size.width, width)
     }
     self.layer.addSublayer(border)
     return self

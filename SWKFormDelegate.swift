@@ -1,0 +1,14 @@
+//
+//  SWKFormDelegate.swift
+//  SwiftEasyKit
+//
+//  Created by ctslin on 2016/12/1.
+//  Copyright © 2016年 airfont. All rights reserved.
+//
+
+import Foundation
+
+public protocol SWKFormDelegate: NSObjectProtocol {
+  var didSubmit: (data: AnyObject) -> () { get set }
+  init(data: AnyObject, didSubmit: (data: AnyObject) -> ())
+}

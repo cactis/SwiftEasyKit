@@ -39,7 +39,7 @@ extension UIButton {
     return self
   }
 
-  override public func backgroundColored(color: UIColor) -> UIButton {
+  override public func backgroundColored(color: UIColor?) -> UIButton {
     backgroundColor = color
     return self
   }
@@ -130,10 +130,23 @@ extension UIButton {
   }
 
   public func whenTapped(handler: () -> Void) -> UIButton {
-    self.userInteractionEnabled = false
-    delayedJob({ self.userInteractionEnabled = true })
-    handleControlEvent(.TouchUpInside, handler: handler)
+    handleControlEvent(.TouchUpInside, handler: delayedEvent(handler))
     return self
+  }
+  
+  public func delayedEvent(handler: () -> ()) -> () -> () {
+    asFadable()
+    let handlerWithDelayed = {
+      self.userInteractionEnabled = false
+      let color = self.currentTitleColor
+      self.setTitleColor(color.isLight() ? color.darker() : color.lighter(), forState: .Normal)
+      delayedJob{
+        self.userInteractionEnabled = true
+        self.setTitleColor(color, forState: .Normal)
+      }
+      handler()
+    }
+    return handlerWithDelayed
   }
 
   public func imageFromText(drawText: NSString, color: UIColor = K.Color.button) -> UIButton {
