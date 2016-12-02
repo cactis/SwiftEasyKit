@@ -33,47 +33,48 @@ public func prompt(msgs: [String], runWith: (msg: String) -> String = { msg in r
 }
 
 public func prompt(msg: String?, style: PromptType = PromptType()) {
-//  _logForUIMode(msg)
+  //  _logForUIMode(msg)
+  if !Development.prompt { return }
   let message = msg ?? "(異常錯誤：未被追蹤到的錯誤。)"
   UIApplication.sharedApplication().statusBarHidden = true
   let notification = UIButton()
   let block = DefaultView()
   let label = UILabel()
-
+  
   block.backgroundColored(style.bgColor).bottomBordered().shadowed().radiused(3)
   label.styled().colored(style.color).text(message).multilinized().centered().sized(12.em)
   notification.layout([block.layout([label])])
-
+  
   let xPad = 10.em
   var yPad = 15.em
-
+  
   let w = screenWidth() - 4 * xPad
   let h = label.getHeightBySizeThatFitsWithWidth(w)
-
+  
   label.frame = CGRect(x: xPad, y: yPad, width: w, height: h)
   block.frame = CGRect(x: xPad, y: 0, width: w + 2 * xPad, height: label.bottomEdge() + yPad)
-
+  
   label.userInteractionEnabled = false
   block.userInteractionEnabled = false
-
-//  print(label.height, label.textHeight() + 4)
+  
+  //  print(label.height, label.textHeight() + 4)
   if label.linesCount > 1 {
     label.aligned(.Left)
   }
-
+  
   if let v = window() {
-//    _logForUIMode(true)
+    //    _logForUIMode(true)
     v.addSubview(notification)
     notification.frame = CGRect(x: 0, y: -1 * screenHeight(), width: screenWidth(), height: screenHeight())
-
+    
     UIView().animate(onComplete: {
       notification.frame = CGRect(x: 0, y: statusBarHeight(), width: screenWidth(), height: screenHeight())
     })
-
+    
     delayedJob(5, withIndicator: false, todo: {
       notification.tapped()
     })
-
+    
     notification.whenTapped({
       UIView().animate(onComplete: {
         notification.frame = CGRect(x: 0, y: -1 * screenHeight(), width: screenWidth(), height: screenHeight())
@@ -173,9 +174,11 @@ public func _autoRunForUIMode(funcName: String = #function, fileName: String = #
 }
 
 private func _autoRun(funcName: String = #function, fileName: String = #file, column: Int = #column, line: Int = #line, run: () -> ()) {
-  print("=== autoRun in \(Development.mode): \(funcName) of \((fileName as NSString).lastPathComponent) \(line):\(column) ===")
-  NSObject()._delayedJob { () -> () in
-    run()
+  if Development.autoRun {
+    print("=== autoRun in \(Development.mode): \(funcName) of \((fileName as NSString).lastPathComponent) \(line):\(column) ===")
+    NSObject()._delayedJob { () -> () in
+      run()
+    }
   }
 }
 
@@ -237,12 +240,12 @@ private func _log(obj: AnyObject?, title: AnyObject = "", funcName: String = #fu
   let time = NSDate()
   print("")
   print("=== \"\(title)\" in \(funcName) of \((fileName as NSString).lastPathComponent) \(line):\(column) ===")
-//  switch obj.self {
-//  case is String, is Int, is [String], is [Int]:
-//    print(obj)
-//  default:
-//    print((obj as! NSObject).asJSON())
-//  }
+  //  switch obj.self {
+  //  case is String, is Int, is [String], is [Int]:
+  //    print(obj)
+  //  default:
+  //    print((obj as! NSObject).asJSON())
+  //  }
   if let _ = obj { print(obj!) } else { print(obj) }
   print("=== \"\(title)\" in \(funcName) of \((fileName as NSString).lastPathComponent) \(line):\(column) ===")
   print("\(time) in \(Development.mode) mode")
@@ -308,7 +311,7 @@ public func runOnce(run: () -> ()) -> () {
   struct TokenContainer {
     static var token : dispatch_once_t = 0
   }
-
+  
   dispatch_once(&TokenContainer.token) {
     run()
   }
@@ -366,11 +369,11 @@ public func indicatorStart() -> UIView {
   bg.frame = CGRectMake(0, 0, screenWidth(), screenHeight())
   bg.center = screenCenter()
   bg.userInteractionEnabled = false
-//  bg.backgroundColored(UIColor.blackColor().colorWithAlphaComponent(0.05))
+  //  bg.backgroundColored(UIColor.blackColor().colorWithAlphaComponent(0.05))
   indicator.center = screenCenter()
-//  currentView()?.addSubview(bg)
+  //  currentView()?.addSubview(bg)
   bg.addSubview(indicator)
-
+  
   return bg
 }
 

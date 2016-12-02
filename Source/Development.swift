@@ -15,6 +15,17 @@ public struct Development {
 //  public static var mode = "API Implement"
 
   public static var developer = "All"
+  
+  public static var delayed: Double = 20
+  public static var autoRun = true
+  public static var prompt = true
+  public static var uiTestMode = false {
+    didSet {
+      if uiTestMode {
+        autoRun = false
+        prompt = false
+      }
+    }
+  }
 }
-
 

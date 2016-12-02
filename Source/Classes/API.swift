@@ -100,7 +100,7 @@ public class API {
     //      _logForAPIMode("*** make a recall for log server to make sure app not crashed!! ***")
     //    }
     
-    delayedJob(K.Api.Development.delayed) {
+    delayedJob(Development.delayed) {
       _logForAnyMode(requestTime, title: "本次請求秒數: \(method),  \(url)")
     }
   }

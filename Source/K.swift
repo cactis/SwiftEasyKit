@@ -36,10 +36,6 @@ public struct K {
       public static var success = "success"
       public static var message = "message"
     }
-    
-    public struct Development {
-      public static var delayed: Double = 20
-    }
   }
 
   public struct Text {
