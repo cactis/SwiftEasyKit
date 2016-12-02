@@ -216,7 +216,7 @@ public func _logForAPIMode(title: String = "", funcName: String = #function, fil
   _logForAPIMode("", title: title, funcName: funcName, fileName: fileName, column: column, line: line)
 }
 
-public func _logForAPIMode(obj: AnyObject, title: AnyObject = "", funcName: String = #function, fileName: String = #file, column: Int = #column, line: Int = #line) {
+public func _logForAPIMode(obj: AnyObject?, title: AnyObject = "", funcName: String = #function, fileName: String = #file, column: Int = #column, line: Int = #line) {
   if _isAPIMode() {
     _log(obj, title: title, funcName: funcName, fileName: fileName, column: column, line: line)
   }
