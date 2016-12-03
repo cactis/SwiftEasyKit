@@ -13,6 +13,7 @@ public class PopupView: DefaultView {
   public var padding: CGFloat = 40
   public var closeBtnSize: CGFloat = 25
 
+  var didDismiss: () -> () = {}
   override public init(frame: CGRect) {
     super.init(frame: frame)
 
@@ -22,9 +23,16 @@ public class PopupView: DefaultView {
     wrapper = addView()
     backgroundColor = K.Color.popup
   }
+  
+  public init(didDismiss: () -> () = {}) {
+    super.init(frame: CGRectZero)
+    self.didDismiss = didDismiss
+  }
 
   public func closeBtnTapped(sender: AnyObject?) {
-    parentViewController()!.dismissViewControllerAnimated(true) { () -> Void in }
+    parentViewController()!.dismissViewControllerAnimated(true) { () -> Void in
+      self.didDismiss()
+    }
   }
 
   public func closeBtnTapped(disDidmiss didDismiss: () -> () = {}) {
