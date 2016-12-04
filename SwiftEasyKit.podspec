@@ -94,7 +94,7 @@ s.source       = { :git => "https://github.com/cactis/SwiftEasyKit.git", :tag =>
 s.source_files  = "Source/**/*.swift"
 # s.exclude_files = "Sources/Exclude"
 
-# s.public_header_files = "Classes/**/*.h"
+s.public_header_files = "Classes/**/*.h"
 
 
 # ――― Resources ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
@@ -141,7 +141,7 @@ s.dependency 'SwiftyJSON', '2.3.2'
 s.dependency 'RandomKit'
 s.dependency 'Facade'
 s.dependency 'ObjectMapper', '1.3.0'
-
+s.dependency 'RSKImageCropper', '1.5.1'
 s.dependency 'mailgun', '~> 1.0.3'
 s.dependency 'Fakery', '1.2.0'
 s.dependency 'FontAwesomeKit'

@@ -20,10 +20,14 @@ public class SwiftEasyKit {
       _selectedImages = images
     }
     let tabBarViewController = UITabBarController()
-    let vcs = viewControllers.map({ $0.embededInNavigationController() })
+    let vcs = viewControllers.map({
+        UINavigationController(rootViewController: $0)
+      
+    })
     for (index, vc) in vcs.enumerate() {
       vc.tabBarItem = UITabBarItem(title: titles[index], image: images[index], selectedImage: _selectedImages[index])
-      viewControllers[index].titled(titles[index])
+//      viewControllers[index].titled(titles[index])
+      viewControllers[index].navigationItem.title = titles[index]
     }
     tabBarViewController.viewControllers = vcs
     tabBarViewController.delegate = delegate

@@ -17,3 +17,4 @@ FOUNDATION_EXPORT const unsigned char SwiftEasyKitVersionString[];
 // In this header, you should import all the public headers of your framework using statements like #import <SwiftEasyKit/PublicHeader.h>
 
 
+//#import <RSKImageCropper/RSKImageCropper.h>
