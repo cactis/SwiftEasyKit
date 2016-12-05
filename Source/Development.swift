@@ -27,5 +27,14 @@ public struct Development {
       }
     }
   }
+  public struct Log {
+    public struct API {
+      public static var request = true
+      public static var response = true
+      public static var statusCode = true
+      public static var processInfo = true
+      public static var header = true
+    }
+  }
 }
 

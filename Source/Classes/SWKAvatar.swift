@@ -82,9 +82,11 @@ public class SWKAvatar: DefaultView, RSKImageCropViewControllerDelegate {
   
   func didLayoutSubViews() {
     photo.fillSuperview()
-    photo.radiused(photo.width / 2)
-    camera.radiused(camera.width / 2).bordered(1.0, color: UIColor.lightGrayColor().CGColor)
-    camera.setImage(getIcon(.Camera, options: ["color": UIColor.lightGrayColor(), "size": camera.width * 0.7]), forState: .Normal)
+    photo.makeCircleLike()
+    camera.makeCircleLike().bordered(1.0, color: UIColor.lightGrayColor().CGColor)
+    if camera.width > 0 {      
+      camera.setImage(getIcon(.Camera, options: ["color": UIColor.lightGrayColor(), "size": camera.width * 0.7]), forState: .Normal)
+    }
   }
   
 }

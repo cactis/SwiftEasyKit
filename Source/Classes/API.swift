@@ -36,22 +36,22 @@ public class API {
     var headers = ["app_id": appId, "file_name": (fileName! as NSString).lastPathComponent, "func_name": funcName!]
     headers["Authorization"] = K.Api.userToken
     headers["token"] = (Session.getValueObject(K.Api.userTokenKey) as? String) ?? K.Api.userToken
-    //    _logForUIMode(headers, title: "headers")
+    if Development.Log.API.header { _logForAnyMode(headers, title: "headers") }
     let indicator = indicatorStart()
     _logForAnyMode(url.hostUrl(), title: "url.hostUrl()")
     let requestStartTime = NSDate()
     var requestTime: Double = 0
     Alamofire.request(method, url.hostUrl(), parameters: parameters, headers: headers).responseJSON { response in
-      //      _logForUIMode(response.request!, title: "response.request")
-      //      print("NSProcessInfo.processInfo().environment: ", NSProcessInfo.processInfo().environment)
+      if Development.Log.API.request { _logForAnyMode(response.request!, title: "response.request") }
+      if Development.Log.API.statusCode {_logForAnyMode((response.response?.statusCode)!, title: "(response.response?.statusCode)!")}
+      if Development.Log.API.processInfo { print("NSProcessInfo.processInfo().environment: ", NSProcessInfo.processInfo().environment)}
       requestTime = NSDate().timeIntervalSinceDate(requestStartTime)
       switch response.result {
       case .Success(let value):
-        //        _logForUIMode(value, title: "response.result.value!")
+        if Development.Log.API.response { _logForAnyMode(value, title: "response.result.value") }
         if let items = value as? NSArray {
           run(response: response)
         } else if let item = value as? NSDictionary {
-          //          _logForUIMode((response.response?.statusCode)!, title: "(response.response?.statusCode)!")
           switch (response.response?.statusCode)! {
           case 404:
             prompt(value.objectForKey(K.Api.Response.message) as? String ?? "路徑錯誤!")
@@ -71,7 +71,6 @@ public class API {
             if let message = value.objectForKey(K.Api.Response.message) as? String {
               if let text = message as? String {
                 prompt(text)
-                response.result.value?.code
               } else if let texts = message as? NSDictionary {
                 let text = texts.map{"\($0.key): \($0.value)"}.join("\n")
                 prompt(text)

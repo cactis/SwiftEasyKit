@@ -347,7 +347,7 @@ public func barButtonItemImage(name: FontAwesome) -> UIImage {
 
 public func getIcon(name: FontAwesome, options: NSDictionary = NSDictionary(), inset: CGFloat = 0) -> UIImage {
   let color = options["color"] as? UIColor ?? K.Color.button.darker()
-  let size = options["size"] as? CGFloat ?? K.BarButtonItem.size //* 4
+  let size = options["size"] as? CGFloat ?? K.BarButtonItem.size * 4 //* 4
   let backgroundColor = options["backgroundColor"] as? UIColor ?? UIColor.clearColor()
   var icon = UIImage.fontAwesomeIconWithNameWithInset(name, textColor: color, size: CGSize(width: size, height: size), backgroundColor: backgroundColor, inset: inset)
   icon = icon.imageWithRenderingMode(.AlwaysOriginal)
