@@ -126,12 +126,12 @@ extension UILabel {
     return self
   }
 
-  public func text(value: String) -> UILabel {
+  public func text(value: String?) -> UILabel {
     text = value
     return self
   }
 
-  public func fitTexted(value: String) -> UILabel {
+  public func fitTexted(value: String?) -> UILabel {
     return text(value).reFit()
   }
 

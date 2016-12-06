@@ -165,11 +165,11 @@ extension UIView: UIImagePickerControllerDelegate, UINavigationControllerDelegat
   }
   
   public func pushViewController(vc: UIViewController, checked: Bool = true, delayed: Double = 0, onComplete: () -> () = {}, onDismissViewController: () -> () = {}) {
-    if let _ = parentViewController() {
-      if !(parentViewController()?.navigationController?.topViewController?.isKindOfClass(vc.self.dynamicType))! {
-        parentViewController()?.pushViewController(vc)
-      }
-    }
+//    if let _ = parentViewController() {
+//      if !(parentViewController()?.navigationController?.topViewController?.isKindOfClass(vc.self.dynamicType))! {
+        parentViewController()?.pushViewController(vc, checked: checked, delayed: delayed, onComplete: onComplete, onDismissViewController: onDismissViewController)
+//      }
+//    }
   }
   
   public func layout(views: [UIView]) -> UIView {
