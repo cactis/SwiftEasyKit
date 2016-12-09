@@ -28,6 +28,11 @@ extension UIImageView {
     }
     return self
   }
+  
+  public convenience init(name: String?) {
+    self.init()
+    imaged(name)
+  }
 
   public func loadImageWithString(name: String!) -> UIImageView {
     return imaged(name)

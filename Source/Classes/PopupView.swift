@@ -41,7 +41,6 @@ public class PopupView: DefaultView {
     }
   }
 
-
   public func layoutBase() {
     anchorInCenter(width: UIScreen.mainScreen().bounds.width / 5 * 4, height: UIScreen.mainScreen().bounds.height / 2)
   }

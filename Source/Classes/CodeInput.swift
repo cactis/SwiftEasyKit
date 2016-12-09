@@ -12,6 +12,16 @@ public class CodeInput: DefaultView {
   public var inputs = [UITextField]()
   var num: Int { didSet { layoutUI() } }
   var limit: Int!
+  
+  public var data: String? {
+    didSet {
+      let times = ((data?.length())! / limit) - 1
+      (0...times).forEach({ index in
+        let pos = index * limit
+        inputs[index].text(data![pos...pos + limit - 1])
+      })
+    }
+  }
 
   public init(num: Int = 1, limit: Int) {
     self.num = num

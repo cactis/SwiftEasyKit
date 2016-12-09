@@ -159,6 +159,10 @@ extension String {
   public func updateNumberWrappedIn(number: AnyObject) -> String {
     return split("(")[0] + "(\(number))"
   }
+  
+  public func length() -> Int {
+    return self.lengthOfBytesUsingEncoding(NSUTF8StringEncoding)
+  }
 
   public func deDecimal() -> Int? {
     if self == "" { return nil }
@@ -230,6 +234,19 @@ extension String {
     return df.dateFromString(self)!
   }
 }
+
+extension String {
+  subscript (r: Range<Int>) -> String {
+    get {
+      let startIndex = self.startIndex.advancedBy(r.startIndex)
+      let endIndex = startIndex.advancedBy(r.endIndex - r.startIndex)
+      
+      return self[Range(start: startIndex, end: endIndex)]
+    }
+  }
+}
+
+
 
 extension Float {
   public var int: Int { get { return Int(self) } }

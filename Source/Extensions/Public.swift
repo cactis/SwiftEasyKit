@@ -123,7 +123,6 @@ public func placeHoderImage() -> UIImage {
   return UIImage.fontAwesomeIconWithName(.ClockO, textColor: UIColor.lightGrayColor().lighter(), size: CGSize(width: 300, height: 300))
 }
 
-
 public func openControllerWithDelegate(delegate: UIViewController, vc: UIViewController, style: UIModalTransitionStyle = .CoverVertical, run: ()->() = {}) {
   vc.modalTransitionStyle = style
   let nv = UINavigationController()
@@ -239,7 +238,7 @@ private func _log(title: String = "", funcName: String = #function, fileName: St
 private func _log(obj: AnyObject?, title: AnyObject = "", funcName: String = #function, fileName: String = #file, column: Int = #column, line: Int = #line) {
   let time = NSDate()
   print("")
-  print("=== \"\(title)\" in \(funcName) of \((fileName as NSString).lastPathComponent) \(line):\(column) ===")
+  print("|=== \"\(title)\" in \(funcName) of \((fileName as NSString).lastPathComponent) \(line):\(column) ===")
   //  switch obj.self {
   //  case is String, is Int, is [String], is [Int]:
   //    print(obj)
@@ -247,7 +246,7 @@ private func _log(obj: AnyObject?, title: AnyObject = "", funcName: String = #fu
   //    print((obj as! NSObject).asJSON())
   //  }
   if let _ = obj { print(obj!) } else { print(obj) }
-  print("=== \"\(title)\" in \(funcName) of \((fileName as NSString).lastPathComponent) \(line):\(column) ===")
+  print("=== \"\(title)\" in \(funcName) of \((fileName as NSString).lastPathComponent) \(line):\(column) ===|")
   print("\(time) in \(Development.mode) mode")
   
   print("")
@@ -345,13 +344,20 @@ public func barButtonItemImage(name: FontAwesome) -> UIImage {
   return getIcon(name, options: ["size": K.BarButtonItem.size])
 }
 
-public func getIcon(name: FontAwesome, options: NSDictionary = NSDictionary(), inset: CGFloat = 0) -> UIImage {
+public func getTabIcon(name: FontAwesome, options: NSDictionary = NSDictionary(), inset: CGFloat = 0) -> UIImage {
+  let size = options["size"] as? CGFloat ?? K.BarButtonItem.size
   let color = options["color"] as? UIColor ?? K.Color.button.darker()
-  let size = options["size"] as? CGFloat ?? K.BarButtonItem.size * 4 //* 4
   let backgroundColor = options["backgroundColor"] as? UIColor ?? UIColor.clearColor()
   var icon = UIImage.fontAwesomeIconWithNameWithInset(name, textColor: color, size: CGSize(width: size, height: size), backgroundColor: backgroundColor, inset: inset)
   icon = icon.imageWithRenderingMode(.AlwaysOriginal)
   return icon
+}
+
+public func getIcon(name: FontAwesome, var options: NSDictionary = NSDictionary(), inset: CGFloat = 0) -> UIImage {
+  var opts: NSMutableDictionary = options.mutableCopy() as! NSMutableDictionary
+  let size = options["size"] as? CGFloat ?? K.BarButtonItem.size * 4
+  opts["size"] = size
+  return getTabIcon(name, options: opts)
 }
 
 public func getImage(iconCode iconCode: String, color: UIColor = K.Color.barButtonItem, size: CGFloat = K.BarButtonItem.size) -> UIImage {

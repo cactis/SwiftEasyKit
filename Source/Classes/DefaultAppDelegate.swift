@@ -37,6 +37,10 @@ public class DefaultAppDelegate: UIResponder, UIApplicationDelegate, UITabBarCon
     return (bootFrom(tabBarViewController), tabBarViewController)
   }
 
+  public func bootFrom(vcs: [UIViewController], liginStatus: Bool) {
+    
+  }
+  
   public override func bootFrom(vc: UIViewController) -> UIWindow? {
     let window: UIWindow?  = UIWindow(frame: UIScreen.mainScreen().bounds)
     //    window!.backgroundColor = K.Color.body

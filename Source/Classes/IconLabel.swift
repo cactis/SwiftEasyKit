@@ -154,7 +154,7 @@ public class IconLabel: DefaultView {
         iconBorder.anchorAndFillEdge(.Left, xPad: (width - s - paddingBetween - w) / 2, yPad: height * 0.1, otherSize: s)
         label.alignToTheRightOf(iconBorder, matchingTopWithLeftPadding: paddingBetween * 0.4, width: w, height: iconBorder.height)
 //        label.alignToTheRightOf(iconBorder, fillingWidthWithLeftAndRightPadding: paddingBetween * 0.4, topPadding: iconBorder.topEdge(), height: iconBorder.height)
-        label._coloredWithSuperviews()
+//        label._coloredWithSuperviews()
         label.sized(s * 0.7).bold(bolded)
       case .UIImage:
         let s = height * 0.8

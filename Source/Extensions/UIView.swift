@@ -179,13 +179,18 @@ extension UIView: UIImagePickerControllerDelegate, UINavigationControllerDelegat
     return self
   }
   
-  public func setFieldsGroup(fields: [UITextField]) -> Void {
-    let delegate = parentViewController() as! UITextFieldDelegate
+  public func setFieldsGroup(fields: [UITextField], delegate: AnyObject) -> Void {
+    let delegateObject = delegate as? UITextFieldDelegate
     for index in 0...fields.count - 2 {
-      fields[index].delegate = delegate
+      fields[index].delegate = delegateObject
       fields[index].nextField = fields[index + 1]
     }
-    fields.last?.delegate = delegate
+    fields.last?.delegate = delegateObject
+  }
+  
+  public func setFieldsGroup(fields: [UITextField]) -> Void {
+    let delegate = parentViewController() as! UITextFieldDelegate
+    setFieldsGroup(fields, delegate: delegate)
   }
   
   public func setViewsGroup(fields: [UITextView]) -> Void {
