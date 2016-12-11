@@ -23,7 +23,7 @@ public class DefaultViewController: UIViewController, UITextFieldDelegate, UITex
     layoutUI() // 建立 UI 框架。結束時 loadData() 載入動態資料
     styleUI()  // 視覺化 UI 框架
     bindUI()   // 綁定 UI 事件
-
+    bindData() // binding data
   }
   
   public override func viewDidDisappear(animated: Bool) {
@@ -59,6 +59,10 @@ public class DefaultViewController: UIViewController, UITextFieldDelegate, UITex
     swipeRight = enableSwipeRightToBack(self)
     view.whenTapped(self, action: #selector(DefaultViewController.viewDidTapped))
     registerKeyboardNotifications()
+  }
+  
+  public func bindData() {
+    
   }
 
   public func enableSaveBarButtonItem(title: String = "") {
