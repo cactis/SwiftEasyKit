@@ -153,5 +153,6 @@ s.dependency 'Kingfisher', '2.4.1'
 s.dependency 'KeychainSwift', '~> 3.0'
 s.dependency 'Stripe'
 s.dependency 'Bond'
+# s.dependency 'AlamofireObjectMapper', '~> 3.0'
 
 end

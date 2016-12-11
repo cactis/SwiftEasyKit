@@ -5,6 +5,7 @@
 
 import Foundation
 import Alamofire
+import AlamofireObjectMapper
 
 extension String {
   public func hostUrl() -> String {
