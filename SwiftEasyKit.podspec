@@ -150,5 +150,8 @@ s.dependency 'KDCircularProgress', '1.4.0'
 s.dependency 'Kingfisher', '2.4.1'
 # s.dependency 'EZSwiftExtensions'
 # s.dependency 'ExSwift'
+s.dependency 'KeychainSwift', '~> 3.0'
+s.dependency 'Stripe'
+s.dependency 'Bond'
 
 end

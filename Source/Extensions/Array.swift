@@ -27,7 +27,7 @@ extension Array {
 
 extension SequenceType where Generator.Element == String {
   
-  public func join(separator: String) -> String {
+  public func join(separator: String = "") -> String {
     return joinWithSeparator(separator)
   }
   

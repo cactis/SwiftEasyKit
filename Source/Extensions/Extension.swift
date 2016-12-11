@@ -293,6 +293,10 @@ extension NSNumber {
 
 }
 
+extension UInt {
+  var string: String? { get { return String(self) } }
+}
+
 extension Int {
   public func asDecimal() -> String? {
 //    guard self != 0 else { return nil }

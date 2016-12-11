@@ -22,6 +22,12 @@ public class CodeInput: DefaultView {
       })
     }
   }
+  
+  public var value: String {
+    get {
+      return inputs.map({$0.text!}).join()
+    }
+  }
 
   public init(num: Int = 1, limit: Int) {
     self.num = num

@@ -13,7 +13,15 @@ import FontAwesome_swift
 import Neon
 import RandomKit
 import SwiftRandom
+import KeychainSwift
 
+public func storeToKeyChain(value: String?, key: String!) {
+  KeychainSwift().set(value!, forKey: key)
+}
+
+public func loadFromKeyChain(key: String!) -> String? {
+  return KeychainSwift().get(key)
+}
 
 public class PromptType {
   public var color: UIColor!

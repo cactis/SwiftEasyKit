@@ -10,6 +10,7 @@
 		3737089D1D48656700AD7822 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3737089C1D48656700AD7822 /* UIKit.framework */; };
 		3737089F1D4865A800AD7822 /* SwiftEasyKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3737089E1D4865A800AD7822 /* SwiftEasyKit.swift */; };
 		37AFD6651DEFFF9C0026510B /* SWKFormDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37AFD6641DEFFF9C0026510B /* SWKFormDelegate.swift */; };
+		37B6229A1DFB03F0004A8D6A /* CreditCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B622991DFB03F0004A8D6A /* CreditCard.swift */; };
 		37E9F45C1D472D6A00D4DBD9 /* SwiftEasyKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 37E9F45B1D472D6A00D4DBD9 /* SwiftEasyKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		37E9F4631D472D6A00D4DBD9 /* SwiftEasyKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37E9F4581D472D6A00D4DBD9 /* SwiftEasyKit.framework */; };
 		37E9F4681D472D6A00D4DBD9 /* SwiftEasyKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E9F4671D472D6A00D4DBD9 /* SwiftEasyKitTests.swift */; };
@@ -31,6 +32,7 @@
 		3737089C1D48656700AD7822 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		3737089E1D4865A800AD7822 /* SwiftEasyKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwiftEasyKit.swift; path = Source/SwiftEasyKit.swift; sourceTree = "<group>"; };
 		37AFD6641DEFFF9C0026510B /* SWKFormDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SWKFormDelegate.swift; sourceTree = "<group>"; };
+		37B622991DFB03F0004A8D6A /* CreditCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CreditCard.swift; path = Source/Classes/CreditCard.swift; sourceTree = "<group>"; };
 		37E9F4581D472D6A00D4DBD9 /* SwiftEasyKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftEasyKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		37E9F45B1D472D6A00D4DBD9 /* SwiftEasyKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwiftEasyKit.h; sourceTree = "<group>"; };
 		37E9F45D1D472D6A00D4DBD9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -64,6 +66,7 @@
 		37E9F44E1D472D6A00D4DBD9 = {
 			isa = PBXGroup;
 			children = (
+				37B622991DFB03F0004A8D6A /* CreditCard.swift */,
 				37AFD6641DEFFF9C0026510B /* SWKFormDelegate.swift */,
 				3737089E1D4865A800AD7822 /* SwiftEasyKit.swift */,
 				3737089C1D48656700AD7822 /* UIKit.framework */,
@@ -212,6 +215,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				37B6229A1DFB03F0004A8D6A /* CreditCard.swift in Sources */,
 				37AFD6651DEFFF9C0026510B /* SWKFormDelegate.swift in Sources */,
 				3737089F1D4865A800AD7822 /* SwiftEasyKit.swift in Sources */,
 			);
