@@ -17,7 +17,7 @@ extension UIImage {
     return UIImage.fontAwesomeIconWithName(.ClockO, textColor: UIColor.lightGrayColor().lighter(), size: CGSize(width: 300, height: 300))
   }
 
-  public func toJPEG(compressionQuality: CGFloat = 0.5) -> NSData {
+  public func toJPEG(compressionQuality: CGFloat = K.Image.jpegCompression) -> NSData {
     return UIImageJPEGRepresentation(self, compressionQuality)!
   }
 

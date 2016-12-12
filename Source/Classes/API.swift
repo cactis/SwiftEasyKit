@@ -15,6 +15,20 @@ extension String {
 
 public class API {
   
+  class public func upload(method: Alamofire.Method = .POST, url: String, data: NSData, name: String = "file", filename: String = "\(Lorem.token()).jpg", mimeType: String = "image/jpg", onComplete: (Response<AnyObject, NSError>) -> () = {_ in}) {
+    Alamofire.upload(method, url, multipartFormData: { (multipartFormData) in
+      multipartFormData.appendBodyPart(data: data, name: name, fileName: filename, mimeType: mimeType)
+      }, encodingCompletion: { (result) in
+        switch result {
+        case .Success(let upload, _, _):
+          upload.responseJSON(completionHandler: onComplete)
+        case .Failure(let error):
+//          prompt(result)
+          break
+        }
+    })
+  }
+  
   class public func get(url: String, parameters: [String: AnyObject] = [:], fileName: String? = #file, funcName: String? = #function, run: (response: Response<AnyObject, NSError>) -> ()) {
     request(url: url, parameters: parameters, run: run)
   }

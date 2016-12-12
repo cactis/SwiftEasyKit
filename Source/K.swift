@@ -140,6 +140,10 @@ public struct K {
     public static var titles = [String]()
     public static var images = [String]()
   }
+  
+  public struct Image {
+    public static var jpegCompression: CGFloat = 0.2
+  }
 
   public struct Size {
     public static var barButtonItem = K.BarButtonItem.cgSize
