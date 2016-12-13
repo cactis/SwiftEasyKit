@@ -105,6 +105,10 @@ extension UILabel {
     colored(textColor.lighter(diff))
     return self
   }
+  
+  public func coloredLike(label: UILabel) -> UILabel {
+    return colored(label.textColor)
+  }
 
   public func darker(diff: CGFloat = 0.2) -> UILabel {
     colored(textColor.darker(diff))

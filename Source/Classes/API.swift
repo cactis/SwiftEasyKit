@@ -5,7 +5,7 @@
 
 import Foundation
 import Alamofire
-import AlamofireObjectMapper
+//import AlamofireObjectMapper
 
 extension String {
   public func hostUrl() -> String {
@@ -52,8 +52,9 @@ public class API {
     headers["Authorization"] = K.Api.userToken
     headers["token"] = (Session.getValueObject(K.Api.userTokenKey) as? String) ?? K.Api.userToken
     if Development.Log.API.header { _logForAnyMode(headers, title: "headers") }
-    let indicator = indicatorStart()
     _logForAnyMode(url.hostUrl(), title: "url.hostUrl()")
+    if Development.Log.API.parameters { _logForAnyMode(parameters, title: "parameters") }
+    let indicator = indicatorStart()
     let requestStartTime = NSDate()
     var requestTime: Double = 0
     Alamofire.request(method, url.hostUrl(), parameters: parameters, headers: headers).responseJSON { response in

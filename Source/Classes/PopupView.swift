@@ -7,7 +7,7 @@ public class PopupView: DefaultView {
 
   public var delegate: UIView!
   
-  public var wrapper: UIView!
+  public var contentView = UIScrollView()
   public var closeBtn: UIImageView!
 
   public var padding: CGFloat = 40
@@ -20,7 +20,9 @@ public class PopupView: DefaultView {
     closeBtn = addImageView(UIImage.fontAwesomeIconWithName(.Close, textColor: K.Color.barButtonItem, size: CGSizeMake(closeBtnSize, closeBtnSize)))
     closeBtn.whenTapped(self, action: #selector(PopupView.closeBtnTapped(_:)))
 
-    wrapper = addView()
+//    contentView = addView()
+    layout([contentView])
+    contentView.whenTapped(self, action: #selector(contentViewTapped))
     backgroundColor = K.Color.popup
   }
   
@@ -49,7 +51,11 @@ public class PopupView: DefaultView {
     super.layoutSubviews()
     layoutBase()
     fixedConstraints()
-    wrapper.fillSuperview(left: padding, right: padding, top: padding, bottom: padding)
+    contentView.fillSuperview(left: padding, right: padding, top: padding, bottom: padding)
+  }
+  
+  func contentViewTapped() {
+    contentView.endEditing(true)
   }
 
   public func fixedConstraints() {

@@ -194,7 +194,7 @@ extension UIView: UIImagePickerControllerDelegate, UINavigationControllerDelegat
   }
   
   public func setViewsGroup(fields: [UITextView]) -> Void {
-    let delegate = parentViewController() as! UITextViewDelegate
+    let delegate = parentViewController() as? UITextViewDelegate
     for index in 0...fields.count - 2 {
       fields[index].delegate = delegate
       fields[index].nextField = fields[index + 1]

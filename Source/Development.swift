@@ -35,6 +35,7 @@ public struct Development {
       public static var statusCode = true
       public static var processInfo = true
       public static var header = true
+      public static var parameters = true
     }
   }
 }

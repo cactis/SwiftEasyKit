@@ -16,6 +16,7 @@ public class DefaultView: UIView {
     layoutUI() // 建立 UI 框架
     styleUI() // 視覺化 UI 框架
     bindUI()  // 綁定 UI 事件
+    bindData() // 綁定資料
   }
 
   public func bottomPadding() -> CGFloat {
@@ -42,6 +43,10 @@ public class DefaultView: UIView {
 
   public func bindUI() {
 
+  }
+  
+  public func bindData() {
+  
   }
 
   override public func layoutSubviews() {
