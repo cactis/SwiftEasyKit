@@ -59,7 +59,7 @@ public class API {
     var requestTime: Double = 0
     Alamofire.request(method, url.hostUrl(), parameters: parameters, headers: headers).responseJSON { response in
       if Development.Log.API.request { _logForAnyMode(response.request!, title: "response.request") }
-      if Development.Log.API.statusCode {_logForAnyMode((response.response?.statusCode)!, title: "(response.response?.statusCode)!")}
+      if Development.Log.API.statusCode { _logForAnyMode((response.response?.statusCode)!, title: "(response.response?.statusCode)!") }
       if Development.Log.API.processInfo { print("NSProcessInfo.processInfo().environment: ", NSProcessInfo.processInfo().environment)}
       requestTime = NSDate().timeIntervalSinceDate(requestStartTime)
       switch response.result {
