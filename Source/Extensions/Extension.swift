@@ -169,7 +169,7 @@ extension String {
     return Int(self.gsub(",", withString: ""))!
   }
 
-  public func gsub(target: String, withString: String) -> String {
+  public func gsub(target: String, withString: String = "") -> String {
     return stringByReplacingOccurrencesOfString(target, withString: withString)
   }
 
@@ -400,7 +400,7 @@ extension NSDate{
     return dateFormatter.stringFromDate(self)
   }
 
-  public func toString(dateFormat: String = "yyyy/MM/dd HH:mm")->String{
+  public func toString(dateFormat: String = K.Api.timeFormat)->String{
     if self == "" { return "" }
     let dateFormatter = NSDateFormatter()
     dateFormatter.dateFormat = dateFormat

@@ -21,7 +21,7 @@ public class DefaultTableView: DefaultView {
     if cell != nil {
       cell.layoutIfNeeded()
       cell.layoutSubviews()
-      return cell.bottomView.bottomEdge() + bottomPadding()
+      return cell.bottomView.bottomEdge() + defaultBottomPadding()
     } else {
       return 0
     }

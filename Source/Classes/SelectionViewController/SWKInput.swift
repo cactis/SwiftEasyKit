@@ -8,6 +8,34 @@
 
 import UIKit
 
+public class SWKDateInput: SWKInput {
+  let datePicker = UIDatePicker()
+  
+  override public func layoutUI() {
+    super.layoutUI()
+    datePicker.datePickerMode = .Date
+    let toolbar = UIToolbar()
+    toolbar.sizeToFit()
+    let flex = UIBarButtonItem(barButtonSystemItem: .FlexibleSpace, target: nil, action: nil)
+    let done = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: #selector(doneTapped))
+    toolbar.items = [flex, done]
+    value.inputAccessoryView = toolbar
+    value.inputView = datePicker
+  }
+  
+  override public func bindUI() {
+    super.bindUI()
+    value.addTarget(self, action: #selector(valueTapped), forControlEvents: .EditingDidBegin)
+  }
+  
+  func valueTapped() { datePicker.date = value.text!.toDate("yyyy/MM/dd") ?? NSDate() }
+  
+  func doneTapped() {
+    value.endEditing(true)
+    value.text(datePicker.date.toString("yyyy/MM/dd"))
+  }
+}
+
 
 public class SWKInput: DefaultView {
   

@@ -19,13 +19,13 @@ public class DefaultView: UIView {
     bindData() // 綁定資料
   }
 
-  public func bottomPadding() -> CGFloat {
+  public func defaultBottomPadding() -> CGFloat {
     return K.Size.Padding.large
   }
 
   public func autoHeight(padding: CGFloat? = nil) -> CGFloat {
 //    layoutIfNeeded()
-    let _padding = padding ?? bottomPadding()
+    let _padding = padding ?? defaultBottomPadding()
     if (bottomView != nil) {
       return bottomView!.bottomEdge() + _padding
     } else {

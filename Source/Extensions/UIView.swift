@@ -13,6 +13,12 @@ import RandomKit
 import SwiftRandom
 
 extension UIView: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+
+  public var rightPadding: CGFloat { get { return superview != nil ? superview!.width - rightEdge() : 0 } }
+  public var topPadding: CGFloat { get { return topEdge() } }
+  public var leftPadding: CGFloat { get { return rightEdge() } }
+  public var bottomPadding: CGFloat { get { return superview != nil ? superview!.height - bottomEdge() : 0 } }
+  
   
   public func saveAsImageToAlbum() -> UIImage {
     UIGraphicsBeginImageContextWithOptions(bounds.size, opaque, 0.0)

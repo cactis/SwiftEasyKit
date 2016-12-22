@@ -27,12 +27,12 @@ public class TableViewCell: UITableViewCell {
 
   }
 
-  public func bottomPadding() -> CGFloat {
+  public func defaultBottomPadding() -> CGFloat {
     return K.Size.Padding.large
   }
 
   public func autoHeight(padding: CGFloat? = nil) -> CGFloat {
-    let _padding = padding ?? bottomPadding()
+    let _padding = padding ?? defaultBottomPadding()
     return bottomView.bottomEdge() + _padding
   }
 

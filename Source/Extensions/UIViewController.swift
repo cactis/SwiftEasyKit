@@ -85,8 +85,9 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
     openControllerWithDelegate(self, vc: vc, style: style, run: run)
   }
   
-  public func pushViewController(vc: UIViewController, checked: Bool = true, delayed: Double = 0, onComplete: () -> () = {}, onDismissViewController: () -> () = {}) -> Void {
+  public func pushViewController(vc: UIViewController, checked: Bool = true, delayed: Double = 0, onComplete: () -> () = {}, onDismissViewController: () -> () = {}, didDismissViewController: () -> () = {}) -> Void {
     (vc as? DefaultViewController)!.onDismissViewController = onDismissViewController
+    (vc as? DefaultViewController)!.didDismissViewController = didDismissViewController
     delayedJob(delayed) {
       //      if checked && (self.navigationController?.topViewController?.isKindOfClass(vc.dynamicType))! {
       //        _logForUIMode("Not push again")

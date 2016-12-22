@@ -12,8 +12,28 @@ public class LabelWithSelection: LabelWith {
 
 }
 
-public class LabelAndField: LabelField {
+public class LabelAndValue: LabelWith {
+  public var value = UILabel()
+  public var padding: CGFloat = K.Size.Padding.tiny
+  public override func layoutUI() {
+    super.layoutUI()
+    layout([value])
+  }
+  public override func styleUI() {
+    super.styleUI()
+    value.styled()
+  }
+  public override func autoHeight(padding: CGFloat? = K.Size.Padding.small) -> CGFloat {
+    return value.textHeight() + label.bottomEdge() + padding!
+  }
+  public override func layoutSubviews() {
+    super.layoutSubviews()
+    label.anchorAndFillEdge(.Top, xPad: 0, yPad: 0, otherSize: label.textHeight())
+    value.alignUnder(label, matchingLeftAndRightFillingHeightWithTopPadding: 0, bottomPadding: 0)    
+  }
+}
 
+public class LabelAndField: LabelField {
   override public func styleUI() {
     super.styleUI()
     field.bordered(1.0, color: UIColor.lightGrayColor().lighter().CGColor)
@@ -39,8 +59,9 @@ public class LabelWithField: LabelField {
   override public func layoutSubviews() {
     super.layoutSubviews()
 //    label.anchorAndFillEdge(.Left, xPad: 0, yPad: 0, otherSize: width * 0.2)
-    label.anchorInCorner(.TopLeft, xPad: 0, yPad: 0, width: width * 0.2, height: estimateHeight())
-    field.alignToTheRightOf(label, fillingWidthWithLeftAndRightPadding: 0, topPadding: 0, height: height)
+//    label.anchorInCorner(.TopLeft, xPad: 0, yPad: 0, width: label.textWidth() * 1.1, height: estimateHeight())
+    label.anchorAndFillEdge(.Left, xPad: 0, yPad: 0, otherSize: label.textWidth() * 1.2)
+    field.alignToTheRightOf(label, fillingWidthWithLeftAndRightPadding: 0, topPadding: 0, height: label.height)
 //    label._coloredWithSuperviews(0)
 //    field._coloredWithSuperviews(1)
   }

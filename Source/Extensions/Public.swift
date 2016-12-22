@@ -276,6 +276,23 @@ public func _enableDeviceAsSimulator(status: Bool = true, funcName: String = #fu
   Development.setDeviceAsSimulator = status
 }
 
+public func alert(delegate: AnyObject, title: String, message: String, onCompletion: () -> () = {}, cancelHandler: (action: UIAlertAction) -> () = {_ in }, okHandler: (action: UIAlertAction) -> ()) {
+  let alert = UIAlertController(title: title, message: message, preferredStyle: .Alert)
+  alert.addAction(UIAlertAction(title: "取消", style: .Cancel, handler: cancelHandler))
+  alert.addAction(UIAlertAction(title: "確定", style: .Default, handler: okHandler))
+  if delegate.isKindOfClass(UIViewController) {
+    delegate.presentViewController(alert, animated: true, completion: onCompletion)
+  } else {
+    delegate.parentViewController()?.presentViewController(alert, animated: true, completion: onCompletion)
+  }
+}
+
+public func dial(number: String) {
+  UIApplication.sharedApplication().openURL(NSURL(string: number)!)
+}
+
+//public func openMap(locaiton)
+
 public func delayedJob(todo: () -> ()) {
   delayedJob(0.5, todo: todo)
 }
