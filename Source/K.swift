@@ -151,6 +151,10 @@ public struct K {
       public static var size = K.Size.Text.normal
       public static var height = K.Size.Submit.size * 2.5
     }
+    
+    public struct ListButton {
+      public static var height = 50.cgFloat
+    }
 
     public struct Input {
       public static var height = 40.cgFloat

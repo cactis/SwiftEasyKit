@@ -53,7 +53,7 @@ public class IconLabel: DefaultView {
   public var color = K.Color.buttonBg { didSet { iconColor = color; labelColor = color } }
 
   public var autoWidth: CGFloat { get { return height + paddingBetween + label.textWidth() } }
-  public var paddingBetween: CGFloat { get { return paddingBetween_ ?? label.textHeight() * 0.05 } set { paddingBetween_ = newValue } }
+  public var paddingBetween: CGFloat { get { return paddingBetween_ ?? iconBorder.width() * 0.5 } set { paddingBetween_ = newValue } }
   public var paddingBetween_: CGFloat?
 
   public var iconSize: CGFloat?
@@ -153,13 +153,11 @@ public class IconLabel: DefaultView {
         let w = (labelWidth_ ?? label.textWidth())
         iconBorder.anchorAndFillEdge(.Left, xPad: (width - s - paddingBetween - w) / 2, yPad: height * 0.1, otherSize: s)
         label.alignToTheRightOf(iconBorder, matchingTopWithLeftPadding: paddingBetween * 0.4, width: w, height: iconBorder.height)
-//        label.alignToTheRightOf(iconBorder, fillingWidthWithLeftAndRightPadding: paddingBetween * 0.4, topPadding: iconBorder.topEdge(), height: iconBorder.height)
-//        label._coloredWithSuperviews()
-        label.sized(s * 0.7).bold(bolded)
+//        label.sized(s).bold(bolded)
       case .UIImage:
         let s = height * 0.8
         let h = height * 0.1
-        label.sized(s * 0.6).bold(bolded)
+//        label.sized(s * 0.6).bold(bolded)
         iconBorder.anchorInCorner(.TopLeft, xPad: (width - s - paddingBetween - label.textWidth()) / 2, yPad: h, width: s, height: s)
         let p = s * 0.1
         iconImage.fillSuperview(left: p, right: p, top: p, bottom: p)
@@ -174,16 +172,17 @@ public class IconLabel: DefaultView {
       label.alignToTheRightOf(iconBorder, matchingTopWithLeftPadding: paddingBetween, width: w, height: iconBorder.height)
       switch type {
       case .IconFont:
-//        label.alignToTheRightOf(iconBorder, matchingTopWithLeftPadding: paddingBetween, width: w, height: iconBorder.height)
-        label.sized(label.height * 0.8).bold(bolded)
+        label.alignToTheRightOf(iconBorder, matchingTopWithLeftPadding: paddingBetween, width: w, height: iconBorder.height)
+//        label.sized(label.height * 0.33).bold(bolded)
       case .UIImage:
         let p = iconBorder.height * 0.1
         iconImage.fillSuperview(left: p, right: p, top: p, bottom: p)
 //        label.alignToTheRightOf(iconBorder, matchingTopWithLeftPadding: paddingBetween, width: width - iconBorder.rightEdge(), height: iconBorder.height)
-        label.sized(iconImage.height * 0.8).bold(bolded)
+//        label.sized(iconImage.height * 0.8).bold(bolded)
       default:
         label.anchorInCenter(width: label.textWidth(), height: label.textHeight())
       }
+      label.sized(label.height * 0.8).bold(bolded)
     }
 
     // *** hacked for not center ***

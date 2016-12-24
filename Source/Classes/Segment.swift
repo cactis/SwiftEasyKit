@@ -146,7 +146,7 @@ public class IconFontSegment: TextSegment {
         let badge = labels[i].badge
         badge.badgeSize = h
       default:
-        let h = height - labels[i].label.textHeight() - 20
+        let h = height - labels[i].label.textHeight() - 40
         icons[i].anchorTopCenterWithTopPadding(10, width: h, height: h)
         icons[i].centered().sized(h)
         labels[i].alignUnder(icons[i], centeredFillingWidthWithLeftAndRightPadding: 0, topPadding: 10, height: labels[i].label.textHeight())

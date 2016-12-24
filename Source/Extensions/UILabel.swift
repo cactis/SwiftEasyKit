@@ -82,6 +82,10 @@ extension UILabel {
     textAlignment = align
     return self
   }
+  
+  public func updateNumberWrappedIn(number: AnyObject) -> UILabel {
+    return text(text?.updateNumberWrappedIn(number))
+  }
 
   public func appendText(value: String) -> UILabel {
     text("\(text!)\(value)")
