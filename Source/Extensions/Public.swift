@@ -443,7 +443,8 @@ public func verticalLayout(blocks: [UIView], heights: [CGFloat], padding: CGFloa
     switch index {
     case 0:
       if alignUnder != nil {
-        block.alignUnder(alignUnder, centeredFillingWidthWithLeftAndRightPadding: xPad, topPadding: yPad, height: heights[0])
+        block.alignUnder(alignUnder, matchingLeftAndRightWithTopPadding: yPad, height: heights[0])
+//        block.alignUnder(alignUnder, centeredFillingWidthWithLeftAndRightPadding: xPad, topPadding: yPad, height: heights[0])
       } else {
         block.anchorAndFillEdge(.Top, xPad: xPad, yPad: yPad, otherSize: heights[0])
       }

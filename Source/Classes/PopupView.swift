@@ -54,7 +54,7 @@ public class PopupView: DefaultView {
     contentView.fillSuperview(left: padding, right: padding, top: padding, bottom: padding)
   }
   
-  func contentViewTapped() {
+  public func contentViewTapped() {
     contentView.endEditing(true)
   }
 
