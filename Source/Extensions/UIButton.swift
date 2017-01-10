@@ -14,9 +14,26 @@ import SwiftRandom
 
 extension UIButton {
   
+  public func textUnderlined(text: String, color: UIColor = K.Color.text) -> UIButton {
+    let titleString = NSMutableAttributedString(string: text)
+    let range = NSMakeRange(0, text.characters.count)
+    titleString.addAttribute(NSUnderlineStyleAttributeName, value: NSUnderlineStyle.StyleSingle.rawValue, range: range)
+    titleString.addAttributes([NSForegroundColorAttributeName: color], range: range)
+    titleString.addAttributes([NSFontAttributeName: UIFont.systemFontOfSize(K.Size.Text.normal)], range: range)
+    self.setAttributedTitle(titleString, forState: .Normal)
+    return self
+  }
+
   public convenience init(text: String) {
     self.init(frame: CGRectZero)
     self.setTitle(text, forState: .Normal)
+  }
+  
+  public convenience init(underlinedText: String) {
+    self.init(frame: CGRectZero)
+//    self.setTitle(text, forState: .Normal)
+    self.textUnderlined(underlinedText)
+    self.colored(K.Color.Text.normal).smaller()
   }
 
   public func imaged(image: UIImage) -> UIButton {
