@@ -162,10 +162,11 @@ extension UILabel {
     return self
   }
 
-  public func multilinized() -> UILabel {
+  public func multilinized(lineHeight: CGFloat = 6) -> UILabel {
     numberOfLines = 0
     //    setLineHeight(textHeight())
     lineBreakMode = .ByWordWrapping
+    setLineHeight(lineHeight)
     return self
   }
 

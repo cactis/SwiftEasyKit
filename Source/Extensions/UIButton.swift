@@ -19,7 +19,7 @@ extension UIButton {
     let range = NSMakeRange(0, text.characters.count)
     titleString.addAttribute(NSUnderlineStyleAttributeName, value: NSUnderlineStyle.StyleSingle.rawValue, range: range)
     titleString.addAttributes([NSForegroundColorAttributeName: color], range: range)
-    titleString.addAttributes([NSFontAttributeName: UIFont.systemFontOfSize(K.Size.Text.normal)], range: range)
+    titleString.addAttributes([NSFontAttributeName: UIFont.systemFontOfSize(K.Size.Text.normal.smaller(3))], range: range)
     self.setAttributedTitle(titleString, forState: .Normal)
     return self
   }
@@ -126,6 +126,13 @@ extension UIButton {
     setTitleColor(K.Color.button, forState: .Normal)
     titleLabel!.font = UIFont.systemFontOfSize(options["size"] as? CGFloat ?? K.Size.Submit.size)
     radiused(4)
+    return self
+  }
+  
+  public func styledAsInfo(options: NSDictionary = NSDictionary()) -> UIButton {
+    styledAsSubmit()
+    backgroundColored(UIColor.whiteColor())
+    setTitleColor(K.Color.Segment.active, forState: .Normal)
     return self
   }
 
