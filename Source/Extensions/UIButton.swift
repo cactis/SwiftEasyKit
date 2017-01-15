@@ -133,6 +133,7 @@ extension UIButton {
     styledAsSubmit()
     backgroundColored(UIColor.whiteColor())
     setTitleColor(K.Color.Segment.active, forState: .Normal)
+    radiused(4).bordered(1, color: K.Color.Segment.active.CGColor)
     return self
   }
 

@@ -691,19 +691,10 @@ extension UIView: UIImagePickerControllerDelegate, UINavigationControllerDelegat
     }
   }
   
-  public func leftBordered(padding: CGFloat = 0) -> UIView { return addBorder(.Left, padding: padding) } //addBorder(CGRect(x: 0, y: 0, width: K.Line.size, height: height)) }
-  public func rightBordered(padding: CGFloat = 0) -> UIView { return addBorder(.Right, padding: padding) } //addBorder(CGRect(x: width, y: 0, width: K.Line.size, height: height)) }
-  public func bottomBordered(padding: CGFloat = 0) -> UIView { return addBorder(.Bottom, padding: padding) } //addBorder(CGRect(x: 0, y: height - 1, width: width, height: K.Line.size)) }
-  public func topBordered(padding: CGFloat = 0) -> UIView { return addBorder(.Top, padding: padding) } // addBorder(CGRect(x: 0, y: 0, width: width, height: K.Line.size)) }
-  
-  //  func addBorder(frame: CGRect) -> UIView {
-  //    let border = CALayer()
-  //    border.frame = frame
-  //    border.backgroundColor = K.Line.Color.horizontal.CGColor
-  //    self.layer.addSublayer(border)
-  //    return self
-  //  }
-  //
+  public func leftBordered(color: UIColor = K.Line.Color.horizontal, width: CGFloat = 1.0, padding: CGFloat = 0) -> UIView { return addBorder(.Left, color: color, width: width, padding: padding) }
+  public func rightBordered(color: UIColor = K.Line.Color.horizontal, width: CGFloat = 1.0, padding: CGFloat = 0) -> UIView { return addBorder(.Right, color: color, width: width, padding: padding) }
+  public func bottomBordered(color: UIColor = K.Line.Color.horizontal, width: CGFloat = 1.0, padding: CGFloat = 0) -> UIView { return addBorder(.Bottom, color: color, width: width, padding: padding) }
+  public func topBordered(color: UIColor = K.Line.Color.horizontal, width: CGFloat = 1.0, padding: CGFloat = 0) -> UIView { return addBorder(.Top, color: color, width: width, padding: padding) }
   
   public func openImagePicker(sourceType: UIImagePickerControllerSourceType = .Camera) -> UIImagePickerController {
     var type = sourceType
