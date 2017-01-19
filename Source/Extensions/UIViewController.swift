@@ -392,6 +392,7 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
     let tableView = UITableView(frame: view.bounds)
     tableView.delegate = self as? UITableViewDelegate
     tableView.dataSource = self as? UITableViewDataSource
+    tableView.estimatedRowHeight = 10
     tableView.styled()
     tableView.registerClass(registeredClass, forCellReuseIdentifier: identifier)
     return tableView
