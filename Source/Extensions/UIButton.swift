@@ -130,15 +130,17 @@ extension UIButton {
   }
   
   public func styledAsInfo(options: NSDictionary = NSDictionary()) -> UIButton {
-    styledAsSubmit()
+//    styledAsSubmit()
     backgroundColored(UIColor.whiteColor())
     setTitleColor(K.Color.Segment.active, forState: .Normal)
-    radiused(4).bordered(1, color: K.Color.Segment.active.CGColor)
+    titleLabel!.font = UIFont.systemFontOfSize(options["size"] as? CGFloat ?? K.Size.Submit.size)
+    radiused(4).bordered(0, color: K.Color.Segment.active.CGColor)
     return self
   }
 
   public func disabled() -> UIButton {
     backgroundColor = UIColor.lightGrayColor()
+    userInteractionEnabled = false
     return self
   }
 
