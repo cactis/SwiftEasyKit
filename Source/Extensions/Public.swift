@@ -276,7 +276,7 @@ public func _enableDeviceAsSimulator(status: Bool = true, funcName: String = #fu
   Development.setDeviceAsSimulator = status
 }
 
-public func alert(delegate: AnyObject, title: String, message: String, onCompletion: () -> () = {}, cancelHandler: (action: UIAlertAction) -> () = {_ in }, okHandler: (action: UIAlertAction) -> ()) {
+public func alert(delegate: AnyObject, title: String, message: String, onCompletion: () -> () = {}, okHandler: (action: UIAlertAction) -> () = {_ in }, cancelHandler: (action: UIAlertAction) -> () = {_ in }) {
   let alert = UIAlertController(title: title, message: message, preferredStyle: .Alert)
   alert.addAction(UIAlertAction(title: "取消", style: .Cancel, handler: cancelHandler))
   alert.addAction(UIAlertAction(title: "確定", style: .Default, handler: okHandler))

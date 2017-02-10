@@ -7,6 +7,8 @@ public class TableViewCell: UITableViewCell {
 
   public var didFixedConstraints = false
   public var bottomView = UIView()
+  public var tableView: UITableView?
+  public var delegate: UIViewController?
 
   override public init(style: UITableViewCellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)

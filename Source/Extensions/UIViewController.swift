@@ -388,8 +388,8 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
     return collectionView
   }
   
-  public func tableView(registeredClass: AnyClass!, identifier: String) -> UITableView {
-    let tableView = UITableView(frame: view.bounds)
+  public func tableView(registeredClass: AnyClass!, identifier: String, style: UITableViewStyle = .Plain) -> UITableView {
+    let tableView = UITableView(frame: view.bounds, style: style)
     tableView.delegate = self as? UITableViewDelegate
     tableView.dataSource = self as? UITableViewDataSource
     tableView.estimatedRowHeight = 10

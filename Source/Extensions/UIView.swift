@@ -158,8 +158,8 @@ extension UIView: UIImagePickerControllerDelegate, UINavigationControllerDelegat
     return addView(tableView(registeredClass, identifier: identifier)) as! UITableView
   }
   
-  public func tableView(registeredClass: AnyClass!, identifier: String) -> UITableView {
-    let tableView = UITableView(frame: bounds)
+  public func tableView(registeredClass: AnyClass!, identifier: String, style: UITableViewStyle = .Plain) -> UITableView {
+    let tableView = UITableView(frame: bounds, style: style)
     tableView.delegate = (self.parentViewController() ?? self ) as? UITableViewDelegate
     tableView.dataSource = (self.parentViewController() ?? self) as? UITableViewDataSource
     tableView.estimatedRowHeight = 20.0

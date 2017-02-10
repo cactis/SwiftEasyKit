@@ -46,7 +46,7 @@ public struct K {
   }
 
   public struct Message {
-    public static var colors = [UIColor.fromRGB(73, green: 173, blue: 199), UIColor.fromRGB(158, green: 0, blue: 52), UIColor.fromRGB(153, green: 130, blue: 0)]
+    public static var colors = [UIColor.fromRGB(73, green: 173, blue: 199), UIColor.fromRGB(158, green: 0, blue: 52).lighter(), UIColor.fromRGB(153, green: 130, blue: 0)]
   }
 
   public struct Font {
