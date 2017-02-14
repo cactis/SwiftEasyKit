@@ -114,7 +114,7 @@ extension UIButton {
     return (buttonWidth(), buttonHeight())
   }
 
-  public func text(text: String, options: NSDictionary = NSDictionary()) -> UIButton {
+  public func text(text: String?, options: NSDictionary = NSDictionary()) -> UIButton {
     //    titleLabel!.text = text
     setTitle(text, forState: .Normal)
     //    setAttributedTitle(NSAttributedString(string: text), forState: .Normal)
