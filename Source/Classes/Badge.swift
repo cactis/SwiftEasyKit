@@ -5,15 +5,15 @@
 import UIKit
 
 public class Badge: DefaultView {
-
+  
   public var badgeSize: CGFloat! { didSet { styleUI(); } }
   public var label = UILabel()
   public var body = UIView()
-
+  
   public var size: CGFloat!
-
+  
   public var color = K.Badge.backgroundColor.colorWithAlphaComponent(0.8) { didSet { styleUI() } }
-
+  
   public var bordered = true {
     didSet {
       if bordered {
@@ -23,13 +23,16 @@ public class Badge: DefaultView {
       }
     }
   }
-
+  
   public var value: String! {
     get {
       return label.text
     }
     set {
-      label.text = newValue
+      animate { 
+        self.label.text = newValue
+      }
+      
       if newValue != "" {
         label.hidden = false
       } else {
@@ -37,17 +40,17 @@ public class Badge: DefaultView {
       }
     }
   }
-
+  
   public init(size: CGFloat? = K.Badge.size, value: String = "") {
     self.size = size
     self.badgeSize = size! * 1.5
     super.init(frame: CGRectZero)
-
+    
     self.value = value
     layout([body.layout([label])])
     label.hidden = true
   }
-
+  
   override public func styleUI() {
     super.styleUI()
     size = badgeSize / 1.5
@@ -58,11 +61,11 @@ public class Badge: DefaultView {
     label.radiused(badgeSize / 2)
     label.textAlignment = .Center
   }
-
+  
   override public init(frame: CGRect) {
     super.init(frame: frame)
   }
-
+  
   override public func layoutSubviews() {
     super.layoutSubviews()
     anchorAndFillEdge(.Top, xPad: 0, yPad: 0, otherSize: badgeSize)
@@ -74,6 +77,6 @@ public class Badge: DefaultView {
     }
     label.anchorInCorner(.TopRight, xPad: (superview!.width - w) / 4.5, yPad: yPad, width: w, height: badgeSize)
   }
-
+  
   required public init?(coder aDecoder: NSCoder) { fatalError("init(coder:) has not been implemented") }
 }

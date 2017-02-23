@@ -15,6 +15,9 @@ import RandomKit
 import SwiftRandom
 import KeychainSwift
 
+import EZLoadingActivity
+//import SwiftSpinner
+
 public func storeToKeyChain(value: String?, key: String!) {
   KeychainSwift().set(value!, forKey: key)
 }
@@ -255,8 +258,7 @@ private func _log(obj: AnyObject?, title: AnyObject = "", funcName: String = #fu
   //  }
   if let _ = obj { print(obj!) } else { print(obj) }
   print("=== \"\(title)\" in \(funcName) of \((fileName as NSString).lastPathComponent) \(line):\(column) ===|")
-  print("\(time) in \(Development.mode) mode")
-  
+  print("\(time) in \(Development.mode) mode")  
   print("")
 }
 
@@ -378,7 +380,7 @@ public func getTabIcon(name: FontAwesome, options: NSDictionary = NSDictionary()
   return icon
 }
 
-public func getIcon(name: FontAwesome, var options: NSDictionary = NSDictionary(), inset: CGFloat = 0) -> UIImage {
+public func getIcon(name: FontAwesome, options: NSDictionary = NSDictionary(), inset: CGFloat = 0) -> UIImage {
   var opts: NSMutableDictionary = options.mutableCopy() as! NSMutableDictionary
   let size = options["size"] as? CGFloat ?? K.BarButtonItem.size * 4
   opts["size"] = size
@@ -394,22 +396,30 @@ public func getImage(name: String) -> UIImage {
 }
 
 public func indicatorStart() -> UIView {
-  let bg = UIView()
-  let indicator = UIActivityIndicatorView()
-  indicator.startAnimating()
-  bg.frame = CGRectMake(0, 0, screenWidth(), screenHeight())
-  bg.center = screenCenter()
-  bg.userInteractionEnabled = false
-  //  bg.backgroundColored(UIColor.blackColor().colorWithAlphaComponent(0.05))
-  indicator.center = screenCenter()
-  //  currentView()?.addSubview(bg)
-  bg.addSubview(indicator)
+//  SwiftSpinner.showWithDelay(2.0, title: Lorem.sentence())
+  EZLoadingActivity.Settings.ActivityColor = UIColor.blackColor().colorWithAlphaComponent(0.8)
+//  EZLoadingActivity.Settings.ActivityWidth = screenWidth() * 0.3
+//  EZLoadingActivity.Settings.FontName = UIFont.systemFontOfSize(14)
+//  EZLoadingActivity.Settings.ActivityHeight = EZLoadingActivity.Settings.ActivityWidth / 10
+  EZLoadingActivity.show("資料載入中...", disableUI: false)
   
+  let bg = UIView()
+//  let indicator = UIActivityIndicatorView()
+//  indicator.startAnimating()
+//  bg.frame = CGRectMake(0, 0, screenWidth(), screenHeight())
+//  bg.center = screenCenter()
+//  bg.userInteractionEnabled = false
+//  //  bg.backgroundColored(UIColor.blackColor().colorWithAlphaComponent(0.05))
+//  indicator.center = screenCenter()
+//  //  currentView()?.addSubview(bg)
+//  bg.addSubview(indicator)
   return bg
 }
 
 public func indicatorEnd(indicator: UIView) {
   indicator.removeFromSuperview()
+  EZLoadingActivity.hide()
+//  SwiftSpinner.hide()
   //  indicator.indicator.stopAnimating()
 }
 

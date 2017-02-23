@@ -101,6 +101,7 @@ public class API {
         run(response: response)
       } else if let item = value as? NSDictionary {
         _logForAPIMode(value, title: "value")
+        _logForAPIMode(response.request?.URL, title: "response.request.URL")
         switch (response.response?.statusCode)! {
         case 404:
           prompt(value.objectForKey(K.Api.Response.message) as? String ?? "路徑錯誤!")

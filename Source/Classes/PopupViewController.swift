@@ -3,12 +3,12 @@
 
 import UIKit
 
-class PopupViewController: UIViewController {
+public class PopupViewController: UIViewController {
 
-  var maskView: UIView!
-  var contentView: UIView!
+  public var maskView: UIView!
+  public var contentView: UIView!
 
-  override func viewDidLoad() {
+  override public func viewDidLoad() {
     super.viewDidLoad()
 
     maskView = view.addView()
@@ -22,7 +22,7 @@ class PopupViewController: UIViewController {
     }
   }
 
-  override func viewDidLayoutSubviews() {
+  override public func viewDidLayoutSubviews() {
     super.viewDidLayoutSubviews()
     maskView.fillSuperview()
   }

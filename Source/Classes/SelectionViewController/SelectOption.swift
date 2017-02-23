@@ -30,6 +30,7 @@ public class SelectOption: Mappable {
   
   public var id: Int?
   public var name: String?
+  public var title: String?
   public var parent: SelectOption?
   public var parent_id: Int?
   public var family: [SelectOption]?
@@ -43,6 +44,7 @@ public class SelectOption: Mappable {
   public func mapping(map: Map) {
     id <- map["id"]
     name <- map["name"]
+    title <- map["title"]
     parent_id <- map["parent_id"]
     parent <- map["parent"]
     //    children <- map["children"]
@@ -78,7 +80,6 @@ public class SelectOption: Mappable {
       }
     }
   }
-  
   required public init?(_ map: Map) {}
 }
 
