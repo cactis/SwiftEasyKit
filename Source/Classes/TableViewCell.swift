@@ -3,6 +3,10 @@
 
 import UIKit
 
+public class TableView: UITableView {
+  
+}
+
 public class TableViewCell: UITableViewCell {
 
   public var didFixedConstraints = false

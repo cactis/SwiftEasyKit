@@ -12,7 +12,6 @@ public class DefaultView: UIView {
 
   override public init(frame: CGRect) {
     super.init(frame: frame)
-
     layoutUI() // 建立 UI 框架
     styleUI() // 視覺化 UI 框架
     bindUI()  // 綁定 UI 事件

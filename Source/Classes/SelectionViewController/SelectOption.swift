@@ -112,17 +112,13 @@ extension SequenceType where Generator.Element == SelectOption {
 //  }
 //}
 
-
-
-class SelectionCell: TableViewCell {
-  
+public class SelectionCell: TableViewCell {
   var id: Int!
   var title = UILabel()
-  var checked = false { didSet { styleIcon() } }
+  public var checked = false { didSet { styleIcon() } }
   var icon = IconLabel(iconCode: K.Icons.check)
   
   func loadData(data: SelectOption) {
-    //    _logForUIMode(data, title: "data")
     if data.id != nil { id = data.id }
     title.text = data.name
   }
@@ -135,12 +131,12 @@ class SelectionCell: TableViewCell {
     }
   }
   
-  override func layoutUI() {
+  override public func layoutUI() {
     super.layoutUI()
     layout([title, icon])
   }
   
-  override func styleUI() {
+  override public func styleUI() {
     super.styleUI()
     title.styled().darker().bold()
     backgroundColor = UIColor.whiteColor()
@@ -148,7 +144,7 @@ class SelectionCell: TableViewCell {
     styleIcon()
   }
   
-  override func layoutSubviews() {
+  override public func layoutSubviews() {
     super.layoutSubviews()
     title.anchorAndFillEdge(.Left, xPad: 20, yPad: 10, otherSize: width - 40)
     icon.anchorToEdge(.Right, padding: 20, width: icon.iconSize!, height: icon.iconSize!)

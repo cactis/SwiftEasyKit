@@ -107,6 +107,8 @@ public class API {
           prompt(value.objectForKey(K.Api.Response.message) as? String ?? "路徑錯誤!")
         case 400:
           prompt(value.objectForKey(K.Api.Response.message) as? String)
+        case 405:
+          prompt(value.objectForKey(K.Api.Response.message) as? String)
         case 440:
           prompt(value.objectForKey(K.Api.Response.message) as? String)
           delayedJob({
