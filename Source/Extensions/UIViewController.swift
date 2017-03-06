@@ -117,13 +117,6 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
   }
   
   public func setViewsGroup(fields: [UITextView]) -> Void {
-    //    let delegate = self as! UITextViewDelegate
-    //    for index in 0...fields.count - 2 {
-    //      fields[index].delegate = delegate
-    //      fields[index].nextField = fields[index + 1]
-    //    }
-    //    fields.last?.delegate = delegate
-    
     let delegate = self as! UITextViewDelegate
     if fields.count > 1 {
       for index in 0...fields.count - 2 {
@@ -132,11 +125,10 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
       }
     }
     fields.last?.delegate = delegate
-    
   }
   
   public func navBarHeight() -> CGFloat {
-    return (navigationController?.navigationBar.height)!
+    return (navigationController != nil) ? (navigationController?.navigationBar.height)! : 0
   }
   
   public func tabBarHeight() -> CGFloat {
