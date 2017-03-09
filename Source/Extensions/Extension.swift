@@ -251,8 +251,6 @@ extension String {
   }
 }
 
-
-
 extension Float {
   public var int: Int { get { return Int(self) } }
 }
