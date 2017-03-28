@@ -91,7 +91,7 @@ public class API {
   
   class func processJSONResponse(response: Response<AnyObject, NSError>, run: (response: Response<AnyObject, NSError>) -> ()) {
     if Development.Log.API.request { _logForAnyMode(response.request!, title: "response.request") }
-    if Development.Log.API.statusCode { _logForAnyMode((response.response?.statusCode)!, title: "(response.response?.statusCode)!") }
+//    if Development.Log.API.statusCode { _logForAnyMode((response.response?.statusCode)!, title: "(response.response?.statusCode)!") }
     if Development.Log.API.processInfo { print("NSProcessInfo.processInfo().environment: ", NSProcessInfo.processInfo().environment)}
     
     switch response.result {
