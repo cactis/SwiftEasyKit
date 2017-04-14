@@ -16,6 +16,20 @@ import Fakery
 
 public let faker = Faker()
 
+extension NSMutableDictionary {
+  public func jsonString(onSuccess: (string: NSString) -> ()) {
+    do {
+      let data = try NSJSONSerialization.dataWithJSONObject(self, options: .PrettyPrinted)
+      let string = NSString(data: data, encoding: NSUTF8StringEncoding)
+      print(string)
+      onSuccess(string: string!)
+    } catch {
+      print(error)
+      
+    }
+  }
+}
+
 //extension AppDelegate: UITabBarControllerDelegate {
 //
 //  func enableTabBarController(viewControllers: [UIViewController]!, titles: [String]!, images: [UIImage], selectedImages: [UIImage] = []) -> (UIWindow?, UITabBarController!) {
@@ -196,6 +210,17 @@ extension String {
   
   public func formatedAs(format: String = "%02d") -> String {
     return NSString.localizedStringWithFormat(format, self) as String
+  }
+  
+  public func toJOSN() -> [String:AnyObject]? {
+    if let data = dataUsingEncoding(NSUTF8StringEncoding) {
+      do {
+        return try NSJSONSerialization.JSONObjectWithData(data, options: []) as! [String : AnyObject] //as? [String: AnyObject]
+      } catch let error as NSError {
+        print(error)
+      }
+    }
+    return nil
   }
   
   public func toNSMutableAttributedString() -> NSMutableAttributedString {
