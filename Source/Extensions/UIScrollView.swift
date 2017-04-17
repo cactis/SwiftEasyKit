@@ -7,8 +7,8 @@ import Foundation
 
 extension UIScrollView {
 
-  public func scrollToBottom(animated: Bool = true) -> UIScrollView {
-    setContentOffset(CGPointMake(0, contentSize.height - bounds.size.height + tabBarHeight()), animated: animated)
+  public func scrollToBottom(animated: Bool = true, offset: CGFloat = 0) -> UIScrollView {
+    setContentOffset(CGPointMake(0, contentSize.height - bounds.size.height + tabBarHeight() + offset), animated: animated)
     return self
   }
 
