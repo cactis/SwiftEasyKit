@@ -13,6 +13,11 @@ import RandomKit
 import SwiftRandom
 
 extension UIImage {
+  
+  public class func loadFromURL(url: String) -> UIImage {
+    return UIImage(data: NSData(contentsOfURL: NSURL(string: url)!)!)!
+  }
+  
   public class func sample() -> UIImage {
     return UIImage.fontAwesomeIconWithName(.ClockO, textColor: UIColor.lightGrayColor().lighter(), size: CGSize(width: 300, height: 300))
   }
