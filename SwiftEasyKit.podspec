@@ -143,7 +143,7 @@ s.dependency 'Facade'
 s.dependency 'Masonry'
 # s.dependency 'SwiftSpinner'
 # s.dependency 'SwitchLoader', '~> 0.0.1'
-s.dependency 'EZLoadingActivity', '~> 0.8' #For Swift 2.2
+s.dependency 'EZLoadingActivity', '0.8' #For Swift 2.2
 # s.dependency 'GradientLoadingBar'#, '~> 1.0'
 s.dependency 'JSQMessagesViewController'
 s.dependency 'ObjectMapper', '1.3.0'
@@ -158,7 +158,7 @@ s.dependency 'Kingfisher', '2.4.1'
 # s.dependency 'ExSwift'
 s.dependency 'KeychainSwift', '~> 3.0'
 s.dependency 'Stripe'
-s.dependency 'Bond'
+s.dependency 'Bond', '4.3.1'
 # s.dependency 'AlamofireObjectMapper', '~> 3.0'
 
 end
