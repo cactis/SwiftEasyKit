@@ -707,3 +707,16 @@ extension UISwitch {
   }
   
 }
+
+extension UIScrollView {
+  public func isAtTop(offset: CGFloat = 10) -> Bool {
+    return contentOffset.y < offset
+  }
+  
+  public func isAtBottom(offset: CGFloat = 10) -> Bool {
+    let scrollViewHeight = frame.size.height
+    let scrollContentSizeHeight = contentSize.height
+    let scrollOffset = contentOffset.y
+    return scrollOffset + scrollViewHeight - scrollContentSizeHeight > offset
+  }
+}
