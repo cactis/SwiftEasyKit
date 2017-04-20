@@ -8,6 +8,7 @@ public class Session {
 
   public class func setValue(value: String, key: String) {
     store().setObject(value, forKey: key)
+    _logForUIMode(value, title: "saved \(key) key in session")
   }
 
   public class func setValueObject(value: AnyObject, key: String) {

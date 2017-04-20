@@ -5,17 +5,21 @@
 
 //
 
-import Foundation
+import SwiftEasyKit
+import Alamofire
 
-class PushServer {
-
-  class func subscribeToken(appid: String, user: String, deviceToken: String, success: (deviceTokenString: String) -> ()) {
+public class PushServer {
+  
+  public class func subscribeToken(appid: String, name: String, token: String, success: (response: Response<AnyObject, NSError>) -> ()) {
     let url = K.Api.pushserverSubscribe
-    let params = ["deviceName":  user, "deviceToken": deviceToken, "deviceType": K.Api.deviceType]
+    let params = ["user_device": [
+      "token": token,
+      "name":  name,
+      "kind": K.Api.deviceType
+      ]]
     _logForAnyMode(params, title: "params")
-    API.request(.POST, url: url, parameters: params) { (response) in
-//      Session.setValue(deviceToken, key: "deviceToken")
-
+    API.post(url, parameters: params) { (response) in
+      success(response: response)
     }
   }
   
