@@ -16,7 +16,7 @@ extension String {
 public class API {
   
   class public func upload(method: Alamofire.Method = .POST, url: String, data: NSData, name: String = "file", filename: String = "\(Lorem.token()).jpg", mimeType: String = "image/jpg", onComplete: (Response<AnyObject, NSError>) -> () = {_ in}) {
-    Alamofire.upload(method, url, multipartFormData: { (multipartFormData) in
+    Alamofire.upload(method, url, headers: headers(), multipartFormData: { (multipartFormData) in
       multipartFormData.appendBodyPart(data: data, name: name, fileName: filename, mimeType: mimeType)
       }, encodingCompletion: { (result) in
         switch result {
@@ -48,10 +48,10 @@ public class API {
   class func headers(fileName: String? = #file, funcName: String? = #function) -> [String: String] {
     let appId = K.Api.appID
     var headers_ = ["app_id": appId, "file_name": (fileName! as NSString).lastPathComponent, "func_name": funcName!]
-      headers_["Authorization"] = K.Api.userToken
-      headers_["token"] = (Session.getValueObject(K.Api.userTokenKey) as? String) ?? K.Api.userToken
-      if Development.Log.API.header { _logForAnyMode(headers_, title: "headers") }
-      return headers_
+    headers_["Authorization"] = K.Api.userToken
+    headers_["token"] = (Session.getValueObject(K.Api.userTokenKey) as? String) ?? K.Api.userToken
+    if Development.Log.API.header { _logForAnyMode(headers_, title: "headers") }
+    return headers_
   }
   
   class public func request(method: Alamofire.Method = .GET, url: String, parameters: [String: AnyObject] = [:], fileName: String? = #file, funcName: String? = #function, run: (response: Response<AnyObject, NSError>) -> ()) {
@@ -91,7 +91,7 @@ public class API {
   
   class func processJSONResponse(response: Response<AnyObject, NSError>, run: (response: Response<AnyObject, NSError>) -> ()) {
     if Development.Log.API.request { _logForAnyMode(response.request!, title: "response.request") }
-//    if Development.Log.API.statusCode { _logForAnyMode((response.response?.statusCode)!, title: "(response.response?.statusCode)!") }
+    //    if Development.Log.API.statusCode { _logForAnyMode((response.response?.statusCode)!, title: "(response.response?.statusCode)!") }
     if Development.Log.API.processInfo { print("NSProcessInfo.processInfo().environment: ", NSProcessInfo.processInfo().environment)}
     
     switch response.result {

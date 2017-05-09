@@ -200,8 +200,9 @@ public class ImagesCollectionView: CollectionView {
 public class Photo: Mappable {
   
   public var id: Int?
-  public var image: UIImage?
   public var url: String?
+  
+  public var image: UIImage?
   public var checked: Bool! = false
   
   public func mapping(map: Map) {
