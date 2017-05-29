@@ -134,10 +134,10 @@ s.public_header_files = "Classes/**/*.h"
 
 # s.xcconfig = { "HEADER_SEARCH_PATHS" => "$(SDKROOT)/usr/include/libxml2" }
 s.dependency 'LoremIpsum'
-s.dependency 'FontAwesome.swift', '0.7.3'
+s.dependency 'FontAwesome.swift', '0.7.0'
 s.dependency 'Neon', '0.2.0'
 s.dependency 'SwiftRandom', '0.1.7'
-s.dependency 'SwiftyJSON', '2.3.2'
+s.dependency 'SwiftyJSON', '2.3.3'
 s.dependency 'RandomKit', '1.6.0'
 s.dependency 'Facade'
 s.dependency 'Masonry'
