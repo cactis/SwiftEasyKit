@@ -670,7 +670,13 @@ extension UITextField {
   }
 }
 
+
 extension UITableView {
+  
+  public func indexPathForView(view: AnyObject) -> NSIndexPath? {
+    let originInTableView = self.convertPoint(CGPointZero, fromView: (view as! UIView))
+    return self.indexPathForRowAtPoint(originInTableView)
+  }
   
   public func enableRefreshControl(delegae: UIViewController, action: Selector) -> UITableView {
     var refreshControl = UIRefreshControl()

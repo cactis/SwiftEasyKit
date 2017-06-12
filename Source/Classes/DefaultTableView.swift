@@ -14,6 +14,11 @@ public class DefaultTableView: DefaultView {
       tableView.reloadData()
     }
   }
+  
+  public func removeCell(tableView: UITableView, indexPath: NSIndexPath, onComplete: () -> ()) {
+    collectionData.removeAtIndex(indexPath.row)
+    delayedJob { tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade) }
+  }
 
   public func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int { return collectionData.count }
 
