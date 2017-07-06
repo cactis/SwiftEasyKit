@@ -17,15 +17,17 @@ class SelectionViewController: TableViewController {
   var didSelect: (index: NSIndexPath, selected: SelectOption?) -> () = {_ in }
   
   var titleText: String?
+  var levelLimit: Int!
   
   override func viewDidLoad() {
     super.viewDidLoad()
     titled(titleText!, token: "SVS")
   }
   
-  init(title: String?) {
+  init(title: String?, levelLimit: Int = 100) {
     super.init(nibName: nil, bundle: nil)
     self.titleText = title
+    self.levelLimit = levelLimit
   }
   
   override func layoutUI() {
@@ -47,7 +49,7 @@ class SelectionViewController: TableViewController {
   func cellTapped(sender: UITapGestureRecognizer) {
     let index = tableView.indexOfTapped(sender)
     let selected = collectionData[index.row]
-    if let _ = selected.children_url {
+    if selected.children_url != nil && selected.level < levelLimit {
       selected.children({ (children) in
         let vc = SelectionViewController(title: selected.forHuman)
         vc.collectionData = children!

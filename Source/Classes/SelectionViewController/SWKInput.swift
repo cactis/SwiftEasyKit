@@ -43,14 +43,15 @@ public class SWKInput: DefaultView {
   public var value = UITextField()
   public var data: String? { didSet { value.text(data) } }
   public var text: String { get { return value.text! } set { value.text = newValue } }
-  public func prefix() -> String { return "輸入" }
+  public var prefix: String!
   
   public func valued(text: String?) { value.text(text) }
   
-  public init(label: String, value: String = "") {
+  public init(label: String, value: String = "", prefix: String = "輸入") {
     super.init(frame: CGRectZero)
     self.label.text(label)
-    if self.value.placeholder == nil {self.value.placeholder = "\(prefix())\(label)" }
+    self.prefix = prefix
+    if self.value.placeholder == nil {self.value.placeholder = "\(prefix)\(label)" }
     ({self.data = value})()
   }
   

@@ -18,11 +18,13 @@ public class SWKSelection: SWKInput {
   
   public var collectionData: [SelectOption]? = [SelectOption]()
   public var selected: SelectOption?
+  public var levelLimit: Int!
 
   var vc: SelectionViewController!
-  public func setData(selectOptions: [SelectOption]?, selected: SelectOption?) {
+  public func setData(selectOptions: [SelectOption]?, selected: SelectOption?, levelLimit: Int = 100) {
     self.collectionData = selectOptions
     self.selectData = selected
+    self.levelLimit = levelLimit
     
     guard let _ = selected else { return }
     guard let _ = collectionData else { return }
@@ -32,8 +34,12 @@ public class SWKSelection: SWKInput {
       self.selected = selected
     }
   }
+//  
+//  override init(label: String, value: String, prefix: String) {
+//    super.init(label: label, prefix: "選取")
+//  }
   
-  override public func prefix() -> String { return "選取" }
+//  required public init?(coder aDecoder: NSCoder) { fatalError("init(coder:) has not been implemented") }
   
   override public func styleUI() {
     super.styleUI()
@@ -52,7 +58,7 @@ public class SWKSelection: SWKInput {
   
   public func selfTapped() {
     _logForUIMode()
-    vc = SelectionViewController(title: self.label.text!)
+    vc = SelectionViewController(title: self.label.text!, levelLimit: levelLimit)
     vc.didSelect = { index, selected in
       self.selectData = selected
       self.didSelect(selected: selected)
