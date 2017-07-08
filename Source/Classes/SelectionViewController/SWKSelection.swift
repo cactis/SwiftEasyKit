@@ -10,8 +10,12 @@ import UIKit
 
 public class SWKSelection: SWKInput {
   
-  public var selectData: SelectOption! { didSet {
-    if selectData != nil { value.text(selectData.forHuman) } }}
+  public var selectedData: SelectOption! {
+    didSet {
+      if selectedData != nil {
+        value.text(selectedData.forHuman)
+      }
+    }}
   public var didSelect: (selected: SelectOption?) -> () = {_ in }
   
   public var icon = IconLabel(iconCode: K.Icons.angleRight, iconColor: K.Color.Text.strong)
@@ -19,11 +23,11 @@ public class SWKSelection: SWKInput {
   public var collectionData: [SelectOption]? = [SelectOption]()
   public var selected: SelectOption?
   public var levelLimit: Int!
-
+  
   var vc: SelectionViewController!
   public func setData(selectOptions: [SelectOption]?, selected: SelectOption?, levelLimit: Int = 100) {
     self.collectionData = selectOptions
-    self.selectData = selected
+    self.selectedData = selected
     self.levelLimit = levelLimit
     
     guard let _ = selected else { return }
@@ -34,12 +38,12 @@ public class SWKSelection: SWKInput {
       self.selected = selected
     }
   }
-//  
-//  override init(label: String, value: String, prefix: String) {
-//    super.init(label: label, prefix: "選取")
-//  }
+  //  
+  //  override init(label: String, value: String, prefix: String) {
+  //    super.init(label: label, prefix: "選取")
+  //  }
   
-//  required public init?(coder aDecoder: NSCoder) { fatalError("init(coder:) has not been implemented") }
+  //  required public init?(coder aDecoder: NSCoder) { fatalError("init(coder:) has not been implemented") }
   
   override public func styleUI() {
     super.styleUI()
@@ -60,10 +64,10 @@ public class SWKSelection: SWKInput {
     _logForUIMode()
     vc = SelectionViewController(title: self.label.text!, levelLimit: levelLimit)
     vc.didSelect = { index, selected in
-      self.selectData = selected
+      self.selectedData = selected
       self.didSelect(selected: selected)
     }
-    vc.selectData = selectData
+    vc.selectedData = selectedData
     vc.collectionData = collectionData!
     self.pushViewController(vc as! UIViewController)
   }

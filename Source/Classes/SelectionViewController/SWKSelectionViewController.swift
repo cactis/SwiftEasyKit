@@ -11,7 +11,7 @@ import UIKit
 class SelectionViewController: TableViewController {
   
   var collectionData = [SelectOption]() { didSet { tableView.reloadData() } }
-  var selectData: SelectOption? { didSet { tableView.reloadData() } }
+  var selectedData: SelectOption? { didSet { tableView.reloadData() } }
   let cellHeight: CGFloat = 60
   
   var didSelect: (index: NSIndexPath, selected: SelectOption?) -> () = {_ in }
@@ -55,16 +55,16 @@ class SelectionViewController: TableViewController {
         vc.collectionData = children!
         if ((selected.family?.contains(selected)) == true) {
           // Important!!!
-          vc.selectData = self.selectData
-          self.selectData = selected
+          vc.selectedData = self.selectedData
+          self.selectedData = selected
         } else {
-          vc.selectData = selected
+          vc.selectedData = selected
         }
         vc.didSelect = self.didSelect
         self.pushViewController(vc, checked: false, delayed: 0.1)
       })
     } else {
-      self.selectData = selected
+      self.selectedData = selected
       didSelect(index: index, selected: selected)
       let vcs = (navigationController?.viewControllers)!
       let i = vcs.indexOf(self)
@@ -96,7 +96,7 @@ class SelectionViewController: TableViewController {
     let item = collectionData[indexPath.row]
     let selectCell = (cell as! SelectionCell)
     selectCell.loadData(item)
-    if let _ =  selectData { selectCell.checked = (selectData?.family?.contains(item))! == true }
+    if let _ =  selectedData { selectCell.checked = (selectedData?.family?.contains(item))! == true }
     cell.whenTapped(self, action: #selector(cellTapped(_:)))
     cell.layoutIfNeeded()
     return cell
