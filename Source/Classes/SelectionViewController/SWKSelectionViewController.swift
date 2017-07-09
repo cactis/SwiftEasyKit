@@ -12,7 +12,7 @@ class SelectionViewController: TableViewController {
   
   var collectionData = [SelectOption]() { didSet { tableView.reloadData() } }
   var selectedData: SelectOption? { didSet { tableView.reloadData() } }
-  let cellHeight: CGFloat = 60
+  let cellHeight: CGFloat = 40
   
   var didSelect: (index: NSIndexPath, selected: SelectOption?) -> () = {_ in }
   
