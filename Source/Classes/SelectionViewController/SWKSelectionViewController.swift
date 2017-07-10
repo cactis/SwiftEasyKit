@@ -8,9 +8,11 @@
 
 import UIKit
 
-class SelectionViewController: TableViewController {
+class SWKSelectionViewController: TableViewController {
   
-  var collectionData = [SelectOption]() { didSet { tableView.reloadData() } }
+  var collectionData = [SelectOption]() { didSet {
+    tableView.reloadData() }}
+  
   var selectedData: SelectOption? { didSet { tableView.reloadData() } }
   let cellHeight: CGFloat = 40
   
@@ -42,34 +44,47 @@ class SelectionViewController: TableViewController {
     tabBarHidden = true
     tableView.separatorStyle = .SingleLine
     automaticallyAdjustsScrollViewInsets = false
-    let bottomBorder = UIView(frame: CGRectMake(0, 0, self.tableView.frame.size.width, 1))
-    tableView.tableFooterView = bottomBorder
+//    let bottomBorder = UIView(frame: CGRectMake(0, 0, self.tableView.frame.size.width, 1))
+//    tableView.tableFooterView = bottomBorder
   }
+  
+//  public var viewTapped: (selected: SelectOption) -> () = {_ in}
   
   func cellTapped(sender: UITapGestureRecognizer) {
     let index = tableView.indexOfTapped(sender)
     let selected = collectionData[index.row]
-    if selected.children_url != nil && selected.level < levelLimit {
-      selected.children({ (children) in
-        let vc = SelectionViewController(title: selected.forHuman)
-        vc.collectionData = children!
-        if ((selected.family?.contains(selected)) == true) {
-          // Important!!!
-          vc.selectedData = self.selectedData
-          self.selectedData = selected
-        } else {
-          vc.selectedData = selected
-        }
-        vc.didSelect = self.didSelect
-        self.pushViewController(vc, checked: false, delayed: 0.1)
-      })
+    // 以獨立頁面開啟
+    if navigationController != nil {
+      // 打開下一層選單
+      if selected.children_url != nil && selected.level < levelLimit {
+        selected.children({ (children) in
+          let vc = SWKSelectionViewController(title: selected.forHuman)
+          vc.collectionData = children!
+          if ((selected.family?.contains(selected)) == true) {
+            // Important!!!
+            vc.selectedData = self.selectedData
+            self.selectedData = selected
+          } else {
+            vc.selectedData = selected
+          }
+          vc.didSelect = self.didSelect
+          self.pushViewController(vc, checked: false, delayed: 0.1)
+        })
+      } else {
+        // 退回起始輸入頁面
+        self.selectedData = selected
+        didSelect(index: index, selected: selected)
+        let vcs = (navigationController?.viewControllers)!
+        let i = vcs.indexOf(self)
+        let back = (vcs.count - (selected.level! + 2))
+        self.popToViewController(vcs[back], delayed: 0.4)
+      }
     } else {
+      // 以子頁面開啟
       self.selectedData = selected
-      didSelect(index: index, selected: selected)
-      let vcs = (navigationController?.viewControllers)!
-      let i = vcs.indexOf(self)
-      let back = (vcs.count - (selected.level! + 2))
-      self.popToViewController(vcs[back], delayed: 0.4)
+      delayedJob({ 
+        self.didSelect(index: index, selected: selected)
+      })
     }
   }
   
@@ -84,10 +99,10 @@ class SelectionViewController: TableViewController {
       tableView.fillSuperview()
     } else {
       tableView.anchorAndFillEdge(.Top, xPad: 0, yPad: 0, otherSize: h)
-      let borderBottom = view.addView()
-      borderBottom.alignUnder(tableView, matchingLeftAndRightWithTopPadding: 0, height: 1)
-      let b = borderBottom.bottomBordered()
-      b.bordered(1, color: UIColor.lightGrayColor().lighter(0.1).CGColor)//.shadowed()
+//      let borderBottom = view.addView()
+//      borderBottom.alignUnder(tableView, matchingLeftAndRightWithTopPadding: 0, height: 1)
+//      let b = borderBottom.bottomBordered()
+//      b.bordered(1, color: UIColor.lightGrayColor().lighter(0.1).CGColor)//.shadowed()
     }
   }
   
@@ -102,9 +117,7 @@ class SelectionViewController: TableViewController {
     return cell
   }
   
-  override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return collectionData.count
-  }
+  override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int { return collectionData.count }
   
   func seeds() { }
   

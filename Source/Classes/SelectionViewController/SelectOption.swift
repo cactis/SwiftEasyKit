@@ -12,7 +12,6 @@ import SwiftRandom
 import SwiftEasyKit
 import ObjectMapper
 
-
 public class InputField: Mappable {
   public var key: String?
   public var label: String?
@@ -54,6 +53,14 @@ public class SelectOption: Mappable {
     url <- map["url"]
     children_url <- map["children_url"]
     inputFields <- map["input_fields"]
+  }
+  
+  public class func new(id: Int, name: String) -> SelectOption {
+    let item = SelectOption(JSON: ["id": id, "name": name, "level": 0])!
+    item.family = [item]
+//    item.family?.first?.id = id
+//    item.family?.first?.name = item.name
+    return item
   }
   
   public var forHuman: String! { get { return family != nil ? (family?.asBreadcrumb())! : name! } }
