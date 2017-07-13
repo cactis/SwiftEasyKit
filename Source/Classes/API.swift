@@ -60,8 +60,8 @@ public class API {
     let indicator = indicatorStart()
     let requestStartTime = NSDate()
     var requestTime: Double = 0
-    
-    Alamofire.request(method, url.hostUrl(), parameters: parameters, headers: headers()).responseJSON { response in
+    let _url = NSURL(string: url.hostUrl().stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!)!
+    Alamofire.request(method, _url, parameters: parameters, headers: headers()).responseJSON { response in
       requestTime = NSDate().timeIntervalSinceDate(requestStartTime)
       processJSONResponse(response, run: run)
       indicatorEnd(indicator)
