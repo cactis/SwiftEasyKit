@@ -9,11 +9,7 @@ public class DefaultTableView: DefaultView {
   public var tableView: UITableView!
   public var cell: TableViewCell!
 
-  public var collectionData = [AnyObject]() {
-    didSet {
-      tableView.reloadData()
-    }
-  }
+  public var collectionData = [AnyObject]() { didSet { tableView.reloadData() } }
   
   public func removeCell(tableView: UITableView, indexPath: NSIndexPath, onComplete: () -> ()) {
     tableView.beginUpdates()
