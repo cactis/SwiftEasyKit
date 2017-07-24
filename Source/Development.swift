@@ -33,7 +33,7 @@ public struct Development {
       public static var request = true
       public static var response = true
       public static var statusCode = true
-      public static var processInfo = true
+      public static var processInfo = false
       public static var header = true
       public static var parameters = true
     }

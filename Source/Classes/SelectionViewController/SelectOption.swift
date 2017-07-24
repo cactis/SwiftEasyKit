@@ -58,11 +58,16 @@ public class SelectOption: Mappable {
   public class func new(id: Int, name: String) -> SelectOption {
     let item = SelectOption(JSON: ["id": id, "name": name, "level": 0])!
     item.family = [item]
-//    item.family?.first?.id = id
-//    item.family?.first?.name = item.name
+    //    item.family?.first?.id = id
+    //    item.family?.first?.name = item.name
     return item
   }
   
+  public var breadcrumb: String! { get {
+    family?.popLast()
+    return family != nil ? (family?.asBreadcrumb())! : name!
+    }
+  }
   public var forHuman: String! { get { return family != nil ? (family?.asBreadcrumb())! : name! } }
   
   public class func seeds(onComplete: (items: [SelectOption]) -> ()) {
@@ -70,9 +75,9 @@ public class SelectOption: Mappable {
     onComplete(items: items)
   }
   
-  public func children(onComplete: (children: [SelectOption]?) -> ()) {
+  public class func list(url: String!, onComplete: (items: [SelectOption]) -> ()) {
     var items = [SelectOption]()
-    API.request(url: children_url!) { (response) in
+    API.get(url) { (response) in
       switch response.result {
       case .Success(let value):
         if let jsons = value as? [[String: AnyObject]] {
@@ -80,11 +85,18 @@ public class SelectOption: Mappable {
             let item = SelectOption(JSON: json)!
             items.append(item)
           })
-          onComplete(children: items)
+          onComplete(items: items)
         }
       case .Failure(let error):
         _logForUIMode(error.localizedDescription)
       }
+    }
+    onComplete(items: items)
+  }
+  
+  public func children(onComplete: (items: [SelectOption]?) -> ()) {
+    SelectOption.list(children_url) { (items) in
+      onComplete(items: items)
     }
   }
   required public init?(_ map: Map) {}

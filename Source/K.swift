@@ -12,7 +12,7 @@ public struct K {
     public static var stage = ""
     public static var local = ""
     
-    public static var prefix = "api/"
+    public static var prefix = "/api"
     
     public static var pushserver = ""
     public static var pushserverSubscribe = ""

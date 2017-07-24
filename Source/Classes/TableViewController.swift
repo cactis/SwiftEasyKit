@@ -23,6 +23,10 @@ public class TableViewController: DefaultViewController, UITableViewDataSource, 
   public func cellExtraHeight() -> CGFloat {
     return 30
   }
+  
+  public func cellTapped(sender: UITapGestureRecognizer) {
+    
+  }
 
 //  func cellTapped(sender: UITapGestureRecognizer) -> NSIndexPath {
 //    return tableView.indexPathForRowAtPoint(sender.view!.convertPoint(CGPointZero, toView: tableView))!
@@ -45,6 +49,7 @@ public class TableViewController: DefaultViewController, UITableViewDataSource, 
 //    cell = tableView.dequeueReusableCellWithIdentifier(CellIdentifier) as! CourseCell
 //    cell.loadData(data)
 //    cell.layoutIfNeeded()
+    cell.whenTapped(self, action: #selector(cellTapped(_:)))
     return cell
   }
 

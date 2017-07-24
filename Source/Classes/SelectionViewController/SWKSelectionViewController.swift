@@ -50,7 +50,7 @@ class SWKSelectionViewController: TableViewController {
   
 //  public var viewTapped: (selected: SelectOption) -> () = {_ in}
   
-  func cellTapped(sender: UITapGestureRecognizer) {
+  override func cellTapped(sender: UITapGestureRecognizer) {
     let index = tableView.indexOfTapped(sender)
     let selected = collectionData[index.row]
     // 以獨立頁面開啟
