@@ -90,10 +90,10 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
       vc.onDismissViewController = onDismissViewController
       vc.didDismissViewController = didDismissViewController
     }
-    delayedJob(delayed) {
+//    delayedJob(delayed) {
       self.navigationController?.pushViewController(vc, animated: true)
       onComplete()
-    }
+//    }
   }
   
   public func popToViewController(vc: UIViewController, delayed: Double = 0, onComplete: () -> () = {}) {
