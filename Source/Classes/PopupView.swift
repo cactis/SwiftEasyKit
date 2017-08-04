@@ -12,6 +12,7 @@ public class PopupView: DefaultView {
 
   public var padding: CGFloat = 40
   public var closeBtnSize: CGFloat = 25
+  public var radius: CGFloat = 10
 
   public var didDismiss: (popupView: PopupView) -> () = {_ in }
   override public init(frame: CGRect) {
@@ -41,6 +42,11 @@ public class PopupView: DefaultView {
     parentViewController()!.dismissViewControllerAnimated(true) { 
       didDismiss()
     }
+  }
+  
+  public override func styleUI() {
+    super.styleUI()
+    radiused(radius)
   }
 
   public func layoutBase() {
