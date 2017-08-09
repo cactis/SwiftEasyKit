@@ -33,7 +33,7 @@ public class Badge: DefaultView {
         self.label.text = newValue
       }
       
-      if newValue != "" {
+      if newValue != "" && newValue != "0" {
         label.hidden = false
       } else {
         label.hidden = true

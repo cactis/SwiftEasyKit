@@ -174,8 +174,9 @@ public class IconSegment: Segment {
   override public func layoutSubviews() {
     super.layoutSubviews()
     for i in 0...icons.count - 1 {
-      icons[i].anchorTopCenterWithTopPadding(10, width: 42, height: 42)
-      labels[i].alignUnder(icons[i], centeredFillingWidthWithLeftAndRightPadding: 0, topPadding: 10, height: labels[i].label.textHeight())
+      let s = width / group.groups.count.cgFloat * 0.7
+      icons[i].anchorTopCenterWithTopPadding(10, width: s, height: s)
+      labels[i].alignUnder(icons[i], centeredFillingWidthWithLeftAndRightPadding: 0, topPadding: 0, height: labels[i].label.textHeight())
     }
   }
 
