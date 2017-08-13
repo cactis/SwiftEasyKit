@@ -52,8 +52,9 @@ public func prompt(msg: String?, style: PromptType = PromptType()) {
   let block = DefaultView()
   let label = UILabel()
   
-  block.backgroundColored(style.bgColor).bottomBordered().shadowed().radiused(3)
+  block.backgroundColored(style.bgColor).shadowed().radiused(3).bordered(0.5, color: K.Color.text.lighter().CGColor)
   label.styled().colored(style.color).text(message).multilinized().centered().sized(12.em)
+//  label._coloredWithSuperviews()
   notification.layout([block.layout([label])])
   
   let xPad = 10.em
