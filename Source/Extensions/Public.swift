@@ -43,7 +43,7 @@ public func prompt(msgs: [String], runWith: (msg: String) -> String = { msg in r
   prompt(runWith(msg: msgs.randomItem()), style: style)
 }
 
-public func prompt(msg: String?, style: PromptType = PromptType()) {
+public func prompt(msg: String?, style: PromptType = PromptType(), onTapped: () -> () = {}) {
   //  _logForUIMode(msg)
   if !Development.prompt { return }
   let message = msg ?? "(異常錯誤：未被追蹤到的錯誤。)"
@@ -93,6 +93,7 @@ public func prompt(msg: String?, style: PromptType = PromptType()) {
       })
       delayedJob(0.1, withIndicator: false, todo: {
         notification.removeFromSuperview()
+        onTapped()
       })
     })
   }
