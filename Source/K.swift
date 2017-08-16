@@ -36,6 +36,7 @@ public struct K {
     public struct Response {
       public static var success = "success"
       public static var message = "message"
+      public static var data = "data"
     }
   }
   

@@ -132,7 +132,6 @@ public class API {
           run(response: response)
         }
       } else {
-        print(value, "value in API")
         run(response: response)
       }
     case .Failure:
