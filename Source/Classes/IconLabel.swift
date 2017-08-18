@@ -180,9 +180,11 @@ public class IconLabel: DefaultView {
 //        label.alignToTheRightOf(iconBorder, matchingTopWithLeftPadding: paddingBetween, width: width - iconBorder.rightEdge(), height: iconBorder.height)
 //        label.sized(iconImage.height * 0.8).bold(bolded)
       default:
-        label.anchorInCenter(width: label.textWidth(), height: label.textHeight())
+//        label.anchorInCenter(width: label.textWidth(), height: label.textHeight())
+        let s = height * 0.2
+        label.fillSuperview(left: s, right: s, top: s, bottom: s)
       }
-      label.sized(label.height * 0.8).bold(bolded)
+//      label.sized(label.height * 0.8).bold(bolded)
     }
 
     // *** hacked for not center ***
