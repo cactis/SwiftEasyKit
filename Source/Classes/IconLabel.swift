@@ -170,7 +170,7 @@ public class IconLabel: DefaultView {
       let w = (labelWidth_ ?? width - iconBorder.rightEdge())// * 1.2
       let p = height * 0.1
       iconBorder.anchorAndFillEdge(.Left, xPad: p, yPad: p, otherSize: height - 2 * p)
-      label.alignToTheRightOf(iconBorder, matchingTopWithLeftPadding: p, width: w, height: iconBorder.height)
+      label.alignToTheRightOf(iconBorder, matchingTopWithLeftPadding: [[p, w * 0.2].maxElement()!, 10].minElement()!, width: w, height: iconBorder.height)
       switch type {
       case .IconFont:
 //        label.alignToTheRightOf(iconBorder, matchingTopWithLeftPadding: p, width: w, height: iconBorder.height)
