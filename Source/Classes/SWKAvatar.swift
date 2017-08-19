@@ -15,6 +15,7 @@ public class SWKAvatar: DefaultView, RSKImageCropViewControllerDelegate {
   private var enabledEdit = false {
     didSet {
       camera.hidden = !enabledEdit
+      bindUI()
     }
   }
   private var didShot: (image: UIImage) -> () = {_ in }
@@ -56,14 +57,15 @@ public class SWKAvatar: DefaultView, RSKImageCropViewControllerDelegate {
   
   override public func bindUI() {
     super.bindUI()
-    background.whenTappedWithSubviews(self, action: #selector(cameraTapped))
+    if enabledEdit {
+      background.whenTappedWithSubviews(self, action: #selector(cameraTapped))
+    }
   }
   
   func cameraTapped() {
-    if enabledEdit {
-      openImagePicker()
-    }
+    openImagePicker()
   }
+  
   func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
     parentViewController()!.dismissViewControllerAnimated(true, completion: nil)
     cropImage(image)
