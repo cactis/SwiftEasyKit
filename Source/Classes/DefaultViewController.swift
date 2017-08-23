@@ -15,7 +15,7 @@ public class DefaultViewController: UIViewController, UITextFieldDelegate, UITex
   public var tabBarHidden = false
   
   public var onDismissViewController: () -> () = { }// auto run
-  public var didDismissViewController: () -> () = { } // call by target
+  public var didDismissViewController: (action: DismissType) -> () = { _ in } // call by target
   
   override public func viewDidLoad() {
     super.viewDidLoad()

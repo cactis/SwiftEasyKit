@@ -15,6 +15,11 @@ import SwiftRandom
 
 extension UIViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
   
+  public enum DismissType {
+    case Delete
+    case Update
+  }
+  
   public func enableTabBarController(viewControllers: [UIViewController]!, titles: [String]!, images: [UIImage], selectedImages: [UIImage] = []) -> UITabBarController! {
     var _selectedImages = [UIImage]()
     if selectedImages.count > 0 {
@@ -85,7 +90,7 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
     openControllerWithDelegate(self, vc: vc, style: style, run: run)
   }
   
-  public func pushViewController(vc: UIViewController, checked: Bool = true, delayed: Double = 0, onComplete: () -> () = {}, onDismissViewController: () -> () = {}, didDismissViewController: () -> () = {}) -> Void {
+  public func pushViewController(vc: UIViewController, checked: Bool = true, delayed: Double = 0, onComplete: () -> () = {}, onDismissViewController: () -> () = {}, didDismissViewController: (action: DismissType) -> () = {_ in }) -> Void {
     if let vc = vc as? DefaultViewController {
       vc.onDismissViewController = onDismissViewController
       vc.didDismissViewController = didDismissViewController
