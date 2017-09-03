@@ -166,7 +166,7 @@ public class IconLabel: DefaultView {
     default:
       let w = (labelWidth_ ?? width - iconBorder.rightEdge())// * 1.2
       let p = height * 0.1
-      iconBorder.anchorAndFillEdge(.Left, xPad: p, yPad: 0, otherSize: height - 2 * p)
+      iconBorder.anchorAndFillEdge(.Left, xPad: p, yPad: 0, otherSize: height)
 //      label.alignToTheRightOf(iconBorder, matchingTopWithLeftPadding: [[p, w * 0.2].maxElement()!, 5].minElement()!, width: w, height: iconBorder.height)
       label.alignToTheRightOf(iconBorder, matchingTopWithLeftPadding: iconBorder.width() * 0.2, width: w, height: iconBorder.height)
       
