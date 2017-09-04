@@ -277,10 +277,10 @@ extension String {
     return "\(headTag)\(self)\(footTag)"
   }
   
-  public func toDate(dataFormat: String = K.Api.timeFormat) -> NSDate? {
+  public func toDate(dateFormat: String = K.Api.timeFormat) -> NSDate? {
     if self == "" { return nil }
     let df = NSDateFormatter()
-    df.dateFormat = dataFormat
+    df.dateFormat = dateFormat
     return df.dateFromString(self)!
   }
 }
