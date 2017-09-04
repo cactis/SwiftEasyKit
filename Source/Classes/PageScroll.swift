@@ -5,8 +5,9 @@
 //  Created by ctslin on 2016/11/6.
 
 import UIKit
+import PhotoSlider
 
-public class PageScroll: DefaultView, UIScrollViewDelegate {
+public class PageScroll: DefaultView, UIScrollViewDelegate, UIViewControllerTransitioningDelegate {
   public var paginator = UIPageControl()
   public var scrollView = UIScrollView()
   public var views = [UIView]() { didSet {
@@ -14,6 +15,10 @@ public class PageScroll: DefaultView, UIScrollViewDelegate {
     scrollView.hidden = true
     scrollView.removeSubviews().layout(views)
     self.scrollView.asFadable()
+    
+    views.forEach { (v) in
+      v.whenTapped(self, action: #selector(viewTapped(_:)))
+    }
     delayedJob(0.2) {
       self.scrollView.subviews.forEach { (view) in
 //        view.layoutIfNeeded()
@@ -40,6 +45,14 @@ public class PageScroll: DefaultView, UIScrollViewDelegate {
   override public func bindUI() {
     super.bindUI()
     paginator.addTarget(self, action: #selector(paginatorChanged(_:)), forControlEvents: .ValueChanged)
+  }
+  
+  func viewTapped(sender: UITapGestureRecognizer) {
+    let index = views.indexOf(sender.view!)
+    let slider = PhotoSlider.ViewController(images: views.map{($0 as? UIImageView)!.image!})
+    slider.currentPage = index!
+    slider.transitioningDelegate = self
+    parentViewController()?.presentViewController(slider, animated: true, completion: nil)
   }
 
   public func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
