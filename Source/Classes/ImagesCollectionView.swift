@@ -12,10 +12,9 @@ public class ImagesCollectionView: CollectionView {
     case Show
     case Edit
   }
-  
-  //  public var maximum: Int = 0
-  
+
   public var didTappedOnCell: (index: Int) -> () = { _ in }
+  public var didSwippedUpCell: (index: Int) -> () = { _ in }
   
   public var style: ImageCell.Style! = .Default
   public var checkedIcon: UIImage! = getIcon(.Check, options: ["color": K.Color.buttonBg])
@@ -30,11 +29,9 @@ public class ImagesCollectionView: CollectionView {
   
   public var placeHolder: UIImage?
   
-  var photosCount: Int { get {return collectionData.filter({$0.image != nil || $0.url != nil}).count } }
+  var photosCount: Int { get { return collectionData.filter({$0.image != nil || $0.url != nil}).count } }
   
-  public var collectionData = [Photo]() { didSet {
-    collectionView.reloadData()
-    }}
+  public var collectionData = [Photo]() { didSet { collectionView.reloadData() }}
   
   public convenience init(checkable: Checkable, checkedIcon: UIImage, placeHolder: UIImage?) {//, maximum: Int = 0) {
     self.init(checkable: checkable)
@@ -56,56 +53,8 @@ public class ImagesCollectionView: CollectionView {
     collectionData[index].checked = true
     currentIndex = index
   }
-  
-  required public init?(coder aDecoder: NSCoder) {
-    fatalError("init(coder:) has not been implemented")
-  }
-  
-  override public func layoutUI() {
-    super.layoutUI()
-    collectionView = registerClass(ImageCell.self)
-    layout([collectionView])
-  }
-  
-  override public func styleUI() {
-    super.styleUI()
-    //    collectionViewLayout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-    let s: CGFloat = [height.int, 20].maxElement()!.cgFloat / 7 * 5
-    collectionViewLayout.itemSize = CGSizeMake(s, s)
-    //    collectionViewLayout.minimumInteritemSpacing = 0
-    //    collectionViewLayout.minimumLineSpacing = 0
-  }
-  
-  public override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return collectionData.count
-  }
-  
-  public override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-    let cell = collectionView.dequeueReusableCellWithReuseIdentifier(CellIdentifier, forIndexPath: indexPath) as! ImageCell
-    cell.contentView.frame = cell.bounds
-    cell.contentView.autoresizingMask = [UIViewAutoresizing.FlexibleWidth, UIViewAutoresizing.FlexibleHeight]
-    cell.loadData(collectionData[indexPath.row])
-    cell.whenTapped(self, action: #selector(ImagesCollectionView.cellTapped(_:)))
-    cell.radiused(radius)
-    cell.style = style
-    cell.tag = indexPath.row
-    cell.checkedIcon = checkedIcon
-    if indexPath.row == photosCount { cell.placeHolder.image = placeHolder } else { cell.placeHolder.image = UIImage()}
-    cell.layoutIfNeeded()
-    if bordered { cell.bordered(1, color: UIColor.lightGrayColor().colorWithAlphaComponent(0.5).CGColor) }
-    if currentIndex == indexPath.row && currentBordered {
-      cell.bordered(5, color: UIColor.fromHex("FFCC00").colorWithAlphaComponent(0.8).CGColor)
-    }
-    return cell
-  }
-  
-  public func cellTapped(sender: UIGestureRecognizer) {
-    _logForUIMode()
-    indexTapped((sender.view?.tag)!)
-  }
-  
+
   public func indexTapped(index: Int) {
-    _logForUIMode(index, title: "index")
     let photo = collectionData[index]
     if photo.image != nil || photo.url != nil {
       currentIndex = index
@@ -120,10 +69,55 @@ public class ImagesCollectionView: CollectionView {
     }
     collectionView.reloadData()
     didChecked(collectionData, photo)
-    
     didTappedOnCell(index: index)
   }
   
+  override public func layoutUI() {
+    super.layoutUI()
+    collectionView = registerClass(ImageCell.self)
+    layout([collectionView])
+  }
+  
+  override public func styleUI() {
+    super.styleUI()
+    let s: CGFloat = [height.int, 20].maxElement()!.cgFloat / 7 * 5
+    collectionViewLayout.itemSize = CGSizeMake(s, s)
+  }
+  
+  public override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    return collectionData.count
+  }
+  
+  public override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+    let cell = collectionView.dequeueReusableCellWithReuseIdentifier(CellIdentifier, forIndexPath: indexPath) as! ImageCell
+    cell.contentView.frame = cell.bounds
+    cell.contentView.autoresizingMask = [UIViewAutoresizing.FlexibleWidth, UIViewAutoresizing.FlexibleHeight]
+    cell.loadData(collectionData[indexPath.row])
+    cell.whenTapped(self, action: #selector(ImagesCollectionView.cellTapped(_:)))
+    let swipe = UISwipeGestureRecognizer(target: self, action: #selector(cellSwippedUp(_:)))
+    swipe.direction = .Up
+    cell.addGestureRecognizer(swipe)
+    cell.radiused(radius)
+    cell.style = style
+    cell.tag = indexPath.row
+    cell.checkedIcon = checkedIcon
+    if indexPath.row == photosCount { cell.placeHolder.image = placeHolder } else { cell.placeHolder.image = UIImage()}
+    cell.layoutIfNeeded()
+    if bordered { cell.bordered(1, color: UIColor.lightGrayColor().colorWithAlphaComponent(0.5).CGColor) }
+    if currentIndex == indexPath.row && currentBordered {
+      cell.bordered(5, color: UIColor.fromHex("FFCC00").colorWithAlphaComponent(0.8).CGColor)
+    }
+    return cell
+  }
+  
+  public func cellTapped(sender: UIGestureRecognizer) { indexTapped((sender.view?.tag)!) }
+
+  ///////////////////////////////////////////////////////////////////////////////
+  public func cellSwippedUp(sender: UISwipeGestureRecognizer) {
+    let index = (sender.view?.tag)!
+    didSwippedUpCell(index: index)
+  }
+
   public class ImageCell: CollectionViewCell {
     
     public var checked = false {
@@ -148,14 +142,10 @@ public class ImagesCollectionView: CollectionView {
         if (data.checked != nil) { checked = data.checked }
       }
     }
-    
-    //    var checkedIcon: UIImage!
+
     public var checkedImage = UIImageView()
     public var photo = UIImageView()
-    
-    public func loadData(data: Photo) {
-      self.data = data
-    }
+    public func loadData(data: Photo) { self.data = data }
     
     override public func layoutUI() {
       super.layoutUI()
@@ -191,10 +181,11 @@ public class ImagesCollectionView: CollectionView {
         checkedImage.image = checkedIcon
         checkedImage.anchorInCorner(.BottomRight, xPad: p, yPad: p, width: s, height: s)
         checkedImage.radiused(s / 2).bordered(1, color: K.Color.buttonBg.colorWithAlphaComponent(0.2).CGColor)
-        
       }
     }
   }
+
+  required public init?(coder aDecoder: NSCoder) { fatalError("init(coder:) has not been implemented") }
 }
 
 public class Photo: Mappable {
@@ -234,12 +225,12 @@ public class Photo: Mappable {
 }
 
 extension SequenceType where Generator.Element == Photo {
-
+  
   public func clone() -> [Photo] {
     var copiedArray = NSArray(array: self as! [Photo], copyItems: true)
     return copiedArray as! [Photo]
   }
-
+  
   public func expendTo(num: Int) -> [Photo] {
     let photos = (self as? [Photo])
     let diff = num - photos!.count
