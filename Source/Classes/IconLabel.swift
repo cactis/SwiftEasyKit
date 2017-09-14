@@ -12,6 +12,7 @@ public class IconLabelWithBadge: IconLabel {
   
   override public func layoutSubviews() {
     super.layoutSubviews()
+    badge.alignToTheRightOf(label, matchingTopWithLeftPadding: 10, width: 30, height: 20)
   }
 }
 
