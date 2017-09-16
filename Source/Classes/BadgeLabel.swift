@@ -31,6 +31,7 @@ public class BadgeLabel: DefaultView {
   
   override public func styleUI() {
     super.styleUI()
+    badge.asFadable()
     label.textAlignment = .Center
   }
   
