@@ -7,15 +7,15 @@
 import UIKit
 import PhotoSlider
 
-public class PageScroll: DefaultView, UIScrollViewDelegate, UIViewControllerTransitioningDelegate {
+open class PageScroll: DefaultView, UIScrollViewDelegate, UIViewControllerTransitioningDelegate {
   public var paginator = UIPageControl()
   public var scrollView = UIScrollView()
   public var views = [UIView]() { didSet {
     paginator.numberOfPages = views.count
-    scrollView.hidden = true
+    scrollView.isHidden = true
     scrollView.removeSubviews().layout(views)
     self.scrollView.asFadable()
-    
+
     views.forEach { (v) in
       v.whenTapped(self, action: #selector(viewTapped(_:)))
     }
@@ -24,57 +24,58 @@ public class PageScroll: DefaultView, UIScrollViewDelegate, UIViewControllerTran
 //        view.layoutIfNeeded()
         view.layoutSubviews()
       }
-      self.scrollView.hidden = false
+      self.scrollView.isHidden = false
     }
   }}
 
-  public var didScrollBeginDragging: (index: Int) -> () = {_ in}
-  public var didScrollEndDecelerating: (index: Int) -> () = {_ in}
-  override public func layoutUI() {
+  public var didScrollBeginDragging: (_ index: Int) -> () = {_ in}
+  public var didScrollEndDecelerating: (_ index: Int) -> () = {_ in}
+  override open func layoutUI() {
     super.layoutUI()
     layout([scrollView, paginator])
   }
-  override public func styleUI() {
+
+  override open func styleUI() {
     super.styleUI()
-    scrollView.pagingEnabled = true
+    scrollView.isPagingEnabled = true
     scrollView.delegate = self
-    paginator.pageIndicatorTintColor = UIColor.lightGrayColor().lighter()
-    paginator.currentPageIndicatorTintColor = UIColor.grayColor().lighter()
+    paginator.pageIndicatorTintColor = UIColor.lightGray.lighter()
+    paginator.currentPageIndicatorTintColor = UIColor.gray.lighter()
   }
 
-  override public func bindUI() {
+  override open func bindUI() {
     super.bindUI()
-    paginator.addTarget(self, action: #selector(paginatorChanged(_:)), forControlEvents: .ValueChanged)
+    paginator.addTarget(self, action: #selector(paginatorChanged(_:)), for: .valueChanged)
   }
-  
-  func viewTapped(sender: UITapGestureRecognizer) {
-    let index = views.indexOf(sender.view!)
+
+  func viewTapped(_ sender: UITapGestureRecognizer) {
+    let index = views.index(of: sender.view!)
     let slider = PhotoSlider.ViewController(images: views.map{($0 as? UIImageView)!.image!})
     slider.currentPage = index!
     slider.transitioningDelegate = self
-    parentViewController()?.presentViewController(slider, animated: true, completion: nil)
+    parentViewController()?.present(slider, animated: true, completion: nil)
   }
 
   public func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
     let index = Int(scrollView.contentOffset.x / width)
     paginator.currentPage = index
-    didScrollEndDecelerating(index: index)
+    didScrollEndDecelerating(index)
   }
 
   public func scrollViewWillBeginDragging(scrollView: UIScrollView) {
     let index = Int(scrollView.contentOffset.x / width)
-    didScrollBeginDragging(index: index)
+    didScrollBeginDragging(index)
   }
 
-  func paginatorChanged(sender: UIPageControl) {
-    scrollView.setContentOffset(CGPointMake(CGFloat(paginator.currentPage) * width, 0), animated: true)
+  func paginatorChanged(_ sender: UIPageControl) {
+    scrollView.setContentOffset(CGPoint(x: CGFloat(paginator.currentPage) * width, y: 0), animated: true)
   }
 
-  override public func layoutSubviews() {
+  override open func layoutSubviews() {
     super.layoutSubviews()
     scrollView.fillSuperview()
     scrollView.groupHorizontally(views.map({$0 as UIView}), fillingHeightWithLeftPadding: 0, spacing: 0, topAndBottomPadding: 0, width: width)
     scrollView.contentSize = CGSize(width: scrollView.frame.width * CGFloat(views.count), height: scrollView.frame.height)
-    paginator.anchorAndFillEdge(.Bottom, xPad: 0, yPad: 10, otherSize: height * 0.08)
+    paginator.anchorAndFillEdge(.bottom, xPad: 0, yPad: 10, otherSize: height * 0.08)
   }
 }

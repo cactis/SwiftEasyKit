@@ -8,21 +8,23 @@
 
 import UIKit
 
-public class CodeInput: DefaultView {
+open class CodeInput: DefaultView {
   public var inputs = [UITextField]()
   var num: Int { didSet { layoutUI() } }
   var limit: Int!
-  
+
   public var data: String? {
     didSet {
       let times = ((data?.length())! / limit) - 1
       (0...times).forEach({ index in
         let pos = index * limit
-        inputs[index].text(data![pos...pos + limit - 1])
+        let text = String(data![pos..<pos + limit - 1])
+//        data![pos...pos + limit - 1]
+        inputs[index].texted(text)
       })
     }
   }
-  
+
   public var value: String {
     get {
       return inputs.map({$0.text!}).join()
@@ -32,10 +34,10 @@ public class CodeInput: DefaultView {
   public init(num: Int = 1, limit: Int) {
     self.num = num
     self.limit = limit
-    super.init(frame: CGRectZero)
+    super.init(frame: .zero)
   }
 
-  public override func layoutUI() {
+  override open func layoutUI() {
     super.layoutUI()
     removeSubviews()
     (1...num).forEach { (i) in
@@ -44,21 +46,21 @@ public class CodeInput: DefaultView {
     layout(inputs)
   }
 
-  public override func styleUI() {
+  override open func styleUI() {
     super.styleUI()
     inputs.forEach { (input) in
-      input.textAlignment = .Center
-      input.borderStyle = .RoundedRect
+      input.textAlignment = .center
+      input.borderStyle = .roundedRect
       //      input.rightViewMode = .Never
       //      input.clearButtonMode = .Never
     }
   }
 
-  public override func layoutSubviews() {
+  open override func layoutSubviews() {
     super.layoutSubviews()
-    groupAndFill(group: .Horizontal, views: inputs.map({$0 as UIView}), padding: 10)
+    groupAndFill(group: .horizontal, views: inputs.map({$0 as UIView}), padding: 10)
   }
 
   required public init?(coder aDecoder: NSCoder) { fatalError("init(coder:) has not been implemented") }
-  
+
 }

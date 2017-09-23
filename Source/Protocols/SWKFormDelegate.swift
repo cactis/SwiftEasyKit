@@ -9,6 +9,6 @@
 import Foundation
 
 public protocol SWKFormDelegate: NSObjectProtocol {
-  var didSubmit: (data: AnyObject) -> () { get set }
-  init(data: AnyObject, didSubmit: (data: AnyObject) -> ())
+  var didSubmit: (_ data: AnyObject) -> () { get set }
+  init(data: AnyObject, didSubmit: (_ data: AnyObject) -> ())
 }

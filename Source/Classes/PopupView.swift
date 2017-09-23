@@ -3,73 +3,73 @@
 
 import UIKit
 
-public class PopupView: DefaultView {
-  
+open class PopupView: DefaultView {
+
   public var delegate: UIView!
-  
+
   public var contentView = UIScrollView()
   public var closeBtn: UIImageView!
-  
+
   public var padding: CGFloat = 10
   public var closeBtnSize: CGFloat = 25
   public var radius: CGFloat = 6
-  
-  public var didDismiss: (popupView: PopupView) -> () = {_ in }
-  public var didSuccess: (popupView: PopupView) -> () = {_ in }
+
+  public var didDismiss: (_ popupView: PopupView) -> () = {_ in }
+  public var didSuccess: (_ popupView: PopupView) -> () = {_ in }
   override public init(frame: CGRect) {
     super.init(frame: frame)
     layout([contentView])
-    closeBtn = contentView.addImageView(UIImage.fontAwesomeIconWithName(.Close, textColor: K.Color.buttonBg, size: CGSizeMake(closeBtnSize, closeBtnSize)))
+    closeBtn = contentView.addImageView(UIImage.fontAwesomeIcon(name: .close, textColor: K.Color.buttonBg, size: CGSize(width: closeBtnSize, height: closeBtnSize)))
     closeBtn.whenTapped(self, action: #selector(closeBtnTapped(_:)))
   }
-  
-  public init(didDismiss: (popupView: PopupView) -> () = {_ in }) {
-    super.init(frame: CGRectZero)
+
+  public init(didDismiss: @escaping (_ popupView: PopupView) -> () = {_ in }) {
+    super.init(frame: .zero)
     self.didDismiss = didDismiss
   }
-  
-  public func closeBtnTapped(sender: AnyObject?) {
-    parentViewController()!.dismissViewControllerAnimated(true) { () -> Void in
-      self.didDismiss(popupView: self)
+
+  open func closeBtnTapped(_ sender: AnyObject?) {
+    parentViewController()!.dismiss(animated: true) { () -> Void in
+      self.didDismiss(self)
     }
   }
-  
-  public func closeBtnTapped(disDidmiss didDismiss: () -> () = {}) {
-    parentViewController()!.dismissViewControllerAnimated(true) { 
+
+  open func closeBtnTapped(didDismiss didDismiss: @escaping () -> () = {}) {
+    parentViewController()!.dismiss(animated: true) {
       didDismiss()
     }
   }
-  
-  public override func styleUI() {
+
+  override open func styleUI() {
     super.styleUI()
     radiused(radius)
     backgroundColor = K.Color.popup
   }
-  
-  public override func bindUI() {
+
+  override open func bindUI() {
     super.bindUI()
     contentView.whenTapped(self, action: #selector(contentViewTapped))
   }
-  
-  public func contentViewTapped() {
+
+  open func contentViewTapped() {
     contentView.endEditing(true)
   }
-  
-  public func layoutBase() {
-    anchorInCenter(width: UIScreen.mainScreen().bounds.width / 5 * 4, height: UIScreen.mainScreen().bounds.height / 2)
+
+  open func layoutBase() {
+    anchorInCenter(withWidth: UIScreen.main.bounds.width / 5 * 4, height: UIScreen.main.bounds.height / 2)
   }
-  
-  override public func layoutSubviews() {
+
+  override open func layoutSubviews() {
     super.layoutSubviews()
     layoutBase()
     fixedConstraints()
     contentView.fillSuperview(left: padding, right: padding, top: padding, bottom: padding)
   }
-  
-  public func fixedConstraints() {
-    closeBtn.anchorTopRightWithRightPadding(10, topPadding: 10, width: closeBtnSize , height: closeBtnSize)
+
+  open func fixedConstraints() {
+    closeBtn.anchorTopRight(withRightPadding: 10, topPadding: 10, width: closeBtnSize , height: closeBtnSize)
   }
-  
+
   required public init?(coder aDecoder: NSCoder) { fatalError("init(coder:) has not been implemented") }
-  
+
 }

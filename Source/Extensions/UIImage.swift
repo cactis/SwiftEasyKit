@@ -9,48 +9,54 @@ import MapKit
 import LoremIpsum
 import FontAwesome_swift
 import Neon
-import RandomKit
+// import RandomKit
 import SwiftRandom
 
 extension UIImage {
-  
-  public class func loadFromURL(url: String) -> UIImage {
-    return UIImage(data: NSData(contentsOfURL: NSURL(string: url)!)!)!
+
+  open class func loadFromURL(url: String) -> UIImage? {
+    do {
+      let data = try NSData(contentsOf: URL(string: url)!) as Data
+      return UIImage(data: data)!
+    } catch {
+      return nil
+    }
+
   }
-  
-  public class func sample() -> UIImage {
-    return UIImage.fontAwesomeIconWithName(.ClockO, textColor: UIColor.lightGrayColor().lighter(), size: CGSize(width: 300, height: 300))
+
+  open class func sample() -> UIImage {
+    return UIImage.fontAwesomeIcon(name: .clockO, textColor: UIColor.lightGray.lighter(), size: CGSize(width: 300, height: 300))
   }
 
   public func toJPEG(compressionQuality: CGFloat = K.Image.jpegCompression) -> NSData {
-    return UIImageJPEGRepresentation(self, compressionQuality)!
+    return UIImageJPEGRepresentation(self, compressionQuality)! as NSData
   }
 
-  public func flipped() -> UIImage {
-    return UIImage(CGImage: self.CGImage!, scale: self.scale, orientation: .UpMirrored)
-  }
+//  public func flipped() -> UIImage {
+//    return UIImage(CGImage: self.CGImage!, scale: self.scale, orientation: .upMirrored)
+//  }
 
   public func makeImageWithColorAndSize(color: UIColor, size: CGSize = K.Size.barButtonItem) -> UIImage {
     UIGraphicsBeginImageContextWithOptions(size, false, 0)
     color.setFill()
-    UIRectFill(CGRectMake(0, 0, size.width, size.height))
+    UIRectFill(CGRect(x: 0, y: 0, width: size.width, height: size.height))
     let image = UIGraphicsGetImageFromCurrentImageContext()
     UIGraphicsEndImageContext()
-    return image
+    return image!
   }
 
-  public func insetsSize(n: Int = 7) -> UIEdgeInsets {
-    let s = CGFloat(CGImageGetHeight(self.CGImage) / n)
-    return UIEdgeInsets(top: s, left: s, bottom: s, right: s)
-  }
-  public func inseted(inset: UIEdgeInsets?) -> UIImage {
-    let s = CGFloat(CGImageGetHeight(self.CGImage)) * 0.3
-//    _logForUIMode(s)
-    let inset_ = inset ?? UIEdgeInsets(top: s, left: s, bottom: s, right: s)
-    return resizableImageWithCapInsets(inset_)
-  }
+//  public func insetsSize(n: Int = 7) -> UIEdgeInsets {
+//    let s = CGFloat(CGImage.height(self.cgImage!) / n)
+//    return UIEdgeInsets(top: s, left: s, bottom: s, right: s)
+//  }
+//  public func inseted(inset: UIEdgeInsets?) -> UIImage {
+//    let s = CGFloat(CGImage.height(self.cgImage!)) * 0.3
+////    _logForUIMode(s)
+//    let inset_ = inset ?? UIEdgeInsets(top: s, left: s, bottom: s, right: s)
+//    return resizableImage(withCapInsets: inset_)
+//  }
 
-  public class func fromCode(drawText: String, color: UIColor = K.Color.barButtonItem, size: CGFloat = K.BarButtonItem.size) -> UIImage {
+  open class func fromCode(drawText: String, color: UIColor = K.Color.barButtonItem, size: CGFloat = K.BarButtonItem.size) -> UIImage {
     let textColor: UIColor = color
     let textFont: UIFont = UIFont(name: K.Font.icon, size: size)!
     let s = size * 1//.2
@@ -62,12 +68,12 @@ extension UIImage {
       ]
 //    _logForUIMode(textColor.hexString)
     let image = UIImage()
-    let rect = CGRectMake(0, 0, size, size)
+    let rect = CGRect(x: 0, y: 0, width: size, height: size)
     //    let rect = CGRectMake(size * 0.1, size * 0.1, size * 0.8, size * 0.8)
-    image.drawInRect(rect)
-    drawText.drawInRect(rect, withAttributes: textFontAttributes)
+    image.draw(in: rect)
+    drawText.draw(in: rect, withAttributes: textFontAttributes)
 
-    let newImage: UIImage = UIGraphicsGetImageFromCurrentImageContext()
+    let newImage: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
     UIGraphicsEndImageContext()
     return newImage
   }
@@ -79,22 +85,23 @@ extension UIImage {
   /// - parameter size: The image size.
   /// - parameter backgroundColor: The background color (optional).
   /// - returns: A string that will appear as icon with FontAwesome
-  public static func fontAwesomeIconWithNameWithInset(name: FontAwesome, textColor: UIColor, size: CGSize, backgroundColor: UIColor = UIColor.clearColor(), inset: CGFloat = 0) -> UIImage {
+  public static func fontAwesomeIconWithNameWithInset(name: FontAwesome, textColor: UIColor, size: CGSize, backgroundColor: UIColor = UIColor.clear, inset: CGFloat = 0) -> UIImage {
     let paragraph = NSMutableParagraphStyle()
-    paragraph.alignment = NSTextAlignment.Center
+    paragraph.alignment = NSTextAlignment.center
 
     // Taken from FontAwesome.io's Fixed Width Icon CSS
     let fontAspectRatio: CGFloat = 1.28571429
 
     let fontSize = min(size.width / fontAspectRatio, size.height)
-    let attributedString = NSAttributedString(string: String.fontAwesomeIconWithName(name), attributes: [NSFontAttributeName: UIFont.fontAwesomeOfSize(fontSize), NSForegroundColorAttributeName: textColor, NSBackgroundColorAttributeName: backgroundColor, NSParagraphStyleAttributeName: paragraph])
+
+    let attributedString = NSAttributedString(string: String.fontAwesomeIcon(name: name), attributes: [NSFontAttributeName: UIFont.fontAwesome(ofSize: fontSize), NSForegroundColorAttributeName: textColor, NSBackgroundColorAttributeName: backgroundColor, NSParagraphStyleAttributeName: paragraph])
     var padding: CGFloat = 0
     if inset != 0 { padding = size.width / inset }
     UIGraphicsBeginImageContextWithOptions(CGSize(width: size.width + 2 * padding, height: size.height + 2 * padding), false , 0.0)
-    attributedString.drawInRect(CGRectMake(padding, (size.height - fontSize) / 2 + padding, size.width, fontSize))
+    attributedString.draw(in: CGRect(x: padding, y: (size.height - fontSize) / 2 + padding, width: size.width, height: fontSize))
     let image = UIGraphicsGetImageFromCurrentImageContext()
     UIGraphicsEndImageContext()
-    return image
+    return image!
   }
 }
 

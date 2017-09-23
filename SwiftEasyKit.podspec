@@ -64,11 +64,11 @@ s.author             = { "cactis" => "cactis.lin@gmail.com" }
 #  the deployment target. You can optionally include the target after the platform.
 #
 
-s.platform     = :ios
-s.platform     = :ios, "8.0"
+# s.platform     = :ios
+s.platform     = :ios, "9.0"
 
 #  When using multiple platforms
-# s.ios.deployment_target = "5.0"
+# s.ios.deployment_target = "9.0"
 # s.osx.deployment_target = "10.7"
 # s.watchos.deployment_target = "2.0"
 # s.tvos.deployment_target = "9.0"
@@ -134,32 +134,32 @@ s.public_header_files = "Classes/**/*.h"
 
 # s.xcconfig = { "HEADER_SEARCH_PATHS" => "$(SDKROOT)/usr/include/libxml2" }
 s.dependency 'LoremIpsum'
-s.dependency 'FontAwesome.swift', '0.7.3'
-s.dependency 'Neon', '0.2.0'
-s.dependency 'SwiftRandom', '0.1.7'
-s.dependency 'SwiftyJSON', '2.3.2'
-s.dependency 'RandomKit', '1.6.0'
-s.dependency 'PhotoSlider', '0.13.3'
+s.dependency 'FontAwesome.swift'#, '0.7.3'
+s.dependency 'Neon'#, '0.2.0'
+s.dependency 'SwiftRandom'#, '0.1.7'
+s.dependency 'SwiftyJSON'#, '2.3.2'
+# s.dependency 'RandomKit'#, '1.6.0'
+s.dependency 'PhotoSlider'#, '0.13.3'
 s.dependency 'Facade'
 s.dependency 'Masonry'
 # s.dependency 'SwiftSpinner'
-# s.dependency 'SwitchLoader', '~> 0.0.1'
-s.dependency 'EZLoadingActivity', '0.8' #For Swift 2.2
+# s.dependency 'SwitchLoader'#, '~> 0.0.1'
+s.dependency 'EZLoadingActivity'#, '0.8' #For Swift 2.2
 # s.dependency 'GradientLoadingBar'#, '~> 1.0'
 s.dependency 'JSQMessagesViewController'
-s.dependency 'ObjectMapper', '1.3.0'
-s.dependency 'RSKImageCropper', '1.5.1'
-s.dependency 'mailgun', '~> 1.0.3'
-s.dependency 'Fakery', '1.2.0'
+s.dependency 'ObjectMapper'#, '1.3.0'
+s.dependency 'RSKImageCropper'#, '1.5.1'
+s.dependency 'mailgun'#, '~> 1.0.3'
+s.dependency 'Fakery'#, '1.2.0'
 # s.dependency 'FontAwesomeKit'
-s.dependency 'Alamofire', '3.4.1'
-s.dependency 'KDCircularProgress', '1.4.0'
-s.dependency 'Kingfisher', '2.4.1'
+s.dependency 'Alamofire'#, '3.4.1'
+s.dependency 'KDCircularProgress'#, '1.4.0'
+s.dependency 'Kingfisher', '3.10.4'#, '2.4.1' 3.10.4
 # s.dependency 'EZSwiftExtensions'
 # s.dependency 'ExSwift'
-s.dependency 'KeychainSwift', '~> 3.0'
+s.dependency 'KeychainSwift'#, '~> 3.0'
 s.dependency 'Stripe'
-s.dependency 'Bond', '4.3.1'
+s.dependency 'Bond'#, '4.3.1'
 # s.dependency 'AlamofireObjectMapper', '~> 3.0'
 
 end

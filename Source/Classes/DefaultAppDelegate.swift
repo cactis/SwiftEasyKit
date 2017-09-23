@@ -8,24 +8,24 @@
 
 import Foundation
 
-public class DefaultAppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegate {
+open class DefaultAppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegate {
 
   public var window: UIWindow?
-  public var tabBarViewController: UITabBarController!
+  public var tabBarViewController: UITabBarController?
 
-  public func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+  open func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
     UITabBar.appearance().tintColor = K.Color.tabBar
     UITabBar.appearance().barTintColor = K.Color.tabBarBackgroundColor
     enablePushNotification(application)
     return true
   }
-  
-  public func enablePushNotification(application: UIApplication) {
-    let settings = UIUserNotificationSettings(forTypes: [.Alert, .Badge, .Sound], categories: nil)
+
+  open func enablePushNotification(_ application: UIApplication) {
+    let settings = UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
     application.registerUserNotificationSettings(settings)
   }
 
-  public func enableTabBarController(delegate: UITabBarControllerDelegate, viewControllers: [UIViewController]!, titles: [String]!, images: [UIImage], selectedImages: [UIImage] = []) -> (UIWindow?, UITabBarController!) {
+  open func enableTabBarController(_ delegate: UITabBarControllerDelegate, viewControllers: [UIViewController]!, titles: [String]!, images: [UIImage], selectedImages: [UIImage] = []) -> (UIWindow?, UITabBarController?) {
     var _selectedImages = [UIImage]()
     if selectedImages.count > 0 {
       _selectedImages = selectedImages
@@ -34,7 +34,7 @@ public class DefaultAppDelegate: UIResponder, UIApplicationDelegate, UITabBarCon
     }
     let tabBarViewController = UITabBarController()
     let vcs = viewControllers.map({ $0.embededInNavigationController() })
-    for (index, vc) in vcs.enumerate() {
+    for (index, vc) in vcs.enumerated() {
       vc.tabBarItem = UITabBarItem(title: titles[index], image: images[index], selectedImage: _selectedImages[index])
       viewControllers[index].titled(titles[index])
     }
@@ -43,23 +43,21 @@ public class DefaultAppDelegate: UIResponder, UIApplicationDelegate, UITabBarCon
     return (bootFrom(tabBarViewController), tabBarViewController)
   }
 
-  public func bootFrom(vcs: [UIViewController], liginStatus: Bool) {
-    
-  }
-  
-  public override func bootFrom(vc: UIViewController) -> UIWindow? {
-    let window: UIWindow?  = UIWindow(frame: UIScreen.mainScreen().bounds)
+  open func bootFrom(_ vcs: [UIViewController], liginStatus: Bool) { }
+
+  override open func bootFrom(_ vc: UIViewController) -> UIWindow? {
+    let window: UIWindow?  = UIWindow(frame: UIScreen.main.bounds)
     //    window!.backgroundColor = K.Color.body
     window!.rootViewController = vc
     window!.makeKeyAndVisible()
     return window!
   }
 
-  public func redirectToLogin() {
+  open func redirectToLogin() {
     _logForUIMode()
   }
 
-  public func did500Error() {
+  open func did500Error() {
     _logForUIMode()
   }
 

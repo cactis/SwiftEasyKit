@@ -5,28 +5,28 @@
 
 import UIKit
 
-public class Password: TextField {
-  public override func textRectForBounds(bounds: CGRect) -> CGRect {
-    secureTextEntry = true
-    return super.textRectForBounds(bounds)
+open class Password: TextField {
+  override open func textRect(forBounds bounds: CGRect) -> CGRect {
+    isSecureTextEntry = true
+    return super.textRect(forBounds: bounds)
   }
 }
 
-public class TextField: UITextField {
+open class TextField: UITextField {
 
   public var dx: CGFloat = 10
   public var bordered = false {
     didSet {
-      if bordered { borderStyle = .RoundedRect } else { borderStyle = .None }
+      if bordered { borderStyle = .roundedRect } else { borderStyle = .none }
     }
   }
 
   public init(placeholder: String = "", bordered: Bool = false) {
-    super.init(frame: CGRectZero)
+    super.init(frame: .zero)
     self.placeholder = placeholder
     ({ self.bordered = bordered })()
   }
-  
+
   required public init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
@@ -34,85 +34,85 @@ public class TextField: UITextField {
   private func inset(bounds: CGRect) -> CGRect {
     let b = CGRect(origin: bounds.origin, size: CGSize(width: bounds.width - 20, height: bounds.height))
 //    return CGRectInset(b, bounds.width * 0.05, bounds.height * -0.03)
-    return CGRectInset(b, dx, bounds.height * -0.03)
+    return b.insetBy(dx: dx, dy: bounds.height * -0.03)
   }
 
   // placeholder position
-  override public func textRectForBounds(bounds: CGRect) -> CGRect {
-    if bounds.width > 100 {
-      rightViewMode = .Always
-      clearButtonMode = .WhileEditing
-    }
-    return inset(bounds)
-    //    var rect: CGRect = super.textRectForBounds(bounds)
-    //    var insets: UIEdgeInsets = UIEdgeInsetsMake(inset, inset, inset, inset)
-    //    return UIEdgeInsetsInsetRect(rect, insets)
-  }
+//  override open func textRect(forBounds bounds: CGRect) -> CGRect {
+//    if bounds.width > 100 {
+//      rightViewMode = .always
+//      clearButtonMode = .whileEditing
+//    }
+//    return inset(bounds: bounds)
+//    //    var rect: CGRect = super.textRectForBounds(bounds)
+//    //    var insets: UIEdgeInsets = UIEdgeInsetsMake(inset, inset, inset, inset)
+//    //    return UIEdgeInsetsInsetRect(rect, insets)
+//  }
 
   // text position
-  override public func editingRectForBounds(bounds: CGRect) -> CGRect {
-    return inset(bounds)
-    //    var rect: CGRect = super.editingRectForBounds(bounds)
-    //    var insets: UIEdgeInsets = UIEdgeInsetsMake(inset, inset, inset, inset)
-    //    return UIEdgeInsetsInsetRect(rect, insets)
-  }
+//  override open func editingRect(forBounds _ bounds: CGRect) -> CGRect {
+//    return inset(bounds)
+//    //    var rect: CGRect = super.editingRectForBounds(bounds)
+//    //    var insets: UIEdgeInsets = UIEdgeInsetsMake(inset, inset, inset, inset)
+//    //    return UIEdgeInsetsInsetRect(rect, insets)
+//  }
 
-  override public func clearButtonRectForBounds(bounds: CGRect) -> CGRect {
-    let rect: CGRect = super.clearButtonRectForBounds(bounds)
-    return CGRectOffset(rect, -5, 0)
+  override open func clearButtonRect(forBounds bounds: CGRect) -> CGRect {
+    let rect: CGRect = super.clearButtonRect(forBounds: bounds)
+    return rect.offsetBy(dx: -5, dy: 0)
   }
 }
 
 
-//public class TextView: UITextView {
-//  public func text(value: String) -> TextView {
+//open class TextView: UITextView {
+//  public func texted(value: String) -> TextView {
 //    text = value
 //    return self
 //  }
 //}
 
-public class TextView: DefaultView, UITextViewDelegate {
+open class TextView: DefaultView, UITextViewDelegate {
 
   public var field = UITextView()
   public var clearButton = UIButton()
 
   var text: String! { get { return field.text } }
 
-  public override func layoutUI() {
+  override open func layoutUI() {
     super.layoutUI()
     layout([field, clearButton])
   }
 
-  public override func styleUI() {
+  override open func styleUI() {
     super.styleUI()
-    clearButton.imaged(getIcon(.Remove)).hidden = true
+    clearButton.imaged(getIcon(.remove)).isHidden = true
   }
 
-  public func text(value: String) -> TextView {
+  public func texted(_ value: String) -> TextView {
     field.text = value
     return self
   }
 
-  public override func bindUI() {
+  override open func bindUI() {
     super.bindUI()
     field.delegate = self
-    clearButton.whenTapped { 
+    clearButton.whenTapped {
       self.field.text = ""
     }
   }
 
-  public override func layoutSubviews() {
+  override open func layoutSubviews() {
     super.layoutSubviews()
-    clearButton.anchorToEdge(.Right, padding: 0, width: 14, height: 14)
-    field.anchorAndFillEdge(.Left, xPad: 0, yPad: 0, otherSize: clearButton.leftEdge())
+    clearButton.anchorToEdge(.right, padding: 0, width: 14, height: 14)
+    field.anchorAndFillEdge(.left, xPad: 0, yPad: 0, otherSize: clearButton.leftEdge())
   }
 
-  public func textViewDidBeginEditing(textView: UITextView) {
-    clearButton.hidden = false
+  public func textViewDidBeginEditing(_ textView: UITextView) {
+    clearButton.isHidden = false
   }
 
-  public func textViewDidEndEditing(textView: UITextView) {
-    clearButton.hidden = true
+  public func textViewDidEndEditing(_ textView: UITextView) {
+    clearButton.isHidden = true
   }
 }
 
@@ -128,14 +128,14 @@ extension UITextField {
     }
   }
 
-  public func styled(options: NSDictionary = NSDictionary()) -> UITextField {
+  public func styled(_ options: NSDictionary = NSDictionary()) -> UITextField {
     text = text ?? Lorem.name()
     let color = options["color"] as? UIColor ?? K.Color.text
     let size: CGFloat = options["fontSize"] as? CGFloat ?? options["size"] as? CGFloat ?? K.Size.Text.normal
-    let backgroundColor = options["backgroundColor"] as? UIColor ?? UIColor.clearColor()
+    let backgroundColor = options["backgroundColor"] as? UIColor ?? UIColor.clear
 
     textColor = color
-    font = UIFont.systemFontOfSize(size)
+    font = UIFont.systemFont(ofSize: size)
     self.backgroundColor = backgroundColor
     return self
   }
@@ -164,13 +164,13 @@ extension UITextView {
 //    paragraphStyle.lineHeightMultiple = lineHeight
 //    paragraphStyle.maximumLineHeight = lineHeight
 //    paragraphStyle.minimumLineHeight = lineHeight
-//    let ats = [NSFontAttributeName: UIFont.systemFontOfSize(size), NSParagraphStyleAttributeName: paragraphStyle, NSForegroundColorAttributeName: K.Color.text]
+//    let ats = [NSFontAttributeName: UIFont.systemFont(ofSize: size), NSParagraphStyleAttributeName: paragraphStyle, NSForegroundColorAttributeName: K.Color.text]
 //    attributedText = NSAttributedString(string: text, attributes: ats)
 //    return self
 //  }
 
   public func getHeightBySizeThatFitsWithWidth(width: CGFloat) -> CGFloat {
-    return sizeThatFits(CGSizeMake(width, 100000)).height
+    return sizeThatFits(CGSize(width: width, height: 100000)).height
   }
 
 
@@ -178,10 +178,10 @@ extension UITextView {
     text = text ?? Lorem.name()
     let color = options["color"] as? UIColor ?? K.Color.text
     let size: CGFloat = options["fontSize"] as? CGFloat ?? options["size"] as? CGFloat ?? K.Size.Text.normal
-    let backgroundColor = options["backgroundColor"] as? UIColor ?? UIColor.clearColor()
+    let backgroundColor = options["backgroundColor"] as? UIColor ?? UIColor.clear
 
     textColor = color
-    font = UIFont.systemFontOfSize(size)
+    font = UIFont.systemFont(ofSize: size)
     self.backgroundColor = backgroundColor
     return self
   }

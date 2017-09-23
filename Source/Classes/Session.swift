@@ -4,30 +4,30 @@
 
 import Foundation
 
-public class Session {
+open class Session {
 
-  public class func setValue(value: String, key: String) {
-    store().setObject(value, forKey: key)
-    _logForUIMode(value, title: "saved \(key) key in session")
+  open class func setValue(value: String, key: String) {
+    store().set(value, forKey: key)
+//    _logForUIMode(value as AnyObject, title: "saved \(key) key in session")
   }
 
-  public class func setValueObject(value: AnyObject, key: String) {
-    store().setObject(value, forKey: key)
+  open class func setValueObject(value: AnyObject, key: String) {
+    store().set(value, forKey: key)
   }
 
-  public class func getValue(key: String) -> String? {
-    return store().objectForKey(key) as? String
+  open class func getValue(key: String) -> String? {
+    return store().object(forKey: key) as? String
   }
 
-  public class func getValueObject(key: String) -> AnyObject? {
-    return store().objectForKey(key) as AnyObject?
+  open class func getValueObject(key: String) -> AnyObject? {
+    return store().object(forKey: key) as AnyObject?
   }
 
-  public class func removeValue(key: String) {
-    store().removeObjectForKey(key)
+  open class func removeValue(key: String) {
+    store().removeObject(forKey: key)
   }
 
-  //  public class func removeAll() {
+  //  open class func removeAll() {
   //    var session: NSUserDefaults = store()
   //    var keys: Array = session.dictionaryRepresentation().keys.array
   //
@@ -36,8 +36,8 @@ public class Session {
   //    }
   //  }
 
-  class private func store() -> NSUserDefaults {
-    return NSUserDefaults.standardUserDefaults()
+  class private func store() -> UserDefaults {
+    return UserDefaults.standard
   }
 
 }

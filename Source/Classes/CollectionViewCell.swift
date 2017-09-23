@@ -5,7 +5,7 @@
 
 import UIKit
 
-public class CollectionViewCell: UICollectionViewCell {
+open class CollectionViewCell: UICollectionViewCell {
   public var didFixedConstraints = false
   public var bottomView: UIView!
 
@@ -16,19 +16,19 @@ public class CollectionViewCell: UICollectionViewCell {
     bindUI()  // 綁定 UI 事件
   }
 
-  public func layoutUI() {
+  open func layoutUI() {
     // loadData() // 在 initUI 末載入資料
   }
 
-  public func styleUI() {
+  open func styleUI() {
 
   }
 
-  public func bindUI() {
+  open func bindUI() {
 
   }
 
-  override public func layoutSubviews() {
+  override open func layoutSubviews() {
     super.layoutSubviews()
   }
 

@@ -3,85 +3,85 @@
 
 import UIKit
 
-public class DefaultViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate {
-  
+open class DefaultViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate {
+
   public var swipeRight: UISwipeGestureRecognizer!
-  
+
   public var didFixedConstraints = false
-  public var keyboardSize: CGSize! = CGSizeZero
-  
+  public var keyboardSize: CGSize! = .zero
+
   public var textViewShouldReturn = false
-  
+
   public var tabBarHidden = false
-  
+
   public var onDismissViewController: () -> () = { }// auto run
-  public var didDismissViewController: (action: DismissType) -> () = { _ in } // call by target
-  
-  override public func viewDidLoad() {
+  public var didDismissViewController: (_ action: DismissType) -> () = { _ in } // call by target
+
+  override open func viewDidLoad() {
     super.viewDidLoad()
     navigationItem.title = navigationItem.title ?? K.App.name
-    
+
     layoutUI() // 建立 UI 框架。結束時 loadData() 載入動態資料
     styleUI()  // 視覺化 UI 框架
     bindUI()   // 綁定 UI 事件
     bindData() // binding data
   }
-  
-  public override func viewDidDisappear(animated: Bool) {
+
+  override open func viewDidDisappear(_ animated: Bool) {
     super.viewDidDisappear(animated)
     onDismissViewController()
   }
-  
-  public func layoutUI() {
+
+  open func layoutUI() {
     view.setNeedsUpdateConstraints()
   }
-  
-  public func styleUI() {
+
+  open func styleUI() {
     hideBackBarButtonItemTitle()
     view.backgroundColor = K.Color.body
     baseStyle()
     //    scrollView.contentSize = CGSize(width: view.width(), height: view.height() + (navigationController?.navigationBar.height)! + 40)
-    
-    //    tabBarController?.tabBar.translucent = false
+
+    //    tabBarController?.tabBar.isTranslucent = false
     //    automaticallyAdjustsScrollViewInsets = false
   }
-  
-  public func baseStyle() {
+
+  open func baseStyle() {
     let textAttributes = [NSForegroundColorAttributeName: K.Color.barButtonItem]
     //    UINavigationBar.appearance().titleTextAttributes = textAttributes
-    
+
     navigationController?.navigationBar.titleTextAttributes = textAttributes
     navigationController?.navigationBar.barTintColor = K.Color.navigator
     navigationController?.navigationBar.tintColor = K.Color.barButtonItem
-    navigationController?.navigationBar.translucent = false
+    navigationController?.navigationBar.isTranslucent = false
   }
-  
-  public func bindUI() {
+
+  open func bindUI() {
     swipeRight = enableSwipeRightToBack(self)
     view.whenTapped(self, action: #selector(DefaultViewController.viewDidTapped))
     registerKeyboardNotifications()
   }
-  
-  public func bindData() {
-    
+
+  open func bindData() {
+
   }
-  
-  public func enableSaveBarButtonItem(title: String = "") {
+
+  open func enableSaveBarButtonItem(title: String = "") {
     if title != "" {
       setRightBarButtonItem(title, action: #selector(saveTapped))
     } else {
-      setRightBarButtonItem(getIcon(.Save, options: ["size": K.BarButtonItem.size, "color": K.Color.barButtonItem]), action: #selector(saveTapped))
+      setRightBarButtonItem(getIcon(.save, options: ["size": K.BarButtonItem.size, "color": K.Color.barButtonItem]), action: #selector(saveTapped))
     }
   }
-  public func saveTapped() { _logForAnyMode()}
-  public func enableCloseBarButtonItem() {
-    setRightBarButtonItem(getIcon(.Close, options: ["size": K.BarButtonItem.size, "color": K.Color.barButtonItem]), action: #selector(closeTapped))
+  open func saveTapped() { _logForAnyMode()}
+  open func enableCloseBarButtonItem() {
+    setRightBarButtonItem(getIcon(.close, options: ["size": K.BarButtonItem.size, "color": K.Color.barButtonItem]), action: #selector(closeTapped))
   }
-  public func enableCloseBarButtonItemAtLeft() { setLeftBarButtonItem(getIcon(.Close, options: ["size": K.BarButtonItem.size, "color": K.Color.barButtonItem]), action: #selector(closeTapped)) }
-  public func closeTapped() { dismissViewControllerAnimated(true) { () -> Void in }}
-  public func viewDidTapped() { view.endEditing(true) }
-  
-  public func textFieldShouldReturn(textField: UITextField) -> Bool {
+  open func enableCloseBarButtonItemAtLeft() { setLeftBarButtonItem(getIcon(.close, options: ["size": K.BarButtonItem.size, "color": K.Color.barButtonItem]), action: #selector(closeTapped)) }
+  open func closeTapped() { dismiss(animated: true) { () -> Void in }}
+  open func viewDidTapped() { view.endEditing(true) }
+
+  open func textFieldShouldReturn(textField: UITextField) -> Bool {
     if let field = textField.nextField {
       field.becomeFirstResponder()
     } else {
@@ -89,8 +89,8 @@ public class DefaultViewController: UIViewController, UITextFieldDelegate, UITex
     }
     return true
   }
-  
-  public func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
+
+  open func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
     if !textViewShouldReturn && text == "\n" {
       if let field = textView.nextField {
         field.becomeFirstResponder()
@@ -102,57 +102,57 @@ public class DefaultViewController: UIViewController, UITextFieldDelegate, UITex
       return true
     }
   }
-  
-  override public func viewDidLayoutSubviews() {
+
+  override open func viewDidLayoutSubviews() {
     super.viewDidLayoutSubviews()
   }
-  
-  public func fixConstraints() {
+
+  open func fixConstraints() {
     self.updateViewConstraints()
     self.view.setNeedsUpdateConstraints()
   }
-  
-  override public func viewWillAppear(animated: Bool) {
+
+  override open func viewWillAppear(_ animated: Bool) {
     //    _logForUIMode()
     setTabBarStatus()
   }
-  
-  public func setTabBarStatus() {
-    self.tabBarController?.tabBar.hidden = tabBarHidden
+
+  open func setTabBarStatus() {
+    self.tabBarController?.tabBar.isHidden = tabBarHidden
   }
-  
-  override public func viewWillDisappear(animated: Bool) {
+
+  override open func viewWillDisappear(_ animated: Bool) {
     super.viewWillDisappear(animated)
     unregisterKeyboardNotifications()
   }
-  
-  public func keyboardDidShow(notification: NSNotification) {
-    let userInfo: NSDictionary = notification.userInfo!
-    keyboardSize = userInfo.objectForKey(UIKeyboardFrameBeginUserInfoKey)!.CGRectValue.size
+
+  open func keyboardDidShow(_ notification: NSNotification) {
+    let userInfo: NSDictionary = notification.userInfo! as NSDictionary
+    keyboardSize = (userInfo.object(forKey: UIKeyboardFrameBeginUserInfoKey)! as AnyObject).cgRectValue.size
     //    _logForUIMode(keyboardSize.height, title: "keyboardSize.height")
-    
+
     //    let userInfo: NSDictionary = notification.userInfo!
     //    let keyboardSize = userInfo.objectForKey(UIKeyboardFrameBeginUserInfoKey)!.CGRectValue.size
     //    let contentInsets = UIEdgeInsetsMake(0, 0, keyboardSize.height, 0)
     //    contentView.contentInset = contentInsets
     //    contentView.scrollIndicatorInsets = contentInsets
   }
-  
-  public func keyboardWillShow(notification: NSNotification) {
+
+  open func keyboardWillShow(_ notification: NSNotification) {
     //    _logForUIMode()
-    let userInfo: NSDictionary = notification.userInfo!
-    keyboardSize = userInfo.objectForKey(UIKeyboardFrameBeginUserInfoKey)!.CGRectValue.size
+    let userInfo: NSDictionary = notification.userInfo! as NSDictionary
+    keyboardSize = (userInfo.object(forKey: UIKeyboardFrameBeginUserInfoKey)! as AnyObject).cgRectValue.size
     //    _logForUIMode(keyboardSize.height, title: "keyboardSize.height")
   }
-  
-  
-  public func keyboardWillHide(notification: NSNotification) {
+
+
+  open func keyboardWillHide(_ notification: NSNotification) {
     //    _logForUIMode()
-    keyboardSize = CGSizeZero
-    //    contentView.contentInset = UIEdgeInsetsZero
-    //    contentView.scrollIndicatorInsets = UIEdgeInsetsZero
+    keyboardSize = .zero
+    //    contentView.contentInset = .zero
+    //    contentView.scrollIndicatorInsets = .zero
   }
-  
+
   //  func textFieldDidBeginEditing(textField: UITextField) {
   ////    var viewRect = view.frame
   ////    viewRect.size.height -= keyboardSize.height
@@ -161,18 +161,18 @@ public class DefaultViewController: UIViewController, UITextFieldDelegate, UITex
   ////      contentView.setContentOffset(scrollPoint, animated: true)
   ////    }
   //  }
-  
-  
-  public func registerKeyboardNotifications() {
-    NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(DefaultViewController.keyboardWillShow(_:)), name: UIKeyboardWillShowNotification, object: nil)
-    NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(DefaultViewController.keyboardWillHide(_:)), name: UIKeyboardWillHideNotification, object: nil)
-    
-    NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(DefaultViewController.keyboardDidShow(_:)), name: UIKeyboardDidShowNotification, object: nil)
-    NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(DefaultViewController.keyboardWillHide(_:)), name: UIKeyboardWillHideNotification, object: nil)
+
+
+  open func registerKeyboardNotifications() {
+    NotificationCenter.default.addObserver(self, selector: #selector(DefaultViewController.keyboardWillShow(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(DefaultViewController.keyboardWillHide(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+
+    NotificationCenter.default.addObserver(self, selector: #selector(DefaultViewController.keyboardDidShow(_:)), name: NSNotification.Name.UIKeyboardDidShow, object: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(DefaultViewController.keyboardWillHide(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
   }
-  
-  public func unregisterKeyboardNotifications() {
-    NSNotificationCenter.defaultCenter().removeObserver(self)
+
+  open func unregisterKeyboardNotifications() {
+    NotificationCenter.default.removeObserver(self)
   }
-  
+
 }

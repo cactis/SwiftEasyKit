@@ -4,23 +4,29 @@
 
 import UIKit
 
-public class DefaultTableView: DefaultView {
+open class DefaultTableView: DefaultView, UITableViewDataSource, UITableViewDelegate {
 
   public var tableView: UITableView!
   public var cell: TableViewCell!
 
   public var collectionData = [AnyObject]() { didSet { tableView.reloadData() } }
-  
-  public func removeCell(tableView: UITableView, indexPath: NSIndexPath, onComplete: () -> ()) {
+
+  open func removeCell(tableView: UITableView, indexPath: NSIndexPath, onComplete: () -> ()) {
     tableView.beginUpdates()
-    collectionData.removeAtIndex(indexPath.row)
-    tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+    collectionData.remove(at: indexPath.row)
+    tableView.deleteRows(at: [indexPath as IndexPath], with: .fade)
     tableView.endUpdates()
   }
 
-  public func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int { return collectionData.count }
+  open func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    return collectionData.count
+  }
 
-  public func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+  open func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    return TableViewCell()
+  }
+
+  open func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
     if cell != nil {
       cell.layoutIfNeeded()
       cell.layoutSubviews()
@@ -30,7 +36,7 @@ public class DefaultTableView: DefaultView {
     }
   }
 
-  override public func layoutSubviews() {
+  override open func layoutSubviews() {
     super.layoutSubviews()
     tableView.fillSuperview()
   }

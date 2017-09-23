@@ -7,26 +7,25 @@
 //
 
 import UIKit
-import RandomKit
+// import RandomKit
 import SwiftRandom
-import SwiftEasyKit
 import ObjectMapper
 
-public class InputField: Mappable {
+open class InputField: Mappable {
   public var key: String?
   public var label: String?
   public var value: String?
-  
-  public func mapping(map: Map) {
+
+  open func mapping(map: Map) {
     key <- map["key"]
     label <- map["label"]
     value <- map["value"]
   }
-  public required init?(_ map: Map) {}
+  public required init?(map: Map) {}
 }
 
-public class SelectOption: Mappable {
-  
+open class SelectOption: Mappable {
+
   public var id: Int?
   public var name: String?
   public var title: String?
@@ -39,8 +38,8 @@ public class SelectOption: Mappable {
   public var url: String?
   public var children_url: String?
   public var inputFields: [InputField]?
-  
-  public func mapping(map: Map) {
+
+  open func mapping(map: Map) {
     id <- map["id"]
     name <- map["name"]
     title <- map["title"]
@@ -54,68 +53,68 @@ public class SelectOption: Mappable {
     children_url <- map["children_url"]
     inputFields <- map["input_fields"]
   }
-  
-  public class func new(id: Int, name: String) -> SelectOption {
+
+  open class func new(_ id: Int, name: String) -> SelectOption {
     let item = SelectOption(JSON: ["id": id, "name": name, "level": 0])!
     item.family = [item]
     //    item.family?.first?.id = id
     //    item.family?.first?.name = item.name
     return item
   }
-  
+
   public var breadcrumb: String! { get {
     family?.popLast()
     return family != nil ? (family?.asBreadcrumb())! : name!
     }
   }
   public var forHuman: String! { get { return family != nil ? (family?.asBreadcrumb())! : name! } }
-  
-  public class func seeds(onComplete: (items: [SelectOption]) -> ()) {
+
+  open class func seeds(_ onComplete: (_ items: [SelectOption]) -> ()) {
     let items = Array(0...wizRandomInt(5, upper: 8)).map({ SelectOption(JSON: ["id": $0, "name": Randoms.randomFakeTag()])! })
-    onComplete(items: items)
+    onComplete(items)
   }
-  
-  public class func list(url: String!, onComplete: (items: [SelectOption]) -> ()) {
+
+  open class func list(_ url: String!, onComplete: @escaping (_ items: [SelectOption]) -> ()) {
     var items = [SelectOption]()
     API.get(url) { (response) in
       switch response.result {
-      case .Success(let value):
+      case .success(let value):
         if let jsons = value as? [[String: AnyObject]] {
           jsons.forEach({ json in
             let item = SelectOption(JSON: json)!
             items.append(item)
           })
-          onComplete(items: items)
+          onComplete(items)
         }
-      case .Failure(let error):
+      case .failure(let error):
         _logForUIMode(error.localizedDescription)
-      }
     }
-    onComplete(items: items)
+    onComplete(items)
+    }
   }
-  
-  public func children(onComplete: (items: [SelectOption]?) -> ()) {
+
+  public func children(_ onComplete: @escaping (_ items: [SelectOption]?) -> ()) {
     SelectOption.list(children_url) { (items) in
-      onComplete(items: items)
+      onComplete(items)
     }
   }
-  required public init?(_ map: Map) {}
+  required public init?(map: Map) {}
 }
 
-extension SequenceType where Generator.Element == SelectOption {
+extension Sequence where Iterator.Element == SelectOption {
   var ids: [Int] { get { return map({$0.id!}) } }
-  
-  func asBreadcrumb(separator: String = "/") -> String {
+
+  func asBreadcrumb(_ separator: String = "/") -> String {
     return self.map({$0.name!}).join(separator)
   }
-  
-  public func contains(ele: SelectOption) -> Bool {
+
+  public func contains(_ ele: SelectOption) -> Bool {
     return ids.contains(ele.id!)
   }
-  
+
 }
 
-//extension SequenceType where Generator.Element == AnyObject {
+//extension SequenceType where Iterator.Element == AnyObject {
 //  func toSelectOption() -> [SelectOption] {
 //    var selectOptions = [SelectOption]()
 //    forEach({ obj in
@@ -131,42 +130,42 @@ extension SequenceType where Generator.Element == SelectOption {
 //  }
 //}
 
-public class SelectionCell: TableViewCell {
+open class SelectionCell: TableViewCell {
   var id: Int!
   var title = UILabel()
   public var checked = false { didSet { styleIcon() } }
   var icon = IconLabel(iconCode: K.Icons.check)
-  
-  func loadData(data: SelectOption) {
+
+  func loadData(_ data: SelectOption) {
     if data.id != nil { id = data.id }
     title.text = data.name
   }
-  
+
   func styleIcon() {
     if checked {
       icon.iconColor = K.Color.selectOptionChecked
     } else {
-      icon.iconColor = UIColor.clearColor()
+      icon.iconColor = UIColor.clear
     }
   }
-  
-  override public func layoutUI() {
+
+  override open func layoutUI() {
     super.layoutUI()
     layout([title, icon])
   }
-  
-  override public func styleUI() {
+
+  override open func styleUI() {
     super.styleUI()
     title.styled().darker().bold()
-    backgroundColor = UIColor.whiteColor()
+    backgroundColor = UIColor.white
     icon.iconSize = title.textHeight() * 1.4
     styleIcon()
   }
-  
-  override public func layoutSubviews() {
+
+  override open func layoutSubviews() {
     super.layoutSubviews()
-    title.anchorAndFillEdge(.Left, xPad: 20, yPad: 10, otherSize: width - 40)
-    icon.anchorToEdge(.Right, padding: 20, width: icon.iconSize!, height: icon.iconSize!)
+    title.anchorAndFillEdge(.left, xPad: 20, yPad: 10, otherSize: width - 40)
+    icon.anchorToEdge(.right, padding: 20, width: icon.iconSize!, height: icon.iconSize!)
   }
-  
+
 }

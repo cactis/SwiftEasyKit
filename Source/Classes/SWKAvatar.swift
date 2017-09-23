@@ -5,90 +5,90 @@
 import UIKit
 import RSKImageCropper
 
-public class SWKAvatar: DefaultView, RSKImageCropViewControllerDelegate {
-  
+open class SWKAvatar: DefaultView, RSKImageCropViewControllerDelegate {
+
   var background = UIView()
   let camera = UIButton()
-  public var photo = UIImageView(image: getIcon(.User, options: ["color": UIColor.lightGrayColor(), "size": 64])
+  public var photo = UIImageView(image: getIcon(.user, options: ["color": UIColor.lightGray, "size": 64])
   )
-  
+
   private var enabledEdit = false {
     didSet {
-      camera.hidden = !enabledEdit
+      camera.isHidden = !enabledEdit
       bindUI()
     }
   }
-  private var didShot: (image: UIImage) -> () = {_ in }
-  
-  public func enabledShotting(run: (image: UIImage) -> ()) {
+  private var didShot: (_ image: UIImage) -> () = {_ in }
+
+  public func enabledShotting(run: @escaping (_ image: UIImage) -> ()) {
     enabledEdit = true
     didShot = run
   }
-  
+
   func cropImage(image: UIImage) {
     let vc = RSKImageCropViewController(image: image)
     vc.delegate = self
     openViewController(vc)
   }
-  
+
   public func imageCropViewController(controller: RSKImageCropViewController, didCropImage croppedImage: UIImage, usingCropRect cropRect: CGRect) {
-    controller.dismissViewControllerAnimated(true) {
+    controller.dismiss(animated: true) {
       self.photo.image = croppedImage
       self.photo.asFadable()
-      self.didShot(image: croppedImage)
+      self.didShot(croppedImage)
     }
   }
-  
+
   public func imageCropViewControllerDidCancelCrop(controller: RSKImageCropViewController) {
-    controller.dismissViewControllerAnimated(true, completion: nil)
+    controller.dismiss(animated: true, completion: nil)
   }
-  
-  override public func layoutUI() {
+
+  override open func layoutUI() {
     super.layoutUI()
     layout([background.layout([photo, camera])])
   }
-  
-  override public func styleUI() {
+
+  override open func styleUI() {
     super.styleUI()
-    photo.styledAsFill().bordered(0.5, color: K.Color.text.CGColor)
-    camera.backgroundColored(UIColor.whiteColor())
-    camera.hidden = !enabledEdit
+    photo.styledAsFill().bordered(0.5, color: K.Color.text.cgColor)
+    camera.backgroundColored(UIColor.white)
+    camera.isHidden = !enabledEdit
   }
-  
-  override public func bindUI() {
+
+  override open func bindUI() {
     super.bindUI()
     if enabledEdit {
       background.whenTappedWithSubviews(self, action: #selector(cameraTapped))
     }
   }
-  
+
   func cameraTapped() {
     openImagePicker()
   }
-  
+
   func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
-    parentViewController()!.dismissViewControllerAnimated(true, completion: nil)
-    cropImage(image)
+    parentViewController()!.dismiss(animated: true, completion: nil)
+    cropImage(image: image)
   }
-  
+
   var cameraSize: CGFloat { get { return width * 0.06 } }
-  
-  override public func layoutSubviews() {
+
+  override open func layoutSubviews() {
     super.layoutSubviews()
     background.fillSuperview()
-    camera.anchorInCorner(.BottomRight, xPad: 0, yPad: 0, width: 5 * cameraSize, height: camera.width)
-    
+    camera.anchorInCorner(.bottomRight, xPad: 0, yPad: 0, width: 5 * cameraSize, height: camera.width)
+
     styleUI()
     didLayoutSubViews()
   }
-  
+
   func didLayoutSubViews() {
     photo.fillSuperview()
     photo.makeCircleLike()
-    camera.makeCircleLike().bordered(1.0, color: UIColor.lightGrayColor().CGColor)
-    if camera.width > 0 {      
-      camera.setImage(getIcon(.Camera, options: ["color": UIColor.lightGrayColor(), "size": camera.width * 0.7]), forState: .Normal)
+    camera.makeCircleLike().bordered(1.0, color: UIColor.lightGray.cgColor)
+    if camera.width > 0 {
+      camera.setImage(getIcon(.camera, options: ["color": UIColor.lightGray, "size": camera.width * 0.7]), for: .normal)
     }
   }
-  
+
 }

@@ -2,9 +2,9 @@
 //  DefaultView.swift
 
 import UIKit
-//import Neon
+import Neon
 
-public class DefaultView: UIView {
+open class DefaultView: UIView {
 
   public var didFixedConstraints = false
   public var bottomView: UIView?
@@ -18,11 +18,11 @@ public class DefaultView: UIView {
     bindData() // 綁定資料
   }
 
-  public func defaultBottomPadding() -> CGFloat {
+  open func defaultBottomPadding() -> CGFloat {
     return K.Size.Padding.large
   }
 
-  public func autoHeight(padding: CGFloat? = nil) -> CGFloat {
+  open func autoHeight(_ padding: CGFloat? = nil) -> CGFloat {
 //    layoutIfNeeded()
     let _padding = padding ?? defaultBottomPadding()
     if (bottomView != nil) {
@@ -32,34 +32,34 @@ public class DefaultView: UIView {
     }
   }
 
-  public func layoutUI() {
+  open func layoutUI() {
     // loadData() // 在 initUI 末載入資料
   }
 
-  public func styleUI() {
+  open func styleUI() {
 
   }
 
-  public func bindUI() {
+  open func bindUI() {
 
   }
-  
-  public func bindData() {
-  
+
+  open func bindData() {
+
   }
 
-  override public func layoutSubviews() {
-    
+  override open func layoutSubviews() {
+
   }
 
-  override public func layout(views: [UIView]) -> UIView {
+  override open func layout(_ views: [UIView]) -> UIView {
     views.forEach { (view) -> () in
       addSubview(view)
       bottomView = view
     }
     return self
   }
-  
+
   required public init?(coder aDecoder: NSCoder) { fatalError("init(coder:) has not been implemented") }
 }
 

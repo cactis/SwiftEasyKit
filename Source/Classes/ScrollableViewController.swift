@@ -4,7 +4,7 @@
 
 import UIKit
 
-public class ScrollableViewController: DefaultViewController {
+open class ScrollableViewController: DefaultViewController {
 
   var contentView = UIScrollView()
 
@@ -14,26 +14,26 @@ public class ScrollableViewController: DefaultViewController {
 //    contentView._colored()
   }
 
-  override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+  override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
     super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
   }
 
-  override public func viewDidLoad() {
+  override open func viewDidLoad() {
     super.viewDidLoad()
 
 //    view.addSubview(contentView)
   }
 
-  override public func layoutUI() {
+  override open func layoutUI() {
     super.layoutUI()
     view.layout([contentView])
   }
 
-  override public func styleUI() {
+  override open func styleUI() {
     super.styleUI()
   }
 
-  override public func viewDidLayoutSubviews() {
+  override open func viewDidLayoutSubviews() {
     super.viewDidLayoutSubviews()
     contentView.fillSuperview()
   }

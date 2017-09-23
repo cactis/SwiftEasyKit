@@ -9,138 +9,138 @@ import MapKit
 import LoremIpsum
 import FontAwesome_swift
 import Neon
-import RandomKit
+// import RandomKit
 import SwiftRandom
 
 extension UILabel {
 
   public convenience init(text: String) {
-    self.init(frame: CGRectZero)
+    self.init(frame: .zero)
     self.text = text
   }
 
-  public func iconFonted(iconCode: String, iconColor: UIColor = K.Color.Segment.deactive, size: CGFloat = K.BarButtonItem.size) -> UILabel {
-    self.text(iconCode)
+  public func iconFonted(_ iconCode: String, iconColor: UIColor = K.Color.Segment.deactive, size: CGFloat = K.BarButtonItem.size) -> UILabel {
+    self.texted(iconCode)
     self.font = UIFont(name: K.Font.icon, size: size)
     self.textColor = iconColor
     return self
   }
 
-  public func sized(size: CGFloat) -> UILabel {
+  public func sized(_ size: CGFloat) -> UILabel {
     font = UIFont(name: font.fontName , size: size)
     return self
   }
 
-  public func smaller(n: CGFloat = 1) -> UILabel {
+  public func smaller(_ n: CGFloat = 1) -> UILabel {
     font = UIFont(name: font.fontName, size: font.pointSize - n)
     return self
   }
 
-  public func larger(n: CGFloat = 1) -> UILabel {
+  public func larger(_ n: CGFloat = 1) -> UILabel {
     smaller(-1 * n)
     return self
   }
 
-  public func colored(color: UIColor) -> UILabel {
+  public func colored(_ color: UIColor) -> UILabel {
     textColor = color
     return self
   }
 
-  public func fontName(name: String) -> String {
+  public func fontName(_ name: String) -> String {
     font = UIFont(name: name, size: font.pointSize)
     return font.fontName
   }
 
-  public func styled(value: String, options: NSDictionary = NSDictionary()) -> UILabel {
-    self.text(value).styled(options)
+  public func styled(_ value: String, options: NSDictionary = NSDictionary()) -> UILabel {
+    self.texted(value).styled(options)
     return self
   }
 
-  public func styled(options: NSDictionary = NSDictionary()) -> UILabel {
+  public func styled(_ options: NSDictionary = NSDictionary()) -> UILabel {
     //    text = text ?? Lorem.name()
     let color = options["color"] as? UIColor ?? K.Color.text
     let size: CGFloat = options["fontSize"] as? CGFloat ?? options["size"] as? CGFloat ?? K.Size.Text.normal
-    let backgroundColor = options["backgroundColor"] as? UIColor ?? UIColor.clearColor()
+    let backgroundColor = options["backgroundColor"] as? UIColor ?? UIColor.clear
 
     textColor = color
-    font = UIFont.systemFontOfSize(size)
+    font = UIFont.systemFont(ofSize: size)
     self.backgroundColor = backgroundColor
     return self
   }
 
   public var linesCount: Int {
-    let size = sizeThatFits(CGSizeMake(self.frame.size.width, CGFloat.max))
-    return [(size.height / self.font.lineHeight).int, 0].maxElement()!
+    let size = sizeThatFits(CGSize(width: self.frame.size.width, height: CGFloat.greatestFiniteMagnitude))
+    return [(size.height / self.font.lineHeight).int, 0].max()!
   }
 
-  public func html(html: NSAttributedString) -> UILabel {
+  public func html(_ html: NSAttributedString) -> UILabel {
     self.attributedText = html
     return self
   }
 
-  public func aligned(align: NSTextAlignment = .Left) -> UILabel {
+  public func aligned(_ align: NSTextAlignment = .left) -> UILabel {
     textAlignment = align
     return self
   }
-  
-  public func updateNumberWrappedIn(number: AnyObject) -> UILabel {
-    return text(text?.updateNumberWrappedIn(number))
+
+  public func updateNumberWrappedIn(_ number: AnyObject) -> UILabel {
+    return texted(text?.updateNumberWrappedIn(number))
   }
 
-  public func appendText(value: String) -> UILabel {
-    text("\(text!)\(value)")
+  public func appendText(_ value: String) -> UILabel {
+    texted("\(text!)\(value)")
     return self
   }
 
-  public func text(iconCode: String, text: String, size: CGFloat = K.Size.Text.normal) -> UILabel {
+  public func texted(_ iconCode: String, text: String, size: CGFloat = K.Size.Text.normal) -> UILabel {
 //    let iconAttribute = [NSFontAttributeName: UIFont(name: K.Font.icon, size: size)!, NSBaselineOffsetAttributeName: -1 * size / 4  ]
     let iconAttribute = [NSFontAttributeName: UIFont(name: K.Font.icon, size: size)!]
     let iconString = NSMutableAttributedString(string: iconCode, attributes: iconAttribute )
     let textString = NSAttributedString(string: " \(text)", attributes: [
                                           NSFontAttributeName: UIFont(name: font.fontName, size: size * 0.8)!,
                                           NSBaselineOffsetAttributeName: size / 5])
-    iconString.appendAttributedString(textString)
+    iconString.append(textString)
     attributedText = iconString
-    baselineAdjustment = .AlignBaselines
+    baselineAdjustment = .alignBaselines
     return self
   }
 
-  public func lighter(diff: CGFloat = 0.2) -> UILabel {
+  public func lighter(_ diff: CGFloat = 0.2) -> UILabel {
     colored(textColor.lighter(diff))
     return self
   }
-  
-  public func coloredLike(label: UILabel) -> UILabel {
+
+  public func coloredLike(_ label: UILabel) -> UILabel {
     return colored(label.textColor)
   }
 
-  public func darker(diff: CGFloat = 0.2) -> UILabel {
+  public func darker(_ diff: CGFloat = 0.2) -> UILabel {
     colored(textColor.darker(diff))
     return self
   }
 
   @available(iOS 8.2, *)
-  public func weighted(weight: CGFloat = UIFontWeightLight) -> UILabel {
-    font = UIFont.systemFontOfSize(font.pointSize, weight:  weight)
+  public func weighted(_ weight: CGFloat = UIFontWeightLight) -> UILabel {
+    font = UIFont.systemFont(ofSize: font.pointSize, weight:  weight)
     return self
   }
 
-  public func bold(bolded: Bool = true) -> UILabel {
+  public func bold(_ bolded: Bool = true) -> UILabel {
     if bolded {
-      font = UIFont.boldSystemFontOfSize(font.pointSize)
+      font = UIFont.boldSystemFont(ofSize: font.pointSize)
     } else {
-      font = UIFont.systemFontOfSize(font.pointSize)
+      font = UIFont.systemFont(ofSize: font.pointSize)
     }
     return self
   }
 
-  public func text(value: String?) -> UILabel {
+  public func texted(_ value: String?) -> UILabel {
     text = value
     return self
   }
 
-  public func fitTexted(value: String?) -> UILabel {
-    return text(value).reFit()
+  public func fitTexted(_ value: String?) -> UILabel {
+    return texted(value).reFit()
   }
 
   public func reFit() -> UILabel {
@@ -148,29 +148,29 @@ extension UILabel {
     return self
   }
 
-  public func attributedText(value: NSAttributedString) -> UILabel {
+  public func attributedText(_ value: NSAttributedString) -> UILabel {
     attributedText = value
     return self
   }
 
   public func textWidth() -> CGFloat {
-    return intrinsicContentSize().width
+    return self.intrinsicContentSize.width
   }
 
   public func centered() -> UILabel {
-    textAlignment = .Center
+    textAlignment = .center
     return self
   }
 
-  public func multilinized(lineHeight: CGFloat = 6) -> UILabel {
+  public func multilinized(_ lineHeight: CGFloat = 6) -> UILabel {
     numberOfLines = 0
     //    setLineHeight(textHeight())
-    lineBreakMode = .ByWordWrapping
+    lineBreakMode = .byWordWrapping
     setLineHeight(lineHeight)
     return self
   }
 
-  public func setLineHeight(size: CGFloat = 6) -> UILabel {
+  public func setLineHeight(_ size: CGFloat = 6) -> UILabel {
     let text = self.text ?? ""
     let style = NSMutableParagraphStyle()
     style.lineSpacing = size
@@ -184,7 +184,7 @@ extension UILabel {
     return font.pointSize
   }
 
-  public func getHeightBySizeThatFitsWithWidth(width: CGFloat) -> CGFloat {
-    return sizeThatFits(CGSizeMake(width, 100000)).height
+  public func getHeightBySizeThatFitsWithWidth(_ width: CGFloat) -> CGFloat {
+    return sizeThatFits(CGSize(width: width, height: 100000)).height
   }
 }

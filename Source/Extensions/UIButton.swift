@@ -9,96 +9,96 @@ import MapKit
 import LoremIpsum
 import FontAwesome_swift
 import Neon
-import RandomKit
+// import RandomKit
 import SwiftRandom
 
 extension UIButton {
-  
-  public func textUnderlined(text: String, color: UIColor = K.Color.text) -> UIButton {
+
+  public func textUnderlined(_ text: String, color: UIColor = K.Color.text) -> UIButton {
     let titleString = NSMutableAttributedString(string: text)
     let range = NSMakeRange(0, text.characters.count)
-    titleString.addAttribute(NSUnderlineStyleAttributeName, value: NSUnderlineStyle.StyleSingle.rawValue, range: range)
+    titleString.addAttribute(NSUnderlineStyleAttributeName, value: NSUnderlineStyle.styleSingle.rawValue, range: range)
     titleString.addAttributes([NSForegroundColorAttributeName: color], range: range)
-    titleString.addAttributes([NSFontAttributeName: UIFont.systemFontOfSize(K.Size.Text.normal.smaller(3))], range: range)
-    self.setAttributedTitle(titleString, forState: .Normal)
+    titleString.addAttributes([NSFontAttributeName: UIFont.systemFont(ofSize: K.Size.Text.normal.smaller(3))], range: range)
+    self.setAttributedTitle(titleString, for: .normal)
     return self
   }
 
   public convenience init(text: String) {
-    self.init(frame: CGRectZero)
-    self.setTitle(text, forState: .Normal)
+    self.init(frame: .zero)
+    self.setTitle(text, for: .normal)
   }
-  
+
   public convenience init(underlinedText: String) {
-    self.init(frame: CGRectZero)
-//    self.setTitle(text, forState: .Normal)
+    self.init(frame: .zero)
+//    self.setTitle(text, for: .normal)
     self.textUnderlined(underlinedText)
     self.colored(K.Color.Text.normal).smaller()
   }
 
-  public func imaged(image: UIImage) -> UIButton {
-    setImage(image, forState: .Normal)
+  public func imaged(_ image: UIImage) -> UIButton {
+    setImage(image, for: .normal)
     return self
   }
 
   public func clicked() -> UIButton {
-    self.sendActionsForControlEvents(.TouchUpInside)
+    self.sendActions(for: .touchUpInside)
     return self
   }
 
-  public func sized(size: CGFloat) -> UIButton {
+  public func sized(_ size: CGFloat) -> UIButton {
     titleLabel?.font = UIFont(name: (titleLabel?.font?.fontName)!, size: size)
     return self
   }
 
-  public func colored(color: UIColor) -> UIButton {
-    self.setTitleColor(color, forState: .Normal)
+  public func colored(_ color: UIColor) -> UIButton {
+    self.setTitleColor(color, for: .normal)
     return self
   }
 
-  override public func backgroundColored(color: UIColor?) -> UIButton {
+  override open func backgroundColored(_ color: UIColor?) -> UIButton {
     backgroundColor = color
     return self
   }
 
-  public func larger(n: CGFloat = 1) -> UIButton {
+  public func larger(_ n: CGFloat = 1) -> UIButton {
     smaller(-1 * n)
     return self
   }
 
-  public func smaller(n: CGFloat = 1) -> UIButton {
+  public func smaller(_ n: CGFloat = 1) -> UIButton {
     self.titleLabel?.font = UIFont(name: (self.titleLabel?.font.fontName)!, size: (self.titleLabel?.font?.pointSize)! - n)
     return self
   }
 
-  public func lighter(diff: CGFloat = 0.2) -> UIButton {
+  public func lighter(_ diff: CGFloat = 0.2) -> UIButton {
     titleLabel?.lighter(diff)
     return self
   }
 
-  public func darker(diff: CGFloat = 0.2) -> UIButton {
+  public func darker(_ diff: CGFloat = 0.2) -> UIButton {
     titleLabel?.darker(diff)
     return self
   }
 
-  public func styled(text: String = Lorem.name(), options: NSDictionary = NSDictionary()) -> UIButton {
+  public func styled(_ text: String = Lorem.name(), options: NSDictionary = NSDictionary()) -> UIButton {
     let fontSize = options["fontSize"] as? CGFloat ?? options["size"] as? CGFloat ?? K.Size.Submit.size
-    let backgroundColor = options["backgroundColor"] as? UIColor ?? UIColor.clearColor()
+    let backgroundColor = options["backgroundColor"] as? UIColor ?? UIColor.clear
     let color: UIColor = options["color"] as? UIColor ?? K.Color.button
 
     self.backgroundColor = backgroundColor
-    setTitleColor(color, forState: .Normal)
-    setTitle(self.titleLabel?.text ?? text, forState: UIControlState.Normal)
-    titleLabel!.font = UIFont.systemFontOfSize(fontSize)
+    setTitleColor(color, for: .normal)
+    setTitle(self.titleLabel?.text ?? text, for: UIControlState.normal)
+    titleLabel!.font = UIFont.systemFont(ofSize: fontSize)
     return self
   }
 
-  public func text() -> String {
+  public func texted() -> String {
     return (titleLabel?.text)!
   }
 
-  public func darkered(n: CGFloat = 0.2) -> UIButton {
-    setTitleColor(currentTitleColor.darker(n), forState: .Normal)
+  public func darkered(_ n: CGFloat = 0.2) -> UIButton {
+    setTitleColor(currentTitleColor.darker(n), for: .normal)
     return self
   }
 
@@ -114,33 +114,33 @@ extension UIButton {
     return (buttonWidth(), buttonHeight())
   }
 
-  public func text(text: String?, options: NSDictionary = NSDictionary()) -> UIButton {
+  public func texted(_ text: String?, options: NSDictionary = NSDictionary()) -> UIButton {
     //    titleLabel!.text = text
-    setTitle(text, forState: .Normal)
-    //    setAttributedTitle(NSAttributedString(string: text), forState: .Normal)
+    setTitle(text, for: .normal)
+    //    setAttributedTitle(NSAttributedString(string: text), for: .normal)
     return self //styled(text, options: options)
   }
 
-  public func styledAsSubmit(options: NSDictionary = NSDictionary()) -> UIButton {
+  public func styledAsSubmit(_ options: NSDictionary = NSDictionary()) -> UIButton {
     backgroundColor = K.Color.buttonBg
-    setTitleColor(K.Color.button, forState: .Normal)
-    titleLabel!.font = UIFont.systemFontOfSize(options["size"] as? CGFloat ?? K.Size.Submit.size)
+    setTitleColor(K.Color.button, for: .normal)
+    titleLabel!.font = UIFont.systemFont(ofSize: options["size"] as? CGFloat ?? K.Size.Submit.size)
     radiused(4)
     return self
   }
-  
-  public func styledAsInfo(options: NSDictionary = NSDictionary()) -> UIButton {
+
+  public func styledAsInfo(_ options: NSDictionary = NSDictionary()) -> UIButton {
 //    styledAsSubmit()
-    backgroundColored(UIColor.whiteColor())
-    setTitleColor(K.Color.Segment.active, forState: .Normal)
-    titleLabel!.font = UIFont.systemFontOfSize(options["size"] as? CGFloat ?? K.Size.Submit.size)
-    radiused(4).bordered(0, color: K.Color.Segment.active.CGColor)
+    backgroundColored(UIColor.white)
+    setTitleColor(K.Color.Segment.active, for: .normal)
+    titleLabel!.font = UIFont.systemFont(ofSize: options["size"] as? CGFloat ?? K.Size.Submit.size)
+    radiused(4).bordered(0, color: K.Color.Segment.active.cgColor)
     return self
   }
 
   public func disabled() -> UIButton {
-    backgroundColor = UIColor.lightGrayColor()
-    userInteractionEnabled = false
+    backgroundColor = UIColor.lightGray
+    isUserInteractionEnabled = false
     return self
   }
 
@@ -149,34 +149,34 @@ extension UIButton {
   }
 
   public func textWidth() -> CGFloat {
-    return titleLabel!.intrinsicContentSize().width
+    return titleLabel!.intrinsicContentSize.width
   }
 
   public func tapped() {
-    sendActionsForControlEvents(.TouchUpInside)
+    sendActions(for: .touchUpInside)
   }
 
-  public func whenTapped(handler: () -> Void) -> UIButton {
-    handleControlEvent(.TouchUpInside, handler: delayedEvent(handler))
+  public func whenTapped(_ handler: @escaping () -> Void) -> UIButton {
+    handleControlEvent(event: .touchUpInside, handler: delayedEvent(handler))
     return self
   }
-  
-  public func delayedEvent(handler: () -> ()) -> () -> () {
+
+  public func delayedEvent(_ handler: @escaping () -> ()) -> () -> () {
     asFadable()
     let handlerWithDelayed = {
-      self.userInteractionEnabled = false
+      self.isUserInteractionEnabled = false
       let color = self.currentTitleColor
-      self.setTitleColor(color.isLight() ? color.darker() : color.lighter(), forState: .Normal)
+      self.setTitleColor(color.isLight() ? color.darker() : color.lighter(), for: .normal)
       delayedJob{
-        self.userInteractionEnabled = true
-        self.setTitleColor(color, forState: .Normal)
+        self.isUserInteractionEnabled = true
+        self.setTitleColor(color, for: .normal)
       }
       handler()
     }
     return handlerWithDelayed
   }
 
-  public func imageFromText(drawText: NSString, color: UIColor = K.Color.button) -> UIButton {
+  public func imageFromText(_ drawText: NSString, color: UIColor = K.Color.button) -> UIButton {
     let s = height * 0.5
     let textColor: UIColor = color
     let textFont: UIFont = UIFont(name: K.Font.icon, size: s)!
@@ -185,16 +185,15 @@ extension UIButton {
     let textFontAttributes = [
       NSFontAttributeName: textFont,
       NSForegroundColorAttributeName: textColor,
-      //      NSBackgroundColorAttributeName: UIColor.blackColor()
     ]
     let image = UIImage()
-    let rect = CGRectMake(0, 0, width, height)
-    image.drawInRect(rect)
-    drawText.drawInRect(rect, withAttributes: textFontAttributes)
+    let rect = CGRect(x: 0, y: 0, width: width, height: height)
+    image.draw(in: rect)
+    drawText.draw(in: rect, withAttributes: textFontAttributes)
 
-    let newImage: UIImage = UIGraphicsGetImageFromCurrentImageContext()
+    let newImage: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
     UIGraphicsEndImageContext()
-    setImage(newImage, forState: .Normal)
+    setImage(newImage, for: .normal)
     return self
   }
 }

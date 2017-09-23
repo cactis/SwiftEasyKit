@@ -4,31 +4,32 @@
 
 import UIKit
 import KDCircularProgress
-import SwiftEasyKit
 
-public class ProgressView: DefaultView {
+open class ProgressView: DefaultView {
   public var complete = UIImageView()
   public var progress: KDCircularProgress!
   public var percentage: CGFloat {
     didSet {
-      animateToAngle(0.8)
+      animateToAngle(seconds: 0.8)
     }
   }
 
   public func animateToAngle(seconds: Double) {
     delayedJob(seconds) { () -> () in
       let angle = Double(self.percentage * 360)
-      self.progress.animateToAngle(Double(angle), duration: 0.5) { (success) -> Void in
-      }
+      self.progress.animate(toAngle: Double(angle), duration: 0.5, completion: { (success) in
+
+      })
+
     }
   }
 
   public init(percentage: CGFloat = 0) {
     self.percentage = percentage
-    super.init(frame: CGRectZero)
+    super.init(frame: .zero)
   }
 
-  override public func layoutUI() {
+  override open func layoutUI() {
     super.layoutUI()
 //    if percentage < 1 {
       progress = KDCircularProgress(frame: CGRect(x: 0, y: 0, width: width, height: height))
@@ -39,7 +40,7 @@ public class ProgressView: DefaultView {
 //    }
   }
 
-  override public func styleUI() {
+  override open func styleUI() {
     super.styleUI()
 
     progress.startAngle = -90
@@ -49,18 +50,18 @@ public class ProgressView: DefaultView {
     progress.center = center
     progress.gradientRotateSpeed = 1
     progress.roundedCorners = false
-    progress.glowMode = .NoGlow
+    progress.glowMode = .noGlow
     progress.angle = Double(percentage * CGFloat(360))
-    progress.trackColor = UIColor.clearColor()
-    progress.setColors(UIColor.yellowColor().tinyDarker(), UIColor.orangeColor(), UIColor.redColor().tinyLighter(), UIColor.purpleColor(), UIColor.magentaColor(), UIColor.greenColor().tinyDarker())
+    progress.trackColor = UIColor.clear
+    progress.set(colors: UIColor.yellow.tinyDarker(), UIColor.orange, UIColor.red.tinyLighter(), UIColor.purple, UIColor.magenta, UIColor.green.tinyDarker())
   }
 
-  override public func layoutSubviews() {
+  override open func layoutSubviews() {
     super.layoutSubviews()
     if percentage < 1 {
       let p = -1 * width * 0.15
       progress.fillSuperview(left: p, right: p, top: p, bottom: p)
-      progress.trackColor = UIColor.lightGrayColor().lighter()
+      progress.trackColor = UIColor.lightGray.lighter()
     } else {
       let q: CGFloat = -6
       complete.fillSuperview(left: q, right: q, top: q, bottom: q)

@@ -3,48 +3,48 @@
 
 import UIKit
 
-public class TableViewController: DefaultViewController, UITableViewDataSource, UITableViewDelegate {
+open class TableViewController: DefaultViewController, UITableViewDataSource, UITableViewDelegate {
 
   public var tableView = UITableView()
   public let CellIdentifier = "CELL"
   public var cell: TableViewCell!
 
-  override public func viewDidLoad() {
+  override open func viewDidLoad() {
     super.viewDidLoad()
-    navigationController?.navigationBar.translucent = false
+    navigationController?.navigationBar.isTranslucent = false
 //    tableView = view.addTableView(CustomCell, identifier: CellIdentifier)
 //    loadData()
   }
 
-  public func headerHeight() -> CGFloat {
+  open func headerHeight() -> CGFloat {
     return K.Size.Header.height
   }
 
-  public func cellExtraHeight() -> CGFloat {
+  open func cellExtraHeight() -> CGFloat {
     return 30
   }
-  
-  public func cellTapped(sender: UITapGestureRecognizer) {
-    
+
+  open func cellTapped(_ sender: UITapGestureRecognizer) {
+
   }
 
 //  func cellTapped(sender: UITapGestureRecognizer) -> NSIndexPath {
-//    return tableView.indexPathForRowAtPoint(sender.view!.convertPoint(CGPointZero, toView: tableView))!
+//    return tableView.indexPathForRowAtPoint(sender.view!.convertPoint(.zero, toView: tableView))!
 //  }
 
-  public func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+  open func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
     cell.layoutIfNeeded()
     cell.layoutSubviews()
     return cell.bottomView.bottomEdge() + cellExtraHeight()
   }
 
-  override public func updateViewConstraints() {
+  override open func updateViewConstraints() {
     super.updateViewConstraints()
     tableView.fillSuperview(left: 0, right: 0, top: 0, bottom: tabBarHeight())
   }
 
-  public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCellWithIdentifier(CellIdentifier)! as UITableViewCell
+  open func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier)! as UITableViewCell
 //    let data = collectionData[indexPath.row]
 //    cell = tableView.dequeueReusableCellWithIdentifier(CellIdentifier) as! CourseCell
 //    cell.loadData(data)
@@ -53,7 +53,7 @@ public class TableViewController: DefaultViewController, UITableViewDataSource, 
     return cell
   }
 
-  public func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+  open func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return 0
   }
 }

@@ -15,12 +15,12 @@ let kENMDefaultMinSize: CGFloat = 8.0
 let kENMDefaultOriginX: CGFloat = 0.0
 let kENMDefaultOriginY: CGFloat = 0.0
 
-public class ENMBadgedBarButtonItem: UIBarButtonItem {
+open class ENMBadgedBarButtonItem: UIBarButtonItem {
 
   public var badgeLabel: UILabel = UILabel()
   public var badgeValue: String {
     didSet {
-      guard !shouldBadgeHide(badgeValue) else {
+      guard !shouldBadgeHide(badgeValue as NSString) else {
         removeBadge()
         return
       }
@@ -33,10 +33,15 @@ public class ENMBadgedBarButtonItem: UIBarButtonItem {
         customView!.addSubview(badgeLabel)
 
         // Pull the setting of the value and layer border radius off onto the next event loop.
-        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+//        DispatchQueue.async(execute: {
+//          self.badgeLabel.text = self.badgeValue
+//          self.updateBadgeFrame()
+//          }
+//        )
+//        dispatch_async(dispatch_get_main_queue(), { () -> Void in
           self.badgeLabel.text = self.badgeValue
           self.updateBadgeFrame()
-        })
+//        })
       }
     }
   }
@@ -50,7 +55,7 @@ public class ENMBadgedBarButtonItem: UIBarButtonItem {
       refreshBadgeLabelProperties()
     }
   }
-  public var badgeFont: UIFont = UIFont.systemFontOfSize(K.Badge.size){
+  public var badgeFont: UIFont = UIFont.systemFont(ofSize: K.Badge.size){
     didSet {
       refreshBadgeLabelProperties()
     }
@@ -95,7 +100,7 @@ extension ENMBadgedBarButtonItem {
     badgeLabel.font = badgeFont;
   }
 
-  public func updateBadgeValueAnimated(animated: Bool) {
+  public func updateBadgeValueAnimated(_ animated: Bool) {
 
     if (animated && shouldAnimateBadge && (badgeLabel.text != badgeValue)) {
       let animation: CABasicAnimation = CABasicAnimation()
@@ -104,13 +109,13 @@ extension ENMBadgedBarButtonItem {
       animation.toValue = 1
       animation.duration = 0.2
       animation.timingFunction = CAMediaTimingFunction(controlPoints: 0.4, 1.3, 1.0, 1.0)
-      badgeLabel.layer.addAnimation(animation, forKey: "bounceAnimation")
+      badgeLabel.layer.add(animation, forKey: "bounceAnimation")
     }
 
     badgeLabel.text = self.badgeValue;
 
     let duration: Double = animated ? 0.2 : 0.0
-    UIView.animateWithDuration(duration) {
+    UIView.animate(withDuration: duration) {
       self.updateBadgeFrame()
     }
   }
@@ -125,19 +130,19 @@ extension ENMBadgedBarButtonItem {
 
     minWidth = (minWidth < minHeight) ? minHeight : expectedLabelSize.width
 
-    self.badgeLabel.frame = CGRectMake(
-      self.badgeOriginX,
-      self.badgeOriginY,
-      minWidth + padding,
-      minHeight + padding
+    self.badgeLabel.frame = CGRect(
+      x: self.badgeOriginX,
+      y: self.badgeOriginY,
+      width: minWidth + padding,
+      height: minHeight + padding
     )
     self.badgeLabel.layer.cornerRadius = (minHeight + padding) / 2
   }
 
   public func removeBadge() {
-    UIView.animateWithDuration(0.2,
+    UIView.animate(withDuration: 0.2,
                                animations: {
-                                self.badgeLabel.transform = CGAffineTransformMakeScale(0.0, 0.0)
+                                self.badgeLabel.transform = CGAffineTransform(scaleX: 0.0, y: 0.0)
       }, completion: { finished in
         self.badgeLabel.removeFromSuperview()
     })
@@ -148,12 +153,12 @@ extension ENMBadgedBarButtonItem {
 extension ENMBadgedBarButtonItem {
 
   public func createBadgeLabel() -> UILabel {
-    let frame = CGRectMake(badgeOriginX, badgeOriginY, 15, 15)
+    let frame = CGRect(x: badgeOriginX, y: badgeOriginY, width: 15, height: 15)
     let label = UILabel(frame: frame)
     label.textColor = badgeTextColor
     label.font = badgeFont
     label.backgroundColor = badgeBackgroundColor
-    label.textAlignment = NSTextAlignment.Center
+    label.textAlignment = NSTextAlignment.center
     label.layer.cornerRadius = frame.size.width / 2
     label.clipsToBounds = true
 
@@ -168,7 +173,7 @@ extension ENMBadgedBarButtonItem {
     return expectedLabelSize
   }
 
-  public func duplicateLabel(labelToCopy: UILabel) -> UILabel {
+  public func duplicateLabel(_ labelToCopy: UILabel) -> UILabel {
     let dupLabel = UILabel(frame: labelToCopy.frame)
     dupLabel.text = labelToCopy.text
     dupLabel.font = labelToCopy.font
@@ -176,9 +181,9 @@ extension ENMBadgedBarButtonItem {
     return dupLabel
   }
 
-  public func shouldBadgeHide(value: NSString) -> Bool {
-    let b2: Bool = value.isEqualToString("")
-    let b3: Bool = value.isEqualToString("0")
+  public func shouldBadgeHide(_ value: NSString) -> Bool {
+    let b2: Bool = value.isEqual(to: "")
+    let b3: Bool = value.isEqual(to: "0")
     let b4: Bool = shouldHideBadgeAtZero
     if ((b2 || b3) && b4) {
       return true

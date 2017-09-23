@@ -10,87 +10,85 @@ import Foundation
 import Alamofire
 
 extension UIResponder {
-  
-  public func parentViewController() -> UIViewController? {
-    if self.nextResponder() is UIViewController {
-      return self.nextResponder() as? UIViewController
+
+  open func parentViewController() -> UIViewController? {
+    if self.next is UIViewController {
+      return self.next as? UIViewController
     } else {
-      if self.nextResponder() != nil {
-        return (self.nextResponder()!).parentViewController()
+      if self.next != nil {
+        return (self.next!).parentViewController()
       }
       else {return nil}
     }
   }
-  
-  public func bootFrom(vc: UIViewController) -> UIWindow? {
-    let window: UIWindow?  = UIWindow(frame: UIScreen.mainScreen().bounds)
+
+  open func bootFrom(_ vc: UIViewController) -> UIWindow? {
+    let window: UIWindow?  = UIWindow(frame: UIScreen.main.bounds)
     window!.backgroundColor = K.Color.body
     window!.rootViewController = vc
     window!.makeKeyAndVisible()
     return window!
   }
-  
-  public func pushServerAppID() -> String {
+
+  open func pushServerAppID() -> String {
     return ""
   }
-  
-  public func getDeviceName() -> String {
-    let name = UIDevice.currentDevice().name
+
+  open func getDeviceName() -> String {
+    let name = UIDevice.current.name
     return name
   }
-  
-  public func getDeviceToken() -> String {
-    _logForAnyMode(getDeviceName(), title: "getDeviceName()")
-    return Session.getValue(K.Api.deviceTokenKey)!
+
+  open func getDeviceToken() -> String {
+    _logForAnyMode(getDeviceName() as AnyObject, title: "getDeviceName()" as AnyObject)
+    return Session.getValue(key: K.Api.deviceTokenKey)!
   }
-  
-  public func saveDeviceInfo(token token: String, name: String) {
+
+  open func saveDeviceInfo(_ token: String, name: String) {
     //    _logForAnyMode("\((token, name))", title: "(token, name)")
-    Session.setValue(token, key: K.Api.deviceTokenKey)
-    Session.setValue(name, key: K.Api.deviceNameKey)
+    Session.setValue(value: token, key: K.Api.deviceTokenKey)
+    Session.setValue(value: name, key: K.Api.deviceNameKey)
   }
-  
-  public func application(application: UIApplication, didRegisterUserNotificationSettings notificationSettings: UIUserNotificationSettings){
+
+  open func application(_ application: UIApplication, didRegisterUserNotificationSettings notificationSettings: UIUserNotificationSettings){
     application.registerForRemoteNotifications()
   }
-  
-  public func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
-    let token = getDeviceTokenString(deviceToken)
+
+  open func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
+    let token = getDeviceTokenString(deviceToken as Data)
     let name = getDeviceName()
-    saveDeviceInfo(token: token, name: name)
+    saveDeviceInfo(token, name: name)
     sendTokenToPushServer(token, name: name)
   }
-  
-  func sendTokenToPushServer(token: String, name: String, success: (response: Response<AnyObject, NSError>) -> () = {_ in }) {
-    PushServer.subscribeToken(K.Api.appID, name: name, token: token, success: success)
+
+  func sendTokenToPushServer(_ token: String, name: String, success: @escaping (_ response: DataResponse<Any>) -> () = {_ in }) {
+    PushServer.subscribeToken(appid: K.Api.appID, name: name, token: token, success: success)
   }
-  
-  public func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
+
+  open func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
   }
-  
-  public func applicationWillResignActive(application: UIApplication) {
+
+  open func applicationWillResignActive(_ application: UIApplication) {
   }
-  
-  public func applicationDidEnterBackground(application: UIApplication) {
+
+  open func applicationDidEnterBackground(_ application: UIApplication) {
   }
-  
-  public func applicationWillEnterForeground(application: UIApplication) {
+
+  open func applicationWillEnterForeground(_ application: UIApplication) {
   }
-  
-  public func applicationDidBecomeActive(application: UIApplication) {
+
+  open func applicationDidBecomeActive(_ application: UIApplication) {
   }
-  
-  public func applicationWillTerminate(application: UIApplication) {
+
+  open func applicationWillTerminate(_ application: UIApplication) {
   }
-  
-  private func getDeviceTokenString(deviceToken: NSData) -> String {
-    let characterSet: NSCharacterSet = NSCharacterSet( charactersInString: "<>" )
-    let deviceTokenString: String = ( deviceToken.description as NSString )
-      .stringByTrimmingCharactersInSet( characterSet )
-      .stringByReplacingOccurrencesOfString( " ", withString: "" ) as String
-    _logForUIMode(deviceTokenString, title: "deviceTokenString")
-    return deviceTokenString
+
+  private func getDeviceTokenString(_ deviceToken: Data) -> String {
+    return deviceToken.map { String(format: "%02.2hhx", $0) }.joined()
+//    let characterSet: NSCharacterSet = NSCharacterSet( charactersInString: "<>" )
+//    let deviceTokenString: String = ( deviceToken.description as NSString )
+//      .stringByTrimmingCharactersInSet( characterSet )
+//      .stringByReplacingOccurrencesOfString( " ", withString: "" ) as String
+//    return deviceTokenString
   }
-  
-  
 }

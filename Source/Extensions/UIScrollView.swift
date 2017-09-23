@@ -7,43 +7,43 @@ import Foundation
 
 extension UIScrollView {
 
-  public func scrollToBottom(animated: Bool = true, offset: CGFloat = 0) -> UIScrollView {
-    setContentOffset(CGPointMake(0, contentSize.height - bounds.size.height + tabBarHeight() + offset), animated: animated)
+  public func scrollToBottom(_ animated: Bool = true, offset: CGFloat = 0) -> UIScrollView {
+    setContentOffset(CGPoint(x: 0, y: contentSize.height - bounds.size.height + tabBarHeight() + offset), animated: animated)
     return self
   }
 
   public func scrollToTop() -> UIScrollView {
-    setContentOffset(CGPointMake(0, 0), animated: true)
+    setContentOffset(CGPoint(x: 0, y: 0), animated: true)
     return self
   }
 
   public func scrollToTrailing() -> UIScrollView {
-    setContentOffset(CGPointMake(contentSize.width - width, 0), animated: true)
+    setContentOffset(CGPoint(x: contentSize.width - width, y: 0), animated: true)
     return self
   }
 
-  public func scrollToTop(target: UIView, duration: NSTimeInterval = 0.2, completion: () -> () = {}) -> UIScrollView {
-    //    setContentOffset(CGPointMake(0, target.y), animated: true)
-    UIView.animateWithDuration(duration, animations: {
-      self.setContentOffset(CGPointMake(0, target.y), animated: false)
+  public func scrollToTop(_ target: UIView, duration: TimeInterval = 0.2, completion: @escaping () -> () = {}) -> UIScrollView {
+    //    setContentOffset(CGPoint(x: 0, target.y), animated: true)
+    UIView.animate(withDuration: duration, animations: {
+      self.setContentOffset(CGPoint(x: 0, y: target.y), animated: false)
     }) { (bool) in
       completion()
     }
 
-    //    setContentOffset(CGPointMake(0, target.y), animated: true)
+    //    setContentOffset(CGPoint(x: 0, target.y), animated: true)
     return self
   }
 
-  public func scrollToVisible(target: UIView) -> UIScrollView {
+  public func scrollToVisible(_ target: UIView) -> UIScrollView {
     //    var viewRect = target.frame
     //    viewRect.size.height -= keyboardSize.height
     let y = target.bottomEdge()// target.frame.origin.y
-    let scrollPoint = CGPointMake(0, y)
+    let scrollPoint = CGPoint(x: 0, y: y)
     setContentOffset(scrollPoint, animated: true)
     return self
   }
 
-  public func setLastSubiewAs(subview: UIView, bottomPadding: CGFloat = K.Size.Padding.scrollspace) {
+  public func setLastSubiewAs(_ subview: UIView, bottomPadding: CGFloat = K.Size.Padding.scrollspace) {
     let width = subview.width()
     //    _logForUIMode(width)
     //    let height = subview.frame.origin.y + subview.frame.size.height

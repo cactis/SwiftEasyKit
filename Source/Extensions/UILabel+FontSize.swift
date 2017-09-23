@@ -23,13 +23,13 @@ extension UILabel {
     var q = Int(maxFontSize)
     var p = Int(minFontSize)
 
-    let constraintSize = CGSize(width: rect.width - 5, height: CGFloat.max)
+    let constraintSize = CGSize(width: rect.width - 5, height: CGFloat.greatestFiniteMagnitude)
 
     while(p <= q){
       let currentSize = (p + q) / 2
-      font = font.fontWithSize( CGFloat(currentSize) )
+      font = font.withSize( CGFloat(currentSize) )
       let text = NSAttributedString(string: self.text!, attributes: [NSFontAttributeName:font])
-      let textRect = text.boundingRectWithSize(constraintSize, options: .UsesLineFragmentOrigin, context: nil)
+      let textRect = text.boundingRect(with: constraintSize, options: .usesLineFragmentOrigin, context: nil)
 
       let labelSize = textRect.size
 

@@ -8,28 +8,28 @@
 
 import UIKit
 
-public class Label: UILabel {
+open class Label: UILabel {
   var rectInsets: UIEdgeInsets
 
-  public init(rectInsets: UIEdgeInsets = UIEdgeInsetsZero) {
+  public init(rectInsets: UIEdgeInsets = .zero) {
     self.rectInsets = rectInsets
-    super.init(frame: CGRectZero)
+    super.init(frame: .zero)
   }
-  
+
   required public init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
 
-  override public func drawTextInRect(rect: CGRect) {
+  override open func drawText(in rect: CGRect) {
 //    padding = height * 0.1
-    super.drawTextInRect(UIEdgeInsetsInsetRect(rect, rectInsets))
+    super.drawText(in: UIEdgeInsetsInsetRect(rect, rectInsets))
   }
 
-  override public func textWidth() -> CGFloat {
+  override open func textWidth() -> CGFloat {
     return super.textWidth() + height * 0.4 * 2
   }
 
-  override public func textHeight() -> CGFloat {
+  override open func textHeight() -> CGFloat {
     return super.textHeight() + height * 0.4
   }
 

@@ -3,11 +3,11 @@
 
 import UIKit
 
-public class TableView: UITableView {
-  
+open class TableView: UITableView {
+
 }
 
-public class TableViewCell: UITableViewCell {
+open class TableViewCell: UITableViewCell {
 
   public var didFixedConstraints = false
   public var bottomView = UIView()
@@ -21,28 +21,28 @@ public class TableViewCell: UITableViewCell {
     bindUI()
   }
 
-  public func layoutUI() {
+  open func layoutUI() {
     bottomView = self
   }
 
-  public func styleUI() {
+  open func styleUI() {
     backgroundColor = K.Color.table
   }
 
-  public func bindUI() {
+  open func bindUI() {
 
   }
 
-  public func defaultBottomPadding() -> CGFloat {
+  open func defaultBottomPadding() -> CGFloat {
     return K.Size.Padding.large
   }
 
-  public func autoHeight(padding: CGFloat? = nil) -> CGFloat {
+  open func autoHeight(padding: CGFloat? = nil) -> CGFloat {
     let _padding = padding ?? defaultBottomPadding()
     return bottomView.bottomEdge() + _padding
   }
 
-  override public func layout(views: [UIView]) -> UIView {
+  override open func layout(_ views: [UIView]) -> UIView {
     views.forEach { (view) -> () in
       addSubview(view)
       bottomView = view
@@ -51,17 +51,17 @@ public class TableViewCell: UITableViewCell {
   }
 
 
-  override public func awakeFromNib() {
+  override open func awakeFromNib() {
     super.awakeFromNib()
   }
 
-  override public func layoutSubviews() {
+  override open func layoutSubviews() {
     super.layoutSubviews()
 //    contentView.fillSuperview(left: 10, right: 10, top: 10, bottom: 10)
     contentView.fillSuperview()
   }
 
-  override public func setSelected(selected: Bool, animated: Bool) {
+  override open func setSelected(_ selected: Bool, animated: Bool) {
     super.setSelected(selected, animated: animated)
   }
 

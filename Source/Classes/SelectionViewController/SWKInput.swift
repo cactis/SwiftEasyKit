@@ -8,88 +8,88 @@
 
 import UIKit
 
-public class SWKDateInput: SWKInput {
+open class SWKDateInput: SWKInput {
   let datePicker = UIDatePicker()
-  
-  override public func layoutUI() {
+
+  override open func layoutUI() {
     super.layoutUI()
-    datePicker.datePickerMode = .Date
+    datePicker.datePickerMode = .date
     let toolbar = UIToolbar()
     toolbar.sizeToFit()
-    let flex = UIBarButtonItem(barButtonSystemItem: .FlexibleSpace, target: nil, action: nil)
-    let done = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: #selector(doneTapped))
+    let flex = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+    let done = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneTapped))
     toolbar.items = [flex, done]
     value.inputAccessoryView = toolbar
     value.inputView = datePicker
   }
-  
-  override public func bindUI() {
+
+  override open func bindUI() {
     super.bindUI()
-    value.addTarget(self, action: #selector(valueTapped), forControlEvents: .EditingDidBegin)
+    value.addTarget(self, action: #selector(valueTapped), for: .editingDidBegin)
   }
-  
-  func valueTapped() { datePicker.date = value.text!.toDate("yyyy/MM/dd") ?? NSDate() }
-  
+
+  func valueTapped() { datePicker.date = (value.text!.toDate("yyyy/MM/dd") ?? NSDate()) as Date }
+
   func doneTapped() {
     value.endEditing(true)
-    value.text(datePicker.date.toString("yyyy/MM/dd"))
+//    value.texted(datePicker.date.toString("yyyy/MM/dd"))
   }
 }
 
 
-public class SWKInput: DefaultView {
-  
+open class SWKInput: DefaultView {
+
   public var label = UILabel()
   public var value = UITextField()
-  public var data: String? { didSet { value.text(data) } }
+  public var data: String? { didSet { value.texted(data) } }
   public var text: String { get { return value.text! } set { value.text = newValue } }
   public var prefix: String!
-  
-  public func valued(text: String?) { value.text(text) }
-  
+
+  public func valued(_ text: String?) { value.texted(text) }
+
   public init(label: String, value: String = "", prefix: String = "輸入") {
-    super.init(frame: CGRectZero)
-    self.label.text(label)
+    super.init(frame: .zero)
+    self.label.texted(label)
     self.prefix = prefix
     if self.value.placeholder == nil {self.value.placeholder = "\(prefix)\(label)" }
     ({self.data = value})()
   }
-  
+
   public init(label: String, placeholder: String) {
-    super.init(frame: CGRectZero)
-    self.label.text(label)
+    super.init(frame: .zero)
+    self.label.texted(label)
     self.value.placeholder = placeholder
   }
-  
+
   public init(label: String, placeholder: String, secureText: Bool) {
-    super.init(frame: CGRectZero)
-    value.secureTextEntry = secureText
-    self.label.text(label)
+    super.init(frame: .zero)
+    value.isSecureTextEntry = secureText
+    self.label.texted(label)
     self.value.placeholder = placeholder
   }
-  
-  override public func layoutUI() {
+
+  override open func layoutUI() {
     super.layoutUI()
     layout([label, value])
   }
-  
-  override public func styleUI() {
+
+  override open func styleUI() {
     super.styleUI()
     label.styled()
     value.styled().bold()
-    value.colored(K.Color.Text.strong).aligned(.Right)
+    value.colored(K.Color.Text.strong).aligned(.right)
   }
-  
+
   public func estimateHeight() -> CGFloat {
     return 40 + label.textHeight()
   }
-  
-  override public func layoutSubviews() {
+
+  override open func layoutSubviews() {
     super.layoutSubviews()
-    label.anchorAndFillEdge(.Left, xPad: 0, yPad: 0, otherSize: label.textWidth())
-    value.alignToTheRightOf(label, matchingCenterWithLeftPadding: 10, width: width - label.rightEdge() - 30, height: label.height)
+    label.anchorAndFillEdge(.left, xPad: 0, yPad: 0, otherSize: label.textWidth())
+    value.align(toTheRightOf: label, matchingCenterWithLeftPadding: 10, width: width - label.rightEdge() - 30, height: label.height)
   }
-  
+
   required public init?(coder aDecoder: NSCoder) { fatalError("init(coder:) has not been implemented") }
 }
 

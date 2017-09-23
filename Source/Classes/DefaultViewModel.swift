@@ -5,6 +5,6 @@
 
 import Foundation
 
-public class DefaultViewModel: NSObject {
+open class DefaultViewModel: NSObject {
   
 }

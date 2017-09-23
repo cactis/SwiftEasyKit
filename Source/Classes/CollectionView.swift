@@ -5,38 +5,40 @@
 
 import UIKit
 
-public class CollectionView: DefaultView, UICollectionViewDataSource, UICollectionViewDelegate {
+open class CollectionView: DefaultView, UICollectionViewDataSource, UICollectionViewDelegate {
   public var collectionView: UICollectionView!
   public var collectionViewLayout = UICollectionViewFlowLayout()
   public let CellIdentifier = "CELL"
   public var sectionInset: UIEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10)
 
-  public override func layoutUI() {
+
+
+  override open func layoutUI() {
     super.layoutUI()
-    collectionView = UICollectionView(frame: CGRectZero, collectionViewLayout: collectionViewLayout)
+    collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout)
   }
 
-  public override func styleUI() {
+  override open func styleUI() {
     super.styleUI()
     collectionView.backgroundColor = K.Color.collectionView
   }
 
-  override public func layoutSubviews() {
+  override open func layoutSubviews() {
     super.layoutSubviews()
     collectionView.fillSuperview()
     styleUI()
   }
 
-  public func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+  open func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     return UICollectionViewCell()
   }
-
-  public func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+//
+  open func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     return 0
   }
 
-  public func registerClass(registeredClass: AnyClass!,  sectionInset: UIEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10), direction: UICollectionViewScrollDirection = .Horizontal) -> UICollectionView {
+  open func registerClass(_ registeredClass: AnyClass!,  sectionInset: UIEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10), direction: UICollectionViewScrollDirection = .horizontal) -> UICollectionView {
     return collectionView(collectionViewLayout, registeredClass: registeredClass, identifier: CellIdentifier, sectionInset: sectionInset, direction: direction)
   }
-  
+
 }

@@ -4,7 +4,7 @@
 //  Created by ctslin on 3/6/16.
 
 
-public class ListViewWithSeparator: ListView {
+open class ListViewWithSeparator: ListView {
 
   private func enableSeparator() {
     labels.forEach { (label) in
@@ -14,13 +14,13 @@ public class ListViewWithSeparator: ListView {
     }
   }
 
-  override public func layoutSubviews() {
+  override open func layoutSubviews() {
     super.layoutSubviews()
     enableSeparator()
   }
 }
 
-public class ListView: DefaultView {
+open class ListView: DefaultView {
 
   public var labels = [UILabel]()
   public var icons = [UIImageView]()
@@ -34,10 +34,10 @@ public class ListView: DefaultView {
 
   public init(list: [String] = []) {
     self.list = list
-    super.init(frame: CGRectZero)
+    super.init(frame: .zero)
   }
 
-  override public func layoutUI() {
+  override open func layoutUI() {
     super.layoutUI()
     labels = []
     self.removeSubviews()
@@ -48,20 +48,20 @@ public class ListView: DefaultView {
     layout(labels)
   }
 
-  override public func styleUI() {
+  override open func styleUI() {
     super.styleUI()
     labels.forEach { (label) -> () in
       label.styled()
     }
   }
 
-  override public func bindUI() {
+  override open func bindUI() {
     super.bindUI()
   }
 
-  override public func layoutSubviews() {
+  override open func layoutSubviews() {
     super.layoutSubviews()
-    groupAndFill(group: .Vertical, views: labels.map({$0 as UIView}), padding: 5)
+    groupAndFill(group: .vertical, views: labels.map({$0 as UIView}), padding: 5)
   }
 
 

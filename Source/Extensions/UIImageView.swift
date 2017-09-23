@@ -9,41 +9,42 @@ import MapKit
 import LoremIpsum
 import FontAwesome_swift
 import Neon
-import RandomKit
+// import RandomKit
 import SwiftRandom
-import Kingfisher
+//import Kingfisher
 
 extension UIImageView {
-  
+
   public convenience init(fromCode: String, color: UIColor = K.Color.barButtonItem, size: CGFloat = K.BarButtonItem.size) {
-    self.init(frame: CGRectZero)
-    image = UIImage.fromCode(fromCode, color: color, size: size)
+    self.init(frame: .zero)
+    image = UIImage.fromCode(drawText: fromCode, color: color, size: size)
   }
-  
-  public func scaledHeight(width: CGFloat) -> CGFloat {
+
+  public func scaledHeight(_ width: CGFloat) -> CGFloat {
     return image!.size.height / (image!.size.width / width)
   }
-  
-  public func imaged(name: String?) -> UIImageView {
+
+  public func imaged(_ name: String?) -> UIImageView {
     guard let _ = name else { return self }
-    if name!.containsString("http") {
-      self.kf_setImageWithURL(NSURL(string: name!)!)
+    if name!.contains("http") {
+      image = UIImage.loadFromURL(url: name!)
+//      self.kf_setImageWithURL(NSURL(string: name!)!)
     } else {
       loadImage(UIImage(named: name!))
     }
     return self
   }
-  
+
   public convenience init(name: String?) {
     self.init()
     imaged(name)
   }
-  
-  public func loadImageWithString(name: String!) -> UIImageView {
+
+  public func loadImageWithString(_ name: String!) -> UIImageView {
     return imaged(name)
   }
-  
-  public func loadImage(image: UIImage? = placeHoderImage()) -> UIImageView {
+
+  public func loadImage(_ image: UIImage? = placeHoderImage()) -> UIImageView {
     if image != nil {
       //      UIView.transitionWithView(self, duration: 0.5, options: .TransitionCrossDissolve, animations: { () -> Void in
       self.image = image
@@ -58,32 +59,32 @@ extension UIImageView {
     }
     return self
   }
-  
+
   public func styled() -> UIImageView {
-    contentMode = .ScaleAspectFit
-    autoresizingMask = [.FlexibleHeight, .FlexibleWidth]
+    contentMode = .scaleAspectFit
+    autoresizingMask = [.flexibleHeight, .flexibleWidth]
     layer.masksToBounds = true
     return self
   }
-  
-  public func styled(image: UIImage) -> UIImageView{
+
+  public func styled(_ image: UIImage) -> UIImageView{
     self.image = image
     styled()
     return self
   }
-  
+
   public func styledAsFill() -> UIImageView {
     styled()
-    contentMode = .ScaleAspectFill
+    contentMode = .scaleAspectFill
     return self
   }
-  
-  public func imaged(iconCode iconCode: String, color: UIColor = K.Color.barButtonItem, size: CGFloat = K.BarButtonItem.size) -> UIImageView {
+
+  public func imaged(_ iconCode: String, color: UIColor = K.Color.barButtonItem, size: CGFloat = K.BarButtonItem.size) -> UIImageView {
     image = getImage(iconCode: iconCode, color: color, size: size)
     return self
   }
-  
-  public func styledAsFill(image: UIImage) -> UIImageView {
+
+  public func styledAsFill(_ image: UIImage) -> UIImageView {
     self.image = image
     styledAsFill()
     return self
