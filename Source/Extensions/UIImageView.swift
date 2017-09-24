@@ -20,11 +20,11 @@ extension UIImageView {
     image = UIImage.fromCode(drawText: fromCode, color: color, size: size)
   }
 
-  public func scaledHeight(_ width: CGFloat) -> CGFloat {
+  @discardableResult public func scaledHeight(_ width: CGFloat) -> CGFloat {
     return image!.size.height / (image!.size.width / width)
   }
 
-  public func imaged(_ name: String?) -> UIImageView {
+  @discardableResult public func imaged(_ name: String?) -> UIImageView {
     guard let _ = name else { return self }
     if name!.contains("http") {
       image = UIImage.loadFromURL(url: name!)
@@ -40,11 +40,11 @@ extension UIImageView {
     imaged(name)
   }
 
-  public func loadImageWithString(_ name: String!) -> UIImageView {
+  @discardableResult public func loadImageWithString(_ name: String!) -> UIImageView {
     return imaged(name)
   }
 
-  public func loadImage(_ image: UIImage? = placeHoderImage()) -> UIImageView {
+  @discardableResult public func loadImage(_ image: UIImage? = placeHoderImage()) -> UIImageView {
     if image != nil {
       //      UIView.transitionWithView(self, duration: 0.5, options: .TransitionCrossDissolve, animations: { () -> Void in
       self.image = image
@@ -60,31 +60,31 @@ extension UIImageView {
     return self
   }
 
-  public func styled() -> UIImageView {
+  @discardableResult public func styled() -> UIImageView {
     contentMode = .scaleAspectFit
     autoresizingMask = [.flexibleHeight, .flexibleWidth]
     layer.masksToBounds = true
     return self
   }
 
-  public func styled(_ image: UIImage) -> UIImageView{
+  @discardableResult public func styled(_ image: UIImage) -> UIImageView{
     self.image = image
     styled()
     return self
   }
 
-  public func styledAsFill() -> UIImageView {
+  @discardableResult public func styledAsFill() -> UIImageView {
     styled()
     contentMode = .scaleAspectFill
     return self
   }
 
-  public func imaged(_ iconCode: String, color: UIColor = K.Color.barButtonItem, size: CGFloat = K.BarButtonItem.size) -> UIImageView {
+  @discardableResult public func imaged(iconCode: String, color: UIColor = K.Color.barButtonItem, size: CGFloat = K.BarButtonItem.size) -> UIImageView {
     image = getImage(iconCode: iconCode, color: color, size: size)
     return self
   }
 
-  public func styledAsFill(_ image: UIImage) -> UIImageView {
+  @discardableResult  public func styledAsFill(_ image: UIImage) -> UIImageView {
     self.image = image
     styledAsFill()
     return self

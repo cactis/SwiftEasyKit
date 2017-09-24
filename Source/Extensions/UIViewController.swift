@@ -20,7 +20,7 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
     case update
   }
 
-  open func enableTabBarController(_ viewControllers: [UIViewController]!, titles: [String]!, images: [UIImage], selectedImages: [UIImage] = []) -> UITabBarController! {
+  @discardableResult open func enableTabBarController(_ viewControllers: [UIViewController]!, titles: [String]!, images: [UIImage], selectedImages: [UIImage] = []) -> UITabBarController! {
     var _selectedImages = [UIImage]()
     if selectedImages.count > 0 {
       _selectedImages = selectedImages
@@ -49,26 +49,26 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
     }
   }
 
-  open func goBackToRootViewController(_ delayed: Double = 0, onComplete: () -> () = {}) {
+  @discardableResult open func goBackToRootViewController(_ delayed: Double = 0, onComplete: () -> () = {}) {
     delayedJob(delayed) {
       self.navigationController?.popToRootViewController(animated: true)
       onComplete()
     }
   }
 
-  public func goBackViewController(_ delayed: Double = 0, onComplete: () -> () = {}) {
+  @discardableResult public func goBackViewController(_ delayed: Double = 0, onComplete: () -> () = {}) {
     delayedJob(delayed) {
       self.navigationController?.popViewController(animated: true)
       onComplete()
     }
   }
 
-  public func titled(_ title: String, token: String = #file) -> UIViewController {
+  @discardableResult public func titled(_ title: String, token: String = #file) -> UIViewController {
     navigationItem.title = _isSimulator() ? "[\(token.split("/").last!.split(".").first!)]-\(title)" : title
     return self
   }
 
-  public func openImagePicker(_ sourceType: UIImagePickerControllerSourceType = .camera) -> UIImagePickerController {
+  @discardableResult public func openImagePicker(_ sourceType: UIImagePickerControllerSourceType = .camera) -> UIImagePickerController {
     var type = sourceType
     if _isSimulator() { type = .photoLibrary }
     let picker = UIImagePickerController()
@@ -78,11 +78,11 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
     return picker
   }
 
-  public func embededInNavigationController() -> UINavigationController {
+  @discardableResult public func embededInNavigationController() -> UINavigationController {
     return UINavigationController(rootViewController: self)
   }
 
-  public func flipViewController(_ vc: UIViewController, run: @escaping () -> () = {}) {
+  @discardableResult public func flipViewController(_ vc: UIViewController, run: @escaping () -> () = {}) {
     openViewController(vc, style: .flipHorizontal, run: run)
   }
 
@@ -90,7 +90,7 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
     openControllerWithDelegate(self, vc: vc, style: style, run: run)
   }
 
-  public func pushViewController(_ vc: UIViewController, checked: Bool = true, delayed: Double = 0, onComplete: () -> () = {}, onDismissViewController: @escaping () -> () = {}, didDismissViewController: @escaping (_ action: DismissType) -> () = {_ in }) -> Void {
+  @discardableResult public func pushViewController(_ vc: UIViewController, checked: Bool = true, delayed: Double = 0, onComplete: () -> () = {}, onDismissViewController: @escaping () -> () = {}, didDismissViewController: @escaping (_ action: DismissType) -> () = {_ in }) -> Void {
     if let vc = vc as? DefaultViewController {
       vc.onDismissViewController = onDismissViewController
       vc.didDismissViewController = didDismissViewController
@@ -101,14 +101,14 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
 //    }
   }
 
-  public func popToViewController(_ vc: UIViewController, delayed: Double = 0, onComplete: () -> () = {}) {
+  @discardableResult public func popToViewController(_ vc: UIViewController, delayed: Double = 0, onComplete: () -> () = {}) {
     delayedJob(delayed){
       self.navigationController?.popToViewController(vc, animated: true)
       onComplete()
     }
   }
 
-  public func setFieldsGroup(_ fields: [UITextField]) -> Void {
+  @discardableResult public func setFieldsGroup(_ fields: [UITextField]) -> Void {
     let delegate = self as! UITextFieldDelegate
     if fields.count > 1 {
       for index in 0...fields.count - 2 {
@@ -119,7 +119,7 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
     fields.last?.delegate = delegate
   }
 
-  public func setViewsGroup(_ fields: [UITextView]) -> Void {
+  @discardableResult public func setViewsGroup(_ fields: [UITextView]) -> Void {
     let delegate = self as! UITextViewDelegate
     if fields.count > 1 {
       for index in 0...fields.count - 2 {
@@ -130,11 +130,11 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
     fields.last?.delegate = delegate
   }
 
-  public func navBarHeight() -> CGFloat {
+  @discardableResult public func navBarHeight() -> CGFloat {
     return (navigationController != nil) ? (navigationController?.navigationBar.height)! : 0
   }
 
-  public func tabBarHeight() -> CGFloat {
+  @discardableResult public func tabBarHeight() -> CGFloat {
     if let tabbar = tabBarController {
       if tabbar.tabBar.isHidden == true {
         return 0
@@ -152,7 +152,7 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
     }
   }
 
-  public func viewNetHeight() -> CGFloat {
+  @discardableResult public func viewNetHeight() -> CGFloat {
     var barHeight: CGFloat = 0
     if UIApplication.shared.statusBarFrame != .zero {
       barHeight = statusBarHeight()
@@ -160,7 +160,7 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
     return view.height() - barHeight// - 44 //(navigationController?.navigationBar.height)!
   }
 
-  public func addLeftBarButtonItem(_ image: UIImage, action: Selector) -> UIBarButtonItem {
+  @discardableResult public func addLeftBarButtonItem(_ image: UIImage, action: Selector) -> UIBarButtonItem {
     let item = newBarButtonItem(image, action: action)
     var items: [UIBarButtonItem] = [UIBarButtonItem]()
     if let _item = self.navigationItem.leftBarButtonItem {
@@ -173,20 +173,20 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
     return item
   }
 
-  public   func setRightBarButtonItem(_ image: UIImage, action: Selector) -> UIBarButtonItem {
+  @discardableResult public   func setRightBarButtonItem(_ image: UIImage, action: Selector) -> UIBarButtonItem {
     let item = newBarButtonItem(image, action: action)
     self.navigationItem.rightBarButtonItems = [item]
     return item
   }
 
   @nonobjc
-  public func setRightBarButtonItem(_ title: String, action: Selector) -> UIBarButtonItem {
+  @discardableResult public func setRightBarButtonItem(_ title: String, action: Selector) -> UIBarButtonItem {
     let item = newBarButtonItem(title, action: action)
     self.navigationItem.rightBarButtonItems = [item]
     return item
   }
 
-  public func setLeftBarButtonItem(_ image: UIImage, action: Selector) -> UIBarButtonItem {
+  @discardableResult public func setLeftBarButtonItem(_ image: UIImage, action: Selector) -> UIBarButtonItem {
     let item = newBarButtonItem(image, action: action)
     item.customView?.layoutSubviews()
     self.navigationItem.leftBarButtonItems = [item]
@@ -194,7 +194,7 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
   }
 
   @nonobjc
-  public func setLeftBarButtonItem(_ title: String, action: Selector) -> UIBarButtonItem {
+  @discardableResult public func setLeftBarButtonItem(_ title: String, action: Selector) -> UIBarButtonItem {
     let item = newBarButtonItem(title, action: action)
     item.customView?.layoutSubviews()
     self.navigationItem.leftBarButtonItems = [item]
@@ -202,7 +202,7 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
   }
 
 
-  public func addRightBarButtonItemWithBadge(_ image: UIImage, action: Selector) -> UIBarButtonItem {
+  @discardableResult public func addRightBarButtonItemWithBadge(_ image: UIImage, action: Selector) -> UIBarButtonItem {
     let item = newBarButtonItemWithBadge(image, action: action)
     var items: [UIBarButtonItem] = [UIBarButtonItem]()
     if let _item = self.navigationItem.rightBarButtonItem {
@@ -223,7 +223,7 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
     navbar?.shadowImage = UIImage()
   }
 
-  public func newBarButtonItemWithBadge(_ image: UIImage, action: Selector) -> UIBarButtonItem {
+  @discardableResult public func newBarButtonItemWithBadge(_ image: UIImage, action: Selector) -> UIBarButtonItem {
     let button = IconLabelButton(image: image, text: "111")
     let item = UIBarButtonItem(title: nil, style: .plain, target: self, action: action)
     //    let item = UIBarButtonItem(customView: button)
@@ -231,20 +231,20 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
     return item
   }
 
-  public func addRightBarButtonItem(iconCode: String, action: Selector, withOffset: Bool = true) -> UIBarButtonItem {
+  @discardableResult public func addRightBarButtonItem(iconCode: String, action: Selector, withOffset: Bool = true) -> UIBarButtonItem {
     let item = newBarButtonItem(iconCode, action: action)
     appendItemToBar(item, withOffset: withOffset)
     return item
   }
 
-  public func addRightBarButtonItem(_ title: String, action: Selector, withOffset: Bool = true) -> UIBarButtonItem {
+  @discardableResult public func addRightBarButtonItem(_ title: String, action: Selector, withOffset: Bool = true) -> UIBarButtonItem {
     let item = newBarButtonItem(title, action: action)
     appendItemToBar(item, withOffset: withOffset)
     return item
   }
 
   @nonobjc
-  public func addRightBarButtonItem(_ image: UIImage, action: Selector, withOffset: Bool = true) -> ENMBadgedBarButtonItem {
+  @discardableResult public func addRightBarButtonItem(_ image: UIImage, action: Selector, withOffset: Bool = true) -> ENMBadgedBarButtonItem {
     let item = newBarButtonItem(image, action: action)
     appendItemToBar(item, withOffset: withOffset)
     return item
@@ -261,7 +261,7 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
     self.navigationItem.rightBarButtonItems = items
   }
 
-  public func newBarButtonItem(_ iconCode: String, action: Selector, color: UIColor = K.Color.barButtonItem) -> UIBarButtonItem {
+  @discardableResult public func newBarButtonItem(_ iconCode: String, action: Selector, color: UIColor = K.Color.barButtonItem) -> UIBarButtonItem {
     let item = newBarButtonItem(iconCode, action: action)
     let button = (item.customView as! UIButton)
     button.titleLabel!.font = UIFont(name: K.Font.icon, size: K.BarButtonItem.size)
@@ -273,7 +273,7 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
     return item
   }
 
-  public func newBarButtonItem(_ title: String, action: Selector) -> UIBarButtonItem {
+  @discardableResult public func newBarButtonItem(_ title: String, action: Selector) -> UIBarButtonItem {
     let button = UIButton(type: .custom)
     button.texted(title).colored(K.BarButtonItem.color).sizeToFit()
     button.frame = CGRect(x: 0, y: 0, width: button.textWidth(), height: button.textHeight())
@@ -283,7 +283,7 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
     return item
   }
 
-  public func newBarButtonItem(_ image: UIImage, action: Selector, count: Int = 0) -> ENMBadgedBarButtonItem {
+  @discardableResult public func newBarButtonItem(_ image: UIImage, action: Selector, count: Int = 0) -> ENMBadgedBarButtonItem {
     let button = UIButton(type: .custom)
     button.frame = CGRect(x: 0, y: 0, width: K.BarButtonItem.size, height: K.BarButtonItem.size)
     ////    if let knownImage = image {
@@ -308,7 +308,7 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
     self.view.removeGestureRecognizer(swipeRight)
   }
 
-  public func enableSwipeRightToBack(_ target: AnyObject) -> UISwipeGestureRecognizer {
+  @discardableResult public func enableSwipeRightToBack(_ target: AnyObject) -> UISwipeGestureRecognizer {
     let swipeRight = UISwipeGestureRecognizer(target: target, action: #selector(UIViewController.respondToSwipeGesture(_:)))
     swipeRight.direction = UISwipeGestureRecognizerDirection.right
     self.view.addGestureRecognizer(swipeRight)
@@ -335,17 +335,17 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
     self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
   }
 
-  public func enableCaptureSessionWithPreview(_ liveView: UIView, position: AVCaptureDevicePosition = .back, onComplete: () -> ()) -> (AVCaptureDeviceInput, AVCaptureStillImageOutput, AVCaptureSession) {
+  @discardableResult public func enableCaptureSessionWithPreview(_ liveView: UIView, position: AVCaptureDevice.Position = .back, onComplete: () -> ()) -> (AVCaptureDeviceInput, AVCaptureStillImageOutput, AVCaptureSession) {
     var input: AVCaptureDeviceInput!
     let output = AVCaptureStillImageOutput()
     let session = AVCaptureSession()
     delayedJob(0.1) {
       do {
-        session.sessionPreset = AVCaptureSessionPresetPhoto
+        session.sessionPreset = AVCaptureSession.Preset.photo
         //        let device = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)
         var device: AVCaptureDevice!
-        let devices = AVCaptureDevice.devices(withMediaType: AVMediaTypeVideo)
-        devices?.forEach({ (item) in
+        let devices = AVCaptureDevice.devices(for: AVMediaType.video)
+        devices.forEach({ (item) in
           if (item as AnyObject).position == position {
             device = item as! AVCaptureDevice
           }
@@ -357,9 +357,9 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
         output.outputSettings = [AVVideoCodecKey: AVVideoCodecJPEG]
         session.addOutput(output)
         let preview = AVCaptureVideoPreviewLayer(session: session)
-        preview?.videoGravity = AVLayerVideoGravityResizeAspectFill
-        preview?.frame = liveView.bounds
-        liveView.layer.addSublayer(preview!)
+        preview.videoGravity = AVLayerVideoGravity.resizeAspectFill
+        preview.frame = liveView.bounds
+        liveView.layer.addSublayer(preview)
         session.startRunning()
         onComplete()
       } catch {
@@ -369,7 +369,7 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
     return (input, output, session)
   }
 
-  public func collectionView(_ layout: UICollectionViewFlowLayout, registeredClass: AnyClass!, identifier: String) -> UICollectionView {
+  @discardableResult public func collectionView(_ layout: UICollectionViewFlowLayout, registeredClass: AnyClass!, identifier: String) -> UICollectionView {
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
     layout.scrollDirection = .horizontal
     layout.itemSize = CGSize(width: 100, height: 100)
@@ -382,7 +382,7 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
     return collectionView
   }
 
-  public func tableView(_ registeredClass: AnyClass!, identifier: String, style: UITableViewStyle = .plain) -> UITableView {
+  @discardableResult public func tableView(_ registeredClass: AnyClass!, identifier: String, style: UITableViewStyle = .plain) -> UITableView {
     let tableView = UITableView(frame: view.bounds, style: style)
     tableView.delegate = self as? UITableViewDelegate
     tableView.dataSource = self as? UITableViewDataSource
@@ -395,10 +395,10 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
 
 import AVFoundation
 extension AVCaptureStillImageOutput {
-  public func getImage(onComplete: @escaping (_ image: UIImage) -> ()) {
-    let conneciton = connection(withMediaType: AVMediaTypeVideo)
-    captureStillImageAsynchronously(from: conneciton, completionHandler: { (buffer, error) in
-      let data = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(buffer)
+  @discardableResult public func getImage(onComplete: @escaping (_ image: UIImage) -> ()) {
+    let conneciton = connection(with: AVMediaType.video)
+    captureStillImageAsynchronously(from: conneciton!, completionHandler: { (buffer, error) in
+      let data = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(buffer!)
       let provider = CGDataProvider(data: data! as CFData)
 //      let cgImageRef = CGImage(jpegDataProviderSource: provider!, decode: nil, shouldInterpolate: true,  intent: CGColorRenderingIntent.kCGRenderingIntentDefault)
 //      let image = UIImage(CGImage: cgImageRef!, scale: 1.0, orientation: .right)

@@ -47,7 +47,7 @@ open class DefaultViewController: UIViewController, UITextFieldDelegate, UITextV
   }
 
   open func baseStyle() {
-    let textAttributes = [NSForegroundColorAttributeName: K.Color.barButtonItem]
+    let textAttributes = [NSAttributedStringKey.foregroundColor: K.Color.barButtonItem]
     //    UINavigationBar.appearance().titleTextAttributes = textAttributes
 
     navigationController?.navigationBar.titleTextAttributes = textAttributes

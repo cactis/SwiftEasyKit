@@ -198,7 +198,7 @@ extension String {
     get {
       let startIndex =  self.index(self.startIndex, offsetBy: r.lowerBound)
       let endIndex = self.index(startIndex, offsetBy: r.upperBound - r.lowerBound)
-      return self[startIndex...endIndex]
+      return String(self[startIndex...endIndex])
     }
   }
 
@@ -268,32 +268,43 @@ extension String {
     return nil
   }
 
-
-  public func toNSMutableAttributedString() -> NSMutableAttributedString {
-    do {
-      let result = try NSMutableAttributedString(data: data(using: String.Encoding.unicode, allowLossyConversion: true)!, options: [NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType], documentAttributes: nil)
-      return result
-    } catch {
-      return NSMutableAttributedString()
-    }
+  public func toNSMutableAttributedString() -> NSMutableAttributedString? {
+//    do {
+//      let result = try NSMutableAttributedString(data: data(using: String.Encoding.unicode, allowLossyConversion: true)!, options: [NSDocumentTypeDocumentAttribute: NSAttributedString.DocumentType], documentAttributes: nil)
+//      return result
+//    } catch {
+//      return NSMutableAttributedString()
+//    }
+    return NSMutableAttributedString(string: self)
   }
 
-  public func toAttributedString() -> NSAttributedString {
+  public func toAttributedString() -> NSAttributedString? {
     return toHtml()
   }
 
-  public func toHtmlWithStyle(_ css: String) -> NSAttributedString {
+  public func toHtmlWithStyle(_ css: String) -> NSAttributedString? {
     let html = "<html><head><style>\(css)</style></head><body>\(self)</body></html>"
     return html.toHtml()
   }
 
-  public func toHtml() -> NSAttributedString {
-    do {
-      let result = try NSAttributedString(data: data(using: String.Encoding.unicode, allowLossyConversion: true)!, options: [NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType], documentAttributes: nil)
-      return result
-    } catch {
-      return NSAttributedString()
-    }
+  public func toHtml() -> NSAttributedString? {
+//    do {
+//      let result = try NSAttributedString(data: data(using: String.Encoding.unicode, allowLossyConversion: true)!, options: [NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType], documentAttributes: nil)
+//      return result
+//    } catch {
+//      return NSAttributedString()
+//    }
+//    var html2AttributedString: NSAttributedString? {
+      do {
+        return try NSAttributedString(data: Data(utf8), options: [.documentType: NSAttributedString.DocumentType.html, .characterEncoding: String.Encoding.utf8.rawValue], documentAttributes: nil)
+      } catch {
+        print("error: ", error)
+        return nil
+      }
+//    }
+//    var html2String: String {
+//      return html2AttributedString?.string ?? ""
+//    }
   }
 
   public func taggedWith(_ tag: String = "div") -> String! {
@@ -657,7 +668,7 @@ extension NSMutableAttributedString {
   public func setAsLink(_ textToFind: String, linkURL: String) -> Bool {
     let foundRange = self.mutableString.range(of: textToFind)
     if foundRange.location != NSNotFound {
-      self.addAttribute(NSLinkAttributeName, value: linkURL, range: foundRange)
+      self.addAttribute(NSAttributedStringKey.link, value: linkURL, range: foundRange)
       return true
     }
     return false

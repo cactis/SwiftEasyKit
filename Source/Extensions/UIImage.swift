@@ -63,8 +63,8 @@ extension UIImage {
     let _size = CGSize(width: s, height: s)
     UIGraphicsBeginImageContext(_size)
     let textFontAttributes = [
-      NSFontAttributeName: textFont,
-      NSForegroundColorAttributeName: textColor,
+      NSAttributedStringKey.font: textFont,
+      NSAttributedStringKey.foregroundColor: textColor,
       ]
 //    _logForUIMode(textColor.hexString)
     let image = UIImage()
@@ -94,7 +94,7 @@ extension UIImage {
 
     let fontSize = min(size.width / fontAspectRatio, size.height)
 
-    let attributedString = NSAttributedString(string: String.fontAwesomeIcon(name: name), attributes: [NSFontAttributeName: UIFont.fontAwesome(ofSize: fontSize), NSForegroundColorAttributeName: textColor, NSBackgroundColorAttributeName: backgroundColor, NSParagraphStyleAttributeName: paragraph])
+    let attributedString = NSAttributedString(string: String.fontAwesomeIcon(name: name), attributes: [NSAttributedStringKey.font: UIFont.fontAwesome(ofSize: fontSize), NSAttributedStringKey.foregroundColor: textColor, NSAttributedStringKey.backgroundColor: backgroundColor, NSAttributedStringKey.paragraphStyle: paragraph])
     var padding: CGFloat = 0
     if inset != 0 { padding = size.width / inset }
     UIGraphicsBeginImageContextWithOptions(CGSize(width: size.width + 2 * padding, height: size.height + 2 * padding), false , 0.0)

@@ -20,7 +20,7 @@ extension UIView: UIImagePickerControllerDelegate, UINavigationControllerDelegat
   public var bottomPadding: CGFloat { get { return superview != nil ? superview!.height - bottomEdge() : 0 } }
 
 
-  public func saveAsImageToAlbum() -> UIImage {
+  @discardableResult public func saveAsImageToAlbum() -> UIImage {
     UIGraphicsBeginImageContextWithOptions(bounds.size, isOpaque, 0.0)
     layer.render(in: UIGraphicsGetCurrentContext()!)
     let image = UIGraphicsGetImageFromCurrentImageContext()
@@ -29,15 +29,15 @@ extension UIView: UIImagePickerControllerDelegate, UINavigationControllerDelegat
     return image!
   }
 
-  public func navBarHeight() -> CGFloat {
+  @discardableResult public func navBarHeight() -> CGFloat {
     return parentViewController()!.navBarHeight()
   }
 
-  public func viewNetHeight() -> CGFloat {
+  @discardableResult public func viewNetHeight() -> CGFloat {
     return parentViewController()!.viewNetHeight()
   }
 
-  public func tabBarHeight() -> CGFloat {
+  @discardableResult public func tabBarHeight() -> CGFloat {
     return parentViewController()!.tabBarHeight()
   }
 
@@ -47,7 +47,7 @@ extension UIView: UIImagePickerControllerDelegate, UINavigationControllerDelegat
     }
   }
 
-  public func addHorizontalLineBetween(_ v1: UIView, v2: UIView) -> UIView {
+  @discardableResult public func addHorizontalLineBetween(_ v1: UIView, v2: UIView) -> UIView {
     let line = addLine()
     let m = (v2.y - v1.bottomEdge()) / 2
     let w = [v1.rightEdge(), v2.rightEdge()].max()! - [v1.x, v2.x].min()!
@@ -65,7 +65,7 @@ extension UIView: UIImagePickerControllerDelegate, UINavigationControllerDelegat
     }
   }
 
-  public func addVerticalLineBetween(_ v1: UIView, v2: UIView, fill: Bool = true) -> UIView {
+  @discardableResult public func addVerticalLineBetween(_ v1: UIView, v2: UIView, fill: Bool = true) -> UIView {
     let line = addLine()
 
     if v1.y < v2.y {
@@ -96,7 +96,7 @@ extension UIView: UIImagePickerControllerDelegate, UINavigationControllerDelegat
     openControllerWithDelegate(parentViewController()!, vc: vc, style: style, run: run)
   }
 
-  public func openController(_ vc: UIViewController, type: String = kCATransitionFromTop, subtype: String = kCATransitionReveal, run: @escaping () -> () = {}) {
+  @discardableResult public func openController(_ vc: UIViewController, type: String = kCATransitionFromTop, subtype: String = kCATransitionReveal, run: @escaping () -> () = {}) {
     let nv = UINavigationController()
     let transition: CATransition = CATransition()
     nv.pushViewController(vc, animated: false)
@@ -109,7 +109,7 @@ extension UIView: UIImagePickerControllerDelegate, UINavigationControllerDelegat
     })
   }
 
-  public func collectionView(_ layout: UICollectionViewFlowLayout, registeredClass: AnyClass!, identifier: String, sectionInset: UIEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10), direction: UICollectionViewScrollDirection = .horizontal) -> UICollectionView {
+  @discardableResult public func collectionView(_ layout: UICollectionViewFlowLayout, registeredClass: AnyClass!, identifier: String, sectionInset: UIEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10), direction: UICollectionViewScrollDirection = .horizontal) -> UICollectionView {
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
     layout.scrollDirection = direction
     layout.itemSize = CGSize(width: 100, height: 100)
@@ -120,12 +120,12 @@ extension UIView: UIImagePickerControllerDelegate, UINavigationControllerDelegat
     return collectionView
   }
 
-  public func backgroundColored(_ color: UIColor) -> UIView {
+  @discardableResult public func backgroundColored(_ color: UIColor) -> UIView {
     backgroundColor = color
     return self
   }
 
-  public func blured(_ target: UIView, style: UIBlurEffectStyle = .dark) -> UIView {
+  @discardableResult public func blured(_ target: UIView, style: UIBlurEffectStyle = .dark) -> UIView {
     let blurEffectView: UIVisualEffectView!
     let blurEffect = UIBlurEffect(style: style)
     blurEffectView = UIVisualEffectView(effect: blurEffect)
@@ -142,7 +142,7 @@ extension UIView: UIImagePickerControllerDelegate, UINavigationControllerDelegat
     return self
   }
 
-  public func removeSubviews() -> UIView {
+  @discardableResult public func removeSubviews() -> UIView {
     subviews.forEach { $0.removeFromSuperview() }
     return self
   }
@@ -154,11 +154,11 @@ extension UIView: UIImagePickerControllerDelegate, UINavigationControllerDelegat
   //    return views
   //  }
 
-  public func addTableView(_ registeredClass: AnyClass!, identifier: String) -> UITableView {
+  @discardableResult public func addTableView(_ registeredClass: AnyClass!, identifier: String) -> UITableView {
     return addView(tableView(registeredClass, identifier: identifier)) as! UITableView
   }
 
-  public func tableView(_ registeredClass: AnyClass!, identifier: String, style: UITableViewStyle = .plain) -> UITableView {
+  @discardableResult public func tableView(_ registeredClass: AnyClass!, identifier: String, style: UITableViewStyle = .plain) -> UITableView {
     let tableView = UITableView(frame: bounds, style: style)
     tableView.delegate = (self.parentViewController() ?? self ) as? UITableViewDelegate
     tableView.dataSource = (self.parentViewController() ?? self) as? UITableViewDataSource
@@ -170,7 +170,7 @@ extension UIView: UIImagePickerControllerDelegate, UINavigationControllerDelegat
     return tableView
   }
 
-  public func pushViewController(_ vc: UIViewController, checked: Bool = true, delayed: Double = 0, onComplete: () -> () = {}, onDismissViewController: @escaping () -> () = {}) {
+  @discardableResult public func pushViewController(_ vc: UIViewController, checked: Bool = true, delayed: Double = 0, onComplete: () -> () = {}, onDismissViewController: @escaping () -> () = {}) {
 //    if let _ = parentViewController() {
 //      if !(parentViewController()?.navigationController?.topViewController?.isKindOfClass(vc.self.dynamicType))! {
         parentViewController()?.pushViewController(vc, checked: checked, delayed: delayed, onComplete: onComplete, onDismissViewController: onDismissViewController)
@@ -178,14 +178,14 @@ extension UIView: UIImagePickerControllerDelegate, UINavigationControllerDelegat
 //    }
   }
 
-  public func layout(_ views: [UIView]) -> UIView {
+  @discardableResult public func layout(_ views: [UIView]) -> UIView {
     views.forEach { (view) -> () in
       self.addSubview(view)
     }
     return self
   }
 
-  public func setFieldsGroup(_ fields: [UITextField], delegate: AnyObject) -> Void {
+  @discardableResult public func setFieldsGroup(_ fields: [UITextField], delegate: AnyObject) -> Void {
     let delegateObject = delegate as? UITextFieldDelegate
     for index in 0...fields.count - 2 {
       fields[index].delegate = delegateObject
@@ -194,12 +194,12 @@ extension UIView: UIImagePickerControllerDelegate, UINavigationControllerDelegat
     fields.last?.delegate = delegateObject
   }
 
-  public func setFieldsGroup(_ fields: [UITextField]) -> Void {
+  @discardableResult public func setFieldsGroup(_ fields: [UITextField]) -> Void {
     let delegate = parentViewController() as! UITextFieldDelegate
     setFieldsGroup(fields, delegate: delegate)
   }
 
-  public func setViewsGroup(_ fields: [UITextView]) -> Void {
+  @discardableResult public func setViewsGroup(_ fields: [UITextView]) -> Void {
     let delegate = parentViewController() as? UITextViewDelegate
     for index in 0...fields.count - 2 {
       fields[index].delegate = delegate
@@ -208,7 +208,7 @@ extension UIView: UIImagePickerControllerDelegate, UINavigationControllerDelegat
     fields.last?.delegate = delegate
   }
 
-  public func openPopupDialogFromView(_ view: UIView, completion: @escaping () -> () = {}) {
+  @discardableResult public func openPopupDialogFromView(_ view: UIView, completion: @escaping () -> () = {}) {
     let popupVC = PopupViewController()
     popupVC.modalPresentationStyle = .overCurrentContext
     popupVC.contentView = view
@@ -217,7 +217,7 @@ extension UIView: UIImagePickerControllerDelegate, UINavigationControllerDelegat
     }
   }
 
-  public func openPopupDialog(_ viewClass: NSObject.Type, delegate: UIView = UIView(), autoDismiss: Bool = false, onCompletion: @escaping (_ popupView: AnyObject) -> () = {_ in }, didDismiss: @escaping (_ popupView: PopupView) -> () = {_ in }, didSuccess: @escaping (_ popupView: PopupView) -> () = {_ in}) {
+  @discardableResult public func openPopupDialog(_ viewClass: NSObject.Type, delegate: UIView = UIView(), autoDismiss: Bool = false, onCompletion: @escaping (_ popupView: AnyObject) -> () = {_ in }, didDismiss: @escaping (_ popupView: PopupView) -> () = {_ in }, didSuccess: @escaping (_ popupView: PopupView) -> () = {_ in}) {
     let popupVC = PopupViewController()
     popupVC.autoDismiss = autoDismiss
     popupVC.modalPresentationStyle = .overCurrentContext
@@ -232,7 +232,7 @@ extension UIView: UIImagePickerControllerDelegate, UINavigationControllerDelegat
     }
   }
 
-  public func addTextArea(_ placeholder: String, options: NSDictionary = NSDictionary()) -> UITextView {
+  @discardableResult public func addTextArea(_ placeholder: String, options: NSDictionary = NSDictionary()) -> UITextView {
     let view: UITextView = UITextView()
     if options["bordered"] != nil {
       view.bordered(1.0, color: UIColor.lightGray.lighter().cgColor)
@@ -246,7 +246,7 @@ extension UIView: UIImagePickerControllerDelegate, UINavigationControllerDelegat
     return view
   }
 
-  public func addTextField(_ placeholder: String, text: String = "", options: NSDictionary = NSDictionary()) -> TextField {
+  @discardableResult public func addTextField(_ placeholder: String, text: String = "", options: NSDictionary = NSDictionary()) -> TextField {
     let view = TextField()
     view.placeholder = placeholder
     view.font = UIFont.systemFont(ofSize: 16)
@@ -257,7 +257,7 @@ extension UIView: UIImagePickerControllerDelegate, UINavigationControllerDelegat
     return view
   }
 
-  public func addTextFieldWithBorder(_ placeholder: String, text: String = "", options: NSDictionary = NSDictionary()) -> TextField {
+  @discardableResult public func addTextFieldWithBorder(_ placeholder: String, text: String = "", options: NSDictionary = NSDictionary()) -> TextField {
     let view = addTextField(placeholder, options: options)
     view.layer.borderColor = UIColor.lightGray.lighter().cgColor
     view.layer.borderWidth = 1.0
@@ -266,7 +266,7 @@ extension UIView: UIImagePickerControllerDelegate, UINavigationControllerDelegat
     return view
   }
 
-  public func addTextAreaWithBorder(_ placeholder: String, value: String = "", options: NSDictionary = NSDictionary()) -> UITextView {
+  @discardableResult public func addTextAreaWithBorder(_ placeholder: String, value: String = "", options: NSDictionary = NSDictionary()) -> UITextView {
     let view = addTextArea(placeholder, options: options)
     view.layer.borderColor = UIColor.lightGray.lighter().cgColor
     view.layer.borderWidth = 1.0
@@ -274,105 +274,105 @@ extension UIView: UIImagePickerControllerDelegate, UINavigationControllerDelegat
     return view
   }
 
-  public func addPassword(_ placeholder: String, text: String, options: NSDictionary = NSDictionary()) -> TextField {
+  @discardableResult public func addPassword(_ placeholder: String, text: String, options: NSDictionary = NSDictionary()) -> TextField {
     let password = addPassword(placeholder, options: options)
     password.text = text
     return password
   }
 
-  public func addPassword(_ placeholder: String, options: NSDictionary = NSDictionary()) -> TextField {
+  @discardableResult public func addPassword(_ placeholder: String, options: NSDictionary = NSDictionary()) -> TextField {
     let text = addTextField(placeholder, options: options)
     text.isSecureTextEntry = true
     return text
   }
 
-  public func animate(_ duration: Double = 0.5, onComplete: @escaping () -> ()) {
+  @discardableResult public func animate(_ duration: Double = 0.5, onComplete: @escaping () -> ()) {
     //    UIView.animateWithDuration(duration) { () -> Void in
     //      onComplete()
     //    }
     UIView.transition(with: self, duration: duration, options: .transitionCrossDissolve, animations: onComplete, completion: nil)
   }
 
-  public func asFadable(_ duration: Double = 0.5) -> UIView {
+  @discardableResult public func asFadable(_ duration: Double = 0.5) -> UIView {
     UIView.transition(with: self, duration: duration, options: .transitionCrossDissolve, animations: nil, completion: nil)
     return self
   }
 
-  public func addMap(_ options: NSDictionary = NSDictionary()) -> MKMapView {
+  @discardableResult public func addMap(_ options: NSDictionary = NSDictionary()) -> MKMapView {
     let view: MKMapView = MKMapView()
     addSubview(view)
     return view
   }
 
-  public func addSample() -> UILabel {
+  @discardableResult public func addSample() -> UILabel {
     let label = self.addLabel(LoremIpsum.sentence())
     return label
   }
 
-  public func addScrollView() -> UIScrollView {
+  @discardableResult public func addScrollView() -> UIScrollView {
     let scrollView = UIScrollView()
     addSubview(scrollView)
     return scrollView
   }
 
-  public func topEdge() -> CGFloat {
+  @discardableResult public func topEdge() -> CGFloat {
     return y
   }
 
-  public func leftEdge() -> CGFloat {
+  @discardableResult public func leftEdge() -> CGFloat {
     return x
   }
 
-  public func rightEdge() -> CGFloat {
+  @discardableResult public func rightEdge() -> CGFloat {
     return x + width
   }
 
-  public func bottomEdge() -> CGFloat {
+  @discardableResult public func bottomEdge() -> CGFloat {
     return frame.origin.y + frame.size.height
   }
 
-  public func addLine(_ color: UIColor = K.Line.Color.horizontal) -> UIView {
+  @discardableResult public func addLine(_ color: UIColor = K.Line.Color.horizontal) -> UIView {
     let line = addView()
     line.backgroundColor = color
     return line
   }
 
-  public func addView(_ v: UIView = UIView(), options: NSDictionary = NSDictionary()) -> UIView {
+  @discardableResult public func addView(_ v: UIView = UIView(), options: NSDictionary = NSDictionary()) -> UIView {
     let v = view(v, options: options)
     addSubview(v)
     return v
   }
 
-  public func view(_ v: UIView = UIView(), options: NSDictionary = NSDictionary()) -> UIView {
+  @discardableResult public func view(_ v: UIView = UIView(), options: NSDictionary = NSDictionary()) -> UIView {
     return v
   }
 
-  public func addMarginedView(_ options: NSDictionary = NSDictionary()) -> UIView {
+  @discardableResult public func addMarginedView(_ options: NSDictionary = NSDictionary()) -> UIView {
     let view = addView()
     let marginedView = view.addView()
     return marginedView
   }
 
-  public func addIconButton(_ text: String, icon: UIImage, target: AnyObject, action: Selector, options: NSDictionary = NSDictionary()) -> UIButton {
+  @discardableResult public func addIconButton(_ text: String, icon: UIImage, target: AnyObject, action: Selector, options: NSDictionary = NSDictionary()) -> UIButton {
     let button: UIButton = addButton(text, options: options)
     button.setImage(icon, for: .normal)
     return button
   }
 
 
-  public func iconButton(_ icon: FontAwesome, size: CGFloat = K.BarButtonItem.size * 2, color: UIColor = K.Color.barButtonItem, options: NSDictionary = NSDictionary()) -> UIButton {
+  @discardableResult public func iconButton(_ icon: FontAwesome, size: CGFloat = K.BarButtonItem.size * 2, color: UIColor = K.Color.barButtonItem, options: NSDictionary = NSDictionary()) -> UIButton {
     let btn = button("", options: options)
     btn.setImage(UIImage.fontAwesomeIcon(name: icon, textColor: color, size: CGSize(width: size, height: size)), for: .normal)
     return btn
   }
 
-  public func addIconButton(_ icon: UIImage, target: AnyObject, action: Selector, options: NSDictionary = NSDictionary()) -> UIButton {
+  @discardableResult public func addIconButton(_ icon: UIImage, target: AnyObject, action: Selector, options: NSDictionary = NSDictionary()) -> UIButton {
     let button = addButton("", target: target, action: action, options: options)
     button.setImage(icon, for: .normal)
     return button
   }
 
-  public func addButton(_ text: String = "", target: AnyObject, action: Selector, options: NSDictionary = NSDictionary()) -> UIButton {
+  @discardableResult public func addButton(_ text: String = "", target: AnyObject, action: Selector, options: NSDictionary = NSDictionary()) -> UIButton {
     let button: UIButton = addButton(text, options: options)
     //    view.titleEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5)
     button.radiused(2)
@@ -383,30 +383,30 @@ extension UIView: UIImagePickerControllerDelegate, UINavigationControllerDelegat
     return button
   }
 
-  public func addSubmit(_ text: String = "", options: NSDictionary = NSDictionary()) -> UIButton {
+  @discardableResult public func addSubmit(_ text: String = "", options: NSDictionary = NSDictionary()) -> UIButton {
     let button = addButton(text, options: options)
     button.styledAsSubmit()
     return button
   }
-  public func addSubmit(_ text: String = "確定", target: AnyObject, action: Selector, options: NSDictionary = NSDictionary()) -> UIButton {
+  @discardableResult public func addSubmit(_ text: String = "確定", target: AnyObject, action: Selector, options: NSDictionary = NSDictionary()) -> UIButton {
     let button = addButton(text, target: target, action: action, options: options)
     button.styledAsSubmit()
     return button
   }
 
-  public func addButton(_ text: String = Lorem.name(), options: NSDictionary = NSDictionary()) -> UIButton {
+  @discardableResult public func addButton(_ text: String = Lorem.name(), options: NSDictionary = NSDictionary()) -> UIButton {
     let btn = button(text, options: options)
     addSubview(btn)
     return btn
   }
 
-  public func button(_ text: String = Lorem.name(), options: NSDictionary = NSDictionary()) -> UIButton {
+  @discardableResult public func button(_ text: String = Lorem.name(), options: NSDictionary = NSDictionary()) -> UIButton {
     let view: UIButton = UIButton(type: .custom)
     view.styled(text, options: options)
     return view
   }
 
-  public func addImageView(_ image: UIImage! = UIImage.sample()) -> UIImageView {
+  @discardableResult public func addImageView(_ image: UIImage! = UIImage.sample()) -> UIImageView {
     let view = imageView(image)
     addSubview(view)
     return view
@@ -422,34 +422,34 @@ extension UIView: UIImagePickerControllerDelegate, UINavigationControllerDelegat
   //    return view
   //  }
 
-  public func imageView(_ image: UIImage! = UIImage.sample()) -> UIImageView {
+  @discardableResult public func imageView(_ image: UIImage! = UIImage.sample()) -> UIImageView {
     let imageView = UIImageView()
     imageView.styled(image)
     return imageView
   }
 
-  public func addImageViewAsFill(_ image: UIImage! = UIImage.sample()) -> UIImageView {
+  @discardableResult public func addImageViewAsFill(_ image: UIImage! = UIImage.sample()) -> UIImageView {
     let view = imageView(image)
     view.styledAsFill()
     addSubview(view)
     return view
   }
 
-  public func addIcon(_ name: FontAwesome) -> UIImageView {
+  @discardableResult public func addIcon(_ name: FontAwesome) -> UIImageView {
     let imageView = UIImageView()
     imageView.image = UIImage.fontAwesomeIcon(name: name, textColor: UIColor.gray, size: CGSize(width: 12, height: 12))
     self.addSubview(imageView)
     return imageView
   }
 
-  public func addIconLabelButton(_ image: UIImage!, title: String!, size: CGFloat = 14, target: AnyObject, action: Selector?) -> IconLabelButton {
+  @discardableResult public func addIconLabelButton(_ image: UIImage!, title: String!, size: CGFloat = 14, target: AnyObject, action: Selector?) -> IconLabelButton {
     let view = IconLabelButton(image: image, text: title, size: size)
     view.whenTapped(target, action: action!)
     addSubview(view)
     return view
   }
 
-  public func iconLabel(_ title: String = Lorem.sentence(), icon: FontAwesome = .gear, options: NSDictionary = NSDictionary()) -> IconLabel {
+  @discardableResult public func iconLabel(_ title: String = Lorem.sentence(), icon: FontAwesome = .gear, options: NSDictionary = NSDictionary()) -> IconLabel {
     let color = options["color"] as? UIColor ?? K.Color.text
     let size = options["fontSize"] as? CGFloat ?? K.Size.Text.small
     let cgSize = CGSize(width: size, height: size)
@@ -457,7 +457,7 @@ extension UIView: UIImagePickerControllerDelegate, UINavigationControllerDelegat
     return iconLabel(title, icon: image, options: options)
   }
 
-  public func iconLabel(_ title: String = Lorem.sentence(), icon: UIImage, options: NSDictionary = NSDictionary()) -> IconLabel {
+  @discardableResult public func iconLabel(_ title: String = Lorem.sentence(), icon: UIImage, options: NSDictionary = NSDictionary()) -> IconLabel {
     let color = options["color"] as? UIColor ?? K.Color.text
     let size = options["fontSize"] as? CGFloat ?? K.Size.Text.small
     let iconLabel = IconLabel(iconImage: icon, text: title)
@@ -466,7 +466,7 @@ extension UIView: UIImagePickerControllerDelegate, UINavigationControllerDelegat
     return iconLabel
   }
 
-  public func addIconLabel(_ title: String = Lorem.sentence(), icon: FontAwesome = .gear, options: NSDictionary = NSDictionary()) -> IconLabel {
+  @discardableResult public func addIconLabel(_ title: String = Lorem.sentence(), icon: FontAwesome = .gear, options: NSDictionary = NSDictionary()) -> IconLabel {
     let color = options["color"] as? UIColor ?? K.Color.text
     let size = options["fontSize"] as? CGFloat ?? K.Size.Text.small
     let cgSize = CGSize(width: size, height: size)
@@ -474,7 +474,7 @@ extension UIView: UIImagePickerControllerDelegate, UINavigationControllerDelegat
     return addIconLabel(title, image: image, options: options)
   }
 
-  public func addIconLabel(_ title: String, image: UIImage, options: NSDictionary = NSDictionary()) -> IconLabel {
+  @discardableResult public func addIconLabel(_ title: String, image: UIImage, options: NSDictionary = NSDictionary()) -> IconLabel {
     let fontSize = options["fontSize"] as? CGFloat ?? K.Size.Text.small
     let color = options["color"] as? UIColor ?? K.Color.text
     let iconLabel = IconLabel(iconImage: image, text: title)
@@ -484,14 +484,14 @@ extension UIView: UIImagePickerControllerDelegate, UINavigationControllerDelegat
     return iconLabel
   }
 
-  public func addLabelWithIcon(_ title: String, icon: FontAwesome, options: NSDictionary = NSDictionary()) -> UIButton {
+  @discardableResult public func addLabelWithIcon(_ title: String, icon: FontAwesome, options: NSDictionary = NSDictionary()) -> UIButton {
     let fontSize = options["fontSize"] as? CGFloat ?? K.Size.Text.normal
     let color = options["color"] as? UIColor ?? K.Color.dark
     let icon = UIImage.fontAwesomeIcon(name: icon, textColor: color, size: CGSize(width: fontSize + 2, height: fontSize + 2))
     return addLabelWithIcon(title, icon: icon, options: options)
   }
 
-  public func addLabelWithIcon(_ title: String, icon: UIImage, options: NSDictionary = NSDictionary()) -> UIButton {
+  @discardableResult public func addLabelWithIcon(_ title: String, icon: UIImage, options: NSDictionary = NSDictionary()) -> UIButton {
     let fontSize = options["fontSize"] as? CGFloat ?? K.Size.Text.normal
     let color = options["color"] as? UIColor ?? K.Color.dark
     let button = UIButton(type: .custom)
@@ -506,28 +506,28 @@ extension UIView: UIImagePickerControllerDelegate, UINavigationControllerDelegat
     return button
   }
 
-  public func groupsView(_ count: Int? = 2, padding: CGFloat? = 0, group: Neon.Group? = .horizontal, margin: UIEdgeInsets? = .zero) -> GroupsView {
+  @discardableResult public func groupsView(_ count: Int? = 2, padding: CGFloat? = 0, group: Neon.Group? = .horizontal, margin: UIEdgeInsets? = .zero) -> GroupsView {
     return GroupsView(count: count, padding: padding, group: group, margin: margin)
   }
 
-  public func addGroupsView(_ count: Int? = 2, padding: CGFloat? = 0, group: Neon.Group? = .horizontal, margin: UIEdgeInsets? = .zero) -> GroupsView {
+  @discardableResult public func addGroupsView(_ count: Int? = 2, padding: CGFloat? = 0, group: Neon.Group? = .horizontal, margin: UIEdgeInsets? = .zero) -> GroupsView {
     let gv = groupsView(count, padding: padding, group: group, margin: margin)
     addSubview(gv)
     return gv
   }
 
-  public func addMultilineLabel(_ text: String? = LoremIpsum.firstName(), options: NSDictionary = NSDictionary()) -> UILabel {
+  @discardableResult public func addMultilineLabel(_ text: String? = LoremIpsum.firstName(), options: NSDictionary = NSDictionary()) -> UILabel {
     let view = addLabel(text, options: options).multilinized()
     return view
   }
 
-  public func addLabel(_ text: String? = LoremIpsum.firstName(), options: NSDictionary = NSDictionary()) -> UILabel {
+  @discardableResult public func addLabel(_ text: String? = LoremIpsum.firstName(), options: NSDictionary = NSDictionary()) -> UILabel {
     let view = label(text, options: options)
     addSubview(view)
     return view
   }
 
-  public func label(_ text: String? = LoremIpsum.firstName(), options: NSDictionary = NSDictionary()) -> UILabel {
+  @discardableResult public func label(_ text: String? = LoremIpsum.firstName(), options: NSDictionary = NSDictionary()) -> UILabel {
     let view = UILabel()
     if options["html"] != nil {
       view.attributedText = text!.toHtml()
@@ -537,30 +537,30 @@ extension UIView: UIImagePickerControllerDelegate, UINavigationControllerDelegat
     return view.styled(options)
   }
 
-  public func addMultiLineLabelWithSize(_ size: CGFloat!, text: String? = Lorem.sentence(), options: NSDictionary = NSDictionary()) -> UILabel {
+  @discardableResult public func addMultiLineLabelWithSize(_ size: CGFloat!, text: String? = Lorem.sentence(), options: NSDictionary = NSDictionary()) -> UILabel {
     let view = addLabelWithSize(size, text: text, options: options)
     return view.multilinized()
   }
 
-  public func addLabelWithSize(_ size: CGFloat!, text: String? = Lorem.sentence(), options: NSDictionary = NSDictionary()) -> UILabel {
+  @discardableResult public func addLabelWithSize(_ size: CGFloat!, text: String? = Lorem.sentence(), options: NSDictionary = NSDictionary()) -> UILabel {
     let label = addLabel(text, options: options)
     label.font = UIFont.systemFont(ofSize: size)
     return label
   }
 
-  public func _coloredWithSuperviews() -> UIView {
+  @discardableResult public func _coloredWithSuperviews() -> UIView {
     _coloredWithSuperviews(0)
     return self
   }
 
-  public func shadowedRadius() -> UIView {
+  @discardableResult public func shadowedRadius() -> UIView {
     layer.shadowColor = superview!.backgroundColor?.darker().darker().cgColor
     layer.shadowRadius = layer.cornerRadius
     layer.shadowOffset = CGSize(width: 3, height: 3)
     return self
   }
 
-  public func shadowed(_ color: UIColor = K.Color.body.darker().darker(), offset: CGSize = CGSize(width: 0, height: 1)) -> UIView {
+  @discardableResult public func shadowed(_ color: UIColor = K.Color.body.darker().darker(), offset: CGSize = CGSize(width: 0, height: 1)) -> UIView {
     layer.shadowColor = color.cgColor
     layer.masksToBounds = false
     layer.shadowOffset = offset
@@ -569,18 +569,18 @@ extension UIView: UIImagePickerControllerDelegate, UINavigationControllerDelegat
     return self
   }
 
-  public func makeCircleLike() -> UIView {
+  @discardableResult public func makeCircleLike() -> UIView {
     let radius = width / 2
     return radiused(radius)
   }
 
-  public func radiused(_ radius: CGFloat = 5) -> UIView {
+  @discardableResult public func radiused(_ radius: CGFloat = 5) -> UIView {
     layer.cornerRadius = radius
     layer.masksToBounds = true
     return self
   }
 
-  public func _coloredWithSuperviews(_ index: Int) -> UIView {
+  @discardableResult public func _coloredWithSuperviews(_ index: Int) -> UIView {
     if _isSimulator() && index < K.Color.palettes.count {
       backgroundColor = K.Color.palettes[index].withAlphaComponent(0.5)
       if let s = superview {
@@ -590,7 +590,7 @@ extension UIView: UIImagePickerControllerDelegate, UINavigationControllerDelegat
     return self
   }
 
-  public func _colored(_ color: UIColor) -> UIView {
+  @discardableResult public func _colored(_ color: UIColor) -> UIView {
     if _isSimulator() {
       backgroundColor = color
       _bordered()
@@ -598,38 +598,38 @@ extension UIView: UIImagePickerControllerDelegate, UINavigationControllerDelegat
     return self
   }
 
-  public func _colored() -> UIView {
+  @discardableResult public func _colored() -> UIView {
     _colored(K.Color.palettes.first!)
     return self
   }
 
-  public func _coloredWithIndex(_ index: Int) -> UIView {
+  @discardableResult public func _coloredWithIndex(_ index: Int) -> UIView {
     let color = K.Color.palettes[index]
     _colored(color)
     return self
   }
 
-  public func bordered(_ width: CGFloat = 1.0, color: CGColor = K.Color.border.cgColor) -> UIView {
+  @discardableResult public func bordered(_ width: CGFloat = 1.0, color: CGColor = K.Color.border.cgColor) -> UIView {
     layer.borderWidth = width
     layer.borderColor = color
     return self
   }
 
-  public func _bordered(_ width: CGFloat = 1.0, color: CGColor = UIColor.black.cgColor) -> UIView {
+  @discardableResult public func _bordered(_ width: CGFloat = 1.0, color: CGColor = UIColor.black.cgColor) -> UIView {
     if _isSimulator() {
       bordered(width, color: color)
     }
     return self
   }
 
-  public func whenTapped(_ target: AnyObject, action: Selector) -> UIView {
+  @discardableResult public func whenTapped(_ target: AnyObject, action: Selector) -> UIView {
     let tap = getSingleTap(target, action: action)
     enablTapped(tap)
     //    tap.cancelsTouchesInView = true
     return self
   }
 
-  public func whenTappedWithSubviews(_ target: AnyObject, action: Selector) -> UIView {
+  @discardableResult public func whenTappedWithSubviews(_ target: AnyObject, action: Selector) -> UIView {
     whenTapped(target, action: action)
     subviews.forEach { (view) -> () in
       view.whenTapped(target, action: action)
@@ -637,25 +637,25 @@ extension UIView: UIImagePickerControllerDelegate, UINavigationControllerDelegat
     return self
   }
 
-  private func getSingleTap(_ target: AnyObject, action: Selector) -> UIGestureRecognizer {
+  @discardableResult private func getSingleTap(_ target: AnyObject, action: Selector) -> UIGestureRecognizer {
     return getTap(1, target: target, action: action)
   }
 
-  private func getTap(_ number: Int, target: AnyObject, action: Selector) -> UIGestureRecognizer {
+  @discardableResult private func getTap(_ number: Int, target: AnyObject, action: Selector) -> UIGestureRecognizer {
     let singleTap = UITapGestureRecognizer(target: target, action: action)
     singleTap.numberOfTapsRequired = 1
     singleTap.numberOfTouchesRequired = number
     return singleTap
   }
 
-  private func enablTapped(_ tap: UIGestureRecognizer) -> UIView {
+  @discardableResult private func enablTapped(_ tap: UIGestureRecognizer) -> UIView {
     isUserInteractionEnabled = true
     addGestureRecognizer(tap)
     return self
   }
 
 
-  public func opacity(_ value: Float = 0.75) -> UIView {
+  @discardableResult public func opacity(_ value: Float = 0.75) -> UIView {
     layer.opacity = value
     return self
   }
@@ -664,7 +664,7 @@ extension UIView: UIImagePickerControllerDelegate, UINavigationControllerDelegat
 //    return self.convertPoint(bounds.origin, toView: nil)
 //  }
 
-  public func _guideLined() -> UIView {
+  @discardableResult public func _guideLined() -> UIView {
     if _isSimulator() {
       if let v = superview {
         let v1 = v.addLine(K.Color.Text.important)
@@ -692,12 +692,12 @@ extension UIView: UIImagePickerControllerDelegate, UINavigationControllerDelegat
     }
   }
 
-  public func leftBordered(_ color: UIColor = K.Line.Color.horizontal, width: CGFloat = 1.0, padding: CGFloat = 0) -> UIView { return addBorder(.left, color: color, width: width, padding: padding) }
-  public func rightBordered(_ color: UIColor = K.Line.Color.horizontal, width: CGFloat = 1.0, padding: CGFloat = 0) -> UIView { return addBorder(.right, color: color, width: width, padding: padding) }
-  public func bottomBordered(_ color: UIColor = K.Line.Color.horizontal, width: CGFloat = 1.0, padding: CGFloat = 0) -> UIView { return addBorder(.bottom, color: color, width: width, padding: padding) }
-  public func topBordered(_ color: UIColor = K.Line.Color.horizontal, width: CGFloat = 1.0, padding: CGFloat = 0) -> UIView { return addBorder(.top, color: color, width: width, padding: padding) }
+  @discardableResult public func leftBordered(_ color: UIColor = K.Line.Color.horizontal, width: CGFloat = 1.0, padding: CGFloat = 0) -> UIView { return addBorder(.left, color: color, width: width, padding: padding) }
+  @discardableResult public func rightBordered(_ color: UIColor = K.Line.Color.horizontal, width: CGFloat = 1.0, padding: CGFloat = 0) -> UIView { return addBorder(.right, color: color, width: width, padding: padding) }
+  @discardableResult public func bottomBordered(_ color: UIColor = K.Line.Color.horizontal, width: CGFloat = 1.0, padding: CGFloat = 0) -> UIView { return addBorder(.bottom, color: color, width: width, padding: padding) }
+  @discardableResult public func topBordered(_ color: UIColor = K.Line.Color.horizontal, width: CGFloat = 1.0, padding: CGFloat = 0) -> UIView { return addBorder(.top, color: color, width: width, padding: padding) }
 
-  public func openImagePicker(_ sourceType: UIImagePickerControllerSourceType = .camera) -> UIImagePickerController {
+  @discardableResult public func openImagePicker(_ sourceType: UIImagePickerControllerSourceType = .camera) -> UIImagePickerController {
     var type = sourceType
     if _isSimulator() { type = .photoLibrary }
     let picker = UIImagePickerController()
@@ -717,7 +717,7 @@ public enum viewBorder: String {
 
 extension UIView {
 
-  public func addBorder(_ vBorder: viewBorder, color: UIColor = K.Line.Color.horizontal, width: CGFloat = 1.0, padding: CGFloat = 0) -> UIView {
+  @discardableResult public func addBorder(_ vBorder: viewBorder, color: UIColor = K.Line.Color.horizontal, width: CGFloat = 1.0, padding: CGFloat = 0) -> UIView {
     let border = CALayer()
     border.backgroundColor = color.cgColor
     border.name = vBorder.rawValue

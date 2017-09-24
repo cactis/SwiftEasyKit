@@ -284,7 +284,7 @@ public func alert(_ delegate: AnyObject, title: String, message: String, onCompl
   let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
   alert.addAction(UIAlertAction(title: "取消", style: .cancel, handler: cancelHandler))
   alert.addAction(UIAlertAction(title: "確定", style: .default, handler: okHandler))
-  if delegate.isKind(of: UIViewController) {
+  if delegate.isKind(of: UIViewController.self) {
     delegate.present(alert, animated: true, completion: onCompletion)
   } else {
     delegate.parentViewController()?.present(alert, animated: true, completion: onCompletion)

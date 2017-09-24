@@ -16,7 +16,7 @@ class SWKSelectionViewController: TableViewController {
   var selectedData: SelectOption? { didSet { tableView.reloadData() } }
   let cellHeight: CGFloat = 40
 
-  var didSelect: (_ index: NSIndexPath, _ selected: SelectOption?) -> () = {_ in }
+  var didSelect: (_ index: NSIndexPath, _ selected: SelectOption?) -> () = {_,_  in }
 
   var titleText: String?
   var levelLimit: Int!

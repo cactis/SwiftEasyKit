@@ -18,11 +18,11 @@ open class DefaultView: UIView {
     bindData() // 綁定資料
   }
 
-  open func defaultBottomPadding() -> CGFloat {
+  @discardableResult open func defaultBottomPadding() -> CGFloat {
     return K.Size.Padding.large
   }
 
-  open func autoHeight(_ padding: CGFloat? = nil) -> CGFloat {
+  @discardableResult open func autoHeight(_ padding: CGFloat? = nil) -> CGFloat {
 //    layoutIfNeeded()
     let _padding = padding ?? defaultBottomPadding()
     if (bottomView != nil) {
@@ -52,7 +52,7 @@ open class DefaultView: UIView {
 
   }
 
-  override open func layout(_ views: [UIView]) -> UIView {
+  @discardableResult override open func layout(_ views: [UIView]) -> UIView {
     views.forEach { (view) -> () in
       addSubview(view)
       bottomView = view
@@ -62,5 +62,3 @@ open class DefaultView: UIView {
 
   required public init?(coder aDecoder: NSCoder) { fatalError("init(coder:) has not been implemented") }
 }
-
-
