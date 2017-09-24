@@ -159,7 +159,7 @@ s.dependency 'Kingfisher', '3.10.4'#, '2.4.1' 3.10.4
 # s.dependency 'ExSwift'
 s.dependency 'KeychainSwift'#, '~> 3.0'
 s.dependency 'Stripe'
-s.dependency 'Bond'#, '4.3.1'
+s.dependency 'Bond', '6.3.0'#, '4.3.1'
 # s.dependency 'AlamofireObjectMapper', '~> 3.0'
 
 end
