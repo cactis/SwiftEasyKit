@@ -153,8 +153,12 @@ extension UILabel {
     return self
   }
 
-  @discardableResult public func textWidth() -> CGFloat {
+  @objc @discardableResult public func textWidth() -> CGFloat {
     return self.intrinsicContentSize.width
+  }
+
+  @objc @discardableResult public func textHeight() -> CGFloat {
+    return font.pointSize
   }
 
   @discardableResult public func centered() -> UILabel {
@@ -178,10 +182,6 @@ extension UILabel {
     let attributes = [NSAttributedStringKey.paragraphStyle: style]
     self.attributedText = NSAttributedString(string: text, attributes: attributes)
     return self
-  }
-
-  @discardableResult public func textHeight() -> CGFloat {
-    return font.pointSize
   }
 
   @discardableResult public func getHeightBySizeThatFitsWithWidth(_ width: CGFloat) -> CGFloat {

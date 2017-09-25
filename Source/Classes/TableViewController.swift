@@ -24,7 +24,7 @@ open class TableViewController: DefaultViewController, UITableViewDataSource, UI
     return 30
   }
 
-  open func cellTapped(_ sender: UITapGestureRecognizer) {
+  @objc open func cellTapped(_ sender: UITapGestureRecognizer) {
 
   }
 

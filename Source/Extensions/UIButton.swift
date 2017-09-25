@@ -24,7 +24,7 @@ extension UIButton {
     return self
   }
 
-  public convenience init(text: String) {
+  @objc public convenience init(text: String) {
     self.init(frame: .zero)
     self.setTitle(text, for: .normal)
   }
@@ -152,11 +152,11 @@ extension UIButton {
     return titleLabel!.intrinsicContentSize.width
   }
 
-  public func tapped() {
+  @objc public func tapped() {
     sendActions(for: .touchUpInside)
   }
 
-  @discardableResult public func whenTapped(_ handler: @escaping () -> Void) -> UIButton {
+  @objc @discardableResult public func whenTapped(_ handler: @escaping () -> Void) -> UIButton {
     handleControlEvent(event: .touchUpInside, handler: delayedEvent(handler))
     return self
   }

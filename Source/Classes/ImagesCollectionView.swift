@@ -54,7 +54,7 @@ open class ImagesCollectionView: CollectionView {
     currentIndex = index
   }
 
-  public func indexTapped(_ index: Int) {
+  @objc public func indexTapped(_ index: Int) {
     let photo = collectionData[index]
     if photo.image != nil || photo.url != nil {
       currentIndex = index
@@ -110,10 +110,10 @@ open class ImagesCollectionView: CollectionView {
     return cell
   }
 
-  public func cellTapped(_ sender: UIGestureRecognizer) { indexTapped((sender.view?.tag)!) }
+  @objc public func cellTapped(_ sender: UIGestureRecognizer) { indexTapped((sender.view?.tag)!) }
 
   ///////////////////////////////////////////////////////////////////////////////
-  public func cellSwippedUp(_ sender: UISwipeGestureRecognizer) {
+  @objc public func cellSwippedUp(_ sender: UISwipeGestureRecognizer) {
     let index = sender.view?.tag
     didSwippedUpCell(index!)
   }

@@ -105,7 +105,7 @@ open class ChoiceTable: DefaultView, UITableViewDelegate, UITableViewDataSource 
     return cell
   }
 
-  public func cellTapped(_ sender: UIGestureRecognizer) {
+  @objc public func cellTapped(_ sender: UIGestureRecognizer) {
 //    didSelect(sender.indexPathInTableView(tableView))
   }
 

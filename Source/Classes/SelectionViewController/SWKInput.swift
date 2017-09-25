@@ -28,9 +28,9 @@ open class SWKDateInput: SWKInput {
     value.addTarget(self, action: #selector(valueTapped), for: .editingDidBegin)
   }
 
-  func valueTapped() { datePicker.date = (value.text!.toDate("yyyy/MM/dd") ?? NSDate()) as Date }
+  @objc func valueTapped() { datePicker.date = (value.text!.toDate("yyyy/MM/dd") ?? NSDate()) as Date }
 
-  func doneTapped() {
+  @objc func doneTapped() {
     value.endEditing(true)
 //    value.texted(datePicker.date.toString("yyyy/MM/dd"))
   }

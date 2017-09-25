@@ -65,7 +65,7 @@ open class TextField: UITextField {
 
 
 //open class TextView: UITextView {
-//  public func texted(value: String) -> TextView {
+//  @discardableResult public func texted(value: String) -> TextView {
 //    text = value
 //    return self
 //  }
@@ -88,7 +88,7 @@ open class TextView: DefaultView, UITextViewDelegate {
     clearButton.imaged(getIcon(.remove)).isHidden = true
   }
 
-  public func texted(_ value: String) -> TextView {
+  @discardableResult public func texted(_ value: String) -> TextView {
     field.text = value
     return self
   }
@@ -152,7 +152,7 @@ extension UITextView {
   }
 
 //
-//  public func texted(text: String) -> UITextView {
+// @discardableResult public func texted(text: String) -> UITextView {
 //    return self
 //  }
 

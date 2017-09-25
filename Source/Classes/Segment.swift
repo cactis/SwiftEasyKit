@@ -45,11 +45,11 @@ open class SegmentWithViews: DefaultView, UIScrollViewDelegate {
     }
   }
 
-  public func tappedAtIndex(_ index: Int) {
+  @objc public func tappedAtIndex(_ index: Int) {
     segment.tappedAtIndex(index)
   }
 
-  public func segmentTapped() {
+  @objc public func segmentTapped() {
 //    self.delayedJobCancelable(0.2, closure: {
       let index = self.segment.index.cgFloat
       self.scrollView.setContentOffset(CGPoint(x: index * self.scrollView.width, y: 0), animated: true)
@@ -232,7 +232,7 @@ open class Segment: DefaultView {
     didSet { indicatorConstraints() }
   }
 
-  public func tappedAtIndex(_ index: Int) {
+  @objc public func tappedAtIndex(_ index: Int) {
     self.index = index
     segmentTapped()
     changed()
@@ -304,7 +304,7 @@ open class Segment: DefaultView {
     }
   }
 
-  public func tabTapped(_ sender: AnyObject) {
+  @objc public func tabTapped(_ sender: AnyObject) {
     index = group.groups.index(of: sender.view!!)!
     segmentTapped()
     changed()

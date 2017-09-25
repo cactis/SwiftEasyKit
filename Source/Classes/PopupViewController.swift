@@ -21,7 +21,7 @@ open class PopupViewController: UIViewController {
     }
   }
 
-  func closeTapped() {
+  @objc func closeTapped() {
     self.dismiss(animated: true) { () -> Void in
     }
   }

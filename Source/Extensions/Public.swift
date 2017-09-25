@@ -287,7 +287,7 @@ public func alert(_ delegate: AnyObject, title: String, message: String, onCompl
   if delegate.isKind(of: UIViewController.self) {
     delegate.present(alert, animated: true, completion: onCompletion)
   } else {
-    delegate.parentViewController()?.present(alert, animated: true, completion: onCompletion)
+    (delegate as? UIView)?.parentViewController()?.present(alert, animated: true, completion: onCompletion)
   }
 }
 

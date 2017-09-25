@@ -73,13 +73,13 @@ open class DefaultViewController: UIViewController, UITextFieldDelegate, UITextV
       setRightBarButtonItem(getIcon(.save, options: ["size": K.BarButtonItem.size, "color": K.Color.barButtonItem]), action: #selector(saveTapped))
     }
   }
-  open func saveTapped() { _logForAnyMode()}
+  @objc open func saveTapped() { _logForAnyMode()}
   open func enableCloseBarButtonItem() {
     setRightBarButtonItem(getIcon(.close, options: ["size": K.BarButtonItem.size, "color": K.Color.barButtonItem]), action: #selector(closeTapped))
   }
   open func enableCloseBarButtonItemAtLeft() { setLeftBarButtonItem(getIcon(.close, options: ["size": K.BarButtonItem.size, "color": K.Color.barButtonItem]), action: #selector(closeTapped)) }
-  open func closeTapped() { dismiss(animated: true) { () -> Void in }}
-  open func viewDidTapped() { view.endEditing(true) }
+  @objc open func closeTapped() { dismiss(animated: true) { () -> Void in }}
+  @objc open func viewDidTapped() { view.endEditing(true) }
 
   open func textFieldShouldReturn(textField: UITextField) -> Bool {
     if let field = textField.nextField {
@@ -126,7 +126,7 @@ open class DefaultViewController: UIViewController, UITextFieldDelegate, UITextV
     unregisterKeyboardNotifications()
   }
 
-  open func keyboardDidShow(_ notification: NSNotification) {
+  @objc open func keyboardDidShow(_ notification: NSNotification) {
     let userInfo: NSDictionary = notification.userInfo! as NSDictionary
     keyboardSize = (userInfo.object(forKey: UIKeyboardFrameBeginUserInfoKey)! as AnyObject).cgRectValue.size
     //    _logForUIMode(keyboardSize.height, title: "keyboardSize.height")
@@ -138,7 +138,7 @@ open class DefaultViewController: UIViewController, UITextFieldDelegate, UITextV
     //    contentView.scrollIndicatorInsets = contentInsets
   }
 
-  open func keyboardWillShow(_ notification: NSNotification) {
+  @objc open func keyboardWillShow(_ notification: NSNotification) {
     //    _logForUIMode()
     let userInfo: NSDictionary = notification.userInfo! as NSDictionary
     keyboardSize = (userInfo.object(forKey: UIKeyboardFrameBeginUserInfoKey)! as AnyObject).cgRectValue.size
@@ -146,7 +146,7 @@ open class DefaultViewController: UIViewController, UITextFieldDelegate, UITextV
   }
 
 
-  open func keyboardWillHide(_ notification: NSNotification) {
+  @objc open func keyboardWillHide(_ notification: NSNotification) {
     //    _logForUIMode()
     keyboardSize = .zero
     //    contentView.contentInset = .zero

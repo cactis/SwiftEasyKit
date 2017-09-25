@@ -48,7 +48,7 @@ open class PageScroll: DefaultView, UIScrollViewDelegate, UIViewControllerTransi
     paginator.addTarget(self, action: #selector(paginatorChanged(_:)), for: .valueChanged)
   }
 
-  func viewTapped(_ sender: UITapGestureRecognizer) {
+  @objc func viewTapped(_ sender: UITapGestureRecognizer) {
     let index = views.index(of: sender.view!)
     let slider = PhotoSlider.ViewController(images: views.map{($0 as? UIImageView)!.image!})
     slider.currentPage = index!
@@ -67,7 +67,7 @@ open class PageScroll: DefaultView, UIScrollViewDelegate, UIViewControllerTransi
     didScrollBeginDragging(index)
   }
 
-  func paginatorChanged(_ sender: UIPageControl) {
+  @objc func paginatorChanged(_ sender: UIPageControl) {
     scrollView.setContentOffset(CGPoint(x: CGFloat(paginator.currentPage) * width, y: 0), animated: true)
   }
 

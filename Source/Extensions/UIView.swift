@@ -120,7 +120,7 @@ extension UIView: UIImagePickerControllerDelegate, UINavigationControllerDelegat
     return collectionView
   }
 
-  @discardableResult public func backgroundColored(_ color: UIColor) -> UIView {
+  @objc @discardableResult public func backgroundColored(_ color: UIColor) -> UIView {
     backgroundColor = color
     return self
   }
@@ -178,7 +178,7 @@ extension UIView: UIImagePickerControllerDelegate, UINavigationControllerDelegat
 //    }
   }
 
-  @discardableResult public func layout(_ views: [UIView]) -> UIView {
+  @objc @discardableResult public func layout(_ views: [UIView]) -> UIView {
     views.forEach { (view) -> () in
       self.addSubview(view)
     }
@@ -622,14 +622,14 @@ extension UIView: UIImagePickerControllerDelegate, UINavigationControllerDelegat
     return self
   }
 
-  @discardableResult public func whenTapped(_ target: AnyObject, action: Selector) -> UIView {
+  @objc @discardableResult public func whenTapped(_ target: AnyObject, action: Selector) -> UIView {
     let tap = getSingleTap(target, action: action)
     enablTapped(tap)
     //    tap.cancelsTouchesInView = true
     return self
   }
 
-  @discardableResult public func whenTappedWithSubviews(_ target: AnyObject, action: Selector) -> UIView {
+  @objc @discardableResult public func whenTappedWithSubviews(_ target: AnyObject, action: Selector) -> UIView {
     whenTapped(target, action: action)
     subviews.forEach { (view) -> () in
       view.whenTapped(target, action: action)
@@ -648,7 +648,7 @@ extension UIView: UIImagePickerControllerDelegate, UINavigationControllerDelegat
     return singleTap
   }
 
-  @discardableResult private func enablTapped(_ tap: UIGestureRecognizer) -> UIView {
+  @objc @discardableResult private func enablTapped(_ tap: UIGestureRecognizer) -> UIView {
     isUserInteractionEnabled = true
     addGestureRecognizer(tap)
     return self

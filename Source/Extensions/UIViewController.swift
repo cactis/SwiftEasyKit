@@ -315,7 +315,7 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
     return swipeRight
   }
 
-  public func respondToSwipeGesture(_ gesture: UIGestureRecognizer) {
+  @objc public func respondToSwipeGesture(_ gesture: UIGestureRecognizer) {
     if let swipeGesture = gesture as? UISwipeGestureRecognizer {
       switch swipeGesture.direction {
       case UISwipeGestureRecognizerDirection.right:

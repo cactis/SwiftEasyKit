@@ -28,13 +28,13 @@ open class PopupView: DefaultView {
     self.didDismiss = didDismiss
   }
 
-  open func closeBtnTapped(_ sender: AnyObject?) {
+  @objc open func closeBtnTapped(_ sender: AnyObject?) {
     parentViewController()!.dismiss(animated: true) { () -> Void in
       self.didDismiss(self)
     }
   }
 
-  open func closeBtnTapped(didDismiss didDismiss: @escaping () -> () = {}) {
+  @objc open func closeBtnTapped(didDismiss: @escaping () -> () = {}) {
     parentViewController()!.dismiss(animated: true) {
       didDismiss()
     }
@@ -51,7 +51,7 @@ open class PopupView: DefaultView {
     contentView.whenTapped(self, action: #selector(contentViewTapped))
   }
 
-  open func contentViewTapped() {
+  @objc open func contentViewTapped() {
     contentView.endEditing(true)
   }
 

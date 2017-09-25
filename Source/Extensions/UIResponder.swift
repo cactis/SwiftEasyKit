@@ -22,7 +22,7 @@ extension UIResponder {
     }
   }
 
-  open func bootFrom(_ vc: UIViewController) -> UIWindow? {
+  @objc open func bootFrom(_ vc: UIViewController) -> UIWindow? {
     let window: UIWindow?  = UIWindow(frame: UIScreen.main.bounds)
     window!.backgroundColor = K.Color.body
     window!.rootViewController = vc
@@ -71,13 +71,13 @@ extension UIResponder {
   open func applicationWillResignActive(_ application: UIApplication) {
   }
 
-  open func applicationDidEnterBackground(_ application: UIApplication) {
+  @objc open func applicationDidEnterBackground(_ application: UIApplication) {
   }
 
-  open func applicationWillEnterForeground(_ application: UIApplication) {
+  @objc open func applicationWillEnterForeground(_ application: UIApplication) {
   }
 
-  open func applicationDidBecomeActive(_ application: UIApplication) {
+  @objc open func applicationDidBecomeActive(_ application: UIApplication) {
   }
 
   open func applicationWillTerminate(_ application: UIApplication) {

@@ -677,7 +677,7 @@ extension NSMutableAttributedString {
 
 extension UITextField {
 
-  public func texted(_ value: String?) -> UITextField {
+  @discardableResult public func texted(_ value: String?) -> UITextField {
     if let _ = value { text = value }
     return self
   }
@@ -722,7 +722,7 @@ extension UITableView {
     return self
   }
 
-  open func indexOfTapped(_ sender: UITapGestureRecognizer) -> NSIndexPath {
+  @objc open func indexOfTapped(_ sender: UITapGestureRecognizer) -> NSIndexPath {
     return indexPathForRow(at: sender.view!.convert(.zero, to: self))! as NSIndexPath
   }
 

@@ -62,7 +62,7 @@ open class SWKAvatar: DefaultView, RSKImageCropViewControllerDelegate {
     }
   }
 
-  func cameraTapped() {
+  @objc func cameraTapped() {
     openImagePicker()
   }
 

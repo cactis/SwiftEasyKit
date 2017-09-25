@@ -28,7 +28,7 @@ extension UIButton {
    self.addTarget(self, action: #selector(UIButton.callActionBlock(_:)), for: event)
  }
 
- func callActionBlock(_ sender: AnyObject) {
+  @objc func callActionBlock(_ sender: AnyObject) {
    let actionBlockAnyObject = objc_getAssociatedObject(self, &AssociatedKeys.SNGLSActionHandlerTapKey) as? ClosureWrapper
    actionBlockAnyObject?.closure?()
  }

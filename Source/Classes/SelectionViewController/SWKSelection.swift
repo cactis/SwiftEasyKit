@@ -54,7 +54,7 @@ open class SWKSelection: SWKInput {
     whenTapped(self, action: #selector(selfTapped))
   }
 
-  public func selfTapped() {
+  @objc public func selfTapped() {
     vc = SWKSelectionViewController(title: self.label.text!, levelLimit: levelLimit)
     vc.didSelect = { index, selected in
       self.selectedData = selected
