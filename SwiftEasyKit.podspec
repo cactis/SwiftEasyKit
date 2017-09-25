@@ -154,7 +154,7 @@ s.dependency 'Fakery'#, '1.2.0'
 # s.dependency 'FontAwesomeKit'
 s.dependency 'Alamofire'#, '3.4.1'
 s.dependency 'KDCircularProgress'#, '1.4.0'
-s.dependency 'Kingfisher', '3.10.4'#, '2.4.1' 3.10.4
+s.dependency 'Kingfisher'#, '3.10.4'#, '2.4.1' 3.10.4
 # s.dependency 'EZSwiftExtensions'
 # s.dependency 'ExSwift'
 s.dependency 'KeychainSwift'#, '~> 3.0'
