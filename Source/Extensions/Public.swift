@@ -100,7 +100,6 @@ public func prompt(_ msg: String?, style: PromptType = PromptType(), onTapped: @
   }
 }
 
-
 public func wizImage(_ name: String) -> UIImage {
   var img = UIImage(named: name)
   img = img?.withRenderingMode(.alwaysOriginal)

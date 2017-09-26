@@ -170,7 +170,7 @@ extension UIView: UIImagePickerControllerDelegate, UINavigationControllerDelegat
     return tableView
   }
 
-  @discardableResult public func pushViewController(_ vc: UIViewController, checked: Bool = true, delayed: Double = 0, onComplete: () -> () = {}, onDismissViewController: @escaping () -> () = {}) {
+  public func pushViewController(_ vc: UIViewController, checked: Bool = true, delayed: Double = 0, onComplete: () -> () = {}, onDismissViewController: @escaping () -> () = {}) {
 //    if let _ = parentViewController() {
 //      if !(parentViewController()?.navigationController?.topViewController?.isKindOfClass(vc.self.dynamicType))! {
         parentViewController()?.pushViewController(vc, checked: checked, delayed: delayed, onComplete: onComplete, onDismissViewController: onDismissViewController)
@@ -185,7 +185,7 @@ extension UIView: UIImagePickerControllerDelegate, UINavigationControllerDelegat
     return self
   }
 
-  @discardableResult public func setFieldsGroup(_ fields: [UITextField], delegate: AnyObject) -> Void {
+ public func setFieldsGroup(_ fields: [UITextField], delegate: AnyObject) -> Void {
     let delegateObject = delegate as? UITextFieldDelegate
     for index in 0...fields.count - 2 {
       fields[index].delegate = delegateObject
@@ -194,7 +194,7 @@ extension UIView: UIImagePickerControllerDelegate, UINavigationControllerDelegat
     fields.last?.delegate = delegateObject
   }
 
-  @discardableResult public func setFieldsGroup(_ fields: [UITextField]) -> Void {
+ public func setFieldsGroup(_ fields: [UITextField]) -> Void {
     let delegate = parentViewController() as! UITextFieldDelegate
     setFieldsGroup(fields, delegate: delegate)
   }

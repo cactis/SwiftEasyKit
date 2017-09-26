@@ -22,7 +22,7 @@ extension UIScrollView {
     return self
   }
 
-  public func scrollToTop(_ target: UIView, duration: TimeInterval = 0.2, completion: @escaping () -> () = {}) -> UIScrollView {
+  @discardableResult public func scrollToTop(_ target: UIView, duration: TimeInterval = 0.2, completion: @escaping () -> () = {}) -> UIScrollView {
     //    setContentOffset(CGPoint(x: 0, target.y), animated: true)
     UIView.animate(withDuration: duration, animations: {
       self.setContentOffset(CGPoint(x: 0, y: target.y), animated: false)

@@ -741,7 +741,7 @@ extension UITableView {
     }
   }
 
-  open func styled() -> UITableView {
+  @discardableResult open func styled() -> UITableView {
     estimatedRowHeight = 20.0
     rowHeight = UITableViewAutomaticDimension
     separatorStyle = .none
@@ -750,7 +750,7 @@ extension UITableView {
 }
 
 extension UITableViewRowAction {
-  open func setImage(_ icon: UIImage, size: CGSize, rect: CGRect, bgColor: UIColor) -> UITableViewRowAction {
+  @discardableResult open func setImage(_ icon: UIImage, size: CGSize, rect: CGRect, bgColor: UIColor) -> UITableViewRowAction {
     UIGraphicsBeginImageContext(size)
     bgColor.set()
     UIRectFill(CGRect(x: 0, y: 0, width: size.width, height: size.height))

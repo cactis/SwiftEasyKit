@@ -192,7 +192,7 @@ open class IconLabel: DefaultView {
     return label.textHeight()
   }
 
-  public func texted(_ text: String?) -> IconLabel {
+  @discardableResult public func texted(_ text: String?) -> IconLabel {
     guard let _ = text else { return self }
     label.texted(text!).colored(labelColor)
     return self

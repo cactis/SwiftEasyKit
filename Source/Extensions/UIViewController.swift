@@ -49,14 +49,14 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
     }
   }
 
-  @discardableResult open func goBackToRootViewController(_ delayed: Double = 0, onComplete: () -> () = {}) {
+  open func goBackToRootViewController(_ delayed: Double = 0, onComplete: () -> () = {}) {
     delayedJob(delayed) {
       self.navigationController?.popToRootViewController(animated: true)
       onComplete()
     }
   }
 
-  @discardableResult public func goBackViewController(_ delayed: Double = 0, onComplete: () -> () = {}) {
+  public func goBackViewController(_ delayed: Double = 0, onComplete: () -> () = {}) {
     delayedJob(delayed) {
       self.navigationController?.popViewController(animated: true)
       onComplete()
@@ -82,7 +82,7 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
     return UINavigationController(rootViewController: self)
   }
 
-  @discardableResult public func flipViewController(_ vc: UIViewController, run: @escaping () -> () = {}) {
+  public func flipViewController(_ vc: UIViewController, run: @escaping () -> () = {}) {
     openViewController(vc, style: .flipHorizontal, run: run)
   }
 
@@ -90,7 +90,7 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
     openControllerWithDelegate(self, vc: vc, style: style, run: run)
   }
 
-  @discardableResult public func pushViewController(_ vc: UIViewController, checked: Bool = true, delayed: Double = 0, onComplete: () -> () = {}, onDismissViewController: @escaping () -> () = {}, didDismissViewController: @escaping (_ action: DismissType) -> () = {_ in }) -> Void {
+  public func pushViewController(_ vc: UIViewController, checked: Bool = true, delayed: Double = 0, onComplete: () -> () = {}, onDismissViewController: @escaping () -> () = {}, didDismissViewController: @escaping (_ action: DismissType) -> () = {_ in }) -> Void {
     if let vc = vc as? DefaultViewController {
       vc.onDismissViewController = onDismissViewController
       vc.didDismissViewController = didDismissViewController
@@ -101,14 +101,14 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
 //    }
   }
 
-  @discardableResult public func popToViewController(_ vc: UIViewController, delayed: Double = 0, onComplete: () -> () = {}) {
+  public func popToViewController(_ vc: UIViewController, delayed: Double = 0, onComplete: () -> () = {}) {
     delayedJob(delayed){
       self.navigationController?.popToViewController(vc, animated: true)
       onComplete()
     }
   }
 
-  @discardableResult public func setFieldsGroup(_ fields: [UITextField]) -> Void {
+  public func setFieldsGroup(_ fields: [UITextField]) -> Void {
     let delegate = self as! UITextFieldDelegate
     if fields.count > 1 {
       for index in 0...fields.count - 2 {
@@ -119,7 +119,7 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
     fields.last?.delegate = delegate
   }
 
-  @discardableResult public func setViewsGroup(_ fields: [UITextView]) -> Void {
+  public func setViewsGroup(_ fields: [UITextView]) -> Void {
     let delegate = self as! UITextViewDelegate
     if fields.count > 1 {
       for index in 0...fields.count - 2 {
@@ -347,7 +347,7 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
         let devices = AVCaptureDevice.devices(for: AVMediaType.video)
         devices.forEach({ (item) in
           if (item as AnyObject).position == position {
-            device = item as! AVCaptureDevice
+            device = item
           }
         })
 
@@ -395,14 +395,14 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
 
 import AVFoundation
 extension AVCaptureStillImageOutput {
-  @discardableResult public func getImage(onComplete: @escaping (_ image: UIImage) -> ()) {
+  public func getImage(onComplete: @escaping (_ image: UIImage) -> ()) {
     let conneciton = connection(with: AVMediaType.video)
     captureStillImageAsynchronously(from: conneciton!, completionHandler: { (buffer, error) in
       let data = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(buffer!)
       let provider = CGDataProvider(data: data! as CFData)
-//      let cgImageRef = CGImage(jpegDataProviderSource: provider!, decode: nil, shouldInterpolate: true,  intent: CGColorRenderingIntent.kCGRenderingIntentDefault)
-//      let image = UIImage(CGImage: cgImageRef!, scale: 1.0, orientation: .right)
-//      onComplete(image: image)
+      let cgImageRef = CGImage(jpegDataProviderSource: provider!, decode: nil, shouldInterpolate: true,  intent: CGColorRenderingIntent.defaultIntent)
+      let image = UIImage(cgImage: cgImageRef!, scale: 1.0, orientation: .right)
+      onComplete(image)
     })
   }
 }
