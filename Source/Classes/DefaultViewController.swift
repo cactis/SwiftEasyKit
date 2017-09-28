@@ -74,14 +74,18 @@ open class DefaultViewController: UIViewController, UITextFieldDelegate, UITextV
     }
   }
   @objc open func saveTapped() { _logForAnyMode()}
+
   open func enableCloseBarButtonItem() {
     setRightBarButtonItem(getIcon(.close, options: ["size": K.BarButtonItem.size, "color": K.Color.barButtonItem]), action: #selector(closeTapped))
   }
+
   open func enableCloseBarButtonItemAtLeft() { setLeftBarButtonItem(getIcon(.close, options: ["size": K.BarButtonItem.size, "color": K.Color.barButtonItem]), action: #selector(closeTapped)) }
+
   @objc open func closeTapped() { dismiss(animated: true) { () -> Void in }}
+
   @objc open func viewDidTapped() { view.endEditing(true) }
 
-  open func textFieldShouldReturn(textField: UITextField) -> Bool {
+  open func textFieldShouldReturn(_ textField: UITextField) -> Bool {
     if let field = textField.nextField {
       field.becomeFirstResponder()
     } else {
@@ -90,7 +94,7 @@ open class DefaultViewController: UIViewController, UITextFieldDelegate, UITextV
     return true
   }
 
-  open func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
+  open func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
     if !textViewShouldReturn && text == "\n" {
       if let field = textView.nextField {
         field.becomeFirstResponder()

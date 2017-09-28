@@ -63,7 +63,7 @@ open class SelectOption: Mappable {
   }
 
   public var breadcrumb: String! { get {
-    family?.popLast()
+    _ = family?.popLast()
     return family != nil ? (family?.asBreadcrumb())! : name!
     }
   }

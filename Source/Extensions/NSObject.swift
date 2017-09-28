@@ -111,44 +111,5 @@
 //    }
 //  }
 //
-//  public func _delayedJob(todo: () -> ()) {
-//    if _isSimulator() {
-//      //      #if DEBUG
-//      delayedJob(1) { () -> () in
-//        todo()
-//      }
-//      //      #endif
-//    }
-//  }
-//
-//  public func toast(vc: UIViewController, superView: UIView, title: String, message: String, style: UIAlertControllerStyle, completion: @escaping () -> () = {}) -> Void {
-//    let alert = UIAlertController(title: title, message: message, preferredStyle: style)
-//    alert.popoverPresentationController?.sourceView = superView
-//    alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: { (action: UIAlertAction!) -> Void in
-//      completion()
-//      dismisseanimated: rAnimated(true, completion: { () -> Void in
-//        completion()
-//      })
-//    }))
-//    vc.present(alert, animated: true, completion: nil)
-//  }
-//
-//  public func toast(vc: UIViewController, superView: UIView, title: String, message: String, completion: @escaping () -> () = {}) -> Void {
-//    let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.ActionSheet)
-//    //    if !(alert.popoverPresentationController != nil) {
-//    alert.popoverPresentationController?.sourceView = superView
-//    //      let origin = superView.frame.origin
-//    //      let size = superView.frame.size
-//    //      alert.popoverPresentationController?.sourceRect = CGRectMake(origin.x + size.width / 2 , origin.y , size.width, size.height)
-//    alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: { (action: UIAlertAction!) -> Void in
-//      //      alert.dismissViewControllerAnimated(true, completion: completion)
-//      completion()
-//      alert.dismiss(animated: true, completion: { () -> Void in
-//        completion()
-//      })
-//    }))
-//    vc.present(alert, animated: true, completion: nil)
-//  }
-//
-//}
+
 

@@ -56,13 +56,13 @@ open class API {
 
   class public func request(_ method: HTTPMethod = .get, url: String, parameters: [String: AnyObject] = [:], fileName: String? = #file, funcName: String? = #function, run: @escaping (_ response: DataResponse<Any>) -> ()) {
 //    _logForAnyMode(url.hostUrl(), title: "url.hostUrl()")
-//    if Development.Log.API.parameters { _logForAnyMode(parameters as AnyObject, title: "parameters" as AnyObject) }
+//    if Development.Log.API.parameters { _logForAnyMode(parameters as AnyObject, title: "parameters") }
     let indicator = indicatorStart()
     let requestStartTime = NSDate()
     var requestTime: Double = 0
 //    let _url = NSURL(string: url.hostUrl().stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!)!
     let _url = URL(string: url.hostUrl().addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!)
-//    Alamofire.request(<#T##url: URLConvertible##URLConvertible#>, method: <#T##HTTPMethod#>, parameters: <#T##Parameters?#>, encoding: <#T##ParameterEncoding#>, headers: <#T##HTTPHeaders?#>)
+    _logForUIMode(_url, title: "_url")
     Alamofire.request(_url!, method: method, parameters: parameters, headers: headers()).responseJSON { response in
       requestTime = NSDate().timeIntervalSince(requestStartTime as Date)
       processJSONResponse(response, run: run)
@@ -73,7 +73,7 @@ open class API {
     //    }
 
     delayedJob(Development.delayed) {
-      _logForAnyMode(requestTime as AnyObject, title: "本次請求秒數: \(method),  \(url)" as AnyObject)
+      _logForAnyMode(requestTime, title: "本次請求秒數: \(method),  \(url)")
     }
   }
 
@@ -93,17 +93,17 @@ open class API {
 //  }
 
   class func processJSONResponse(_ response: DataResponse<Any>, run: (_ response: DataResponse<Any>) -> ()) {
-//    if Development.Log.API.request { _logForAnyMode(response.request!, title: "response.request") }
+    if Development.Log.API.request { _logForAnyMode(response.request!, title: "response.request") }
     //    if Deve_ lopment.Log.API.statusCode { _logForAnyMode((response.response?.statusCode)!, title: "(response.response?.statusCode)!") }
 //    if Development.Log.API.processInfo { print("NSProcessInfo.processInfo().environment: ", NSProcessInfo.processInfo().environment)}
 
     switch response.result {
     case .success(let value):
-      // if Development.Log.API.response { _logForAnyMode(value as AnyObject, title: "response.result.value" as AnyObject) }
+      // if Development.Log.API.response { _logForAnyMode(value as AnyObject, title: "response.result.value") }
       if value is NSArray {
         run(response)
       } else if let item = value as? NSDictionary {
-//        _logForAPIMode(value as AnyObject, title: "value" as AnyObject)
+//        _logForAPIMode(value, title: "value" as AnyObject)
 //        _logForAPIMode(response.request?.url as AnyObject, title: "response.request.URL")
         switch (response.response?.statusCode)! {
         case 404:
@@ -124,13 +124,13 @@ open class API {
           appDelegate().did500Error()
         default:
           if let message = item.value(forKey: K.Api.Response.message) as? String {
-            if let text = message as? String {
-              prompt(text)
-            } else if let texts = message as? NSDictionary {
+//            if let text = message as? String {
+              prompt(message)
+            } else if let texts = item.value(forKey: K.Api.Response.message) as? NSDictionary {
               let text = texts.map{"\($0.key): \($0.value)"}.join("\n")
               prompt(text)
-            } else {
-            }
+//            } else {
+//            }
           }
           run(response)
         }

@@ -7,17 +7,17 @@ import Foundation
 
 extension UIScrollView {
 
-  public func scrollToBottom(_ animated: Bool = true, offset: CGFloat = 0) -> UIScrollView {
+  @discardableResult public func scrollToBottom(_ animated: Bool = true, offset: CGFloat = 0) -> UIScrollView {
     setContentOffset(CGPoint(x: 0, y: contentSize.height - bounds.size.height + tabBarHeight() + offset), animated: animated)
     return self
   }
 
-  public func scrollToTop() -> UIScrollView {
+  @discardableResult public func scrollToTop() -> UIScrollView {
     setContentOffset(CGPoint(x: 0, y: 0), animated: true)
     return self
   }
 
-  public func scrollToTrailing() -> UIScrollView {
+  @discardableResult public func scrollToTrailing() -> UIScrollView {
     setContentOffset(CGPoint(x: contentSize.width - width, y: 0), animated: true)
     return self
   }
@@ -34,7 +34,7 @@ extension UIScrollView {
     return self
   }
 
-  public func scrollToVisible(_ target: UIView) -> UIScrollView {
+  @discardableResult public func scrollToVisible(_ target: UIView) -> UIScrollView {
     //    var viewRect = target.frame
     //    viewRect.size.height -= keyboardSize.height
     let y = target.bottomEdge()// target.frame.origin.y

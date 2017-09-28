@@ -215,7 +215,7 @@ open class Photo: Mappable {
   }
 
   open class func seeds(onComplete: (_ items: [Photo]) -> ()) {
-    var items = [Photo]()
+    let items = [Photo]()
 //    (0...2).forEach { (i) in
 //      items.append(Photo(urlmImageName()))
 //    }

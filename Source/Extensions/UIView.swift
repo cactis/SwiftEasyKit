@@ -96,7 +96,7 @@ extension UIView: UIImagePickerControllerDelegate, UINavigationControllerDelegat
     openControllerWithDelegate(parentViewController()!, vc: vc, style: style, run: run)
   }
 
-  @discardableResult public func openController(_ vc: UIViewController, type: String = kCATransitionFromTop, subtype: String = kCATransitionReveal, run: @escaping () -> () = {}) {
+  public func openController(_ vc: UIViewController, type: String = kCATransitionFromTop, subtype: String = kCATransitionReveal, run: @escaping () -> () = {}) {
     let nv = UINavigationController()
     let transition: CATransition = CATransition()
     nv.pushViewController(vc, animated: false)
@@ -199,7 +199,7 @@ extension UIView: UIImagePickerControllerDelegate, UINavigationControllerDelegat
     setFieldsGroup(fields, delegate: delegate)
   }
 
-  @discardableResult public func setViewsGroup(_ fields: [UITextView]) -> Void {
+ public func setViewsGroup(_ fields: [UITextView]) -> Void {
     let delegate = parentViewController() as? UITextViewDelegate
     for index in 0...fields.count - 2 {
       fields[index].delegate = delegate
@@ -208,7 +208,7 @@ extension UIView: UIImagePickerControllerDelegate, UINavigationControllerDelegat
     fields.last?.delegate = delegate
   }
 
-  @discardableResult public func openPopupDialogFromView(_ view: UIView, completion: @escaping () -> () = {}) {
+  public func openPopupDialogFromView(_ view: UIView, completion: @escaping () -> () = {}) {
     let popupVC = PopupViewController()
     popupVC.modalPresentationStyle = .overCurrentContext
     popupVC.contentView = view
@@ -217,7 +217,7 @@ extension UIView: UIImagePickerControllerDelegate, UINavigationControllerDelegat
     }
   }
 
-  @discardableResult public func openPopupDialog(_ viewClass: NSObject.Type, delegate: UIView = UIView(), autoDismiss: Bool = false, onCompletion: @escaping (_ popupView: AnyObject) -> () = {_ in }, didDismiss: @escaping (_ popupView: PopupView) -> () = {_ in }, didSuccess: @escaping (_ popupView: PopupView) -> () = {_ in}) {
+  public func openPopupDialog(_ viewClass: NSObject.Type, delegate: UIView = UIView(), autoDismiss: Bool = false, onCompletion: @escaping (_ popupView: AnyObject) -> () = {_ in }, didDismiss: @escaping (_ popupView: PopupView) -> () = {_ in }, didSuccess: @escaping (_ popupView: PopupView) -> () = {_ in}) {
     let popupVC = PopupViewController()
     popupVC.autoDismiss = autoDismiss
     popupVC.modalPresentationStyle = .overCurrentContext
@@ -286,7 +286,7 @@ extension UIView: UIImagePickerControllerDelegate, UINavigationControllerDelegat
     return text
   }
 
-  @discardableResult public func animate(_ duration: Double = 0.5, onComplete: @escaping () -> ()) {
+  public func animate(_ duration: Double = 0.5, onComplete: @escaping () -> ()) {
     //    UIView.animateWithDuration(duration) { () -> Void in
     //      onComplete()
     //    }

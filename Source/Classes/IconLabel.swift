@@ -198,7 +198,7 @@ open class IconLabel: DefaultView {
     return self
   }
 
-  public func styled(_ options: NSDictionary = NSDictionary()) -> IconLabel {
+  @discardableResult public func styled(_ options: NSDictionary = NSDictionary()) -> IconLabel {
     label.styled(options)
     return self
   }

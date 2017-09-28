@@ -40,7 +40,7 @@ extension UIResponder {
   }
 
   open func getDeviceToken() -> String {
-    _logForAnyMode(getDeviceName() as AnyObject, title: "getDeviceName()" as AnyObject)
+    _logForAnyMode(getDeviceName(), title: "getDeviceName()")
     return Session.getValue(key: K.Api.deviceTokenKey)!
   }
 
@@ -68,7 +68,7 @@ extension UIResponder {
   open func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
   }
 
-  open func applicationWillResignActive(_ application: UIApplication) {
+  @nonobjc open func applicationWillResignActive(_ application: UIApplication) {
   }
 
   @objc open func applicationDidEnterBackground(_ application: UIApplication) {
@@ -80,7 +80,7 @@ extension UIResponder {
   @objc open func applicationDidBecomeActive(_ application: UIApplication) {
   }
 
-  open func applicationWillTerminate(_ application: UIApplication) {
+  @objc open func applicationWillTerminate(_ application: UIApplication) {
   }
 
   private func getDeviceTokenString(_ deviceToken: Data) -> String {

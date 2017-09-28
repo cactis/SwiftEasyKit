@@ -2,15 +2,10 @@
 //  Extension.swift
 
 import Foundation
-//import Log
 import MapKit
 import LoremIpsum
-//import Sugar
 import FontAwesome_swift
-//import FontAwesomeKit
-//import OdyiOS
 import Neon
-//import RandomKit
 import SwiftRandom
 import Fakery
 
@@ -21,7 +16,7 @@ public extension UIWindow {
     return UIWindow.getVisibleViewControllerFrom(self.rootViewController)
   }
 
-  public static func getVisibleViewControllerFrom(_ vc: UIViewController?) -> UIViewController? {
+  @discardableResult public static func getVisibleViewControllerFrom(_ vc: UIViewController?) -> UIViewController? {
     if let nc = vc as? UINavigationController {
       return UIWindow.getVisibleViewControllerFrom(nc.visibleViewController)
     } else if let tc = vc as? UITabBarController {
@@ -71,7 +66,7 @@ extension NSMutableDictionary {
 //}
 
 extension UIImagePickerController {
-  public func getImageFromInfo(_ info: [String: AnyObject]) -> UIImage? {
+  @discardableResult public func getImageFromInfo(_ info: [String: AnyObject]) -> UIImage? {
     dismiss(animated: true, completion: nil)
     let mediaType = info[UIImagePickerControllerMediaType] as! String
     if !mediaType.isEmpty {
@@ -85,11 +80,11 @@ extension UIImagePickerController {
 
 open class Lorem: LoremIpsum {
 
-  open class func message() -> String {
+  @discardableResult open class func message() -> String {
     return Lorem.array(1, upper: 5).map({ _ in Randoms.randomFakeConversation() }).join(" ")
   }
 
-  open class func array(_ lower: Int = 3, upper: Int = 5) -> Array<Int> {
+  @discardableResult open class func array(_ lower: Int = 3, upper: Int = 5) -> Array<Int> {
     return Array((1...wizRandomInt(lower, upper: upper)))
   }
 
@@ -101,64 +96,64 @@ open class Lorem: LoremIpsum {
   //    return NSDate().addDay(wizRandomInt(-30, upper: 30)).addHour(wizRandomInt(-10, upper: 10))
   //  }
 
-  open class func user() -> String {
+  @discardableResult open class func user() -> String {
     return K.Sample.users.randomItem()!
   }
 
-  open class func bool() -> Bool {
+  @discardableResult open class func bool() -> Bool {
     let bool = (wizRandomInt() % 2) == 1
     return bool
   }
 
-  open class func tel() -> String {
+  @discardableResult open class func tel() -> String {
     return "0986168168"
   }
 
-  open class func image() -> String {
+  @discardableResult open class func image() -> String {
     return randomImageName()
   }
 
-  open class func imageUrl() -> String {
+  @discardableResult open class func imageUrl() -> String {
     return randomImageUrl()
   }
 
-  open class func address() -> String {
+  @discardableResult open class func address() -> String {
     return faker.address.streetAddress()
   }
 
-  open class func city() -> String {
+  @discardableResult open class func city() -> String {
     return faker.address.city()
   }
 
-  open class func area() -> String {
+  @discardableResult open class func area() -> String {
     return faker.address.country()
   }
 
-  open class func creditCart() -> String {
+  @discardableResult open class func creditCart() -> String {
     return "．．．．\(wizRandomInt(1999, upper: 9999))"
   }
 
-  open class func postcode() -> String {
+  @discardableResult open class func postcode() -> String {
     return faker.address.postcode().split("-").first!
   }
 
-  open class func token() -> String {
+  @discardableResult open class func token() -> String {
     return random()
   }
 
-  open class func random() -> String {
+  @discardableResult open class func random() -> String {
     return "ABC"
   }
 
-  open class func password() -> String {
+  @discardableResult open class func password() -> String {
     return random()
   }
 
-  private class func condition() -> Bool {
+  @discardableResult private class func condition() -> Bool {
     return _isSimulator() //|| !_isSimulator()
   }
 
-  open class func string() -> String {
+  @discardableResult open class func string() -> String {
     return name()
   }
 
@@ -215,7 +210,7 @@ extension String {
 
   public func updateNumberWrappedIn(_ number: AnyObject) -> String {
     let prefix = split("(")[0]
-    if Int(number as! NSNumber) > 0 {
+    if Int(truncating: number as! NSNumber) > 0 {
       return prefix + "(\(number))"
     } else {
       return prefix
@@ -405,8 +400,8 @@ extension Date {
     return "!!!"
    }
 
-   public func toString(_ dateFormat: String = K.Api.timeFormat) -> String{
-   if self == nil { return "" }
+   public func toString(_ dateFormat: String = K.Api.timeFormat) -> String {
+//   if self == nil { return "" }
    let dateFormatter = DateFormatter()
    dateFormatter.dateFormat = dateFormat
   return dateFormatter.string(from: self as Date)
@@ -487,7 +482,7 @@ extension NSDate{
 //  }
 //
  public func toString(_ dateFormat: String = K.Api.timeFormat) -> String{
-   if self == nil { return "" }
+//   if self == nil { return "" }
    let dateFormatter = DateFormatter()
    dateFormatter.dateFormat = dateFormat
   return dateFormatter.string(from: self as Date)
@@ -665,7 +660,7 @@ extension CGFloat {
 
 extension NSMutableAttributedString {
 
-  public func setAsLink(_ textToFind: String, linkURL: String) -> Bool {
+  @discardableResult public func setAsLink(_ textToFind: String, linkURL: String) -> Bool {
     let foundRange = self.mutableString.range(of: textToFind)
     if foundRange.location != NSNotFound {
       self.addAttribute(NSAttributedStringKey.link, value: linkURL, range: foundRange)
@@ -682,17 +677,17 @@ extension UITextField {
     return self
   }
 
-  public func colored(_ color: UIColor) -> UITextField {
+  @discardableResult public func colored(_ color: UIColor) -> UITextField {
     textColor = color
     return self
   }
 
-  public func aligned(_ align: NSTextAlignment = .left) -> UITextField {
+  @discardableResult public func aligned(_ align: NSTextAlignment = .left) -> UITextField {
     textAlignment = align
     return self
   }
 
-  public func bold() -> UITextField {
+  @discardableResult public func bold() -> UITextField {
     font = UIFont.boldSystemFont(ofSize: font!.pointSize)
     return self
   }
@@ -710,19 +705,19 @@ extension UITextField {
 
 extension UITableView {
 
-  open func indexPathForView(_ view: AnyObject) -> NSIndexPath? {
+  @discardableResult open func indexPathForView(_ view: AnyObject) -> NSIndexPath? {
     let point: CGPoint = self.convert(.zero, from: (view as! UIView))
     return self.indexPathForRow(at: point)! as NSIndexPath
   }
 
-  open func enableRefreshControl(_ delegae: UIViewController, action: Selector) -> UITableView {
+  @discardableResult open func enableRefreshControl(_ delegae: UIViewController, action: Selector) -> UITableView {
     let refreshControl = UIRefreshControl()
     addSubview(refreshControl)
     refreshControl.addTarget(delegate, action: action, for: .valueChanged)
     return self
   }
 
-  @objc open func indexOfTapped(_ sender: UITapGestureRecognizer) -> NSIndexPath {
+  @discardableResult @objc open func indexOfTapped(_ sender: UITapGestureRecognizer) -> NSIndexPath {
     return indexPathForRow(at: sender.view!.convert(.zero, to: self))! as NSIndexPath
   }
 
@@ -764,7 +759,7 @@ extension UITableViewRowAction {
 
 extension UISwitch {
 
-  open func resize(_ sx: CGFloat = 0.7, sy: CGFloat = 0.7) -> UISwitch {
+  @discardableResult open func resize(_ sx: CGFloat = 0.7, sy: CGFloat = 0.7) -> UISwitch {
     transform = CGAffineTransform(scaleX: sx, y: sy)
     return self
   }
@@ -772,11 +767,11 @@ extension UISwitch {
 }
 
 extension UIScrollView {
-  open func isAtTop(_ offset: CGFloat = 10) -> Bool {
+  @discardableResult open func isAtTop(_ offset: CGFloat = 10) -> Bool {
     return contentOffset.y < offset
   }
 
-  open func isAtBottom(_ offset: CGFloat = 10) -> Bool {
+  @discardableResult open func isAtBottom(_ offset: CGFloat = 10) -> Bool {
     let scrollViewHeight = frame.size.height
     let scrollContentSizeHeight = contentSize.height
     let scrollOffset = contentOffset.y

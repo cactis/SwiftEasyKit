@@ -44,10 +44,8 @@ public func prompt(_ msgs: [String], runWith: (_ msg: String) -> String = { msg 
 }
 
 public func prompt(_ msg: String?, style: PromptType = PromptType(), onTapped: @escaping () -> () = {}) {
-  //  _logForUIMode(msg)
   if !Development.prompt { return }
   let message = msg ?? "(異常錯誤：未被追蹤到的錯誤。)"
-//  UIApplication.shared.statusBarHidden = true
   UIApplication.shared.isStatusBarHidden = true
   let notification = UIButton()
   let block = DefaultView()
@@ -55,11 +53,10 @@ public func prompt(_ msg: String?, style: PromptType = PromptType(), onTapped: @
 
   block.backgroundColored(style.bgColor).shadowed().radiused(3).bordered(0.5, color: K.Color.text.lighter().cgColor)
   label.styled().colored(style.color).texted(message).multilinized().centered().sized(12.em)
-//  label._coloredWithSuperviews()
   notification.layout([block.layout([label])])
 
   let xPad = 10.em
-  var yPad = 15.em
+  let yPad = 15.em
 
   let w = screenWidth() - 4 * xPad
   let h = label.getHeightBySizeThatFitsWithWidth(w)
@@ -70,16 +67,11 @@ public func prompt(_ msg: String?, style: PromptType = PromptType(), onTapped: @
   label.isUserInteractionEnabled = false
   block.isUserInteractionEnabled = false
 
-  //  print(label.height, label.textHeight() + 4)
-  if label.linesCount > 1 {
-    label.aligned(.left)
-  }
+  if label.linesCount > 1 { label.aligned(.left) }
 
   if let v = window() {
-    //    _logForUIMode(true)
     v.addSubview(notification)
     notification.frame = CGRect(x: 0, y: -1 * screenHeight(), width: screenWidth(), height: screenHeight())
-
     UIView().animate(onComplete: {
       notification.frame = CGRect(x: 0, y: statusBarHeight(), width: screenWidth(), height: screenHeight())
     })
@@ -159,13 +151,13 @@ public func _autoRunForAPIMode(_ funcName: String = #function, fileName: String 
   }
 }
 
-public func _autoRunInDevice(_ funcName: String = #function, fileName: String = #file, column: Int = #column, line: Int = #line, run: () -> ()) {
+public func _autoRunInDevice(_ funcName: String = #function, fileName: String = #file, column: Int = #column, line: Int = #line, run: @escaping () -> ()) {
   if !_isSimulator() {
     autoRun(funcName, fileName: fileName, run: run)
   }
 }
 
-private func autoRun(_ funcName: String = #function, fileName: String = #file, column: Int = #column, line: Int = #line, run: () -> ()) {
+private func autoRun(_ funcName: String = #function, fileName: String = #file, column: Int = #column, line: Int = #line, run: @escaping () -> ()) {
   print("=== autoRun in \(funcName) of \(fileName) \(line):\(column) ===")
   delayedJob { () -> () in
     run()
@@ -187,9 +179,9 @@ public func _autoRunForUIMode(_ funcName: String = #function, fileName: String =
 private func _autoRun(_ funcName: String = #function, fileName: String = #file, column: Int = #column, line: Int = #line, run: @escaping () -> ()) {
   if Development.autoRun {
     print("=== autoRun in \(Development.mode): \(funcName) of \((fileName as NSString).lastPathComponent) \(line):\(column) ===")
-//    NSObject()._delayedJob { () -> () in
+    _delayedJob { () -> () in
       run()
-//    }
+    }
   }
 }
 
@@ -200,37 +192,37 @@ public func _isWho(_ who: String) -> Bool { return _isSimulator() && who == Deve
 public func _isSimulator() -> Bool { return TARGET_OS_SIMULATOR != 0 || Development.setDeviceAsSimulator == true }
 
 public func _logError(_ err: NSError!) {
-  _log(err.localizedDescription as AnyObject, title: "err" as AnyObject)
+  _log(err.localizedDescription as AnyObject, title: "err")
 }
 
 public func _logClear() { (0...50).forEach { _ in print("\n") }}
 
-public func _logForAnyMode(_ obj: AnyObject? = "" as AnyObject, title: AnyObject = "" as AnyObject, funcName: String = #function, fileName: String = #file, column: Int = #column, line: Int = #line) {
+public func _logForAnyMode(_ obj: Any? = "", title: String = "", funcName: String = #function, fileName: String = #file, column: Int = #column, line: Int = #line) {
   _logForUIMode(obj, title: title, funcName: funcName, fileName: fileName, column: column, line: line)
   _logForAPIMode(obj, title: title, funcName: funcName, fileName: fileName, column: column, line: line)
 }
 
 public func _logFor(_ who: String, obj: AnyObject?, title: String = "", funcName: String = #function, fileName: String = #file, column: Int = #column, line: Int = #line) {
   if who == Development.developer {
-    _logForUIMode(obj, title: title as AnyObject, funcName: funcName, fileName: fileName, column: column, line: line)
+    _logForUIMode(obj, title: title, funcName: funcName, fileName: fileName, column: column, line: line)
   }
 }
 
 public func _logForUIMode(_ title: String = "", funcName: String = #function, fileName: String = #file, column: Int = #column, line: Int = #line) {
-  _logForUIMode("" as AnyObject, title: title as AnyObject, funcName: funcName, fileName: fileName, column: column, line: line)
+  _logForUIMode("" as AnyObject, title: title, funcName: funcName, fileName: fileName, column: column, line: line)
 }
 
-public func _logForUIMode(_ obj: AnyObject?, title: AnyObject = "" as AnyObject, funcName: String = #function, fileName: String = #file, column: Int = #column, line: Int = #line) {
+public func _logForUIMode(_ obj: Any?, title: String = "", funcName: String = #function, fileName: String = #file, column: Int = #column, line: Int = #line) {
   if _isUIMode() {
     _log(obj, title: title, funcName: funcName, fileName: fileName, column: column, line: line)
   }
 }
 
 public func _logForAPIMode(_ title: String = "", funcName: String = #function, fileName: String = #file, column: Int = #column, line: Int = #line) {
-  _logForAPIMode("" as AnyObject, title: title as AnyObject, funcName: funcName, fileName: fileName, column: column, line: line)
+  _logForAPIMode("" as AnyObject, title: title, funcName: funcName, fileName: fileName, column: column, line: line)
 }
 
-public func _logForAPIMode(_ obj: AnyObject?, title: AnyObject = "" as AnyObject, funcName: String = #function, fileName: String = #file, column: Int = #column, line: Int = #line) {
+public func _logForAPIMode(_ obj: Any?, title: String = "", funcName: String = #function, fileName: String = #file, column: Int = #column, line: Int = #line) {
   if _isAPIMode() {
     _log(obj, title: title, funcName: funcName, fileName: fileName, column: column, line: line)
   }
@@ -247,7 +239,7 @@ private func _log(_ title: String = "", funcName: String = #function, fileName: 
   print("\n")
 }
 
-private func _log(_ obj: AnyObject?, title: AnyObject = "" as AnyObject, funcName: String = #function, fileName: String = #file, column: Int = #column, line: Int = #line) {
+private func _log(_ obj: Any?, title: String = "", funcName: String = #function, fileName: String = #file, column: Int = #column, line: Int = #line) {
   let time = NSDate()
   print("")
   print("|=== \"\(title)\" in \(funcName) of \((fileName as NSString).lastPathComponent) \(line):\(column) ===")
@@ -263,7 +255,7 @@ private func _log(_ obj: AnyObject?, title: AnyObject = "" as AnyObject, funcNam
   print("")
 }
 
-private func _log(obj: Int, title: AnyObject = "" as AnyObject, funcName: String = #function, fileName: String = #file, column: Int = #column, line: Int = #line) {
+private func _log(obj: Int, title: String = "", funcName: String = #function, fileName: String = #file, column: Int = #column, line: Int = #line) {
   _log("\(obj)" as AnyObject, title: title, funcName: funcName, fileName: fileName)
 }
 
@@ -292,12 +284,6 @@ public func alert(_ delegate: AnyObject, title: String, message: String, onCompl
 
 public func dial(_ number: String) {
   UIApplication.shared.openURL(NSURL(string: number)! as URL)
-}
-
-//public func openMap(locaiton)
-
-public func delayedJob(_ todo: () -> ()) {
-  delayedJob(0.5, todo: todo)
 }
 
 public func wizRandomToken() -> String {
@@ -382,7 +368,7 @@ public func getTabIcon(_ name: FontAwesome, options: NSDictionary = NSDictionary
 }
 
 public func getIcon(_ name: FontAwesome, options: NSDictionary = NSDictionary(), inset: CGFloat = 0) -> UIImage {
-  var opts: NSMutableDictionary = options.mutableCopy() as! NSMutableDictionary
+  let opts: NSMutableDictionary = options.mutableCopy() as! NSMutableDictionary
   let size = options["size"] as? CGFloat ?? K.BarButtonItem.size// * 4
   opts["size"] = size
   return getTabIcon(name, options: opts)
@@ -420,16 +406,21 @@ public func indicatorEnd(indicator: UIView) {
   //  indicator.indicator.stopAnimating()
 }
 
-public func delayedJob(_ seconds: Double, withIndicator: Bool = true, todo: () -> ()) {
-  todo()
-//  var indicator = UIView()
-//  if withIndicator { indicator =  indicatorStart() }
+public func _delayedJob(todo: @escaping () -> ()) {
+  if _isSimulator() {
+    delayedJob(1) { () -> () in todo()
+} } }
+
+public func delayedJob(_ todo: @escaping () -> ()) { delayedJob(0.5, todo: todo) }
+
+public func delayedJob(_ seconds: Double, withIndicator: Bool = true, todo: @escaping () -> ()) {
+  var indicator = UIView()
+  if withIndicator { indicator =  indicatorStart() }
 //  let delay = seconds * Double(NSEC_PER_SEC)
-//  let time = DispatchTime.now(dispatch_time_t(DISPATCH_TIME_NOW), Int64(delay))
-//  dispatch_after(time, dispatch_get_main_queue()) {
-//    todo()
-//    indicatorEnd(indicator: indicator)
-//  }
+  DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
+    todo()
+    indicatorEnd(indicator: indicator)
+  }
 }
 
 public func currentView() -> UIView? {

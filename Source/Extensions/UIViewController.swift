@@ -49,14 +49,14 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
     }
   }
 
-  open func goBackToRootViewController(_ delayed: Double = 0, onComplete: () -> () = {}) {
+  open func goBackToRootViewController(_ delayed: Double = 0, onComplete: @escaping () -> () = {}) {
     delayedJob(delayed) {
       self.navigationController?.popToRootViewController(animated: true)
       onComplete()
     }
   }
 
-  public func goBackViewController(_ delayed: Double = 0, onComplete: () -> () = {}) {
+  public func goBackViewController(_ delayed: Double = 0, onComplete: @escaping () -> () = {}) {
     delayedJob(delayed) {
       self.navigationController?.popViewController(animated: true)
       onComplete()
@@ -101,7 +101,7 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
 //    }
   }
 
-  public func popToViewController(_ vc: UIViewController, delayed: Double = 0, onComplete: () -> () = {}) {
+  public func popToViewController(_ vc: UIViewController, delayed: Double = 0, onComplete: @escaping () -> () = {}) {
     delayedJob(delayed){
       self.navigationController?.popToViewController(vc, animated: true)
       onComplete()
@@ -335,7 +335,7 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
     self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
   }
 
-  @discardableResult public func enableCaptureSessionWithPreview(_ liveView: UIView, position: AVCaptureDevice.Position = .back, onComplete: () -> ()) -> (AVCaptureDeviceInput, AVCaptureStillImageOutput, AVCaptureSession) {
+  @discardableResult public func enableCaptureSessionWithPreview(_ liveView: UIView, position: AVCaptureDevice.Position = .back, onComplete: @escaping () -> ()) -> (AVCaptureDeviceInput, AVCaptureStillImageOutput, AVCaptureSession) {
     var input: AVCaptureDeviceInput!
     let output = AVCaptureStillImageOutput()
     let session = AVCaptureSession()

@@ -128,7 +128,7 @@ extension UITextField {
     }
   }
 
-  public func styled(_ options: NSDictionary = NSDictionary()) -> UITextField {
+  @discardableResult public func styled(_ options: NSDictionary = NSDictionary()) -> UITextField {
     text = text ?? Lorem.name()
     let color = options["color"] as? UIColor ?? K.Color.text
     let size: CGFloat = options["fontSize"] as? CGFloat ?? options["size"] as? CGFloat ?? K.Size.Text.normal
@@ -174,7 +174,7 @@ extension UITextView {
   }
 
 
-  public func styled(options: NSDictionary = NSDictionary()) -> UITextView {
+  @discardableResult public func styled(options: NSDictionary = NSDictionary()) -> UITextView {
     text = text ?? Lorem.name()
     let color = options["color"] as? UIColor ?? K.Color.text
     let size: CGFloat = options["fontSize"] as? CGFloat ?? options["size"] as? CGFloat ?? K.Size.Text.normal

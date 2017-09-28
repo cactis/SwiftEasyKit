@@ -13,12 +13,18 @@ open class DefaultAppDelegate: UIResponder, UIApplicationDelegate, UITabBarContr
   public var window: UIWindow?
   public var tabBarViewController: UITabBarController?
 
-  @discardableResult open func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-    UITabBar.appearance().tintColor = K.Color.tabBar
-    UITabBar.appearance().barTintColor = K.Color.tabBarBackgroundColor
-    enablePushNotification(application)
-    return true
+  @discardableResult open func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
+        UITabBar.appearance().tintColor = K.Color.tabBar
+        UITabBar.appearance().barTintColor = K.Color.tabBarBackgroundColor
+        enablePushNotification(application)
+        return true
   }
+  //  open func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+//    UITabBar.appearance().tintColor = K.Color.tabBar
+//    UITabBar.appearance().barTintColor = K.Color.tabBarBackgroundColor
+//    enablePushNotification(application)
+//    return true
+//  }
 
   open func enablePushNotification(_ application: UIApplication) {
     let settings = UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)

@@ -62,7 +62,7 @@ open class SWKSelection: SWKInput {
     }
     vc.selectedData = selectedData
     vc.collectionData = collectionData!
-    self.pushViewController(vc as! UIViewController)
+    self.pushViewController(vc as UIViewController)
   }
 
   override open func layoutSubviews() {

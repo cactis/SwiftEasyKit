@@ -42,7 +42,7 @@ open class TableViewCell: UITableViewCell {
     return bottomView.bottomEdge() + _padding
   }
 
-  override open func layout(_ views: [UIView]) -> UIView {
+  @discardableResult override open func layout(_ views: [UIView]) -> UIView {
     views.forEach { (view) -> () in
       addSubview(view)
       bottomView = view

@@ -75,7 +75,7 @@ class SWKSelectionViewController: TableViewController {
         self.selectedData = selected
         didSelect(index, selected)
         let vcs = (navigationController?.viewControllers)!
-        let i = vcs.index(of: self)
+        _ = vcs.index(of: self)
         let back = (vcs.count - (selected.level! + 2))
         self.popToViewController(vcs[back], delayed: 0.4)
       }
