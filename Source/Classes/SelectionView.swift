@@ -25,7 +25,11 @@ open class SelectionView: DefaultView {
   }
 
   public var visible = false { didSet {
-    if visible { self.superview!.bringSubview(toFront: self) }
+    if visible {
+      self.superview!.bringSubview(toFront: self)
+    } else {
+//      self.superview?.sendSubview(toBack: self)
+    }
   } }
 
   override open func layoutUI() {
@@ -38,7 +42,7 @@ open class SelectionView: DefaultView {
     animate {
       if self.visible {
         let h = CGFloat([self.collectionData.count * Int(self.selectionVC.cellHeight), Int(screenHeight() / 2)].min()!)
-        self.selectionVC.tableView.alignUnder(self.targetView, withLeftPadding: 0, topPadding: 40, width: screenWidth(), height: h)
+        self.selectionVC.tableView.alignUnder(self.targetView, withLeftPadding: 0, topPadding: 0, width: screenWidth(), height: h)
       } else {
         self.selectionVC.tableView.alignUnder(self.targetView, withLeftPadding: 0, topPadding: 0, width: screenWidth(), height: 0)
       }

@@ -51,6 +51,7 @@ class SWKSelectionViewController: TableViewController {
 //  public var viewTapped: (selected: SelectOption) -> () = {_ in}
 
   @objc override func cellTapped(_ sender: UITapGestureRecognizer) {
+    _logForUIMode()
     let index = tableView.indexOfTapped(sender)
     let selected = collectionData[index.row]
     // 以獨立頁面開啟
@@ -77,14 +78,14 @@ class SWKSelectionViewController: TableViewController {
         let vcs = (navigationController?.viewControllers)!
         _ = vcs.index(of: self)
         let back = (vcs.count - (selected.level! + 2))
-        self.popToViewController(vcs[back], delayed: 0.4)
+        self.popToViewController(vcs[back], delayed: 0)
       }
     } else {
       // 以子頁面開啟
       self.selectedData = selected
-      delayedJob({
+//      delayedJob({
         self.didSelect(index, selected)
-      })
+//      })
     }
   }
 

@@ -68,7 +68,7 @@ open class DefaultViewController: UIViewController, UITextFieldDelegate, UITextV
 
   open func enableSaveBarButtonItem(title: String = "") {
     if title != "" {
-      setRightBarButtonItem(title, action: #selector(saveTapped))
+      setRightBarButtonItem(title: title, action: #selector(saveTapped))
     } else {
       setRightBarButtonItem(getIcon(.save, options: ["size": K.BarButtonItem.size, "color": K.Color.barButtonItem]), action: #selector(saveTapped))
     }

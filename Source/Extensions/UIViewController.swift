@@ -173,15 +173,14 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
     return item
   }
 
-  @discardableResult public   func setRightBarButtonItem(_ image: UIImage, action: Selector) -> UIBarButtonItem {
+  @discardableResult public func setRightBarButtonItem(_ image: UIImage, action: Selector) -> UIBarButtonItem {
     let item = newBarButtonItem(image, action: action)
     self.navigationItem.rightBarButtonItems = [item]
     return item
   }
 
-  @nonobjc
-  @discardableResult public func setRightBarButtonItem(_ title: String, action: Selector) -> UIBarButtonItem {
-    let item = newBarButtonItem(title, action: action)
+  @discardableResult public func setRightBarButtonItem(title: String, action: Selector) -> UIBarButtonItem {
+    let item = newBarButtonItem(title: title, action: action)
     self.navigationItem.rightBarButtonItems = [item]
     return item
   }
@@ -195,7 +194,7 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
 
   @nonobjc
   @discardableResult public func setLeftBarButtonItem(_ title: String, action: Selector) -> UIBarButtonItem {
-    let item = newBarButtonItem(title, action: action)
+    let item = newBarButtonItem(title: title, action: action)
     item.customView?.layoutSubviews()
     self.navigationItem.leftBarButtonItems = [item]
     return item
@@ -232,13 +231,13 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
   }
 
   @discardableResult public func addRightBarButtonItem(iconCode: String, action: Selector, withOffset: Bool = true) -> UIBarButtonItem {
-    let item = newBarButtonItem(iconCode, action: action)
+    let item = newBarButtonItem(iconCode: iconCode, action: action)
     appendItemToBar(item, withOffset: withOffset)
     return item
   }
 
   @discardableResult public func addRightBarButtonItem(_ title: String, action: Selector, withOffset: Bool = true) -> UIBarButtonItem {
-    let item = newBarButtonItem(title, action: action)
+    let item = newBarButtonItem(title: title, action: action)
     appendItemToBar(item, withOffset: withOffset)
     return item
   }
@@ -261,24 +260,20 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
     self.navigationItem.rightBarButtonItems = items
   }
 
-  @discardableResult public func newBarButtonItem(_ iconCode: String, action: Selector, color: UIColor = K.Color.barButtonItem) -> UIBarButtonItem {
-    let item = newBarButtonItem(iconCode, action: action)
+  @discardableResult public func newBarButtonItem(iconCode: String, action: Selector, color: UIColor = K.Color.barButtonItem) -> UIBarButtonItem {
+    let item = newBarButtonItem(title: iconCode, action: action)
     let button = (item.customView as! UIButton)
     button.titleLabel!.font = UIFont(name: K.Font.icon, size: K.BarButtonItem.size)
-    //    button.frame = CGRect(x: 0, y: 0, width: K.BarButtonItem.size, height: K.BarButtonItem.size)
     button.frame = CGRect(x: 0, y: 0, width: button.textWidth(), height: button.textHeight() * 2)
-    //    button.sizeToFit()
     button.setTitleColor(color, for: .normal)
-    //    button._coloredWithSuperviews()
     return item
   }
 
-  @discardableResult public func newBarButtonItem(_ title: String, action: Selector) -> UIBarButtonItem {
+  @discardableResult public func newBarButtonItem(title: String, action: Selector) -> UIBarButtonItem {
     let button = UIButton(type: .custom)
     button.texted(title).colored(K.BarButtonItem.color).sizeToFit()
     button.frame = CGRect(x: 0, y: 0, width: button.textWidth(), height: button.textHeight())
     button.addTarget(self, action: action, for: .touchUpInside)
-    //    button._coloredWithSuperviews()
     let item = UIBarButtonItem(customView: button)
     return item
   }
