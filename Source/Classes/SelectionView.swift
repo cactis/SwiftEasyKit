@@ -8,34 +8,48 @@ import Foundation
 open class SelectionView: DefaultView {
 
   let selectionVC = SWKSelectionViewController(title: "", levelLimit: 0)
-//  public var tableView: UITableView!
   public var view: UIView!
   public var collectionData: [SelectOption]! { didSet { selectionVC.collectionData = collectionData } }
   public var selectedData: SelectOption! { didSet { selectionVC.selectedData = selectedData }}
   public var targetView: UIView!
   public var didSelect: (_ index: NSIndexPath, _ selected: SelectOption?) -> () = {_,_  in } { didSet { selectionVC.didSelect = didSelect } }
-//  public var didSelect: (_ selected: SelectOption) -> () = {_ in } { didSet { selectionVC.didSelect = didSelect } }
 
   public init(options: [SelectOption], selectedData: SelectOption?, targetView: UIView) {
     self.collectionData = options
+    self.selectedData = selectedData
+
     selectionVC.collectionData = options
     selectionVC.selectedData = selectedData
     self.view = selectionVC.view
+
+    self.targetView = targetView
     super.init(frame: .zero)
   }
-
-  public var visible = false { didSet {
-    if visible {
-      self.superview!.bringSubview(toFront: self)
-    } else {
-//      self.superview?.sendSubview(toBack: self)
-    }
-  } }
 
   override open func layoutUI() {
     super.layoutUI()
     layout([view])
   }
+
+  open override func styleUI() {
+    super.styleUI()
+    view.backgroundColored(.clear)
+    backgroundColored(.clear)
+    //    view.bordered(3, color: UIColor.red.cgColor)
+  }
+
+  open override func bindUI() {
+    super.bindUI()
+    view.whenTapped(self, action: #selector(viewTapped))
+  }
+
+  @objc func viewTapped() {
+    visible = false
+  }
+
+  public var visible = false { didSet {
+    if visible { self.superview!.bringSubview(toFront: self) }
+  } }
 
   override open func layoutSubviews() {
     super.layoutSubviews()

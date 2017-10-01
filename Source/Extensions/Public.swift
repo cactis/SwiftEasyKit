@@ -76,7 +76,7 @@ public func prompt(_ msg: String?, style: PromptType = PromptType(), onTapped: @
       notification.frame = CGRect(x: 0, y: statusBarHeight(), width: screenWidth(), height: screenHeight())
     })
 
-    delayedJob(5, withIndicator: false, todo: {
+    delayedJob(K.Prompt.delay, withIndicator: false, todo: {
       notification.tapped()
     })
 

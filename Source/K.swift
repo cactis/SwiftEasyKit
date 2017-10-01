@@ -6,6 +6,10 @@ import Foundation
 
 public struct K {
 
+  public struct Prompt {
+    public static var delay: Double = 3
+  }
+
   public struct Api {
     public static var host = ""
     public static var production = ""
@@ -56,7 +60,6 @@ public struct K {
     public static var ultraLight = "HelveticaNeue-UltraLight"
     public static var icon = ""
   }
-
 
   public struct Badge {
     public static var color = UIColor.white
