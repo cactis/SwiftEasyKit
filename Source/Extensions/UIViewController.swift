@@ -200,7 +200,6 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
     return item
   }
 
-
   @discardableResult public func addRightBarButtonItemWithBadge(_ image: UIImage, action: Selector) -> UIBarButtonItem {
     let item = newBarButtonItemWithBadge(image, action: action)
     var items: [UIBarButtonItem] = [UIBarButtonItem]()
@@ -330,7 +329,45 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
     self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
   }
 
-  @discardableResult public func enableCaptureSessionWithPreview(_ liveView: UIView, position: AVCaptureDevice.Position = .back, onComplete: @escaping () -> ()) -> (AVCaptureDeviceInput, AVCaptureStillImageOutput, AVCaptureSession) {
+  @discardableResult public func enableCaptureSessionWithPreview___(liveView: UIView, position: AVCaptureDevice.Position = .back, onComplete: @escaping () -> ()) -> (AVCaptureDeviceInput?, AVCaptureStillImageOutput?, AVCaptureSession?) {
+
+    let session = AVCaptureSession()
+    let output = AVCaptureStillImageOutput()
+    output.outputSettings = [AVVideoCodecKey: AVVideoCodecJPEG]
+    enabledPreview(session: session, target: liveView)
+    session.sessionPreset = .photo
+    session.addOutput(output)
+    return (nil, output, session)
+  }
+
+  public func checkCamera(ready: @escaping () -> ()) {
+    if AVCaptureDevice.authorizationStatus(for: .video) == .authorized {
+      ready()
+    } else {
+      alert(self, title: "相機授權", message: "需要相機授權", onCompletion: {
+      }, okHandler: { (ok) in
+        AVCaptureDevice.requestAccess(for: .video, completionHandler: { (granted: Bool) in
+          if granted {
+            ready()
+          } else {
+            alert(self, title: "沒有相機的授權", message: "要到控制中心開啟權限", onCompletion: {
+            }, okHandler: { (ok) in
+              UIApplication.shared.openURL(URL(string: UIApplicationOpenSettingsURLString)!)
+            })
+          }
+        })
+      })
+    }
+  }
+
+  func enabledPreview(session: AVCaptureSession, target: UIView) {
+    let preview = AVCaptureVideoPreviewLayer(session: session)
+    preview.videoGravity = .resizeAspectFill
+    preview.frame = target.bounds
+    target.layer.addSublayer(preview)
+  }
+
+  @discardableResult public func enableCaptureSessionWithPreview(liveView: UIView, position: AVCaptureDevice.Position = .back, onComplete: @escaping () -> ()) -> (AVCaptureDeviceInput?, AVCaptureStillImageOutput?, AVCaptureSession?) {
     var input: AVCaptureDeviceInput!
     let output = AVCaptureStillImageOutput()
     let session = AVCaptureSession()
@@ -338,16 +375,14 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
       do {
         session.sessionPreset = AVCaptureSession.Preset.photo
         //        let device = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)
-        var device: AVCaptureDevice!
+        var targetDevice: AVCaptureDevice!
         let devices = AVCaptureDevice.devices(for: AVMediaType.video)
-        devices.forEach({ (item) in
-          if (item as AnyObject).position == position {
-            device = item
+        devices.forEach({ (device) in
+          if device.position == position {
+            targetDevice = device
           }
         })
-
-        input = try AVCaptureDeviceInput(device: device)
-
+        input = try AVCaptureDeviceInput(device: targetDevice)
         session.addInput(input)
         output.outputSettings = [AVVideoCodecKey: AVVideoCodecJPEG]
         session.addOutput(output)

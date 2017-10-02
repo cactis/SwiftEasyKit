@@ -287,9 +287,6 @@ extension UIView: UIImagePickerControllerDelegate, UINavigationControllerDelegat
   }
 
   public func animate(_ duration: Double = 0.5, onComplete: @escaping () -> ()) {
-    //    UIView.animateWithDuration(duration) { () -> Void in
-    //      onComplete()
-    //    }
     UIView.transition(with: self, duration: duration, options: .transitionCrossDissolve, animations: onComplete, completion: nil)
   }
 

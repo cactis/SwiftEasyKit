@@ -11,8 +11,6 @@ open class CollectionView: DefaultView, UICollectionViewDataSource, UICollection
   public let CellIdentifier = "CELL"
   public var sectionInset: UIEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10)
 
-
-
   override open func layoutUI() {
     super.layoutUI()
     collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout)
@@ -29,13 +27,9 @@ open class CollectionView: DefaultView, UICollectionViewDataSource, UICollection
     styleUI()
   }
 
-  open func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    return UICollectionViewCell()
-  }
-//
-  open func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return 0
-  }
+  open func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell { return UICollectionViewCell() }
+
+  open func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int { return 0 }
 
   open func registerClass(_ registeredClass: AnyClass!,  sectionInset: UIEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10), direction: UICollectionViewScrollDirection = .horizontal) -> UICollectionView {
     return collectionView(collectionViewLayout, registeredClass: registeredClass, identifier: CellIdentifier, sectionInset: sectionInset, direction: direction)

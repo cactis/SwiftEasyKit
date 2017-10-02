@@ -40,7 +40,7 @@ open class ImagesCollectionView: CollectionView {
     self.placeHolder = placeHolder
   }
 
-  public init(checkable: Checkable, bordered: Bool = true, radius: CGFloat = 0, sectionInset: UIEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10)) {
+  public init(checkable: Checkable, bordered: Bool = true, radius: CGFloat = 0, sectionInset: UIEdgeInsets = UIEdgeInsetsMake(20, 20, 20, 20)) {
     self.checkable = checkable
     self.bordered = bordered
     self.radius = radius
@@ -101,7 +101,11 @@ open class ImagesCollectionView: CollectionView {
     cell.style = style
     cell.tag = indexPath.row
     cell.checkedIcon = checkedIcon
-    if indexPath.row == photosCount { cell.placeHolder.image = placeHolder } else { cell.placeHolder.image = UIImage()}
+    if indexPath.row == photosCount {
+      cell.placeHolder.image = placeHolder
+    } else {
+      cell.placeHolder.image = UIImage()
+    }
     cell.layoutIfNeeded()
     if bordered { cell.bordered(1, color: UIColor.lightGray.withAlphaComponent(0.5).cgColor) }
     if currentIndex == indexPath.row && currentBordered {
@@ -112,7 +116,6 @@ open class ImagesCollectionView: CollectionView {
 
   @objc public func cellTapped(_ sender: UIGestureRecognizer) { indexTapped((sender.view?.tag)!) }
 
-  ///////////////////////////////////////////////////////////////////////////////
   @objc public func cellSwippedUp(_ sender: UISwipeGestureRecognizer) {
     let index = sender.view?.tag
     didSwippedUpCell(index!)
