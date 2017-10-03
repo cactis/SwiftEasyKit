@@ -34,8 +34,7 @@ open class SelectionView: DefaultView {
   open override func styleUI() {
     super.styleUI()
     view.backgroundColored(.clear)
-    backgroundColored(.clear)
-    //    view.bordered(3, color: UIColor.red.cgColor)
+//    backgroundColored(.black)
   }
 
   open override func bindUI() {
@@ -43,25 +42,23 @@ open class SelectionView: DefaultView {
     view.whenTapped(self, action: #selector(viewTapped))
   }
 
-  @objc func viewTapped() {
-    visible = false
-  }
+  @objc func viewTapped() { visible = false }
 
-  public var visible = false { didSet {
-    if visible { self.superview!.bringSubview(toFront: self) }
-  } }
+  public var visible = false { didSet { layoutSubviews() } }
 
   override open func layoutSubviews() {
     super.layoutSubviews()
     animate {
       if self.visible {
+        self.isHidden = false
         let h = CGFloat([self.collectionData.count * Int(self.selectionVC.cellHeight), Int(screenHeight() / 2)].min()!)
         self.selectionVC.tableView.alignUnder(self.targetView, withLeftPadding: 0, topPadding: 0, width: screenWidth(), height: h)
       } else {
+        self.isHidden = true
         self.selectionVC.tableView.alignUnder(self.targetView, withLeftPadding: 0, topPadding: 0, width: screenWidth(), height: 0)
       }
+      self.view.fillSuperview()
     }
-    view.fillSuperview()
   }
 
   required public init?(coder aDecoder: NSCoder) { fatalError("init(coder:) has not been implemented") }

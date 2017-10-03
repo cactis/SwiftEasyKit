@@ -308,11 +308,11 @@ extension String {
     return "\(headTag)\(self)\(footTag)"
   }
 
-  public func toDate(_ dateFormat: String = K.Api.timeFormat) -> NSDate? {
+  public func toDate(_ dateFormat: String = K.Api.timeFormat) -> Date? {
     if self == "" { return nil }
     let df = DateFormatter()
     df.dateFormat = dateFormat
-    return df.date(from: self)! as NSDate
+    return df.date(from: self)! as Date
   }
 }
 
@@ -481,12 +481,12 @@ extension NSDate{
 //    return dateFormatter.stringFromDate(self)
 //  }
 //
- public func toString(_ dateFormat: String = K.Api.timeFormat) -> String{
-//   if self == nil { return "" }
-   let dateFormatter = DateFormatter()
-   dateFormatter.dateFormat = dateFormat
-  return dateFormatter.string(from: self as Date)
- }
+// public func toString(_ dateFormat: String = K.Api.timeFormat) -> String{
+////   if self == nil { return "" }
+//   let dateFormatter = DateFormatter()
+//   dateFormatter.dateFormat = dateFormat
+//  return dateFormatter.string(from: self as Date)
+// }
 //
 //  public func toNormalString()->String{
 //    if self == "" { return "" }

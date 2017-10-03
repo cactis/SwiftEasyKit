@@ -371,10 +371,10 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
     var input: AVCaptureDeviceInput!
     let output = AVCaptureStillImageOutput()
     let session = AVCaptureSession()
+    if !_isSimulator() {
     delayedJob(0.1) {
       do {
         session.sessionPreset = AVCaptureSession.Preset.photo
-        //        let device = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)
         var targetDevice: AVCaptureDevice!
         let devices = AVCaptureDevice.devices(for: AVMediaType.video)
         devices.forEach({ (device) in
@@ -394,6 +394,7 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
         onComplete()
       } catch {
         print(error)
+      }
       }
     }
     return (input, output, session)

@@ -29,15 +29,14 @@ open class SWKDateInput: SWKInput {
   }
 
   @objc func valueTapped() {
-    datePicker.date = (value.text!.toDate("yyyy/MM/dd") ?? NSDate()) as Date
+    datePicker.date = (value.text!.toDate("yyyy/MM/dd") ?? Date()) as Date
   }
 
   @objc func doneTapped() {
     value.endEditing(true)
-//    value.texted(datePicker.date.toString("yyyy/MM/dd"))
+    value.texted(datePicker.date.toString("yyyy/MM/dd"))
   }
 }
-
 
 open class SWKInput: DefaultView {
 
