@@ -314,9 +314,7 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
       switch swipeGesture.direction {
       case UISwipeGestureRecognizerDirection.right:
         navigationController?.popViewController(animated: true)
-      //      case UISwipeGestureRecognizerDirection.Down:
-      default:
-        break
+      default: break
       }
     }
   }

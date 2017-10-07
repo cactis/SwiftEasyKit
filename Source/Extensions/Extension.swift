@@ -66,7 +66,7 @@ extension NSMutableDictionary {
 //}
 
 extension UIImagePickerController {
-  @discardableResult public func getImageFromInfo(_ info: [String: AnyObject]) -> UIImage? {
+  @discardableResult public func getImageFromInfo(_ info: [String: Any]) -> UIImage? {
     dismiss(animated: true, completion: nil)
     let mediaType = info[UIImagePickerControllerMediaType] as! String
     if !mediaType.isEmpty {
