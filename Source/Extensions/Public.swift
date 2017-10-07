@@ -242,15 +242,16 @@ private func _log(_ title: String = "", funcName: String = #function, fileName: 
 private func _log(_ obj: Any?, title: String = "", funcName: String = #function, fileName: String = #file, column: Int = #column, line: Int = #line) {
   let time = NSDate()
   print("")
-  print("|=== \"\(title)\" in \(funcName) of \((fileName as NSString).lastPathComponent) \(line):\(column) ===")
+  print(">>> \"\(title)\" in \(funcName) of \((fileName as NSString).lastPathComponent) \(line):\(column) >>>")
   //  switch obj.self {
   //  case is String, is Int, is [String], is [Int]:
   //    print(obj)
   //  default:
   //    print((obj as! NSObject).asJSON())
   //  }
-  if let _ = obj { print(obj!) } else { print("no message") }
-  print("=== \"\(title)\" in \(funcName) of \((fileName as NSString).lastPathComponent) \(line):\(column) ===|")
+//  if let _ = obj { print(obj!) } else { print("no message") }
+  debugPrint(obj!)
+  print("<<< \"\(title)\" in \(funcName) of \((fileName as NSString).lastPathComponent) \(line):\(column) <<<")
   print("\(time) in \(Development.mode) mode")
   print("")
 }

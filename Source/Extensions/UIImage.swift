@@ -28,8 +28,8 @@ extension UIImage {
     return UIImage.fontAwesomeIcon(name: .clockO, textColor: UIColor.lightGray.lighter(), size: CGSize(width: 300, height: 300))
   }
 
-  public func toJPEG(compressionQuality: CGFloat = K.Image.jpegCompression) -> NSData {
-    return UIImageJPEGRepresentation(self, compressionQuality)! as NSData
+  public func toJPEG(compressionQuality: CGFloat = K.Image.jpegCompression) -> Data {
+    return UIImageJPEGRepresentation(self, compressionQuality)!
   }
 
 //  public func flipped() -> UIImage {
