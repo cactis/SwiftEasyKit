@@ -14,6 +14,7 @@ import Neon
 //// import RandomKit
 import SwiftRandom
 import KeychainSwift
+import ObjectMapper
 
 import EZLoadingActivity
 //import SwiftSpinner
@@ -243,14 +244,11 @@ private func _log(_ obj: Any?, title: String = "", funcName: String = #function,
   let time = NSDate()
   print("")
   print(">>> \"\(title)\" in \(funcName) of \((fileName as NSString).lastPathComponent) \(line):\(column) >>>")
-  //  switch obj.self {
-  //  case is String, is Int, is [String], is [Int]:
-  //    print(obj)
-  //  default:
-  //    print((obj as! NSObject).asJSON())
-  //  }
-//  if let _ = obj { print(obj!) } else { print("no message") }
-  debugPrint(obj!)
+  if let json = obj as? Mappable {
+    debugPrint(json.toJSON())
+  } else {
+    debugPrint(obj!)
+  }
   print("<<< \"\(title)\" in \(funcName) of \((fileName as NSString).lastPathComponent) \(line):\(column) <<<")
   print("\(time) in \(Development.mode) mode")
   print("")
@@ -451,5 +449,25 @@ public func verticalLayout(_ blocks: [UIView], heights: [CGFloat], padding: CGFl
       block.alignUnder(prevBlock, matchingLeftAndRightWithTopPadding: padding, height: heights[index])
     }
     prevBlock = block
+  }
+}
+
+
+public extension Mappable {
+
+  /// Convert self to JSON String.
+  /// - Returns: Returns the JSON as String or empty string if error while parsing.
+  func json() -> String {
+    do {
+      let jsonData = try JSONSerialization.data(withJSONObject: self, options: [.prettyPrinted])
+      guard let jsonString = String(data: jsonData, encoding: String.Encoding.utf8) else {
+        print("Can't create string with data.")
+        return "{}"
+      }
+      return jsonString
+    } catch let parseError {
+      print("json serialization error: \(parseError)")
+      return "{}"
+    }
   }
 }
