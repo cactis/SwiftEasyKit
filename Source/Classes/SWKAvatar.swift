@@ -20,9 +20,9 @@ open class SWKAvatar: DefaultView, RSKImageCropViewControllerDelegate {
   }
   private var didShot: (_ image: UIImage) -> () = {_ in }
 
-  public func enabledShotting(run: @escaping (_ image: UIImage) -> ()) {
+  public func enabledShotting(didShot: @escaping (_ image: UIImage) -> ()) {
     enabledEdit = true
-    didShot = run
+    self.didShot = didShot
   }
 
   func cropImage(image: UIImage) {
@@ -31,7 +31,7 @@ open class SWKAvatar: DefaultView, RSKImageCropViewControllerDelegate {
     openViewController(vc)
   }
 
-  public func imageCropViewController(controller: RSKImageCropViewController, didCropImage croppedImage: UIImage, usingCropRect cropRect: CGRect) {
+  open func imageCropViewController(_ controller: RSKImageCropViewController, didCropImage croppedImage: UIImage, usingCropRect cropRect: CGRect) {
     controller.dismiss(animated: true) {
       self.photo.image = croppedImage
       self.photo.asFadable()
@@ -39,7 +39,7 @@ open class SWKAvatar: DefaultView, RSKImageCropViewControllerDelegate {
     }
   }
 
-  public func imageCropViewControllerDidCancelCrop(controller: RSKImageCropViewController) {
+  open func imageCropViewControllerDidCancelCrop(_ controller: RSKImageCropViewController) {
     controller.dismiss(animated: true, completion: nil)
   }
 
@@ -66,9 +66,10 @@ open class SWKAvatar: DefaultView, RSKImageCropViewControllerDelegate {
     openImagePicker()
   }
 
-  func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
+
+  open func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
     parentViewController()!.dismiss(animated: true, completion: nil)
-    cropImage(image: image)
+    cropImage(image: picker.getImageFromInfo(info)!)
   }
 
   var cameraSize: CGFloat { get { return width * 0.06 } }
@@ -77,7 +78,6 @@ open class SWKAvatar: DefaultView, RSKImageCropViewControllerDelegate {
     super.layoutSubviews()
     background.fillSuperview()
     camera.anchorInCorner(.bottomRight, xPad: 0, yPad: 0, width: 5 * cameraSize, height: camera.width)
-
     styleUI()
     didLayoutSubViews()
   }

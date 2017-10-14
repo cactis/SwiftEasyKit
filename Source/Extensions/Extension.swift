@@ -142,7 +142,7 @@ open class Lorem: LoremIpsum {
   }
 
   @discardableResult open class func random() -> String {
-    return "ABC"
+    return faker.internet.password(minimumLength: 8, maximumLength: 12)
   }
 
   @discardableResult open class func password() -> String {
