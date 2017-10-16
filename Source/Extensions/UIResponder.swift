@@ -8,6 +8,7 @@
 
 import Foundation
 import Alamofire
+import UserNotifications
 
 extension UIResponder {
 
@@ -30,14 +31,9 @@ extension UIResponder {
     return window!
   }
 
-  open func pushServerAppID() -> String {
-    return ""
-  }
+  open func pushServerAppID() -> String { return "" }
 
-  open func getDeviceName() -> String {
-    let name = UIDevice.current.name
-    return name
-  }
+  open func getDeviceName() -> String { return UIDevice.current.name }
 
   open func getDeviceToken() -> String {
     _logForAnyMode(getDeviceName(), title: "getDeviceName()")
@@ -45,45 +41,55 @@ extension UIResponder {
   }
 
   open func saveDeviceInfo(_ token: String, name: String) {
-    //    _logForAnyMode("\((token, name))", title: "(token, name)")
+    _logForAnyMode("OK!")
     Session.setValue(value: token, key: K.Api.deviceTokenKey)
     Session.setValue(value: name, key: K.Api.deviceNameKey)
   }
 
   open func application(_ application: UIApplication, didRegisterUserNotificationSettings notificationSettings: UIUserNotificationSettings){
+    _logForAnyMode()
     application.registerForRemoteNotifications()
   }
 
-  open func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
-    let token = getDeviceTokenString(deviceToken as Data)
-    let name = getDeviceName()
-    saveDeviceInfo(token, name: name)
-    sendTokenToPushServer(token, name: name)
-  }
+//  open func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+//    _logForAnyMode()
+//    let token = getDeviceTokenString(deviceToken as Data)
+//    let name = getDeviceName()
+//    saveDeviceInfo(token, name: name)
+//    sendTokenToPushServer(token, name: name)
+//  }
 
   func sendTokenToPushServer(_ token: String, name: String, success: @escaping (_ response: DataResponse<Any>) -> () = {_ in }) {
+    _logForAnyMode()
     PushServer.subscribeToken(appid: K.Api.appID, name: name, token: token, success: success)
   }
 
   open func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
+    _logForAnyMode()
   }
 
   @nonobjc open func applicationWillResignActive(_ application: UIApplication) {
+    _logForAnyMode()
   }
 
   @objc open func applicationDidEnterBackground(_ application: UIApplication) {
+    _logForAnyMode("work!")
   }
 
   @objc open func applicationWillEnterForeground(_ application: UIApplication) {
+    _logForAnyMode()
   }
 
   @objc open func applicationDidBecomeActive(_ application: UIApplication) {
+    _logForAnyMode()
   }
 
   @objc open func applicationWillTerminate(_ application: UIApplication) {
+    _logForAnyMode()
   }
 
-  private func getDeviceTokenString(_ deviceToken: Data) -> String {
+  func getDeviceTokenString(_ deviceToken: Data) -> String {
+    _logForAnyMode("work!")
     return deviceToken.map { String(format: "%02.2hhx", $0) }.joined()
 //    let characterSet: NSCharacterSet = NSCharacterSet( charactersInString: "<>" )
 //    let deviceTokenString: String = ( deviceToken.description as NSString )

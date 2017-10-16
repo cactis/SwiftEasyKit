@@ -7,31 +7,67 @@
 //
 
 import Foundation
+import UserNotifications
 
-open class DefaultAppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegate {
+open class DefaultAppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegate, UNUserNotificationCenterDelegate {
 
   public var window: UIWindow?
   public var tabBarViewController: UITabBarController?
 
   @discardableResult open func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
-        UITabBar.appearance().tintColor = K.Color.tabBar
-        UITabBar.appearance().barTintColor = K.Color.tabBarBackgroundColor
-        enablePushNotification(application)
-        return true
+    _logForAnyMode("1-2")
+    UITabBar.appearance().tintColor = K.Color.tabBar
+    UITabBar.appearance().barTintColor = K.Color.tabBarBackgroundColor
+
+    if #available(iOS 10.0, *) {
+      let center = UNUserNotificationCenter.current()
+      center.delegate = self
+      center.requestAuthorization(options: [.alert, .badge, .sound], completionHandler: { (granted, error) in
+        if granted {
+          _logForAnyMode("success!")
+          center.getNotificationSettings(completionHandler: { (settings) in
+            _logForAnyMode(settings, title: "settings")
+          })
+          DispatchQueue.main.async(execute: {
+            UIApplication.shared.registerForRemoteNotifications()
+          })
+        } else {
+          _logForAnyMode("ios 10+ request fail")
+        }
+      })
+//      application.registerForRemoteNotifications()
+    } else {
+      let settings = UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
+      application.registerUserNotificationSettings(settings)
+    }
+    return true
   }
-  //  open func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-//    UITabBar.appearance().tintColor = K.Color.tabBar
-//    UITabBar.appearance().barTintColor = K.Color.tabBarBackgroundColor
-//    enablePushNotification(application)
-//    return true
+
+  @available(iOS 10.0, *)
+  public func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+    _logForAnyMode()
+  }
+
+  @available(iOS 10.0, *)
+  public func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+    _logForAnyMode()
+  }
+
+//  open override func application(_ application: UIApplication, didRegisterUserNotificationSettings notificationSettings: UIUserNotificationSettings) {
+//    _logForAnyMode()
 //  }
 
-  open func enablePushNotification(_ application: UIApplication) {
-    let settings = UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
-    application.registerUserNotificationSettings(settings)
+  open func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+//    super.application(application, didRegisterForRemoteNotificationsWithDeviceToken: deviceToken)
+    _logForAnyMode("work!")
+    let token = getDeviceTokenString(deviceToken as Data)
+    let name = getDeviceName()
+    saveDeviceInfo(token, name: name)
+    sendTokenToPushServer(token, name: name)
   }
 
   open func enableTabBarController(_ delegate: UITabBarControllerDelegate, viewControllers: [UIViewController]!, titles: [String]!, images: [UIImage], selectedImages: [UIImage] = []) -> (UIWindow?, UITabBarController?) {
+    _logForAnyMode("work!")
     var _selectedImages = [UIImage]()
     if selectedImages.count > 0 {
       _selectedImages = selectedImages
@@ -52,19 +88,19 @@ open class DefaultAppDelegate: UIResponder, UIApplicationDelegate, UITabBarContr
   open func bootFrom(_ vcs: [UIViewController], liginStatus: Bool) { }
 
   override open func bootFrom(_ vc: UIViewController) -> UIWindow? {
+    _logForAnyMode("work!")
     let window: UIWindow?  = UIWindow(frame: UIScreen.main.bounds)
-    //    window!.backgroundColor = K.Color.body
     window!.rootViewController = vc
     window!.makeKeyAndVisible()
     return window!
   }
 
   open func redirectToLogin() {
-    _logForUIMode()
+    _logForAnyMode()
   }
 
   open func did500Error() {
-    _logForUIMode()
+    _logForAnyMode()
   }
 
 }
