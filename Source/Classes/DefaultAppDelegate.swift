@@ -43,22 +43,26 @@ open class DefaultAppDelegate: UIResponder, UIApplicationDelegate, UITabBarContr
     return true
   }
 
-  @available(iOS 10.0, *)
-  public func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-    _logForAnyMode()
-  }
-
-  @available(iOS 10.0, *)
-  public func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-    _logForAnyMode()
-  }
-
-//  open override func application(_ application: UIApplication, didRegisterUserNotificationSettings notificationSettings: UIUserNotificationSettings) {
-//    _logForAnyMode()
+//  @available(iOS 10.0, *)
+//  public func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+//    _logForAnyMode("前景時，收到推播")
+//    // 顯示一個提示/導引至會話現場
+////    _logForAnyMode(notification, title: "notification")
+////    _logForUIMode(notification.request.content, tit3333le: "notification.request.content")
+//    completionHandler([.alert, .badge, .sound])
+////    prompt(notification.request.content.body)
 //  }
 
+  @available(iOS 10.0, *)
+  open func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+    _logForAnyMode(response, title: "response")
+    didNotificationTapped(userInfo: response.notification.request.content.userInfo)
+    _logForAnyMode("前景/背景時，用戶點擊推播切回時")
+  }
+
+  open func didNotificationTapped(userInfo: [AnyHashable: Any]) { }
+
   open func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-//    super.application(application, didRegisterForRemoteNotificationsWithDeviceToken: deviceToken)
     _logForAnyMode("work!")
     let token = getDeviceTokenString(deviceToken as Data)
     let name = getDeviceName()
