@@ -11,13 +11,10 @@ import MapKit
 import LoremIpsum
 import FontAwesome_swift
 import Neon
-//// import RandomKit
 import SwiftRandom
 import KeychainSwift
 import ObjectMapper
-
 import EZLoadingActivity
-//import SwiftSpinner
 
 public func storeToKeyChain(_ value: String?, key: String!) {
   KeychainSwift().set(value!, forKey: key)
@@ -244,10 +241,14 @@ private func _log(_ obj: Any?, title: String = "", funcName: String = #function,
   let time = NSDate()
   print("")
   print(">>> \"\(title)\" in \(funcName) of \((fileName as NSString).lastPathComponent) \(line):\(column) >>>")
-  if let json = obj as? Mappable {
-    debugPrint(json.toJSON())
+  if obj != nil {
+    if let json = obj as? Mappable {
+      debugPrint(json.toJSON())
+    } else {
+      debugPrint(obj!)
+    }
   } else {
-    debugPrint(obj!)
+    debugPrint("nil")
   }
   print("<<< \"\(title)\" in \(funcName) of \((fileName as NSString).lastPathComponent) \(line):\(column) <<<")
   print("\(time) in \(Development.mode) mode")

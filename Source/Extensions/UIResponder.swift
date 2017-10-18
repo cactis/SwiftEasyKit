@@ -35,10 +35,10 @@ extension UIResponder {
 
   open func getDeviceName() -> String { return UIDevice.current.name }
 
-  open func getDeviceToken() -> String {
-    _logForAnyMode(getDeviceName(), title: "getDeviceName()")
-    return Session.getValue(key: K.Api.deviceTokenKey)!
-  }
+//  open func getDeviceToken() -> String {
+//    _logForAnyMode(getDeviceName(), title: "getDeviceName()")
+//    return Session.getValue(key: K.Api.deviceTokenKey)!
+//  }
 
   open func saveDeviceInfo(_ token: String, name: String) {
     _logForAnyMode("OK!")
@@ -50,14 +50,6 @@ extension UIResponder {
     _logForAnyMode()
     application.registerForRemoteNotifications()
   }
-
-//  open func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-//    _logForAnyMode()
-//    let token = getDeviceTokenString(deviceToken as Data)
-//    let name = getDeviceName()
-//    saveDeviceInfo(token, name: name)
-//    sendTokenToPushServer(token, name: name)
-//  }
 
   func sendTokenToPushServer(_ token: String, name: String, success: @escaping (_ response: DataResponse<Any>) -> () = {_ in }) {
     _logForAnyMode()

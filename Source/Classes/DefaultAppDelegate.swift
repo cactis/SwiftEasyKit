@@ -55,9 +55,8 @@ open class DefaultAppDelegate: UIResponder, UIApplicationDelegate, UITabBarContr
 
   @available(iOS 10.0, *)
   open func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-    _logForAnyMode(response, title: "response")
-    didNotificationTapped(userInfo: response.notification.request.content.userInfo)
     _logForAnyMode("前景/背景時，用戶點擊推播切回時")
+    didNotificationTapped(userInfo: response.notification.request.content.userInfo)
   }
 
   open func didNotificationTapped(userInfo: [AnyHashable: Any]) { }
