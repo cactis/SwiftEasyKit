@@ -252,7 +252,7 @@ extension String {
     return NSString.localizedStringWithFormat(format as NSString, self) as String
   }
 
-  public func toJOSN() -> [String:AnyObject]? {
+  public func toJOSN() -> [String: AnyObject]? {
     if let data = data(using: String.Encoding.utf8) {
       do {
         return try JSONSerialization.jsonObject(with: data, options: []) as? [String : AnyObject] //as? [String: AnyObject]
