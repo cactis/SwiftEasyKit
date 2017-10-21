@@ -189,7 +189,7 @@ open class TextSegment: Segment {
 
   override open func indicatorConstraints() {
     switch style {
-    case .Cover:
+    case .cover:
       let target = group.groupMargins[index]
       indicator.backgroundColored(K.Color.navigator.lighter().withAlphaComponent(0.25))
       indicator.alignUnder(target, matchingCenterWithTopPadding: -1 * target.height() + 1, width: target.width() - 2, height: target.height() - 2)
@@ -202,9 +202,10 @@ open class TextSegment: Segment {
     super.layoutSubviews()
     labels.forEach { (tab) -> () in
       switch style {
-      case .Cover:
+      case .cover:
         tab.fillSuperview()
       default:
+//        tab.fillSuperview()
         tab.anchorInCenter(withWidth: width / titles.count.cgFloat , height: size)
       }
     }
@@ -226,7 +227,7 @@ open class Segment: DefaultView {
   public var changed: () -> () = {}
   public var segmentTapped: () -> () = {}
 
-  public var style: IndicatorStyle = .Underline { didSet { } }
+  public var style: IndicatorStyle = .underline { didSet { } }
 
   public var textColorFollowedByIndicator = false {
     didSet { indicatorConstraints() }
@@ -239,8 +240,8 @@ open class Segment: DefaultView {
   }
 
   public enum IndicatorStyle {
-    case Underline
-    case Cover
+    case underline
+    case cover
   }
 
   public var index: Int = 0 {
@@ -330,8 +331,6 @@ open class Segment: DefaultView {
     }
   }
 
-  override init(frame: CGRect) {
-    super.init(frame: frame)
-  }
+  override init(frame: CGRect) { super.init(frame: frame)}
   required public init?(coder aDecoder: NSCoder) { fatalError("init(coder:) has not been implemented") }
 }
