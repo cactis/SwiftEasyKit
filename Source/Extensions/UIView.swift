@@ -14,6 +14,11 @@ import SwiftRandom
 
 extension UIView: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
+  @discardableResult public func alignedUnder(_ view: UIView) -> UIView {
+    alignUnder(view, matchingLeftAndRightWithTopPadding: 0, height: view.height())
+    return self
+  }
+
   public var rightPadding: CGFloat { get { return superview != nil ? superview!.width - rightEdge() : 0 } }
   public var topPadding: CGFloat { get { return topEdge() } }
   public var leftPadding: CGFloat { get { return rightEdge() } }
