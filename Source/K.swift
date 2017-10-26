@@ -64,7 +64,7 @@ public struct K {
   public struct Badge {
     public static var color = UIColor.white
     public static var backgroundColor = UIColor.red
-    public static var size: CGFloat = 12
+    public static var size: CGFloat = 14
   }
 
   public struct Icons {
