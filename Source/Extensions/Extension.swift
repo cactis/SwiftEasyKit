@@ -400,7 +400,7 @@ extension Date {
     return "!!!"
    }
 
-   public func toString(_ dateFormat: String = K.Api.timeFormat) -> String {
+   public func toString(_ dateFormat: String = K.Api.shortDateFormat) -> String {
 //   if self == nil { return "" }
    let dateFormatter = DateFormatter()
    dateFormatter.dateFormat = dateFormat

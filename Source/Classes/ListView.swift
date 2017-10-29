@@ -36,6 +36,11 @@ open class LabelText: DefaultView {
     return self
   }
 
+  @discardableResult public func texted(_ text: Int) -> LabelText {
+    self.text.texted(text.string)
+    return self
+  }
+
   public func setSameLabelWidth(_ items: [LabelText]) {
     items.forEach({ $0.labelWidth = labelWidth })
   }

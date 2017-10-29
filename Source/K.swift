@@ -28,6 +28,7 @@ public struct K {
     public static var deviceNameKey = "deviceName"
 
     public static var timeFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+    public static var shortDateFormat = "yyyy-MM-dd"
     //    public static var timeFormat = "yyyy-mm-dd hh:mm:ss UTC"
 
     public struct Resource {

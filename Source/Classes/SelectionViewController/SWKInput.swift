@@ -34,7 +34,7 @@ open class SWKDateInput: SWKInput {
 
   @objc func doneTapped() {
     value.endEditing(true)
-    value.texted(datePicker.date.toString("yyyy/MM/dd"))
+    value.texted(datePicker.date.toString())
   }
 }
 
