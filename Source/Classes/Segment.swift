@@ -56,11 +56,9 @@ open class SegmentWithViews: DefaultView, UIScrollViewDelegate {
 //    })
   }
 
-  public func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
-    _logForUIMode()
-    segment.index = Int(scrollView.contentOffset.x / scrollView.width)
-  }
-
+//  public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+//    segment.index = Int(scrollView.contentOffset.x / scrollView.width)
+//  }
 
   override open func layoutSubviews() {
     super.layoutSubviews()

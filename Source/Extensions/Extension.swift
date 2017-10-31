@@ -659,7 +659,6 @@ extension CGFloat {
 }
 
 extension NSMutableAttributedString {
-
   @discardableResult public func setAsLink(_ textToFind: String, linkURL: String) -> Bool {
     let foundRange = self.mutableString.range(of: textToFind)
     if foundRange.location != NSNotFound {
@@ -758,12 +757,10 @@ extension UITableViewRowAction {
 }
 
 extension UISwitch {
-
   @discardableResult open func resize(_ sx: CGFloat = 0.7, sy: CGFloat = 0.7) -> UISwitch {
     transform = CGAffineTransform(scaleX: sx, y: sy)
     return self
   }
-
 }
 
 extension UIScrollView {

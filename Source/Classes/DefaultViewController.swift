@@ -32,8 +32,6 @@ open class DefaultViewController: UIViewController, UITextFieldDelegate, UITextV
     onDismissViewController()
   }
 
-
-
   open func layoutUI() {
     view.setNeedsUpdateConstraints()
   }
@@ -64,9 +62,7 @@ open class DefaultViewController: UIViewController, UITextFieldDelegate, UITextV
     registerKeyboardNotifications()
   }
 
-  open func bindData() {
-
-  }
+  open func bindData() { }
 
   open func enableSaveBarButtonItem(title: String = "") {
     if title != "" {

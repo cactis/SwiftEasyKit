@@ -33,9 +33,16 @@ open class TableViewController: DefaultViewController, UITableViewDataSource, UI
 //  }
 
   open func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-    cell.layoutIfNeeded()
-    cell.layoutSubviews()
-    return cell.bottomView.bottomEdge() + cellExtraHeight()
+//    cell.layoutIfNeeded()
+//    cell.layoutSubviews()
+//    return cell.bottomView.bottomEdge() + cellExtraHeight()
+    if cell != nil {
+      cell.layoutIfNeeded()
+      cell.layoutSubviews()
+      return cell.bottomView.bottomEdge() + cellExtraHeight()
+    } else {
+      return 0
+    }
   }
 
   override open func updateViewConstraints() {

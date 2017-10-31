@@ -56,13 +56,13 @@ open class PageScroll: DefaultView, UIScrollViewDelegate, UIViewControllerTransi
     parentViewController()?.present(slider, animated: true, completion: nil)
   }
 
-  public func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
+  public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
     let index = Int(scrollView.contentOffset.x / width)
     paginator.currentPage = index
     didScrollEndDecelerating(index)
   }
 
-  public func scrollViewWillBeginDragging(scrollView: UIScrollView) {
+  public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
     let index = Int(scrollView.contentOffset.x / width)
     didScrollBeginDragging(index)
   }
