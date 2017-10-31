@@ -56,9 +56,23 @@ open class SegmentWithViews: DefaultView, UIScrollViewDelegate {
 //    })
   }
 
-//  public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-//    segment.index = Int(scrollView.contentOffset.x / scrollView.width)
-//  }
+  enum ScrollDirection {
+    case vertical
+    case horizontal
+  }
+  var lastContentOffset: CGPoint! = .zero
+  var direction: ScrollDirection!
+  public func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    direction = lastContentOffset.x == scrollView.contentOffset.x ? .vertical : .horizontal
+    lastContentOffset = scrollView.contentOffset
+  }
+
+  public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+    if direction == .horizontal {
+      let index = Int(scrollView.contentOffset.x / segment.width)
+      segment.index = index
+    }
+  }
 
   override open func layoutSubviews() {
     super.layoutSubviews()
