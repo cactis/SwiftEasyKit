@@ -57,6 +57,7 @@ open class TableViewCell: UITableViewCell {
 
   override open func layoutSubviews() {
     super.layoutSubviews()
+    _logForAnyMode()
 //    contentView.fillSuperview(left: 10, right: 10, top: 10, bottom: 10)
     contentView.fillSuperview()
   }

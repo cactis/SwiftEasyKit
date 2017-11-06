@@ -397,7 +397,7 @@ extension Int {
 
 extension Date {
    public func timeAgo() -> String {
-    return "!!!"
+    return toString()
    }
 
    public func toString(_ dateFormat: String = K.Api.shortDateFormat) -> String {

@@ -9,20 +9,19 @@ import MapKit
 import LoremIpsum
 import FontAwesome_swift
 import Neon
-// import RandomKit
 import SwiftRandom
+import Kingfisher
 
 extension UIImage {
-
-  open class func loadFromURL(url: String) -> UIImage? {
-    do {
-      let data = try NSData(contentsOf: URL(string: url)!) as Data
-      return UIImage(data: data)!
-    } catch {
-      return nil
-    }
-
-  }
+    
+//  open class func loadFromURL(url: String) -> UIImage? {
+//    do {
+//      let data = try NSData(contentsOf: URL(string: url)!) as Data
+//      return UIImage(data: data)!
+//    } catch {
+//      return nil
+//    }
+//  }
 
   open class func sample() -> UIImage {
     return UIImage.fontAwesomeIcon(name: .clockO, textColor: UIColor.lightGray.lighter(), size: CGSize(width: 300, height: 300))
