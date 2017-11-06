@@ -15,6 +15,7 @@ public struct K {
     public static var production = ""
     public static var stage = ""
     public static var local = ""
+    public static var cable = ""
 
     public static var prefix = "/api"
 

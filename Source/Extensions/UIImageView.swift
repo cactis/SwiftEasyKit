@@ -12,6 +12,24 @@ import Neon
 import SwiftRandom
 import Kingfisher
 
+
+extension UIImage {
+  open func loadFromURL(_ url: String, onComplete: @escaping (_ image: UIImage) -> ()) {
+    ImageDownloader.default.downloadImage(with: URL(string: url)!, retrieveImageTask: nil, options: [], progressBlock: nil, completionHandler: { (image, error, url, data) in
+      DispatchQueue.main.async {
+        onComplete(image!)
+      }
+    })
+  }
+  open class func loadFromURL(_ url: String, onComplete: @escaping (UIImage) -> ()){
+    ImageDownloader.default.downloadImage(with: URL(string: url)!, retrieveImageTask: nil, options: [], progressBlock: nil, completionHandler: { (image, error, url, data) in
+      DispatchQueue.main.async {
+        onComplete(image!)
+      }
+    })
+  }
+}
+
 extension UIImageView {
   
   open func loadFromURL(_ url: String) -> UIImageView {
