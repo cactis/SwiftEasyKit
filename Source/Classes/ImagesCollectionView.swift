@@ -138,7 +138,7 @@ open class ImagesCollectionView: CollectionView {
     public var data: Photo! {
       didSet {
         if (data.url) != nil {
-          photo.loadImageWithString(data.url)
+          photo.imaged(data.url)
         } else {
           photo.image = data.image
         }

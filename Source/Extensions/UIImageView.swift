@@ -11,10 +11,12 @@ import FontAwesome_swift
 import Neon
 import SwiftRandom
 import Kingfisher
+import PhotoSlider
 
 
 extension UIImage {
-  open func loadFromURL(_ url: String, onComplete: @escaping (_ image: UIImage) -> ()) {
+
+  open func loadFromURL(_ url: String, onComplete: @escaping (UIImage) -> ()) {
     ImageDownloader.default.downloadImage(with: URL(string: url)!, retrieveImageTask: nil, options: [], progressBlock: nil, completionHandler: { (image, error, url, data) in
       DispatchQueue.main.async {
         onComplete(image!)
@@ -31,13 +33,20 @@ extension UIImage {
 }
 
 extension UIImageView {
+
+  open func bindPreview() -> UIImageView {
+    whenTapped(self, action: #selector(previewTapped))
+    return self
+  }
+
+  @objc func previewTapped(_ sender: UITapGestureRecognizer) {
+    let view = sender.view
+    let slider = PhotoSlider.ViewController(images: [((view as? UIImageView)?.image)!])
+    parentViewController()?.present(slider, animated: true, completion: nil)
+  }
   
   open func loadFromURL(_ url: String) -> UIImageView {
-    ImageDownloader.default.downloadImage(with: URL(string: url)!, retrieveImageTask: nil, options: [], progressBlock: nil, completionHandler: { (image, error, url, data) in
-      DispatchQueue.main.async {
-        self.image = image
-      }
-    })
+    self.kf.setImage(with: URL(string: url))
     return self
   }
   
@@ -54,8 +63,6 @@ extension UIImageView {
     guard let _ = name else { return self }
     if name!.contains("http") {
       loadFromURL(name!)
-      //      image = UIImage.loadFromURL(url: name!)
-      //      self.kf_setImageWithURL(NSURL(string: name!)!)
     } else {
       loadImage(UIImage(named: name!))
     }
@@ -67,10 +74,10 @@ extension UIImageView {
     imaged(name)
   }
   
-  @discardableResult public func loadImageWithString(_ name: String!) -> UIImageView {
-    return imaged(name)
-  }
-  
+//  @discardableResult public func loadImageWithString(_ name: String!) -> UIImageView {
+//    return imaged(name)
+//  }
+
   @discardableResult public func loadImage(_ image: UIImage? = placeHoderImage()) -> UIImageView {
     if image != nil {
       //      UIView.transitionWithView(self, duration: 0.5, options: .TransitionCrossDissolve, animations: { () -> Void in
