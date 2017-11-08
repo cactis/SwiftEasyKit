@@ -41,8 +41,10 @@ extension UIImageView {
 
   @objc func previewTapped(_ sender: UITapGestureRecognizer) {
     let view = sender.view
-    let slider = PhotoSlider.ViewController(images: [((view as? UIImageView)?.image)!])
-    parentViewController()?.present(slider, animated: true, completion: nil)
+    let photoSlider = PhotoSlider.ViewController(images: [((view as? UIImageView)?.image)!])
+    photoSlider.modalPresentationStyle = .overCurrentContext
+    photoSlider.modalTransitionStyle = .crossDissolve
+    parentViewController()?.present(photoSlider, animated: true, completion: nil)
   }
   
   open func loadFromURL(_ url: String) -> UIImageView {

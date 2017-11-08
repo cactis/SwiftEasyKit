@@ -24,6 +24,11 @@ extension UIButton {
     return self
   }
 
+  @objc public convenience init(_ iconCode: String) {
+    self.init(frame: .zero)
+    imaged(getImage(iconCode: iconCode, color: K.Color.text))
+  }
+
   @objc public convenience init(text: String) {
     self.init(frame: .zero)
     self.setTitle(text, for: .normal)
@@ -38,6 +43,9 @@ extension UIButton {
 
   @discardableResult public func imaged(_ image: UIImage) -> UIButton {
     setImage(image, for: .normal)
+    setImage(image, for: .selected)
+    setImage(image, for: .focused)
+    setImage(image, for: .highlighted)
     return self
   }
 

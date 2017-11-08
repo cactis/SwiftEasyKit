@@ -37,17 +37,17 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
     return tabBarViewController
   }
 
-  open func _enableDebugInfo(_ fileName: String = (#file as NSString).lastPathComponent) {
-    _logForUIMode()
-    if _isSimulator() {
-      _logForUIMode()
-      let _fileName = Label()
-      view.layout([_fileName])
-      _fileName.texted(fileName).smaller(2)
-      view.bringSubview(toFront: _fileName)
-      _fileName.anchorInCorner(.bottomRight, xPad: 0, yPad: 0, width: _fileName.textWidth(), height: _fileName.textHeight())
-    }
-  }
+//  open func _enableDebugInfo(_ fileName: String = (#file as NSString).lastPathComponent) {
+//    _logForUIMode()
+//    if _isSimulator() {
+//      _logForUIMode()
+//      let _fileName = Label()
+//      view.layout([_fileName])
+//      _fileName.texted(fileName).smaller(2)
+//      view.bringSubview(toFront: _fileName)
+//      _fileName.anchorInCorner(.bottomRight, xPad: 0, yPad: 0, width: _fileName.textWidth(), height: _fileName.textHeight())
+//    }
+//  }
 
   open func goBackToRootViewController(_ delayed: Double = 0, onComplete: @escaping () -> () = {}) {
     delayedJob(delayed) {

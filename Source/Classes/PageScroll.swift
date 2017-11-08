@@ -7,7 +7,7 @@
 import UIKit
 import PhotoSlider
 
-open class PageScroll: DefaultView, UIScrollViewDelegate, UIViewControllerTransitioningDelegate {
+open class PageScroll: DefaultView, UIScrollViewDelegate {
   public var paginator = UIPageControl()
   public var scrollView = UIScrollView()
   public var views = [UIView]() { didSet {
@@ -50,10 +50,11 @@ open class PageScroll: DefaultView, UIScrollViewDelegate, UIViewControllerTransi
 
   @objc func viewTapped(_ sender: UITapGestureRecognizer) {
     let index = views.index(of: sender.view!)
-    let slider = PhotoSlider.ViewController(images: views.map{($0 as? UIImageView)!.image!})
-    slider.currentPage = index!
-    slider.transitioningDelegate = self
-    parentViewController()?.present(slider, animated: true, completion: nil)
+    let photoSlider = PhotoSlider.ViewController(images: views.map{($0 as? UIImageView)!.image!})
+    photoSlider.currentPage = index!
+    photoSlider.modalPresentationStyle = .overCurrentContext
+    photoSlider.modalTransitionStyle = .crossDissolve
+    parentViewController()?.present(photoSlider, animated: true, completion: nil)
   }
 
   public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
