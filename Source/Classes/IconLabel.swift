@@ -177,7 +177,7 @@ open class IconLabel: DefaultView {
       case .UIImage:
         let p = iconBorder.height * 0.1
         iconImage.fillSuperview(left: p, right: p, top: p, bottom: p)
-        label.sized(label.height * 0.8).bold(bolded)
+        label.sized(iconImage.height * 0.75).bold(bolded)
       default:
         let s = height * 0.2
         label.fillSuperview(left: s, right: s, top: s, bottom: s)
