@@ -39,7 +39,6 @@ extension NSMutableDictionary {
       onSuccess(string!)
     } catch {
       print(error)
-
     }
   }
 }
