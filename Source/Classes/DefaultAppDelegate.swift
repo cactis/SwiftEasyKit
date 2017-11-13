@@ -15,50 +15,40 @@ open class DefaultAppDelegate: UIResponder, UIApplicationDelegate, UITabBarContr
   public var tabBarViewController: UITabBarController?
 
   @discardableResult open func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
-    _logForAnyMode("1-2")
     UITabBar.appearance().tintColor = K.Color.tabBar
     UITabBar.appearance().barTintColor = K.Color.tabBarBackgroundColor
+    requestToAllowUserNotification(application) // 請求推播授權
+    return true
+  }
 
+  // 請求推播授權
+  public func requestToAllowUserNotification(_ application: UIApplication) {
     if #available(iOS 10.0, *) {
       let center = UNUserNotificationCenter.current()
       center.delegate = self
       center.requestAuthorization(options: [.alert, .badge, .sound], completionHandler: { (granted, error) in
         if granted {
-          _logForAnyMode("success!")
           center.getNotificationSettings(completionHandler: { (settings) in
             _logForAnyMode(settings, title: "settings")
           })
-          DispatchQueue.main.async(execute: {
-            UIApplication.shared.registerForRemoteNotifications()
-          })
+          DispatchQueue.main.async(execute: { UIApplication.shared.registerForRemoteNotifications() })
         } else {
           _logForAnyMode("ios 10+ request fail")
         }
       })
-//      application.registerForRemoteNotifications()
     } else {
       let settings = UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
       application.registerUserNotificationSettings(settings)
     }
-    return true
   }
 
-//  @available(iOS 10.0, *)
-//  public func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-//    _logForAnyMode("前景時，收到推播")
-//    // 顯示一個提示/導引至會話現場
-////    _logForAnyMode(notification, title: "notification")
-////    _logForUIMode(notification.request.content, tit3333le: "notification.request.content")
-//    completionHandler([.alert, .badge, .sound])
-////    prompt(notification.request.content.body)
-//  }
-
+  // 前景/背景時，用戶點擊推播切回時
   @available(iOS 10.0, *)
   open func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-    _logForAnyMode("前景/背景時，用戶點擊推播切回時")
     didNotificationTapped(userInfo: response.notification.request.content.userInfo)
   }
 
+  // 專門處理用戶點擊推播後的控制
   open func didNotificationTapped(userInfo: [AnyHashable: Any]) { }
 
   open func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
