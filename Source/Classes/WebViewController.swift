@@ -5,17 +5,18 @@ import UIKit
 
 open class WebViewController: DefaultViewController, UIWebViewDelegate {
   public var webView = UIWebView()
-  var url: String! { didSet {
-    let request = NSURLRequest(url: URL(string: url)!)
-    webView.loadRequest(request as URLRequest)
+  var url: String? { didSet {
+    if url != nil {
+      webView.loadRequest(URLRequest(url: URL(string: url!)!))
+    }
     }}
 
-  public var didFinishLoad: (_  webView: UIWebView,_ delegate: WebViewController) -> () = {_,_ in }
-
-  public init(url: String) {
+  public init(title: String, url: String?) {
     super.init(nibName: nil, bundle: nil)
     ({ self.url = url })()
   }
+
+  public var didFinishLoad: (_  webView: UIWebView,_ delegate: WebViewController) -> () = {_,_ in }
 
   open func webViewDidFinishLoad(_ webView: UIWebView) {
     didFinishLoad(webView, self)
