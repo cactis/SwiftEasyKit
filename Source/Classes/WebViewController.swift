@@ -13,6 +13,7 @@ open class WebViewController: DefaultViewController, UIWebViewDelegate {
 
   public init(title: String, url: String?) {
     super.init(nibName: nil, bundle: nil)
+    titled(title, token: "WEBVC")
     ({ self.url = url })()
   }
 
