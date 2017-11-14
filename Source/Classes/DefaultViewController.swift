@@ -74,10 +74,16 @@ open class DefaultViewController: UIViewController, UITextFieldDelegate, UITextV
   @objc open func saveTapped() { _logForAnyMode()}
 
   open func enableCloseBarButtonItem() {
-    setRightBarButtonItem(getIcon(.close, options: ["size": K.BarButtonItem.size, "color": K.Color.barButtonItem]), action: #selector(closeTapped))
+    setRightBarButtonItem(
+//      getIcon(.close, options: ["size": K.BarButtonItem.size, "color": K.Color.barButtonItem])
+      getImage(iconCode: K.Icons.close, color: K.Color.barButtonItem, size: K.BarButtonItem.size)
+      , action: #selector(closeTapped))
   }
 
-  open func enableCloseBarButtonItemAtLeft() { setLeftBarButtonItem(getIcon(.close, options: ["size": K.BarButtonItem.size, "color": K.Color.barButtonItem]), action: #selector(closeTapped)) }
+  open func enableCloseBarButtonItemAtLeft() { setLeftBarButtonItem(
+//    getIcon(.close, options: ["size": K.BarButtonItem.size, "color": K.Color.barButtonItem])
+    getImage(iconCode: K.Icons.close, color: K.Color.barButtonItem, size: K.BarButtonItem.size)
+  , action: #selector(closeTapped)) }
 
   @objc open func closeTapped() { dismiss(animated: true) { () -> Void in }}
 

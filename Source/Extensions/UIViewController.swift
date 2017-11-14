@@ -325,6 +325,9 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
 
   public func hideBackBarButtonItemTitle() {
     self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+//    let icon = getIcon(.chevronLeft, options: ["size": K.BarButtonItem.size, "color": K.Color.barButtonItem])
+//    self.navigationController?.navigationBar.backIndicatorImage = icon
+//    self.navigationController?.navigationBar.backIndicatorTransitionMaskImage = icon
   }
 
   @discardableResult public func enableCaptureSessionWithPreview___(liveView: UIView, position: AVCaptureDevice.Position = .back, onComplete: @escaping () -> ()) -> (AVCaptureDeviceInput?, AVCaptureStillImageOutput?, AVCaptureSession?) {

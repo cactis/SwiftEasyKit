@@ -72,6 +72,7 @@ public struct K {
   public struct Icons {
     public static var check = "\u{e800}"
     public static var angleRight = "\u{e808}"
+    public static var close = "\u{e811}"
   }
 
   public struct Color {
