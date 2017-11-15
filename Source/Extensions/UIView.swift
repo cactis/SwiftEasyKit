@@ -98,7 +98,7 @@ extension UIView: UIImagePickerControllerDelegate, UINavigationControllerDelegat
   }
 
   public func openViewController(_ vc: UIViewController, style: UIModalTransitionStyle = .coverVertical, run: @escaping ()->() = {}) {
-    openControllerWithDelegate(parentViewController()!, vc: vc, style: style, run: run)
+    openControllerWithDelegate(parentViewController()!, vc: vc, style: style, completion: run)
   }
 
   public func openController(_ vc: UIViewController, type: String = kCATransitionFromTop, subtype: String = kCATransitionReveal, run: @escaping () -> () = {}) {

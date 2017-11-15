@@ -127,12 +127,12 @@ public func placeHoderImage() -> UIImage {
   return UIImage.fontAwesomeIcon(name: .clockO, textColor: UIColor.lightGray.lighter(), size: CGSize(width: 300, height: 300))
 }
 
-public func openControllerWithDelegate(_ delegate: UIViewController, vc: UIViewController, style: UIModalTransitionStyle = .coverVertical, run: @escaping () -> ()) {
+public func openControllerWithDelegate(_ delegate: UIViewController, vc: UIViewController, style: UIModalTransitionStyle = .coverVertical, completion: @escaping () -> ()) {
   vc.modalTransitionStyle = style
   let nv = UINavigationController()
   nv.pushViewController(vc, animated: true)
   delegate.present(nv, animated: true, completion: { () -> Void in
-    run()
+    completion()
   })
 }
 

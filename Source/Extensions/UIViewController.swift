@@ -82,12 +82,12 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
     return UINavigationController(rootViewController: self)
   }
 
-  public func flipViewController(_ vc: UIViewController, run: @escaping () -> () = {}) {
-    openViewController(vc, style: .flipHorizontal, run: run)
+  public func flipViewController(_ vc: UIViewController, completion: @escaping () -> () = {}) {
+    openViewController(vc, style: .flipHorizontal, completion: completion)
   }
 
-  public func openViewController(_ vc: UIViewController, style: UIModalTransitionStyle = .coverVertical, run: @escaping ()->() = {}) {
-    openControllerWithDelegate(self, vc: vc, style: style, run: run)
+  public func openViewController(_ vc: UIViewController, style: UIModalTransitionStyle = .coverVertical, completion: @escaping ()->() = {}) {
+    openControllerWithDelegate(self, vc: vc, completion: completion)
   }
 
   public func pushViewController(_ vc: UIViewController, checked: Bool = true, delayed: Double = 0, onComplete: () -> () = {}, onDismissViewController: @escaping () -> () = {}, didDismissViewController: @escaping (_ action: DismissType) -> () = {_ in }) -> Void {
