@@ -37,8 +37,8 @@ public func statusBarHeight() -> CGFloat {
   return UIApplication.shared.statusBarFrame.height
 }
 
-public func prompt(_ msgs: [String], runWith: (_ msg: String) -> String = { msg in return msg }, style: PromptType = PromptType()) {
-  prompt(runWith(msgs.randomItem()!), style: style)
+public func prompt(_ msgs: [String], runWith: (_ msg: String) -> String = { msg in return msg }, style: PromptType = PromptType(), onTapped: @escaping () -> () = {}) {
+  prompt(runWith(msgs.randomItem()!), style: style, onTapped: onTapped)
 }
 
 public func prompt(_ msg: String?, style: PromptType = PromptType(), onTapped: @escaping () -> () = {}) {
@@ -75,7 +75,9 @@ public func prompt(_ msg: String?, style: PromptType = PromptType(), onTapped: @
     })
 
     delayedJob(K.Prompt.delay, withIndicator: false, todo: {
-      notification.tapped()
+      if notification.superview != nil {
+        notification.tapped()
+      }
     })
 
     notification.whenTapped({
