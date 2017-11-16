@@ -432,6 +432,7 @@ public func currentView() -> UIView? {
 public func window() -> UIWindow? {
   return appDelegate().window
 }
+public var currentViewController: UIViewController { get { return (window()?.visibleViewController)! }}
 
 public func appDelegate() -> DefaultAppDelegate {
   return UIApplication.shared.delegate as! DefaultAppDelegate

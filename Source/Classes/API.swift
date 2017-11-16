@@ -26,6 +26,9 @@ open class API {
         prompt(error.localizedDescription)
       }
     }
+    _logForUIMode(K.Api.userToken, title: "K.Api.userToken")
+    _logForUIMode(K.Api.userToken)
+
     //    Alamofire.upload(method, url.hostUrl(), headers: headers(), multipartFormData: { (multipartFormData) in
     //      multipartFormData.appendBodyPart(data: data, name: name, fileName: filename, mimeType: mimeType)
     //      }, encodingCompletion: { (result) in
@@ -59,7 +62,7 @@ open class API {
     let appId = K.Api.appID
     var headers_ = ["app_id": appId, "file_name": (fileName! as NSString).lastPathComponent, "func_name": funcName!]
     headers_["Authorization"] = K.Api.userToken
-    headers_["token"] = Session.getValue(key: K.Api.userTokenKey) ?? K.Api.userToken
+//    headers_["token"] = Session.getValue(key: K.Api.userTokenKey) ?? K.Api.userToken
     //    if Development.Log.API.header { _logForAnyobj: Mode(headers_, title: "headers") }
     return headers_
   }

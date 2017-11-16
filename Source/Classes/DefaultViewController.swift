@@ -123,6 +123,7 @@ open class DefaultViewController: UIViewController, UITextFieldDelegate, UITextV
   override open func viewWillAppear(_ animated: Bool) {
     //    _logForUIMode()
     setTabBarStatus()
+    _logForUIMode(K.Api.userToken, title: "K.Api.userToken")
   }
 
   open func setTabBarStatus() {
