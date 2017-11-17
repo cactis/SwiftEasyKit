@@ -145,12 +145,12 @@ s.dependency 'Facade'
 s.dependency 'Masonry'
 # s.dependency 'SwiftSpinner'
 # s.dependency 'SwitchLoader'#, '~> 0.0.1'
-s.dependency 'EZLoadingActivity'#, '0.8' #For Swift 2.2
+# s.dependency 'EZLoadingActivity'#, '0.8' #For Swift 2.2
 # s.dependency 'GradientLoadingBar'#, '~> 1.0'
 s.dependency 'JSQMessagesViewController'
 s.dependency 'ObjectMapper'#, '1.3.0'
 s.dependency 'RSKImageCropper'#, '1.5.1'
-s.dependency 'mailgun'#, '~> 1.0.3'
+# s.dependency 'mailgun'#, '~> 1.0.3'
 s.dependency 'Fakery'#, '1.2.0'
 # s.dependency 'FontAwesomeKit'
 s.dependency 'Alamofire'#, '3.4.1'
@@ -159,7 +159,7 @@ s.dependency 'Kingfisher'#, '3.10.4'#, '2.4.1' 3.10.4
 # s.dependency 'EZSwiftExtensions'
 # s.dependency 'ExSwift'
 s.dependency 'KeychainSwift'#, '~> 3.0'
-s.dependency 'Stripe'
+# s.dependency 'Stripe'
 s.dependency 'Bond'#, '4.3.1'
 # s.dependency 'AlamofireObjectMapper', '~> 3.0'
 

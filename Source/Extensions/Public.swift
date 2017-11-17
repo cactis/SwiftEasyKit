@@ -14,7 +14,7 @@ import Neon
 import SwiftRandom
 import KeychainSwift
 import ObjectMapper
-import EZLoadingActivity
+//import EZLoadingActivity
 
 public func storeToKeyChain(_ value: String?, key: String!) {
   KeychainSwift().set(value!, forKey: key)
@@ -436,6 +436,10 @@ public var currentViewController: UIViewController { get { return (window()?.vis
 
 public func appDelegate() -> DefaultAppDelegate {
   return UIApplication.shared.delegate as! DefaultAppDelegate
+}
+
+public func requestPushNotification() {
+ appDelegate().requestToAllowUserNotification(UIApplication.shared)
 }
 
 public func verticalLayout(_ blocks: [UIView], heights: [CGFloat], padding: CGFloat = 0, xPad: CGFloat = 0, yPad: CGFloat = 0, alignUnder: UIView? = nil) {

@@ -330,16 +330,16 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
 //    self.navigationController?.navigationBar.backIndicatorTransitionMaskImage = icon
   }
 
-  @discardableResult public func enableCaptureSessionWithPreview___(liveView: UIView, position: AVCaptureDevice.Position = .back, onComplete: @escaping () -> ()) -> (AVCaptureDeviceInput?, AVCaptureStillImageOutput?, AVCaptureSession?) {
-
-    let session = AVCaptureSession()
-    let output = AVCaptureStillImageOutput()
-    output.outputSettings = [AVVideoCodecKey: AVVideoCodecJPEG]
-    enabledPreview(session: session, target: liveView)
-    session.sessionPreset = .photo
-    session.addOutput(output)
-    return (nil, output, session)
-  }
+//  @discardableResult public func enableCaptureSessionWithPreview___(liveView: UIView, position: AVCaptureDevice.Position = .back, onComplete: @escaping () -> ()) -> (AVCaptureDeviceInput?, AVCaptureStillImageOutput?, AVCaptureSession?) {
+//
+//    let session = AVCaptureSession()
+//    let output = AVCaptureStillImageOutput()
+//    output.outputSettings = [AVVideoCodecKey: AVVideoCodecJPEG]
+//    enabledPreview(session: session, target: liveView)
+//    session.sessionPreset = .photo
+//    session.addOutput(output)
+//    return (nil, output, session)
+//  }
 
   public func checkCamera(ready: @escaping () -> ()) {
     if AVCaptureDevice.authorizationStatus(for: .video) == .authorized {

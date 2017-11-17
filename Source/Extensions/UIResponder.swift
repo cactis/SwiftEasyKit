@@ -40,11 +40,11 @@ extension UIResponder {
 //    return Session.getValue(key: K.Api.deviceTokenKey)!
 //  }
 
-  open func saveDeviceInfo(_ token: String, name: String) {
-    _logForAnyMode("OK!")
-    Session.setValue(value: token, key: K.Api.deviceTokenKey)
-    Session.setValue(value: name, key: K.Api.deviceNameKey)
-  }
+//  open func saveDeviceInfo(_ token: String, name: String) {
+//    _logForAnyMode("OK!")
+//    Session.setValue(value: token, key: K.Api.deviceTokenKey)
+//    Session.setValue(value: name, key: K.Api.deviceNameKey)
+//  }
 
   open func application(_ application: UIApplication, didRegisterUserNotificationSettings notificationSettings: UIUserNotificationSettings){
     _logForAnyMode()
@@ -52,7 +52,7 @@ extension UIResponder {
   }
 
   func sendTokenToPushServer(_ token: String, name: String, success: @escaping (_ response: DataResponse<Any>) -> () = {_ in }) {
-    _logForAnyMode()
+//    _logForAnyMode()
     PushServer.subscribeToken(appid: K.Api.appID, name: name, token: token, success: success)
   }
 
@@ -80,7 +80,7 @@ extension UIResponder {
     _logForAnyMode()
   }
 
-  func getDeviceTokenString(_ deviceToken: Data) -> String {
+  open func getDeviceTokenString(_ deviceToken: Data) -> String {
     _logForAnyMode("work!")
     return deviceToken.map { String(format: "%02.2hhx", $0) }.joined()
 //    let characterSet: NSCharacterSet = NSCharacterSet( charactersInString: "<>" )

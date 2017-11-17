@@ -52,10 +52,9 @@ open class DefaultAppDelegate: UIResponder, UIApplicationDelegate, UITabBarContr
   open func didNotificationTapped(userInfo: [AnyHashable: Any]) { }
 
   open func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-    _logForAnyMode("work!")
-    let token = getDeviceTokenString(deviceToken as Data)
+    let token = getDeviceTokenString(deviceToken)
     let name = getDeviceName()
-    saveDeviceInfo(token, name: name)
+//    saveDeviceInfo(token, name: name)
     sendTokenToPushServer(token, name: name)
   }
 
