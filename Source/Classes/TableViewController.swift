@@ -20,7 +20,7 @@ open class TableViewController: DefaultViewController, UITableViewDataSource, UI
     return K.Size.Header.height
   }
 
-  open func cellExtraHeight() -> CGFloat {
+  open func extraCellBottomPadding() -> CGFloat {
     return 30
   }
 
@@ -33,13 +33,10 @@ open class TableViewController: DefaultViewController, UITableViewDataSource, UI
 //  }
 
   open func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//    cell.layoutIfNeeded()
-//    cell.layoutSubviews()
-//    return cell.bottomView.bottomEdge() + cellExtraHeight()
     if cell != nil {
       cell.layoutIfNeeded()
       cell.layoutSubviews()
-      return cell.bottomView.bottomEdge() + cellExtraHeight()
+      return cell.bottomView.bottomEdge() + extraCellBottomPadding()
     } else {
       return 0
     }
