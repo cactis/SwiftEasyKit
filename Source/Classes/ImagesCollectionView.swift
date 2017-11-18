@@ -218,10 +218,10 @@ open class Photo: Mappable {
   }
 
   open class func seeds(onComplete: (_ items: [Photo]) -> ()) {
-    let items = [Photo]()
-//    (0...2).forEach { (i) in
-//      items.append(Photo(urlmImageName()))
-//    }
+    var items = [Photo]()
+    (0...2).forEach { (i) in
+      items.append(Photo(url: randomImageUrl()))
+    }
     onComplete(items)
   }
   required public init?(map: Map) { }
