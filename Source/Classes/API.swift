@@ -76,6 +76,7 @@ open class API {
     //    let _url = NSURL(string: url.hostUrl().stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!)!
     let _url = URL(string: url.hostUrl().addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!)
     _logForUIMode(_url, title: "_url")
+    _logForAnyMode(headers(), title: "headers")
     Alamofire.request(_url!, method: method, parameters: parameters, headers: headers()).responseJSON { response in
       requestTime = NSDate().timeIntervalSince(requestStartTime as Date)
       processJSONResponse(response, run: run)

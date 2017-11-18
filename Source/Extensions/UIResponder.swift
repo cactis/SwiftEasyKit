@@ -51,8 +51,7 @@ extension UIResponder {
     application.registerForRemoteNotifications()
   }
 
-  func sendTokenToPushServer(_ token: String, name: String, success: @escaping (_ response: DataResponse<Any>) -> () = {_ in }) {
-//    _logForAnyMode()
+  open func sendTokenToPushServer(_ token: String, name: String, success: @escaping (_ response: DataResponse<Any>) -> () = {_ in }) {
     PushServer.subscribeToken(appid: K.Api.appID, name: name, token: token, success: success)
   }
 
@@ -80,7 +79,7 @@ extension UIResponder {
     _logForAnyMode()
   }
 
-  open func getDeviceTokenString(_ deviceToken: Data) -> String {
+  public func getDeviceTokenString(_ deviceToken: Data) -> String {
     _logForAnyMode("work!")
     return deviceToken.map { String(format: "%02.2hhx", $0) }.joined()
 //    let characterSet: NSCharacterSet = NSCharacterSet( charactersInString: "<>" )
