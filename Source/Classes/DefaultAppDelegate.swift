@@ -17,7 +17,10 @@ open class DefaultAppDelegate: UIResponder, UIApplicationDelegate, UITabBarContr
   @discardableResult open func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
     UITabBar.appearance().tintColor = K.Color.tabBar
     UITabBar.appearance().barTintColor = K.Color.tabBarBackgroundColor
-    requestToAllowUserNotification(application) // 請求推播授權
+
+    // 請求推播授權
+    requestToAllowUserNotification(application)
+
     return true
   }
 

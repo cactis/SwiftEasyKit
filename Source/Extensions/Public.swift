@@ -438,7 +438,7 @@ public func appDelegate() -> DefaultAppDelegate {
   return UIApplication.shared.delegate as! DefaultAppDelegate
 }
 
-public func requestPushNotification() {
+public func requestPushNotification() { // 在任何地方呼叫用來請求推播授權
  appDelegate().requestToAllowUserNotification(UIApplication.shared)
 }
 
