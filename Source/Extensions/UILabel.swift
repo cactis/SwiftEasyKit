@@ -14,7 +14,7 @@ import SwiftRandom
 
 extension UILabel {
 
-  public convenience init(text: String) {
+  public convenience init(_ text: String) {
     self.init(frame: .zero)
     self.text = text
   }

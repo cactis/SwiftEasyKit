@@ -188,7 +188,10 @@ private func _autoRun(_ funcName: String = #function, fileName: String = #file, 
 public func runInDeviceMode(_ run: () -> (), elseRun: () -> () = {}) { if !_isSimulator() { run() } else { elseRun() } }
 
 
-public func _isWho(_ who: String) -> Bool { return _isSimulator() && who == Development.developer }
+public func _isWho(_ who: String) -> Bool {
+  _logForAnyMode(Development.developer, title: "Development.developer")
+  return _isSimulator() && who == Development.developer
+}
 public func _isSimulator() -> Bool { return TARGET_OS_SIMULATOR != 0 || Development.setDeviceAsSimulator == true }
 
 public func _logError(_ err: NSError!) {
