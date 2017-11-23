@@ -23,7 +23,7 @@ public struct Development {
     didSet {
       if uiTestMode {
         autoRun = false
-        prompt = false
+//        prompt = true
       }
     }
   }
