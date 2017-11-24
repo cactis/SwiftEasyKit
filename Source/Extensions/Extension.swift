@@ -774,3 +774,9 @@ extension UIScrollView {
     return scrollOffset + scrollViewHeight - scrollContentSizeHeight > offset
   }
 }
+
+extension UIApplication {
+  public static var isRunningTest: Bool {
+    return ProcessInfo().arguments.contains("UITestMode")
+  }
+}

@@ -177,7 +177,7 @@ public func _autoRunForUIMode(_ funcName: String = #function, fileName: String =
 }
 
 private func _autoRun(_ funcName: String = #function, fileName: String = #file, column: Int = #column, line: Int = #line, run: @escaping () -> ()) {
-  if Development.autoRun {
+  if Development.autoRun && !UIApplication.isRunningTest {
     print("=== autoRun in \(Development.mode): \(funcName) of \((fileName as NSString).lastPathComponent) \(line):\(column) ===")
     _delayedJob { () -> () in
       run()
@@ -189,7 +189,7 @@ public func runInDeviceMode(_ run: () -> (), elseRun: () -> () = {}) { if !_isSi
 
 
 public func _isWho(_ who: String) -> Bool {
-  _logForAnyMode(Development.developer, title: "Development.developer")
+//  _logForAnyMode(Development.developer, title: "Development.developer")
   return _isSimulator() && who == Development.developer
 }
 public func _isSimulator() -> Bool { return TARGET_OS_SIMULATOR != 0 || Development.setDeviceAsSimulator == true }
@@ -319,7 +319,7 @@ public func screenHeight() -> CGFloat {
   return UIScreen.main.bounds.height
 }
 
-public func randomBlock(_ n: Int = 15, m: Int = 30, run: () -> ()) {
+public func randomBlock(_ n: Int = 2, m: Int = 4, run: () -> ()) {
   (0...wizRandomInt(n, upper: m)).forEach { (i) -> () in
     run()
   }

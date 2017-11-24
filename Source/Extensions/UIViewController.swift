@@ -16,6 +16,7 @@ import SwiftRandom
 extension UIViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
   public enum DismissType {
+    case login
     case delete
     case update
   }
