@@ -4,11 +4,25 @@
 
 import Foundation
 import Alamofire
+import ObjectMapper
 
 extension String {
   public func hostUrl() -> String {
     return self.contains("http") ? self : "\(K.Api.host)\(self)"
   }
+}
+
+class PageMeta: Mappable {
+  var perPage: Int?
+  var totalPages: Int?
+  var totalObjects: Int?
+
+  func mapping(map: Map) {
+    perPage <- map["per_page"]
+    totalPages <- map["total_pages"]
+    totalObjects <- map["total_objects"]
+  }
+  required init?(map: Map) { }
 }
 
 open class API {
@@ -50,7 +64,7 @@ open class API {
     headers_["Authorization"] = K.Api.userToken
     return headers_
   }
-  
+
   class public func request(_ method: HTTPMethod = .get, url: String, parameters: [String: AnyObject] = [:], fileName: String? = #file, funcName: String? = #function, run: @escaping (_ response: DataResponse<Any>) -> ()) {
     let indicator = indicatorStart()
     let requestStartTime = NSDate()
@@ -72,9 +86,10 @@ open class API {
     if Development.Log.API.request { _logForAnyMode(response.request!, title: "response.request") }
     switch response.result {
     case .success(let value):
-      if value is NSArray {
+      if value is NSArray { // 傳回陣列
         run(response)
-      } else if let item = value as? NSDictionary {
+      } else if let item = value as? NSDictionary { // 傳回 JSON
+        if let debug = item.value(forKey: "debug") as? String { if _isWho("CT") { prompt(debug) } }
         let message = item.value(forKey: K.Api.Response.message) as? String
         switch (response.response?.statusCode)! {
         case 400, 404, 405, 422:
@@ -88,6 +103,7 @@ open class API {
           prompt(message ?? "伺服器內部錯誤，請稍後再試。")
           appDelegate().did500Error()
         default:
+          // 處理訊息
           if let message = item.value(forKey: K.Api.Response.message) as? String {
             prompt(message)
           } else if let texts = item.value(forKey: K.Api.Response.message) as? NSDictionary {
