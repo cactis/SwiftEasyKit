@@ -23,6 +23,9 @@ open class PopupViewController: DefaultViewController { //UIViewController {
 
   @objc override open func closeTapped() {
     self.dismiss(animated: true) { () -> Void in
+      if let popupView = self.contentView as? PopupView {
+        popupView.didDismiss(popupView)
+      }
     }
   }
 
