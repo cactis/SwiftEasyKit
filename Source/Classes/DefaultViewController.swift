@@ -12,7 +12,7 @@ open class DefaultViewController: UIViewController, UITextFieldDelegate, UITextV
 
   public var textViewShouldReturn = false
 
-  public var tabBarHidden = false
+  public var tabBarHidden = false { didSet { setTabBarStatus() } }
 
   public var onDismissViewController: () -> () = { }// auto run
   public var didDismissViewController: (_ action: DismissType) -> () = { _ in } // call by target
@@ -127,6 +127,7 @@ open class DefaultViewController: UIViewController, UITextFieldDelegate, UITextV
   }
 
   open func setTabBarStatus() {
+    self.tabBarController?.tabBar.asFadable(0.1)
     self.tabBarController?.tabBar.isHidden = tabBarHidden
   }
 

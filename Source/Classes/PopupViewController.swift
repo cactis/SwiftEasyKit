@@ -3,9 +3,9 @@
 
 import UIKit
 
-open class PopupViewController: UIViewController {
+open class PopupViewController: DefaultViewController { //UIViewController {
 
-  public var autoDismiss: Bool = false
+  public var easyDismiss: Bool = false
   public var maskView: UIView!
   public var contentView: UIView!
 
@@ -16,12 +16,12 @@ open class PopupViewController: UIViewController {
     view.addSubview(contentView)
     maskView.blured(view)
 
-    if autoDismiss {
+    if easyDismiss {
       maskView.whenTapped(self, action: #selector(closeTapped))
     }
   }
 
-  @objc func closeTapped() {
+  @objc override open func closeTapped() {
     self.dismiss(animated: true) { () -> Void in
     }
   }

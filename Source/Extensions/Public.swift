@@ -177,7 +177,7 @@ public func _autoRunForUIMode(_ funcName: String = #function, fileName: String =
 }
 
 private func _autoRun(_ funcName: String = #function, fileName: String = #file, column: Int = #column, line: Int = #line, run: @escaping () -> ()) {
-  if Development.autoRun && !UIApplication.isRunningTest {
+  if Development.autoRun && !_isRunningTest() {
     print("=== autoRun in \(Development.mode): \(funcName) of \((fileName as NSString).lastPathComponent) \(line):\(column) ===")
     _delayedJob { () -> () in
       run()
@@ -188,9 +188,13 @@ private func _autoRun(_ funcName: String = #function, fileName: String = #file, 
 public func runInDeviceMode(_ run: () -> (), elseRun: () -> () = {}) { if !_isSimulator() { run() } else { elseRun() } }
 
 
+public func _isRunningTest() -> Bool {
+    return UIApplication.isRunningTest
+}
+
 public func _isWho(_ who: String) -> Bool {
 //  _logForAnyMode(Development.developer, title: "Development.developer")
-  return _isSimulator() && who == Development.developer
+  return _isSimulator() && who == Development.developer && !_isRunningTest()
 }
 public func _isSimulator() -> Bool { return TARGET_OS_SIMULATOR != 0 || Development.setDeviceAsSimulator == true }
 
