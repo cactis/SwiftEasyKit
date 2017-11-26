@@ -14,6 +14,9 @@ import Neon
 import SwiftRandom
 import KeychainSwift
 import ObjectMapper
+import PhotoSlider
+
+
 //import EZLoadingActivity
 
 public func storeToKeyChain(_ value: String?, key: String!) {
@@ -434,6 +437,14 @@ public func delayedJob(_ seconds: Double, withIndicator: Bool = true, todo: @esc
     todo()
     indicatorEnd(indicator: indicator)
   }
+}
+
+public func openPhotoSlider(images: [UIImage], index: Int! = 0) {
+  let photoSlider = PhotoSlider.ViewController(images: images)
+  photoSlider.currentPage = index
+  photoSlider.modalPresentationStyle = .overFullScreen // .overCurrentContext
+  photoSlider.modalTransitionStyle = .crossDissolve
+  currentViewController.present(photoSlider, animated: true, completion: nil)
 }
 
 public func currentView() -> UIView? {

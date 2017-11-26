@@ -49,12 +49,9 @@ open class PageScroll: DefaultView, UIScrollViewDelegate {
   }
 
   @objc func viewTapped(_ sender: UITapGestureRecognizer) {
-    let index = views.index(of: sender.view!)
-    let photoSlider = PhotoSlider.ViewController(images: views.map{($0 as? UIImageView)!.image!})
-    photoSlider.currentPage = index!
-    photoSlider.modalPresentationStyle = .overCurrentContext
-    photoSlider.modalTransitionStyle = .crossDissolve
-    parentViewController()?.present(photoSlider, animated: true, completion: nil)
+    let index = views.index(of: sender.view!)!
+    openPhotoSlider(images: views.map{($0 as? UIImageView)!.image!}, index: index)
+
   }
 
   public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {

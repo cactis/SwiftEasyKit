@@ -57,15 +57,13 @@ open class SWKAvatar: DefaultView, RSKImageCropViewControllerDelegate {
 
   override open func bindUI() {
     super.bindUI()
-    if enabledEdit {
-      background.whenTappedWithSubviews(self, action: #selector(cameraTapped))
-    }
+    if enabledEdit { background.whenTappedWithSubviews(self, action: #selector(cameraTapped)) }
+    photo.bindPreview()
   }
 
   @objc func cameraTapped() {
     openImagePicker()
   }
-
 
   open func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
     parentViewController()!.dismiss(animated: true, completion: nil)
