@@ -35,17 +35,6 @@ extension UIResponder {
 
   open func getDeviceName() -> String { return UIDevice.current.name }
 
-//  open func getDeviceToken() -> String {
-//    _logForAnyMode(getDeviceName(), title: "getDeviceName()")
-//    return Session.getValue(key: K.Api.deviceTokenKey)!
-//  }
-
-//  open func saveDeviceInfo(_ token: String, name: String) {
-//    _logForAnyMode("OK!")
-//    Session.setValue(value: token, key: K.Api.deviceTokenKey)
-//    Session.setValue(value: name, key: K.Api.deviceNameKey)
-//  }
-
   open func application(_ application: UIApplication, didRegisterUserNotificationSettings notificationSettings: UIUserNotificationSettings){
     _logForAnyMode()
     application.registerForRemoteNotifications()
