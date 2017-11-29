@@ -365,6 +365,10 @@ extension UInt {
 }
 
 extension Int {
+
+  public func times(run: () -> ()) {
+    randomBlock(0, m: self - 1, run: run)
+  }
   public func asDecimal() -> String? {
     //    guard self != 0 else { return nil }
     return NSNumber(value: self).asDecimal()
