@@ -88,8 +88,9 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
   }
 
 //  public func openViewController(_ vc: UIViewController, style: UIModalTransitionStyle = .coverVertical, completion: @escaping ()->() = {}) {
-  public func openViewController(_ vc: UIViewController, style: UIModalTransitionStyle = .coverVertical, completion: @escaping () -> () = {}, onDismissViewController: @escaping () -> () = {}, didDismissViewController: @escaping (_ action: DismissType) -> () = {_ in }) -> Void {
+  public func openViewController(_ vc: UIViewController, style: UIModalTransitionStyle = .coverVertical, completion: @escaping () -> () = {}, onDismissViewController: @escaping () -> () = {}, didDismissViewController: @escaping (_ action: DismissType) -> () = {_ in }, didLoadData: @escaping () -> () = {}) -> Void {
     if let vc = vc as? DefaultViewController {
+      vc.didLoadData = didLoadData
       vc.onDismissViewController = onDismissViewController
       vc.didDismissViewController = didDismissViewController
     }

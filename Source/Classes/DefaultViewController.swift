@@ -16,6 +16,7 @@ open class DefaultViewController: UIViewController, UITextFieldDelegate, UITextV
 
   public var onDismissViewController: () -> () = { }// auto run
   public var didDismissViewController: (_ action: DismissType) -> () = { _ in } // call by target
+  public var didLoadData: () -> () = {}
 
   override open func viewDidLoad() {
     super.viewDidLoad()

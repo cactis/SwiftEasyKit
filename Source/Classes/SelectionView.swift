@@ -12,7 +12,7 @@ open class SelectionView: DefaultView {
   public var collectionData: [SelectOption]! { didSet { selectionVC.collectionData = collectionData } }
   public var selectedData: SelectOption! { didSet { selectionVC.selectedData = selectedData }}
   public var targetView: UIView!
-  public var didSelect: (_ index: NSIndexPath, _ selected: SelectOption?) -> () = {_,_  in } { didSet { selectionVC.didSelect = didSelect } }
+  public var didSelect: (_ index: IndexPath, _ selected: SelectOption?) -> () = {_,_  in } { didSet { selectionVC.didSelect = didSelect } }
 
   public init(options: [SelectOption], selectedData: SelectOption?, targetView: UIView) {
     self.collectionData = options

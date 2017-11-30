@@ -13,6 +13,8 @@ open class TableViewCell: UITableViewCell {
   public var bottomView = UIView()
   public var tableView: UITableView?
   public var delegate: UIViewController?
+  public var didDataUpdated: (_ data: AnyObject?) -> () = {_ in }
+  public var didDataDeleted: () -> () = { }
 
   override public init(style: UITableViewCellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)

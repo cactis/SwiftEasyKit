@@ -10,6 +10,10 @@ public struct K {
     public static var delay: Double = 3
   }
 
+  public struct CSS {
+    public static var style = ""
+  }
+
   public struct Api {
     public static var host = ""
     public static var production = ""

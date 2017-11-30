@@ -276,7 +276,8 @@ extension String {
     return toHtml()
   }
 
-  public func toHtmlWithStyle(_ css: String) -> NSAttributedString? {
+  public func toHtmlWithStyle(_ css: String = K.CSS.style) -> NSAttributedString? {
+    _logForUIMode(css, title: "css")
     let html = "<html><head><style>\(css)</style></head><body>\(self)</body></html>"
     return html.toHtml()
   }
@@ -705,11 +706,23 @@ extension UITextField {
 }
 
 
+extension UITableViewCell {
+
+  open func highlighted(duration: Double = 3) {
+    setSelected(true, animated: true)
+    self.asFadable()
+    delayedJob(3) {
+      self.setSelected(false, animated: true)
+//      self.backgroundColored(UIColor.white)
+    }
+  }
+}
+
 extension UITableView {
 
-  @discardableResult open func indexPathForView(_ view: AnyObject) -> NSIndexPath? {
+  @discardableResult open func indexPathForView(_ view: AnyObject) -> IndexPath? {
     let point: CGPoint = self.convert(.zero, from: (view as! UIView))
-    return self.indexPathForRow(at: point)! as NSIndexPath
+    return self.indexPathForRow(at: point)!
   }
 
   @discardableResult open func enableRefreshControl(_ delegae: UIViewController, action: Selector) -> UITableView {
@@ -719,8 +732,8 @@ extension UITableView {
     return self
   }
 
-  @discardableResult @objc open func indexOfTapped(_ sender: UITapGestureRecognizer) -> NSIndexPath {
-    return indexPathForRow(at: sender.view!.convert(.zero, to: self))! as NSIndexPath
+  @discardableResult @objc open func indexOfTapped(_ sender: UITapGestureRecognizer) -> IndexPath {
+    return indexPathForRow(at: sender.view!.convert(.zero, to: self))!
   }
 
   open func reloadDataAndRun(_ completion: @escaping ()->() = {}) {
@@ -734,7 +747,7 @@ extension UITableView {
 
   open func scrollToLastRow(_ animated: Bool) {
     if self.numberOfRows(inSection: 0) > 0 {
-      self.scrollToRow(at: NSIndexPath(row: self.numberOfRows(inSection: 0) - 1, section: 0) as IndexPath, at: .bottom, animated: animated)
+      self.scrollToRow(at: IndexPath(row: self.numberOfRows(inSection: 0) - 1, section: 0) as IndexPath, at: .bottom, animated: animated)
     }
   }
 
