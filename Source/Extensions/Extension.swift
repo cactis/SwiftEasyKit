@@ -277,7 +277,6 @@ extension String {
   }
 
   public func toHtmlWithStyle(_ css: String = K.CSS.style) -> NSAttributedString? {
-    _logForUIMode(css, title: "css")
     let html = "<html><head><style>\(css)</style></head><body>\(self)</body></html>"
     return html.toHtml()
   }
