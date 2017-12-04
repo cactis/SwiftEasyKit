@@ -139,7 +139,6 @@ public func openControllerWithDelegate(_ delegate: UIViewController, vc: UIViewC
   })
 }
 
-
 public func _isUIMode() -> Bool {
   return _isSimulator() && Development.mode == "UI Design"
 }
