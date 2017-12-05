@@ -24,6 +24,21 @@ open class Badge: DefaultView {
     }
   }
 
+  public func plus(num: Int = 1) {
+    if value != "" {
+      value = String(Int(value)! + num)
+    } else {
+      value = "1"
+    }
+  }
+  public func minus(num: Int = 1) {
+    if value != "" {
+      value = String(Int(value)! - num)
+    } else {
+      value = ""
+    }
+  }
+
   public var value: String! {
     get {
       return label.text
