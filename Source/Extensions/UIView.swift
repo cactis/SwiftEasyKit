@@ -213,16 +213,33 @@ extension UIView: UIImagePickerControllerDelegate, UINavigationControllerDelegat
     fields.last?.delegate = delegate
   }
 
-  func shaken(_ repeatCount: Float = 2) {
-    let viewToShake = self
-    let animation = CABasicAnimation(keyPath: "position")
-    animation.duration = 0.07
-    animation.repeatCount = repeatCount
+//  func shaken(_ repeatCount: Float = 2) {
+//    let viewToShake = self
+//    let animation = CABasicAnimation(keyPath: "position")
+//    animation.duration = 0.07
+//    animation.repeatCount = repeatCount
+//    animation.autoreverses = true
+//    animation.fromValue = NSValue(cgPoint: CGPoint(x: viewToShake.center.x - 10, y: viewToShake.center.y))
+//    animation.toValue = NSValue(cgPoint: CGPoint(x: viewToShake.center.x + 10, y: viewToShake.center.y))
+//    viewToShake.layer.add(animation, forKey: "position")
+//  }
+
+  func shaken(count: Float = 3, for duration: TimeInterval = 0.05, withTranslation translation: Float = -5) {
+    let animation : CABasicAnimation = CABasicAnimation(keyPath: "transform.translation.x")
+    animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear)
+    animation.repeatCount = count
+    animation.duration = duration
     animation.autoreverses = true
-    animation.fromValue = NSValue(cgPoint: CGPoint(x: viewToShake.center.x - 10, y: viewToShake.center.y))
-    animation.toValue = NSValue(cgPoint: CGPoint(x: viewToShake.center.x + 10, y: viewToShake.center.y))
-    viewToShake.layer.add(animation, forKey: "position")
+    animation.byValue = translation
+    layer.add(animation, forKey: "shake")
   }
+//  func shaken() {
+//    let animation = CAKeyframeAnimation(keyPath: "transform.translation.x")
+//    animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear)
+//    animation.duration = 0.07
+//    animation.values = [-10.0, 10.0, -5.0, 5.0, 0.0 ]
+//    layer.add(animation, forKey: "shake")
+//  }
 
   public func openPopupDialogFromView(_ view: UIView, completion: @escaping () -> () = {}) {
     let popupVC = PopupViewController()
