@@ -213,6 +213,17 @@ extension UIView: UIImagePickerControllerDelegate, UINavigationControllerDelegat
     fields.last?.delegate = delegate
   }
 
+  func shaken(_ repeatCount: Float = 2) {
+    let viewToShake = self
+    let animation = CABasicAnimation(keyPath: "position")
+    animation.duration = 0.07
+    animation.repeatCount = repeatCount
+    animation.autoreverses = true
+    animation.fromValue = NSValue(cgPoint: CGPoint(x: viewToShake.center.x - 10, y: viewToShake.center.y))
+    animation.toValue = NSValue(cgPoint: CGPoint(x: viewToShake.center.x + 10, y: viewToShake.center.y))
+    viewToShake.layer.add(animation, forKey: "position")
+  }
+
   public func openPopupDialogFromView(_ view: UIView, completion: @escaping () -> () = {}) {
     let popupVC = PopupViewController()
     popupVC.modalPresentationStyle = .overCurrentContext

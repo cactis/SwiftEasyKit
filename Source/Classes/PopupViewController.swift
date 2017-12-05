@@ -18,7 +18,13 @@ open class PopupViewController: DefaultViewController { //UIViewController {
 
     if easyDismiss {
       maskView.whenTapped(self, action: #selector(closeTapped))
+    } else {
+      maskView.whenTapped(self, action: #selector(shaked))
     }
+  }
+
+  @objc func shaked() {
+    contentView.shaken()
   }
 
   @objc override open func closeTapped() {
