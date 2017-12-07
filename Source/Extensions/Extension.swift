@@ -754,6 +754,7 @@ extension UITableView {
   @discardableResult open func styled() -> UITableView {
     estimatedRowHeight = 20.0
     rowHeight = UITableViewAutomaticDimension
+    allowsSelection = false
     separatorStyle = .none
     return self
   }
