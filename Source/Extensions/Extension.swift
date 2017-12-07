@@ -278,7 +278,8 @@ extension String {
 
   public func toHtmlWithStyle(_ css: String = K.CSS.style) -> NSAttributedString? {
     let html = "<html><head><style>\(css)</style></head><body>\(self)</body></html>"
-    return html.toHtml()
+//    return html.toHtml()
+    return html.html2AttributedString
   }
 
   public func toHtml() -> NSAttributedString? {
@@ -794,5 +795,31 @@ extension UIScrollView {
 extension UIApplication {
   public static var isRunningTest: Bool {
     return ProcessInfo().arguments.contains("UITestMode")
+  }
+}
+
+
+
+
+extension Data {
+  var html2AttributedString: NSAttributedString? {
+    do {
+      return try NSAttributedString(data: self, options: [.documentType: NSAttributedString.DocumentType.html, .characterEncoding: String.Encoding.utf8.rawValue], documentAttributes: nil)
+    } catch {
+      print("error:", error)
+      return  nil
+    }
+  }
+  var html2String: String {
+    return html2AttributedString?.string ?? ""
+  }
+}
+
+extension String {
+  var html2AttributedString: NSAttributedString? {
+    return Data(utf8).html2AttributedString
+  }
+  var html2String: String {
+    return html2AttributedString?.string ?? ""
   }
 }

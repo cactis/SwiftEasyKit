@@ -12,6 +12,7 @@ public struct K {
 
   public struct CSS {
     public static var style = ""
+    public static var style2 = ""
   }
 
   public struct Api {
