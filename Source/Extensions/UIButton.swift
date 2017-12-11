@@ -14,13 +14,15 @@ import SwiftRandom
 
 extension UIButton {
 
-  @discardableResult public func textUnderlined(_ text: String, color: UIColor = K.Color.text) -> UIButton {
-    let titleString = NSMutableAttributedString(string: text)
-    let range = NSMakeRange(0, text.characters.count)
-    titleString.addAttribute(NSAttributedStringKey.underlineStyle, value: NSUnderlineStyle.styleSingle.rawValue, range: range)
-    titleString.addAttributes([NSAttributedStringKey.foregroundColor: color], range: range)
-    titleString.addAttributes([NSAttributedStringKey.font: UIFont.systemFont(ofSize: K.Size.Text.normal.smaller(3))], range: range)
-    self.setAttributedTitle(titleString, for: .normal)
+  @discardableResult public func textUnderlined(_ text: String?, color: UIColor = K.Color.text, size: CGFloat = K.Size.Text.normal.smaller()) -> UIButton {
+    if text != nil {
+      let titleString = NSMutableAttributedString(string: text!)
+      let range = NSMakeRange(0, (text?.characters.count)!)
+      titleString.addAttribute(NSAttributedStringKey.underlineStyle, value: NSUnderlineStyle.styleSingle.rawValue, range: range)
+      titleString.addAttributes([NSAttributedStringKey.foregroundColor: color], range: range)
+      titleString.addAttributes([NSAttributedStringKey.font: UIFont.systemFont(ofSize: size)], range: range)
+      self.setAttributedTitle(titleString, for: .normal)
+    }
     return self
   }
 
@@ -36,7 +38,7 @@ extension UIButton {
 
   public convenience init(underlinedText: String) {
     self.init(frame: .zero)
-//    self.setTitle(text, for: .normal)
+    //    self.setTitle(text, for: .normal)
     self.textUnderlined(underlinedText)
     self.colored(K.Color.Text.normal).smaller()
   }
@@ -138,7 +140,7 @@ extension UIButton {
   }
 
   @discardableResult public func styledAsInfo(_ options: NSDictionary = NSDictionary()) -> UIButton {
-//    styledAsSubmit()
+    //    styledAsSubmit()
     backgroundColored(UIColor.white)
     setTitleColor(K.Color.Segment.active, for: .normal)
     titleLabel!.font = UIFont.systemFont(ofSize: options["size"] as? CGFloat ?? K.Size.Submit.size)
@@ -193,7 +195,7 @@ extension UIButton {
     let textFontAttributes = [
       NSAttributedStringKey.font: textFont,
       NSAttributedStringKey.foregroundColor: textColor,
-    ]
+      ]
     let image = UIImage()
     let rect = CGRect(x: 0, y: 0, width: width, height: height)
     image.draw(in: rect)
