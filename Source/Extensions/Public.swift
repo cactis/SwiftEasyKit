@@ -178,7 +178,7 @@ public func _autoRunForUIMode(_ funcName: String = #function, fileName: String =
   }
 }
 
-private func _autoRun(_ funcName: String = #function, fileName: String = #file, column: Int = #column, line: Int = #line, run: @escaping () -> ()) {
+public func _autoRun(_ funcName: String = #function, fileName: String = #file, column: Int = #column, line: Int = #line, run: @escaping () -> ()) {
   if Development.autoRun && !_isRunningTest() {
     print("=== autoRun in \(Development.mode): \(funcName) of \((fileName as NSString).lastPathComponent) \(line):\(column) ===")
     _delayedJob { () -> () in

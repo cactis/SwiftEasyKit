@@ -7,6 +7,9 @@ import RSKImageCropper
 
 open class SWKAvatar: DefaultView, RSKImageCropViewControllerDelegate {
 
+  public func imageCropViewController(_ controller: RSKImageCropViewController, didCropImage croppedImage: UIImage, usingCropRect cropRect: CGRect, rotationAngle: CGFloat) {
+  }
+
   var background = UIView()
   let camera = UIButton()
   public var photo = UIImageView(image: getIcon(.user, options: ["color": UIColor.lightGray, "size": 64])

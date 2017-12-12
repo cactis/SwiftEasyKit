@@ -24,7 +24,7 @@ public struct K {
 
     public static var prefix = "/api"
 
-    public static var pushserver = ""
+    public static var pushserver = "/user_devices"
     public static var pushserverSubscribe = ""
     public static var appID = ""
     public static var userToken = ""
