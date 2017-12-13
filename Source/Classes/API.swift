@@ -82,8 +82,49 @@ open class API {
     }
   }
 
+  class func asciiEscape(s: String) -> String {
+    var out : String = ""
+
+    for char in s.unicodeScalars {
+      var esc = "\(char)"
+      if !char.isASCII {
+        esc = NSString(format:"\\u%04x", char.value) as String
+      } else {
+        esc = "\(char)"
+      }
+      out += esc
+    }
+    return out
+  }
+
   class func processJSONResponse(_ response: DataResponse<Any>, run: (_ response: DataResponse<Any>) -> ()) {
     if Development.Log.API.request { _logForAnyMode(response.request!, title: "response.request") }
+    _logForUIMode(response, title: "response")
+//    if value = response.result.value as? [String: AnyObject]
+//    if let fields = response.response?.allHeaderFields as? [String: String] {
+//      if let alert = fields["alert"] as? String {
+//        prompt(alert)
+//      }
+//    }
+//    if let alert = response.response?.allHeaderFields["alert"] as? String {
+//      prompt(Character(alert))
+//    }
+//      let _alert = String(bytes: alert.utf8, encoding: .utf8)
+//      let httpResponse = response.response as! HTTPURLResponse
+//    if let field = httpResponse.allHeaderFields["alert"] as? String {
+//      prompt(_alert)
+//      let ascii = asciiEscape(s: alert)
+//      print(ascii)
+//      print(alert.unicodeScalars)
+//      let b =  String(describing: UnicodeScalar(ascii))
+//      prompt(b)
+//      let a = String(describing: UnicodeScalar(alert))
+//      print(String(ascii))
+//      prompt(String(ascii: alert))
+
+//      prompt(a)
+//  prompt(String(alert.unicodeScalars))
+//    }
     switch response.result {
     case .success(let value):
       if value is NSArray { // 傳回陣列
@@ -120,5 +161,33 @@ open class API {
     }
   }
   
+}
+//
+//extension String {
+//
+//  func encodeURIComponent() -> String? {
+//    var characterSet = NSMutableCharacterSet.alphanumeric()
+//    characterSet.addCharacters(in: "-_.!~*'()")
+//
+//    return NSString(self).stringByAddingPercentEncodingWithAllowedCharacters(characterSet)
+//  }
+//}
+
+extension String.UnicodeScalarView {
+  public init<S: Sequence>(ascii: S) where S.Iterator.Element == UInt8 {
+    var _self = String.UnicodeScalarView()
+    _self.append(contentsOf: ascii.map(UnicodeScalar.init))
+    self = _self
+  }
+
+  public init(ascii: UInt8...) {
+    self.init(ascii: ascii)
+  }
+}
+
+extension String {
+  public init(ascii: UInt8...) {
+    self = String(UnicodeScalarView(ascii: ascii))
+  }
 }
 

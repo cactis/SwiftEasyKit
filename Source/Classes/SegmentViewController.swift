@@ -105,7 +105,7 @@ open class SegmentViewController: DefaultViewController, UITableViewDelegate, UI
   public func removeCell(tableView: UITableView, indexPath: IndexPath, onComplete: @escaping () -> ()) {
     tableView.beginUpdates()
     removeDataFromCollectionData(tableView: tableView, indexPath: indexPath)
-    tableView.deleteRows(at: [indexPath], with: .fade)
+    tableView.deleteRows(at: [indexPath], with: .left)
     tableView.endUpdates()
     tableView.reloadData()
     onComplete()
@@ -115,13 +115,21 @@ open class SegmentViewController: DefaultViewController, UITableViewDelegate, UI
   open func insertDataToCollectionData(currentIndex: Int, targetIndex: Int, indexPath: IndexPath) { }
 
   public func moveCellTo(currentIndex: Int, targetIndex: Int, indexPath: IndexPath) {
+    let tableView = self.tableViews[targetIndex]
+//    tableView.reloadData()
+//    tableView.beginUpdates()
+//    tableView.updateConstraintsIfNeeded()
     self.insertDataToCollectionData(currentIndex: currentIndex, targetIndex: targetIndex, indexPath: indexPath)
     delayedJob(1) {
       self.segment.tappedAtIndex(targetIndex)
       delayedJob(1) {
-        self.tableViews[targetIndex].insertRows(at: [IndexPath(item: 0, section: 0)], with: .fade)
+        tableView.insertRows(at: [IndexPath(item: 0, section: 0)], with: .top)
+//        tableView.endUpdates()
         delayedJob(1) {
           self.segment.labels[targetIndex].badge.plus()
+//          delayedJob {
+//            tableView.reloadData()
+//          }
         }
       }
     }
