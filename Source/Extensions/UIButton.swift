@@ -139,6 +139,15 @@ extension UIButton {
     return self
   }
 
+  @discardableResult public func styledAsSubButton(_ options: NSDictionary = NSDictionary()) -> UIButton {
+    backgroundColor = UIColor.white
+    bordered(1, color: K.Color.buttonBg.cgColor)
+    setTitleColor(K.Color.buttonBg, for: .normal)
+    titleLabel!.font = UIFont.systemFont(ofSize: options["size"] as? CGFloat ?? K.Size.Submit.size)
+    radiused(4)
+    return self
+  }
+
   @discardableResult public func styledAsInfo(_ options: NSDictionary = NSDictionary()) -> UIButton {
     //    styledAsSubmit()
     backgroundColored(UIColor.white)

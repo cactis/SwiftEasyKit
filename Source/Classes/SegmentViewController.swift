@@ -68,6 +68,7 @@ open class SegmentViewController: DefaultViewController, UITableViewDelegate, UI
   open func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
     if cell != nil {
       cell.layoutIfNeeded()
+      cell.updateConstraintsIfNeeded()
       cell.layoutSubviews()
       return cell.bottomView.bottomEdge() + extraCellBottomPadding()
     } else {
@@ -105,7 +106,7 @@ open class SegmentViewController: DefaultViewController, UITableViewDelegate, UI
   public func removeCell(tableView: UITableView, indexPath: IndexPath, onComplete: @escaping () -> ()) {
     tableView.beginUpdates()
     removeDataFromCollectionData(tableView: tableView, indexPath: indexPath)
-    tableView.deleteRows(at: [indexPath], with: .left)
+    tableView.deleteRows(at: [indexPath], with: .fade)
     tableView.endUpdates()
     tableView.reloadData()
     onComplete()
