@@ -9,10 +9,17 @@ import MapKit
 import LoremIpsum
 import FontAwesome_swift
 import Neon
-// import RandomKit
 import SwiftRandom
 
 extension UIButton {
+
+  public func autoWidth(weight: CGFloat = 1) -> CGFloat {
+    return textWidth() == 0 ? 0 : textWidth() + weight * K.Size.Text.normal
+  }
+
+  public func autoHeight(weight: CGFloat = 1) -> CGFloat {
+    return textWidth() == 0 ? 0 : textHeight() + weight * K.Size.Text.normal
+  }
 
   @discardableResult public func textUnderlined(_ text: String?, color: UIColor = K.Color.text, size: CGFloat = K.Size.Text.normal.smaller()) -> UIButton {
     if text != nil {
@@ -38,7 +45,6 @@ extension UIButton {
 
   public convenience init(underlinedText: String) {
     self.init(frame: .zero)
-    //    self.setTitle(text, for: .normal)
     self.textUnderlined(underlinedText)
     self.colored(K.Color.Text.normal).smaller()
   }

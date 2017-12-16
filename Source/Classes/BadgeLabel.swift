@@ -17,7 +17,7 @@ open class BadgeLabel: DefaultView {
     }
   }
 
-  public init(text: String, size: CGFloat = 12, value: String = "") {
+  public init(text: String, size: CGFloat = K.Size.Text.normal, value: String = "") {
     super.init(frame: .zero)
     ({ self.size = size })()
     ({ self.value = value })()

@@ -179,12 +179,12 @@ public struct K {
     }
 
     public struct Text {
-      public static var tiny = CGFloat(10).em
-      public static var small = CGFloat(11).em
+      public static var tiny = K.Size.Text.normal.smaller(2)
+      public static var small = K.Size.Text.normal.smaller()
       public static var normal = CGFloat(12).em
-      public static var medium = CGFloat(14).em
-      public static var large = CGFloat(16).em
-      public static var huge = CGFloat(32).em
+      public static var medium = K.Size.Text.normal.larger(2)
+      public static var large = K.Size.Text.normal.larger(4)
+      public static var huge = K.Size.Text.normal.larger(20)
       public static var title = K.Size.Text.medium
     }
 

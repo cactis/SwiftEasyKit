@@ -34,18 +34,17 @@ extension UIImage {
 
 extension UIImageView {
 
-  open func bindPreview() -> UIImageView {
-    whenTapped(self, action: #selector(previewTapped))
+  @discardableResult open func bindPreview() -> UIImageView {
+    whenTapped(self, action: #selector(previewTapped(_:)))
     return self
   }
 
   @objc func previewTapped(_ sender: UITapGestureRecognizer) {
-//    let view = sender.view
-    openPhotoSlider(images: [((sender.view as? UIImageView)?.image)!])
-//    let photoSlider = PhotoSlider.ViewController(images: [((view as? UIImageView)?.image)!])
-//    photoSlider.modalPresentationStyle = .overCurrentContext
-//    photoSlider.modalTransitionStyle = .crossDissolve
-//    parentViewController()?.present(photoSlider, animated: true, completion: nil)
+    (sender.view as? UIImageView)?.previewTapped()
+  }
+
+  open func previewTapped() {
+    openPhotoSlider(images: [image!])
   }
   
   open func loadFromURL(_ url: String) -> UIImageView {

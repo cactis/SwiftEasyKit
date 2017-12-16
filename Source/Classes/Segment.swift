@@ -20,7 +20,7 @@ open class SegmentWithViews: DefaultView, UIScrollViewDelegate {
   public var segmentXPad: CGFloat = 0
   public var segmentYPad: CGFloat = 0
 
-  public init(titles: [String]!, iconCodes: [String]! = [], color: (active: UIColor, deactive: UIColor), size: CGFloat = 12, index: Int = 0, views: [UIView], direction: Direction = .vertical) {
+  public init(titles: [String]!, iconCodes: [String]! = [], color: (active: UIColor, deactive: UIColor), size: CGFloat = K.Size.Text.normal, index: Int = 0, views: [UIView], direction: Direction = .vertical) {
 
     if iconCodes.count > 0 {
       self.segment = IconFontSegment(titles: titles, iconCodes: iconCodes, color: color, size: size, index: index, direction: direction)
@@ -124,7 +124,7 @@ open class IconFontSegment: TextSegment {
     }
   }
 
-  public init(titles: [String]!, iconCodes: [String]!, color: (active: UIColor, deactive: UIColor), size: CGFloat = 12, index: Int = 0, direction: Direction = .vertical) {
+  public init(titles: [String]!, iconCodes: [String]!, color: (active: UIColor, deactive: UIColor), size: CGFloat = K.Size.Text.normal, index: Int = 0, direction: Direction = .vertical) {
     super.init(titles: titles, size: size, index: index)
     ({ self.activeColor = color.active })()
     self.deactiveColor = color.deactive
@@ -173,7 +173,7 @@ open class IconFontSegment: TextSegment {
 open class IconSegment: Segment {
   public var icons = [UIImageView]()
 
-  public init(titles: [String]!, images: [UIImage]!, size: CGFloat = 12, index: Int = 0){
+  public init(titles: [String]!, images: [UIImage]!, size: CGFloat = K.Size.Text.normal, index: Int = 0){
     super.init(titles: titles, size: size, index: index)
 
     for i in 0...images.count - 1 {
@@ -267,7 +267,7 @@ open class Segment: DefaultView {
   public var deactiveColor: UIColor!
   public func didChange() { }
 
-  public init(iconCodes: [String]!, titles: [String]!, size: CGFloat = 12, index: Int = 0) {
+  public init(iconCodes: [String]!, titles: [String]!, size: CGFloat = K.Size.Text.normal, index: Int = 0) {
 
     self.titles = titles
     self.size = size
@@ -284,7 +284,7 @@ open class Segment: DefaultView {
     super.init(frame: .zero)
   }
 
-  public init(titles: [String]!, size: CGFloat = 12, index: Int = 0){
+  public init(titles: [String]!, size: CGFloat = K.Size.Text.normal, index: Int = 0){
     self.titles = titles
     self.size = size
     self.index = index

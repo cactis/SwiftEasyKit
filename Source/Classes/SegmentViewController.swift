@@ -17,7 +17,6 @@ open class SegmentViewController: DefaultViewController, UITableViewDelegate, UI
 
   public let CellIdentifier = "CELL"
   public var cell: TableViewCell!
-
   public var segmentHeight: CGFloat = 60
 
   override open func viewDidLoad() {

@@ -766,16 +766,18 @@ extension UIView {
   }
 
   public func removeBorder(_ border: viewBorder) {
-//    var layerForRemove: CALayer?
-//    if (self.layer.sublayers?.count)! > 0 {
-//      for layer in self.layer.sublayers! {
-//        if layer.name == border.rawValue {
-//          layerForRemove = layer
-//        }
-//      }
-//      if let layer = layerForRemove {
-//        layer.removeFromSuperlayer()
-//      }
-//    }
+    var layerForRemove: CALayer?
+    _logForUIMode(self.layer.sublayers?.count, title: "self.layer.sublayers?.count")
+    if self.layer.sublayers?.count == nil { return }
+    if (layer.sublayers?.count)! > 0 {
+      for layer in layer.sublayers! {
+        if layer.name == border.rawValue {
+          layerForRemove = layer
+        }
+      }
+      if let layer = layerForRemove {
+        layer.removeFromSuperlayer()
+      }
+    }
   }
 }

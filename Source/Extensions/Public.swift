@@ -439,8 +439,17 @@ public func delayedJob(_ seconds: Double, withIndicator: Bool = true, todo: @esc
   }
 }
 
-public func openPhotoSlider(images: [UIImage], index: Int! = 0) {
+public func openPhotoSlider(images: [UIImage], index: Int! = 0, info: String? = nil) {
   let photoSlider = PhotoSlider.ViewController(images: images)
+
+  if let _info = info {
+    let labelInfo = _info.toHtmlWithStyle()
+    let label = Label(rectInsets: UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)).multilinized().html(labelInfo!)
+    label.colored(UIColor.black).backgroundColored(UIColor.white)
+    photoSlider.view.addSubview(label)
+    let w = screenWidth() * 0.75
+    label.anchorTopCenter(withTopPadding: 50, width: w, height: label.getHeightBySizeThatFitsWithWidth(w))
+  }
   photoSlider.currentPage = index
   photoSlider.modalPresentationStyle = .overFullScreen // .overCurrentContext
   photoSlider.modalTransitionStyle = .crossDissolve

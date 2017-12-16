@@ -18,14 +18,18 @@ open class DefaultViewController: UIViewController, UITextFieldDelegate, UITextV
   public var didDismissViewController: (_ action: DismissType) -> () = { _ in } // call by target
   public var didLoadData: () -> () = {}
 
+  public var onViewDidLoad: (_ vc: UIViewController) -> () = {_ in}
+
   override open func viewDidLoad() {
     super.viewDidLoad()
+    onViewDidLoad(self)
     navigationItem.title = navigationItem.title ?? K.App.name
 
     layoutUI() // 建立 UI 框架。結束時 loadData() 載入動態資料
     styleUI()  // 視覺化 UI 框架
     bindUI()   // 綁定 UI 事件
     bindData() // binding data
+
   }
 
   override open func viewDidDisappear(_ animated: Bool) {
