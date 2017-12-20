@@ -105,6 +105,7 @@ open class SegmentViewController: DefaultViewController, UITableViewDelegate, UI
   public func removeCell(tableView: UITableView, indexPath: IndexPath, onComplete: @escaping () -> ()) {
     tableView.beginUpdates()
     removeDataFromCollectionData(tableView: tableView, indexPath: indexPath)
+    tableView.asFadable()
     tableView.deleteRows(at: [indexPath], with: .fade)
     tableView.endUpdates()
     tableView.reloadData()

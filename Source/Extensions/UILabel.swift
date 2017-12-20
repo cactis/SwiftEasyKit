@@ -73,8 +73,8 @@ extension UILabel {
     return [(size.height / self.font.lineHeight).int, 0].max()!
   }
 
-  @discardableResult public func html(_ html: NSAttributedString) -> UILabel {
-    self.attributedText = html
+  @discardableResult public func html(_ html: NSAttributedString?) -> UILabel {
+    if let _ = html { self.attributedText = html }
     return self
   }
 

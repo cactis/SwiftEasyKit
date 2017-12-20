@@ -81,7 +81,8 @@ public struct K {
   }
 
   public struct Color {
-    public static var tabBar = UIColor.gray
+    public static var tabBar = UIColor.white
+    public static var tabBarUnselected = Color.tabBar.darker(0.3) //UIColor.gray
     public static var tabBarBackgroundColor = UIColor.white
 
     public static var navigator = UIColor.fromRGB(255, green: 255, blue: 255)

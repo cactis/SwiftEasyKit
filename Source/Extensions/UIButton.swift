@@ -13,6 +13,11 @@ import SwiftRandom
 
 extension UIButton {
 
+  @discardableResult public func html(_ html: NSAttributedString?) -> UIButton {
+    if let _ = html { self.setAttributedTitle(html, for: .normal) }
+    return self
+  }
+
   public func autoWidth(weight: CGFloat = 1) -> CGFloat {
     return textWidth() == 0 ? 0 : textWidth() + weight * K.Size.Text.normal
   }
@@ -33,9 +38,11 @@ extension UIButton {
     return self
   }
 
-  @objc public convenience init(_ iconCode: String) {
+  @objc public convenience init(iconCode: String) {
     self.init(frame: .zero)
-    imaged(getImage(iconCode: iconCode, color: K.Color.text))
+    setTitle(iconCode, for: .normal)
+    setTitleColor(K.Color.text, for: .normal)
+    titleLabel?.font = UIFont(name: K.Font.icon, size: K.Size.barButtonItem.height)
   }
 
   @objc public convenience init(text: String) {

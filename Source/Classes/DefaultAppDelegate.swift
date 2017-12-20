@@ -17,7 +17,11 @@ open class DefaultAppDelegate: UIResponder, UIApplicationDelegate, UITabBarContr
   @discardableResult open func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
     UITabBar.appearance().tintColor = K.Color.tabBar
     UITabBar.appearance().barTintColor = K.Color.tabBarBackgroundColor
-
+    if #available(iOS 10.0, *) {
+      UITabBar.appearance().unselectedItemTintColor = K.Color.tabBarUnselected
+    } else {
+      // Fallback on earlier versions
+    }
     // 請求推播授權
     requestToAllowUserNotification(application)
 
