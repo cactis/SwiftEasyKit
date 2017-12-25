@@ -15,7 +15,7 @@ open class PushServer {
       "kind": K.Api.deviceType
       ]]
     _logForAnyMode(params as AnyObject, title: "params")
-    API.post(url, parameters: params as [String : AnyObject]) { (response) in
+    API.post(url, parameters: params as [String : AnyObject]) { (response, data) in
       success(response)
     }
   }

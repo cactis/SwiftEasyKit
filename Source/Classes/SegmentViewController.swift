@@ -35,6 +35,7 @@ open class SegmentViewController: DefaultViewController, UITableViewDelegate, UI
   override open func styleUI() {
     super.styleUI()
     scrollView.contentSize = CGSize(width: scrollView.frame.width * CGFloat(tableViews.count), height: scrollView.frame.height)
+    segment.bottomBordered(K.Color.indicator.withAlphaComponent(0.5), width: 1, padding: 0)
   }
 
   override open func bindUI() {
@@ -104,12 +105,25 @@ open class SegmentViewController: DefaultViewController, UITableViewDelegate, UI
 
   public func removeCell(tableView: UITableView, indexPath: IndexPath, onComplete: @escaping () -> ()) {
     tableView.beginUpdates()
-    removeDataFromCollectionData(tableView: tableView, indexPath: indexPath)
-    tableView.asFadable()
+    if let cell = tableView.cellForRow(at: indexPath) {
+      let color = cell.backgroundColor!
+      cell.shaken()
+      cell.asFadable()
+      cell.opacity(0.1)
+      cell.backgroundColored(K.Color.tabBarBackgroundColor)
+      delayedJob (1) {
+        cell.backgroundColored(color)
+      }
+//      cell.layer.animation(forKey: "squeezeDown")
+//      cell.layer.animationKeys()
+    }
+    delayedJob (1) {
+    self.removeDataFromCollectionData(tableView: tableView, indexPath: indexPath)
     tableView.deleteRows(at: [indexPath], with: .fade)
     tableView.endUpdates()
     tableView.reloadData()
     onComplete()
+    }
   }
 
   open func removeDataFromCollectionData(tableView: UITableView, indexPath: IndexPath) { }

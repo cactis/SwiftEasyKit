@@ -22,14 +22,14 @@ extension UIResponder {
       else {return nil}
     }
   }
-
-  @objc open func bootFrom(_ vc: UIViewController) -> UIWindow? {
-    let window: UIWindow?  = UIWindow(frame: UIScreen.main.bounds)
-    window!.backgroundColor = K.Color.body
-    window!.rootViewController = vc
-    window!.makeKeyAndVisible()
-    return window!
-  }
+//
+//  @objc open func bootFrom(_ vc: UIViewController) -> UIWindow? {
+//    let window: UIWindow?  = UIWindow(frame: UIScreen.main.bounds)
+//    window!.backgroundColor = K.Color.body
+//    window!.rootViewController = vc
+//    window!.makeKeyAndVisible()
+//    return window!
+//  }
 
   open func pushServerAppID() -> String { return "" }
 

@@ -132,11 +132,12 @@ public func placeHoderImage() -> UIImage {
 
 public func openControllerWithDelegate(_ delegate: UIViewController, vc: UIViewController, style: UIModalTransitionStyle = .coverVertical, completion: @escaping () -> ()) {
   vc.modalTransitionStyle = style
-  let nv = UINavigationController()
-  nv.pushViewController(vc, animated: true)
-  delegate.present(nv, animated: true, completion: { () -> Void in
-    completion()
-  })
+  let navigator = UINavigationController()
+  navigator.pushViewController(vc, animated: true)
+  delegate.present(navigator, animated: true, completion: completion)
+//  delegate.present(nv, animated: true, completion: { () -> Void in
+//    completion()
+//  })
 }
 
 public func _isUIMode() -> Bool {

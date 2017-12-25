@@ -78,22 +78,12 @@ open class DefaultViewController: UIViewController, UITextFieldDelegate, UITextV
   }
   @objc open func saveTapped() { _logForAnyMode()}
 
-  open func enableCloseBarButtonItem() {
-    var image = UIImage()
-    if K.Font.icon != "" {
-      image = getImage(iconCode: K.Icons.close, color: K.Color.barButtonItem, size: K.BarButtonItem.size)
-    } else {
-      image = getIcon(.close, options: ["size": K.BarButtonItem.size, "color": K.Color.barButtonItem])
-    }
-    setRightBarButtonItem(image, action: #selector(closeTapped))
-  }
-
   open func enableCloseBarButtonItemAtLeft() { setLeftBarButtonItem(
 //    getIcon(.close, options: ["size": K.BarButtonItem.size, "color": K.Color.barButtonItem])
     getImage(iconCode: K.Icons.close, color: K.Color.barButtonItem, size: K.BarButtonItem.size)
   , action: #selector(closeTapped)) }
 
-  @objc open func closeTapped() { dismiss(animated: true) { () -> Void in }}
+
 
   @objc open func viewDidTapped() { view.endEditing(true) }
 
@@ -121,6 +111,7 @@ open class DefaultViewController: UIViewController, UITextFieldDelegate, UITextV
 
   override open func viewDidLayoutSubviews() {
     super.viewDidLayoutSubviews()
+//    view.fillSuperview()
   }
 
   open func fixConstraints() {

@@ -16,6 +16,7 @@ public struct K {
   }
 
   public struct Api {
+    public static var adapter = "" //json_api, "json"
     public static var host = ""
     public static var production = ""
     public static var stage = ""
@@ -93,9 +94,9 @@ public struct K {
     public static var table = UIColor.fromRGB(232, green: 232, blue: 232)
     public static var collectionView = K.Color.body
     public static var buttonBg = UIColor.fromRGB(38, green: 92, blue: 170)
-    public static var button = UIColor.fromRGB(240, green: 240, blue: 240)
+    public static var button = K.Color.tabBarBackgroundColor // UIColor.fromRGB(240, green: 240, blue: 240)
     public static var barButtonItem = K.BarButtonItem.color
-    public static var indicator = UIColor.fromRGB(226, green: 53, blue: 0)
+    public static var indicator = K.Color.navigator// UIColor.fromRGB(226, green: 53, blue: 0)
     public static var cartBg = UIColor.fromRGB(116, green: 166, blue: 221)
     public static var border = K.Color.body.darker().darker()
     public static var dark = UIColor.black
@@ -202,7 +203,7 @@ public struct K {
     }
 
     public struct Segment {
-      public static var underline: CGFloat = 5.0
+      public static var underline: CGFloat = 2.5.em
     }
   }
 

@@ -6,6 +6,7 @@
 import UIKit
 
 open class CollectionView: DefaultView, UICollectionViewDataSource, UICollectionViewDelegate {
+  public var columns: CGFloat = 2
   public var collectionView: UICollectionView!
   public var collectionViewLayout = UICollectionViewFlowLayout()
   public let CellIdentifier = "CELL"

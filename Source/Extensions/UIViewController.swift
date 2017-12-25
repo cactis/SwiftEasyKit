@@ -12,9 +12,19 @@ import Neon
 // import RandomKit
 import SwiftRandom
 
-
 extension UIViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
+  open func enableCloseBarButtonItem() {
+    var image = UIImage()
+    if K.Font.icon != "" {
+      image = getImage(iconCode: K.Icons.close, color: K.Color.barButtonItem, size: K.BarButtonItem.size)
+    } else {
+      image = getIcon(.close, options: ["size": K.BarButtonItem.size, "color": K.Color.barButtonItem])
+    }
+    setRightBarButtonItem(image, action: #selector(closeTapped))
+  }
+  @objc open func closeTapped() { dismiss(animated: true) { () -> Void in }}
+  
   public enum DismissType {
     case login
     case delete
@@ -249,6 +259,10 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
     return item
   }
 
+  @discardableResult public func addRightBarButtonItem(_ name: FontAwesome, action: Selector, withOffset: Bool = true) -> ENMBadgedBarButtonItem {
+    return addRightBarButtonItem(getIcon(name), action: action, withOffset: withOffset)
+  }
+
   @nonobjc
   @discardableResult public func addRightBarButtonItem(_ image: UIImage, action: Selector, withOffset: Bool = true) -> ENMBadgedBarButtonItem {
     let item = newBarButtonItem(image, action: action)
@@ -380,7 +394,7 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
     var input: AVCaptureDeviceInput!
     let output = AVCaptureStillImageOutput()
     let session = AVCaptureSession()
-    if !_isSimulator() {
+    if !_isRealSimulator() {
     delayedJob(0.1) {
       do {
         session.sessionPreset = AVCaptureSession.Preset.photo
@@ -402,7 +416,7 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
         session.startRunning()
         onComplete()
       } catch {
-        print(error)
+        print(error.localizedDescription)
       }
       }
     }

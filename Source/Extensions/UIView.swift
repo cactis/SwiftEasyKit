@@ -767,7 +767,7 @@ extension UIView {
 
   public func removeBorder(_ border: viewBorder) {
     var layerForRemove: CALayer?
-    _logForUIMode(self.layer.sublayers?.count, title: "self.layer.sublayers?.count")
+//    _logForUIMode(self.layer.sublayers?.count, title: "self.layer.sublayers?.count")
     if self.layer.sublayers?.count == nil { return }
     if (layer.sublayers?.count)! > 0 {
       for layer in layer.sublayers! {

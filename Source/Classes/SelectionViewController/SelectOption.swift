@@ -76,7 +76,7 @@ open class SelectOption: Mappable {
 
   open class func list(_ url: String!, onComplete: @escaping (_ items: [SelectOption]) -> ()) {
     var items = [SelectOption]()
-    API.get(url) { (response) in
+    API.get(url) { (response, data) in
       switch response.result {
       case .success(let value):
         if let jsons = value as? [[String: AnyObject]] {

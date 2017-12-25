@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import FontAwesome_swift
 import UserNotifications
 
 open class DefaultAppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegate, UNUserNotificationCenterDelegate {
@@ -84,9 +85,9 @@ open class DefaultAppDelegate: UIResponder, UIApplicationDelegate, UITabBarContr
     return (bootFrom(tabBarViewController), tabBarViewController)
   }
 
-  open func bootFrom(_ vcs: [UIViewController], liginStatus: Bool) { }
+//  open func bootFrom(_ vcs: [UIViewController], liginStatus: Bool) { }
 
-  override open func bootFrom(_ vc: UIViewController) -> UIWindow? {
+  open func bootFrom(_ vc: UIViewController) -> UIWindow? {
     _logForAnyMode("work!")
     let window: UIWindow?  = UIWindow(frame: UIScreen.main.bounds)
     window!.rootViewController = vc
@@ -100,6 +101,13 @@ open class DefaultAppDelegate: UIResponder, UIApplicationDelegate, UITabBarContr
 
   open func did500Error() {
     _logForAnyMode()
+  }
+
+
+  public func icon(_ name: FontAwesome, selected: Bool = false) -> UIImage {
+    let size = 30
+    let color = selected ? K.Color.tabBar : K.Color.tabBarUnselected
+    return getIcon(name, options: ["color": color, "size": size])
   }
 
 }

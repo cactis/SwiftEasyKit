@@ -26,7 +26,7 @@ class PageMeta: Mappable {
 }
 
 open class API {
-  
+
   class public func upload(_ method: HTTPMethod = .post, url: String, data: Data, name: String = "file", fileName: String = "\(Lorem.token()).jpg", mimeType: String = "image/jpg", onComplete: @escaping (DataResponse<Any>) -> () = {_ in}) {
     Alamofire.upload(multipartFormData: { (form) in
       form.append(data, withName: name, fileName: fileName, mimeType: mimeType)
@@ -41,23 +41,23 @@ open class API {
     _logForUIMode(K.Api.userToken, title: "K.Api.userToken")
     _logForUIMode(K.Api.userToken)
   }
-  
-  class public func get(_ url: String, parameters: [String: AnyObject] = [:], fileName: String? = #file, funcName: String? = #function, run: @escaping (_ response: DataResponse<Any>) -> ()) {
+
+  class public func get(_ url: String, parameters: [String: AnyObject] = [:], fileName: String? = #file, funcName: String? = #function, run: @escaping (_ response: DataResponse<Any>, _ data: Any?) -> ()) {
     request(url: url, parameters: parameters, run: run)
   }
-  
-  class public func post(_ url: String, parameters: [String: AnyObject] = [:], fileName: String? = #file, funcName: String? = #function, run: @escaping (_ response: DataResponse<Any>) -> ()) {
+
+  class public func post(_ url: String, parameters: [String: AnyObject] = [:], fileName: String? = #file, funcName: String? = #function, run: @escaping (_ response: DataResponse<Any>, _ data: Any?) -> ()) {
     request(.post, url: url, parameters: parameters, run: run)
   }
-  
-  class public func put(_ url: String, parameters: [String: AnyObject] = [:], fileName: String? = #file, funcName: String? = #function, run: @escaping (_ response: DataResponse<Any>) -> ()) {
+
+  class public func put(_ url: String, parameters: [String: AnyObject] = [:], fileName: String? = #file, funcName: String? = #function, run: @escaping (_ response: DataResponse<Any>, _ data: Any?) -> ()) {
     request(.put, url: url, parameters: parameters, run: run)
   }
-  
-  class public func delete(_ url: String, parameters: [String: AnyObject] = [:], fileName: String? = #file, funcName: String? = #function, run: @escaping (_ response: DataResponse<Any>) -> ()) {
+
+  class public func delete(_ url: String, parameters: [String: AnyObject] = [:], fileName: String? = #file, funcName: String? = #function, run: @escaping (_ response: DataResponse<Any>, _ data: Any?) -> ()) {
     request(.delete, url: url, parameters: parameters, run: run)
   }
-  
+
   class func headers(_ fileName: String? = #file, funcName: String? = #function) -> [String: String] {
     let appId = K.Api.appID
     var headers_ = ["app_id": appId, "file_name": (fileName! as NSString).lastPathComponent, "func_name": funcName!]
@@ -65,7 +65,7 @@ open class API {
     return headers_
   }
 
-  class public func request(_ method: HTTPMethod = .get, url: String, parameters: [String: AnyObject] = [:], fileName: String? = #file, funcName: String? = #function, run: @escaping (_ response: DataResponse<Any>) -> ()) {
+  class public func request(_ method: HTTPMethod = .get, url: String, parameters: [String: AnyObject] = [:], fileName: String? = #file, funcName: String? = #function, run: @escaping (_ response: DataResponse<Any>, _ data: Any?) -> ()) {
     let indicator = indicatorStart()
     let requestStartTime = NSDate()
     var requestTime: Double = 0
@@ -97,7 +97,7 @@ open class API {
     return out
   }
 
-  class func processJSONResponse(_ response: DataResponse<Any>, run: (_ response: DataResponse<Any>) -> ()) {
+  class func processJSONResponse(_ response: DataResponse<Any>, run: (_ response: DataResponse<Any>, _ data: Any?) -> ()) {
     if Development.Log.API.request { _logForAnyMode(response.request!, title: "response.request") }
     _logForUIMode(response, title: "response")
 //    if value = response.result.value as? [String: AnyObject]
@@ -128,7 +128,7 @@ open class API {
     switch response.result {
     case .success(let value):
       if value is NSArray { // 傳回陣列
-        run(response)
+        run(response, nil)
       } else if let item = value as? NSDictionary { // 傳回 JSON
         if let debug = item.value(forKey: "debug") as? String { if _isWho("CT") { prompt(debug) } }
         let message = item.value(forKey: K.Api.Response.message) as? String
@@ -151,16 +151,22 @@ open class API {
             let text = texts.map{"\($0.key): \($0.value)"}.join("\n")
             prompt(text)
           }
-          run(response)
+          switch K.Api.adapter {
+          case "json_api":
+            run(response, (response.result.value as! [String: Any])["data"])
+          default:
+            run(response, nil)
+          }
+
         }
       } else {
-        run(response)
+        run(response, nil)
       }
     case .failure:
       prompt((response.result.error?.localizedDescription)!)
     }
   }
-  
+
 }
 //
 //extension String {

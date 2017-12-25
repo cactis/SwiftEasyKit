@@ -149,6 +149,8 @@ s.dependency 'PhotoSlider'#, '0.13.3'
 s.dependency 'RSKImageCropper'#, '1.5.1'
 s.dependency 'SwiftRandom'#, '0.1.7'
 s.dependency 'SwiftyJSON'#, '2.3.2'
+s.dependency 'Eureka'
+s.dependency 'ImageRow'
 
 # s.dependency 'RandomKit'#, '1.6.0'
 # s.dependency 'SwiftSpinner'

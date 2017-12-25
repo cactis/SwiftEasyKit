@@ -56,6 +56,11 @@ extension UIButton {
     self.colored(K.Color.Text.normal).smaller()
   }
 
+  @discardableResult public convenience init(name: FontAwesome, options: NSDictionary = NSDictionary(), inset: CGFloat = 0) {
+    self.init(frame: .zero)
+    self.imaged(getIcon(name, options: options, inset: inset))
+  }
+
   @discardableResult public func imaged(_ image: UIImage) -> UIButton {
     setImage(image, for: .normal)
     setImage(image, for: .selected)

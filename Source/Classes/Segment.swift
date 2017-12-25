@@ -19,6 +19,7 @@ open class SegmentWithViews: DefaultView, UIScrollViewDelegate {
   public var segmentHeight: CGFloat = 40
   public var segmentXPad: CGFloat = 0
   public var segmentYPad: CGFloat = 0
+  public var scrollViewBottomPadding: CGFloat?
 
   public init(titles: [String]!, iconCodes: [String]! = [], color: (active: UIColor, deactive: UIColor), size: CGFloat = K.Size.Text.normal, index: Int = 0, views: [UIView], direction: Direction = .vertical) {
 
@@ -78,7 +79,7 @@ open class SegmentWithViews: DefaultView, UIScrollViewDelegate {
     super.layoutSubviews()
     header.anchorAndFillEdge(.top, xPad: 0, yPad: 0, otherSize: segmentHeight)
     segment.fillSuperview(left: segmentXPad, right: segmentXPad, top: segmentYPad, bottom: segmentYPad)
-    scrollView.alignUnder(header, matchingLeftAndRightFillingHeightWithTopPadding: 0, bottomPadding: tabBarHeight())
+    scrollView.alignUnder(header, matchingLeftAndRightFillingHeightWithTopPadding: 10, bottomPadding: scrollViewBottomPadding ?? tabBarHeight())
     scrollView.groupHorizontally(views.map({$0 as UIView}), fillingHeightWithLeftPadding: 0, spacing: 0, topAndBottomPadding: 0, width: scrollView.width)
     scrollView.contentSize = CGSize(width: scrollView.width * views.count.cgFloat, height: scrollView.height)
   }
