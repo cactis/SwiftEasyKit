@@ -147,6 +147,11 @@ open class DefaultViewController: UIViewController, UITextFieldDelegate, UITextV
     //    contentView.scrollIndicatorInsets = contentInsets
   }
 
+  @objc open func keyboardDidHide(_ notification: NSNotification) {
+    let userInfo: NSDictionary = notification.userInfo! as NSDictionary
+    keyboardSize = (userInfo.object(forKey: UIKeyboardFrameBeginUserInfoKey)! as AnyObject).cgRectValue.size
+  }
+
   @objc open func keyboardWillShow(_ notification: NSNotification) {
     //    _logForUIMode()
     let userInfo: NSDictionary = notification.userInfo! as NSDictionary
@@ -177,7 +182,7 @@ open class DefaultViewController: UIViewController, UITextFieldDelegate, UITextV
     NotificationCenter.default.addObserver(self, selector: #selector(DefaultViewController.keyboardWillHide(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
 
     NotificationCenter.default.addObserver(self, selector: #selector(DefaultViewController.keyboardDidShow(_:)), name: NSNotification.Name.UIKeyboardDidShow, object: nil)
-    NotificationCenter.default.addObserver(self, selector: #selector(DefaultViewController.keyboardWillHide(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(DefaultViewController.keyboardDidHide(_:)), name: NSNotification.Name.UIKeyboardDidHide, object: nil)
   }
 
   open func unregisterKeyboardNotifications() {
