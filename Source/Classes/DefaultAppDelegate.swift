@@ -9,6 +9,7 @@
 import Foundation
 import FontAwesome_swift
 import UserNotifications
+import IQKeyboardManagerSwift
 
 open class DefaultAppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegate, UNUserNotificationCenterDelegate {
 
@@ -25,7 +26,7 @@ open class DefaultAppDelegate: UIResponder, UIApplicationDelegate, UITabBarContr
     }
     // 請求推播授權
     requestToAllowUserNotification(application)
-
+    IQKeyboardManager.sharedManager().enable = true
     return true
   }
 

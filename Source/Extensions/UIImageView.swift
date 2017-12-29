@@ -24,7 +24,8 @@ extension UIImage {
     })
   }
   open class func loadFromURL(_ url: String, onComplete: @escaping (UIImage) -> ()){
-    ImageDownloader.default.downloadImage(with: URL(string: url)!, retrieveImageTask: nil, options: [], progressBlock: nil, completionHandler: { (image, error, url, data) in
+    let hostUrl = url.hostUrl()
+    ImageDownloader.default.downloadImage(with: URL(string: hostUrl)!, retrieveImageTask: nil, options: [], progressBlock: nil, completionHandler: { (image, error, url, data) in
       DispatchQueue.main.async {
         onComplete(image!)
       }
@@ -47,8 +48,12 @@ extension UIImageView {
     openPhotoSlider(images: [image!])
   }
   
-  open func loadFromURL(_ url: String) -> UIImageView {
-    self.kf.setImage(with: URL(string: url))
+  open func loadFromURL(_ url: String, placeholder: Placeholder? = nil,
+                        options: KingfisherOptionsInfo? = nil,
+                        progressBlock: DownloadProgressBlock? = nil,
+                        completionHandler: CompletionHandler? = nil) -> UIImageView {
+//    self.kf.setImage(with: URL(string: url))
+    self.kf.setImage(with: URL(string: url), placeholder: placeholder, options: options, progressBlock: progressBlock, completionHandler: completionHandler)
     return self
   }
   
@@ -61,10 +66,10 @@ extension UIImageView {
     return image!.size.height / (image!.size.width / width)
   }
   
-  @discardableResult public func imaged(_ name: String?) -> UIImageView {
+  @discardableResult public func imaged(_ name: String?, placeholder: String? = nil) -> UIImageView {
     guard let _ = name else { return self }
     if name!.contains("http") {
-      loadFromURL(name!)
+      loadFromURL(name!, placeholder: UIImageView(name: placeholder).image)
     } else {
       loadImage(UIImage(named: name!))
     }

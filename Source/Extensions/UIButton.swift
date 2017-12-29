@@ -13,6 +13,14 @@ import SwiftRandom
 
 extension UIButton {
 
+  public func layoutAsSubmit() {
+    anchorAndFillEdge(.bottom, xPad: 0, yPad: 0, otherSize: estimateHeight())
+  }
+
+  open func estimateHeight() -> CGFloat {
+    return K.Size.Submit.height + 2 * K.Size.Padding.large
+  }
+
   @discardableResult public func html(_ html: NSAttributedString?) -> UIButton {
     if let _ = html { self.setAttributedTitle(html, for: .normal) }
     return self
@@ -58,7 +66,17 @@ extension UIButton {
 
   @discardableResult public convenience init(name: FontAwesome, options: NSDictionary = NSDictionary(), inset: CGFloat = 0) {
     self.init(frame: .zero)
-    self.imaged(getIcon(name, options: options, inset: inset))
+    setTitle(name.rawValue, for: .normal)
+    setTitleColor(K.Color.button, for: .normal)
+    setTitleColor(UIColor.red, for: .selected)
+    setTitleColor(UIColor.lightGray, for: .disabled)
+    titleLabel?.font = UIFont.fontAwesome(ofSize: K.Size.barButtonItem.height)
+//    titleLabel?.minimumScaleFactor = 0.5
+//    titleLabel?.numberOfLines = 0
+//    titleLabel?.adjustsFontSizeToFitWidth = true
+//    sizeToFit()
+//    titleLabel?.baselineAdjustment = .alignCenters
+//    self.imaged(getIcon(name, options: options, inset: inset))
   }
 
   @discardableResult public func imaged(_ image: UIImage) -> UIButton {
@@ -150,8 +168,8 @@ extension UIButton {
   }
 
   @discardableResult public func styledAsSubmit(_ options: NSDictionary = NSDictionary()) -> UIButton {
-    backgroundColor = K.Color.buttonBg
-    setTitleColor(K.Color.button, for: .normal)
+    backgroundColor = K.Color.submitBg
+    setTitleColor(K.Color.submit, for: .normal)
     titleLabel!.font = UIFont.systemFont(ofSize: options["size"] as? CGFloat ?? K.Size.Submit.size)
     radiused(4)
     return self

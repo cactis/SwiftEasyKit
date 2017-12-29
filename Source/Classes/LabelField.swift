@@ -75,6 +75,11 @@ open class LabelField: LabelWith {
   public var field: UITextView! { get { return input.field } }
   public var value: String? { get { return field.text } set {
     if let _ = newValue { field.text = newValue } } }
+  public override init(label: String) {
+    super.init(label: label)
+    // !!!set placeholder
+  }
+
   override open func layoutUI() {
     super.layoutUI()
     layout([field])
@@ -84,6 +89,7 @@ open class LabelField: LabelWith {
     super.styleUI()
     field.styled()
   }
+  required public init?(coder aDecoder: NSCoder) { fatalError("init(coder:) has not been implemented") }
 }
 
 

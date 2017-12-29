@@ -16,6 +16,7 @@ public struct K {
   }
 
   public struct Api {
+    public static var unplashAppKey = ""
     public static var adapter = "" //json_api, "json"
     public static var host = ""
     public static var production = ""
@@ -82,7 +83,7 @@ public struct K {
   }
 
   public struct Color {
-    public static var tabBar = UIColor.white
+    public static var tabBar = UIColor.fromRGB(250, green: 250, blue: 250)
     public static var tabBarUnselected = Color.tabBar.darker(0.3) //UIColor.gray
     public static var tabBarBackgroundColor = UIColor.white
 
@@ -93,8 +94,11 @@ public struct K {
     public static var body = UIColor.fromRGB(232, green: 232, blue: 232)
     public static var table = UIColor.fromRGB(232, green: 232, blue: 232)
     public static var collectionView = K.Color.body
-    public static var buttonBg = UIColor.fromRGB(38, green: 92, blue: 170)
+    public static var buttonBg = UIColor.white // UIColor.fromRGB(38, green: 92, blue: 170)
     public static var button = K.Color.tabBarBackgroundColor // UIColor.fromRGB(240, green: 240, blue: 240)
+    public static var submitBg = K.Color.button
+    public static var submit = K.Color.buttonBg
+
     public static var barButtonItem = K.BarButtonItem.color
     public static var indicator = K.Color.navigator// UIColor.fromRGB(226, green: 53, blue: 0)
     public static var cartBg = UIColor.fromRGB(116, green: 166, blue: 221)
@@ -163,8 +167,8 @@ public struct K {
   public struct Size {
     public static var barButtonItem = K.BarButtonItem.cgSize
     public struct Submit {
-      public static var size = K.Size.Text.normal
-      public static var height = K.Size.Submit.size * 2.5
+      public static var size = K.Size.Text.normal.larger(1.2)
+      public static var height = K.Size.Submit.size * 2
     }
 
     public struct ListButton {

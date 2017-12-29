@@ -16,7 +16,7 @@ open class CameraDefaultViewController: DefaultViewController {
 
   var output: AVCaptureStillImageOutput? = AVCaptureStillImageOutput()
 
-  var liveView = UIImageView()
+  public var liveView = UIImageView()
   public var toolBlock = DefaultView()
   var cameraReady: () -> () = {}
 
@@ -51,5 +51,5 @@ open class CameraDefaultViewController: DefaultViewController {
     didShot(picker.getImageFromInfo(info)!)
   }
 
-  open var didShot: (_ image: UIImage) -> () = { _ in }
+  open var didShot: (_ image: UIImage?) -> () = { _ in }
 }

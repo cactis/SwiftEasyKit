@@ -11,9 +11,106 @@ import FontAwesome_swift
 import Neon
 import SwiftRandom
 import Kingfisher
+import ObjectMapper
+
+open class AppMappable: Mappable {
+  var id: Int?
+  var createdAt: Date?
+  var updatedAt: Date?
+  var state: String?
+  var status: String?
+  var alert: String?
+  var priButton: String?
+  var subButton: String?
+  var nextEvent: String?
+  open func mapping(map: Map) {
+    id <- map["id"]
+    state <- map["attributes.state"]
+    status <- map["attributes.status"]
+    createdAt <- (map["attributes.createdAt"], DateTransform())
+    updatedAt <- (map["attributes.updatedAt"], DateTransform())
+    alert <- map["attributes.alert"]
+    priButton <- map["attributes.priButton"]
+    subButton <- map["attributes.subButton"]
+    nextEvent <- map["attributes.nextEvent"]
+  }
+
+  required public init?(map: Map) {}
+}
+
+class DateTransform: TransformType {
+
+  public typealias Object = Date
+  public typealias JSON = String
+
+  public init() {}
+
+  func transformFromJSON(_ value: Any?) -> Date? {
+    if value == nil { return nil }
+    return (value as? String)!.toDate()
+  }
+
+  func transformToJSON(_ value: Date?) -> String? {
+    return value?.toString()
+  }
+}
+
+
+open class UnSplash: AppMappable {
+  public var raw: String?
+  public var full: String?
+  public var regular: String?
+  public var small: String?
+  public var thumb: String?
+  override open func mapping(map: Map) {
+    super.mapping(map: map)
+    raw <- map["urls.raw"]
+    full <- map["urls.full"]
+    regular <- map["urls.regular"]
+    small <- map["urls.small"]
+    thumb <- map["urls.thumb"]
+  }
+
+  public class func random(onComplete: @escaping (_ unsplash: UnSplash?) -> ()) {
+    let url = "http://api.unsplash.com/photos/random" + "?client_id=" + K.Api.unplashAppKey
+    API.get(url) { (response, data) in
+      let unsplash = UnSplash(JSON: (response.result.value as? [String: Any])!)!
+      onComplete(unsplash)
+    }
+  }
+
+  public class func query(keyword: String!, onComplete: @escaping (_ unsplash: [UnSplash]?) -> ()) {
+    let url = "http://api.unsplash.com/search/photos?query=\(keyword!)" + "&client_id=" + K.Api.unplashAppKey
+    API.get(url) { (response, data) in
+      switch response.result {
+      case .success(let value):
+        if let results = (value as! [String: Any])["results"] as? [[String : Any]] {
+          let items = Mapper<UnSplash>().mapArray(JSONArray: results)
+          onComplete(items)
+        }
+      case .failure(let error):
+        _logForUIMode(error.localizedDescription)
+      }
+
+    }
+  }
+
+}
+
+extension String {
+  public func toUIImage() -> UIImage {
+    return UIImage(url: self)!
+  }
+}
 
 extension UIImage {
-    
+
+  public convenience init?(url: String!) {
+    let from = URL(string: url)
+    let data = try? Data(contentsOf: from!)
+    self.init(data: data!)!
+  }
+
 //  open class func loadFromURL(url: String) -> UIImage? {
 //    do {
 //      let data = try NSData(contentsOf: URL(string: url)!) as Data

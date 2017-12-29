@@ -151,6 +151,7 @@ s.dependency 'SwiftRandom'#, '0.1.7'
 s.dependency 'SwiftyJSON'#, '2.3.2'
 s.dependency 'Eureka'
 s.dependency 'ImageRow'
+s.dependency 'IQKeyboardManagerSwift'
 
 # s.dependency 'RandomKit'#, '1.6.0'
 # s.dependency 'SwiftSpinner'
