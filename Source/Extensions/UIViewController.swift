@@ -14,14 +14,15 @@ import SwiftRandom
 
 extension UIViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
-  open func enableCloseBarButtonItem() {
+  @discardableResult open func enableCloseBarButtonItem(color: UIColor = K.Color.barButtonItem, size: CGFloat = K.BarButtonItem.size) -> UIBarButtonItem {
     var image = UIImage()
     if K.Font.icon != "" {
-      image = getImage(iconCode: K.Icons.close, color: K.Color.barButtonItem, size: K.BarButtonItem.size)
+      image = getImage(iconCode: K.Icons.close, color: color, size: size)
     } else {
-      image = getIcon(.close, options: ["size": K.BarButtonItem.size, "color": K.Color.barButtonItem])
+      image = getIcon(.close, options: ["size": size, "color": color])
     }
-    setRightBarButtonItem(image, action: #selector(closeTapped))
+    return setRightBarButtonItem(image, action: #selector(closeTapped))
+
   }
   @objc open func closeTapped() { dismiss(animated: true) { () -> Void in }}
   
@@ -105,7 +106,7 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
       vc.onDismissViewController = onDismissViewController
       vc.didDismissViewController = didDismissViewController
     }
-    openControllerWithDelegate(self, vc: vc, completion: completion)
+    openControllerWithDelegate(self, vc: vc, style: style, completion: completion)
   }
 
   public func pushViewController(_ vc: UIViewController, checked: Bool = true, delayed: Double = 0, onComplete: () -> () = {}, onDismissViewController: @escaping () -> () = {}, didDismissViewController: @escaping (_ action: DismissType) -> () = {_ in }) -> Void {

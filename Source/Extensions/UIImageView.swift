@@ -48,7 +48,7 @@ extension UIImageView {
     openPhotoSlider(images: [image!])
   }
   
-  open func loadFromURL(_ url: String, placeholder: Placeholder? = nil,
+  @discardableResult open func loadFromURL(_ url: String, placeholder: Placeholder? = nil,
                         options: KingfisherOptionsInfo? = nil,
                         progressBlock: DownloadProgressBlock? = nil,
                         completionHandler: CompletionHandler? = nil) -> UIImageView {
@@ -63,7 +63,7 @@ extension UIImageView {
   }
   
   @discardableResult public func scaledHeight(_ width: CGFloat) -> CGFloat {
-    return image!.size.height / (image!.size.width / width)
+    return  image != nil ? (image?.size.height)! / ((image?.size.width)! / width) : 0
   }
   
   @discardableResult public func imaged(_ name: String?, placeholder: String? = nil) -> UIImageView {

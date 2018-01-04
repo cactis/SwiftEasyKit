@@ -79,6 +79,12 @@ extension UIImagePickerController {
 
 open class Lorem: LoremIpsum {
 
+  open class func images(keyword: String? = Lorem.firstName(), onComplete: @escaping (_ unsplashes: [UnSplash]) -> () ) {
+    UnSplash.query(keyword: keyword, onComplete: { (unsplashes) in
+      onComplete(unsplashes!)
+    })
+  }
+
   @discardableResult open class func message() -> String {
     return Lorem.array(1, upper: 5).map({ _ in Randoms.randomFakeConversation() }).join(" ")
   }
@@ -86,14 +92,6 @@ open class Lorem: LoremIpsum {
   @discardableResult open class func array(_ lower: Int = 3, upper: Int = 5) -> Array<Int> {
     return Array((1...wizRandomInt(lower, upper: upper)))
   }
-
-  //  class func time() -> NSDate {
-  //
-  //  }
-  //
-  //  override class func date() -> NSDate {
-  //    return NSDate().addDay(wizRandomInt(-30, upper: 30)).addHour(wizRandomInt(-10, upper: 10))
-  //  }
 
   @discardableResult open class func user() -> String {
     return K.Sample.users.randomItem()!
@@ -187,6 +185,10 @@ extension UIGestureRecognizer {
 
 
 extension String {
+
+  public func int() -> Int? {
+    return Int(self)
+  }
 
   subscript (r: Range<Int>) -> String {
     get {

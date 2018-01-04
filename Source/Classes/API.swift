@@ -155,7 +155,7 @@ open class API {
           case "json_api":
             run(response, (response.result.value as! [String: Any])["data"])
           default:
-            run(response, nil)
+            run(response, response.result.value)
           }
 
         }

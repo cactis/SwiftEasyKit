@@ -45,44 +45,44 @@ public func prompt(_ msgs: [String], runWith: (_ msg: String) -> String = { msg 
 }
 
 public func prompt(_ msg: String?, style: PromptType = PromptType(), onTapped: @escaping () -> () = {}) {
-//  if !Development.prompt { return }
+  //  if !Development.prompt { return }
   let message = msg ?? "(異常錯誤：未被追蹤到的錯誤。)"
   UIApplication.shared.isStatusBarHidden = true
   let notification = UIButton()
   let block = DefaultView()
   let label = UILabel()
-
+  
   block.backgroundColored(style.bgColor).shadowed().radiused(3).bordered(0.5, color: K.Color.text.lighter().cgColor)
   label.styled().colored(style.color).texted(message).multilinized().centered().sized(12.em)
   notification.layout([block.layout([label])])
-
+  
   let xPad = 10.em
   let yPad = 15.em
-
+  
   let w = screenWidth() - 4 * xPad
   let h = label.getHeightBySizeThatFitsWithWidth(w)
-
+  
   label.frame = CGRect(x: xPad, y: yPad, width: w, height: h)
   block.frame = CGRect(x: xPad, y: 0, width: w + 2 * xPad, height: label.bottomEdge() + yPad)
-
+  
   label.isUserInteractionEnabled = false
   block.isUserInteractionEnabled = false
-
+  
   if label.linesCount > 1 { label.aligned(.left) }
-
+  
   if let v = window() {
     v.addSubview(notification)
     notification.frame = CGRect(x: 0, y: -1 * screenHeight(), width: screenWidth(), height: screenHeight())
     UIView().animate(onComplete: {
       notification.frame = CGRect(x: 0, y: statusBarHeight(), width: screenWidth(), height: screenHeight())
     })
-
+    
     delayedJob(K.Prompt.delay, withIndicator: false, todo: {
       if notification.superview != nil {
         notification.tapped()
       }
     })
-
+    
     notification.whenTapped({
       UIView().animate(onComplete: {
         notification.frame = CGRect(x: 0, y: -1 * screenHeight(), width: screenWidth(), height: screenHeight())
@@ -135,9 +135,9 @@ public func openControllerWithDelegate(_ delegate: UIViewController, vc: UIViewC
   let navigator = UINavigationController()
   navigator.pushViewController(vc, animated: true)
   delegate.present(navigator, animated: true, completion: completion)
-//  delegate.present(nv, animated: true, completion: { () -> Void in
-//    completion()
-//  })
+  //  delegate.present(nv, animated: true, completion: { () -> Void in
+  //    completion()
+  //  })
 }
 
 public func _isUIMode() -> Bool {
@@ -192,15 +192,15 @@ public func runInDeviceMode(_ run: () -> (), elseRun: () -> () = {}) { if !_isSi
 
 
 public func _isRunningTest() -> Bool {
-    return UIApplication.isRunningTest
+  return UIApplication.isRunningTest
 }
 
 public func _isWho(_ who: String) -> Bool {
-//  _logForAnyMode(Development.developer, title: "Development.developer")
-//  _logForAnyMode(!_isRunningTest())
-//  _logForAnyMode(_isSimulator())
-//  _logForAnyMode(who == Development.developer)
-//  _logForAnyMode(_isSimulator() && who == Development.developer && !_isRunningTest())
+  //  _logForAnyMode(Development.developer, title: "Development.developer")
+  //  _logForAnyMode(!_isRunningTest())
+  //  _logForAnyMode(_isSimulator())
+  //  _logForAnyMode(who == Development.developer)
+  //  _logForAnyMode(_isSimulator() && who == Development.developer && !_isRunningTest())
   return _isSimulator() && who == Development.developer && !_isRunningTest()
 }
 public func _isSimulator() -> Bool { return TARGET_OS_SIMULATOR != 0 || Development.setDeviceAsSimulator == true }
@@ -400,50 +400,57 @@ public func getImage(_ name: String) -> UIImage {
 }
 
 public func indicatorStart() -> UIView {
-//  EZLoadingActivity.Settings.ActivityColor = UIColor.black.colorWithAlphaComponent(0.8)
-//  EZLoadingActivity.show("資料載入中...", disableUI: false)
-
+  //  EZLoadingActivity.Settings.ActivityColor = UIColor.black.colorWithAlphaComponent(0.8)
+  //  EZLoadingActivity.show("資料載入中...", disableUI: false)
+  
   let bg = UIView()
-//  let indicator = UIActivityIndicatorView()
-//  indicator.startAnimating()
-//  bg.frame = CGRectMake(0, 0, screenWidth(), screenHeight())
-//  bg.center = screenCenter()
-//  bg.userInteractionEnabled = false
-//  //  bg.backgroundColored(UIColor.black.colorWithAlphaComponent(0.05))
-//  indicator.center = screenCenter()
-//  //  currentView()?.addSubview(bg)
-//  bg.addSubview(indicator)
+  //  let indicator = UIActivityIndicatorView()
+  //  indicator.startAnimating()
+  //  bg.frame = CGRectMake(0, 0, screenWidth(), screenHeight())
+  //  bg.center = screenCenter()
+  //  bg.userInteractionEnabled = false
+  //  //  bg.backgroundColored(UIColor.black.colorWithAlphaComponent(0.05))
+  //  indicator.center = screenCenter()
+  //  //  currentView()?.addSubview(bg)
+  //  bg.addSubview(indicator)
   return bg
 }
 
 public func indicatorEnd(indicator: UIView) {
   indicator.removeFromSuperview()
-//  EZLoadingActivity.hide()
-//  SwiftSpinner.hide()
+  //  EZLoadingActivity.hide()
+  //  SwiftSpinner.hide()
   //  indicator.indicator.stopAnimating()
 }
 
 public func _delayedJob(todo: @escaping () -> ()) {
   if _isSimulator() {
     delayedJob(1) { () -> () in todo()
-} } }
+    } } }
 
 public func delayedJob(_ todo: @escaping () -> ()) { delayedJob(0.5, todo: todo) }
 
 public func delayedJob(_ seconds: Double, withIndicator: Bool = true, todo: @escaping () -> ()) {
   var indicator = UIView()
   if withIndicator { indicator =  indicatorStart() }
-//  let delay = seconds * Double(NSEC_PER_SEC)
+  //  let delay = seconds * Double(NSEC_PER_SEC)
   DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
     todo()
     indicatorEnd(indicator: indicator)
   }
 }
 
-public func openPhotoSlider(images: [UIImage], index: Int! = 0, info: String? = nil) {
-  let photoSlider = PhotoSlider.ViewController(images: images)
+public func openPhotoSlider(imageURLs: [String], index: Int! = 0, infos: [String]? = nil) {
+  let urls = imageURLs.map({ URL(string: $0)! })
+  openPhotoSlider(photoSlider: PhotoSlider.ViewController(imageURLs: urls), index: index, infos: infos)
+}
 
-  if let _info = info {
+public func openPhotoSlider(images: [UIImage], index: Int! = 0, infos: [String]? = nil) {
+  openPhotoSlider(photoSlider: PhotoSlider.ViewController(images: images), index: index, infos: infos)
+}
+
+public func openPhotoSlider(photoSlider: PhotoSlider.ViewController, index: Int! = 0, infos: [String]? = nil) {
+  if let _info = infos?.first {
     let labelInfo = _info.toHtmlWithStyle()
     let label = Label(rectInsets: UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)).multilinized().html(labelInfo!)
     label.colored(UIColor.black).backgroundColored(UIColor.white)
@@ -471,7 +478,7 @@ public func appDelegate() -> DefaultAppDelegate {
 }
 
 public func requestPushNotification() { // 在任何地方呼叫用來請求推播授權
- appDelegate().requestToAllowUserNotification(UIApplication.shared)
+  appDelegate().requestToAllowUserNotification(UIApplication.shared)
 }
 
 public func verticalLayout(_ blocks: [UIView], heights: [CGFloat], padding: CGFloat = 0, xPad: CGFloat = 0, yPad: CGFloat = 0, alignUnder: UIView? = nil) {
@@ -494,7 +501,7 @@ public func verticalLayout(_ blocks: [UIView], heights: [CGFloat], padding: CGFl
 
 
 public extension Mappable {
-
+  
   /// Convert self to JSON String.
   /// - Returns: Returns the JSON as String or empty string if error while parsing.
   func json() -> String {

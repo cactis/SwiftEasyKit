@@ -58,6 +58,11 @@ extension UIButton {
     self.setTitle(text, for: .normal)
   }
 
+  @objc public convenience init(image: UIImage) {
+    self.init(frame: .zero)
+    self.imaged(image)
+  }
+
   public convenience init(underlinedText: String) {
     self.init(frame: .zero)
     self.textUnderlined(underlinedText)
@@ -66,11 +71,13 @@ extension UIButton {
 
   @discardableResult public convenience init(name: FontAwesome, options: NSDictionary = NSDictionary(), inset: CGFloat = 0) {
     self.init(frame: .zero)
-    setTitle(name.rawValue, for: .normal)
-    setTitleColor(K.Color.button, for: .normal)
+    let color = options.value(forKey: "color") != nil ?  options.value(forKey: "color") as! UIColor : K.Color.button
+    let size = options.value(forKey: "size") != nil ? options.value(forKey: "size") as! CGFloat : K.BarButtonItem.size
+    setTitle(name.rawValue.split().first, for: .normal)
+    setTitleColor(color, for: .normal)
     setTitleColor(UIColor.red, for: .selected)
     setTitleColor(UIColor.lightGray, for: .disabled)
-    titleLabel?.font = UIFont.fontAwesome(ofSize: K.Size.barButtonItem.height)
+    titleLabel?.font = UIFont.fontAwesome(ofSize: size)
 //    titleLabel?.minimumScaleFactor = 0.5
 //    titleLabel?.numberOfLines = 0
 //    titleLabel?.adjustsFontSizeToFitWidth = true
