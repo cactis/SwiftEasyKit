@@ -178,6 +178,7 @@ extension UIButton {
     backgroundColor = K.Color.submitBg
     setTitleColor(K.Color.submit, for: .normal)
     titleLabel!.font = UIFont.systemFont(ofSize: options["size"] as? CGFloat ?? K.Size.Submit.size)
+    bordered(1, color: K.Color.submit.cgColor)
     radiused(4)
     return self
   }
