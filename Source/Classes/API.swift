@@ -38,8 +38,8 @@ open class API {
         prompt(error.localizedDescription)
       }
     }
-    _logForUIMode(K.Api.userToken, title: "K.Api.userToken")
-    _logForUIMode(K.Api.userToken)
+//    _logForUIMode(K.Api.userToken, title: "K.Api.userToken")
+//    _logForUIMode(K.Api.userToken)
   }
 
   class public func get(_ url: String, parameters: [String: AnyObject] = [:], fileName: String? = #file, funcName: String? = #function, run: @escaping (_ response: DataResponse<Any>, _ data: Any?) -> ()) {
@@ -70,8 +70,8 @@ open class API {
     let requestStartTime = NSDate()
     var requestTime: Double = 0
     let _url = URL(string: url.hostUrl().addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!)
-    _logForUIMode(_url, title: "_url")
-    _logForAnyMode(headers(), title: "headers")
+//    _logForUIMode(_url, title: "_url")
+//    _logForAnyMode(headers(), title: "headers")
     Alamofire.request(_url!, method: method, parameters: parameters, headers: headers()).responseJSON { response in
       requestTime = NSDate().timeIntervalSince(requestStartTime as Date)
       processJSONResponse(response, run: run)
@@ -99,7 +99,7 @@ open class API {
 
   class func processJSONResponse(_ response: DataResponse<Any>, run: (_ response: DataResponse<Any>, _ data: Any?) -> ()) {
     if Development.Log.API.request { _logForAnyMode(response.request!, title: "response.request") }
-    _logForUIMode(response, title: "response")
+//    _logForUIMode(response, title: "response")
 //    if value = response.result.value as? [String: AnyObject]
 //    if let fields = response.response?.allHeaderFields as? [String: String] {
 //      if let alert = fields["alert"] as? String {

@@ -12,48 +12,48 @@ import Neon
 import SwiftRandom
 import Kingfisher
 import ObjectMapper
+//
+//open class AppMappable: Mappable {
+//  var id: Int?
+//  var createdAt: Date?
+//  var updatedAt: Date?
+//  var state: String?
+//  var status: String?
+//  var alert: String?
+//  var priButton: String?
+//  var subButton: String?
+//  var nextEvent: String?
+//  open func mapping(map: Map) {
+//    id <- map["id"]
+//    state <- map["attributes.state"]
+//    status <- map["attributes.status"]
+//    createdAt <- (map["attributes.createdAt"], DateTransform())
+//    updatedAt <- (map["attributes.updatedAt"], DateTransform())
+//    alert <- map["attributes.alert"]
+//    priButton <- map["attributes.priButton"]
+//    subButton <- map["attributes.subButton"]
+//    nextEvent <- map["attributes.nextEvent"]
+//  }
+//
+//  required public init?(map: Map) {}
+//}
 
-open class AppMappable: Mappable {
-  var id: Int?
-  var createdAt: Date?
-  var updatedAt: Date?
-  var state: String?
-  var status: String?
-  var alert: String?
-  var priButton: String?
-  var subButton: String?
-  var nextEvent: String?
-  open func mapping(map: Map) {
-    id <- map["id"]
-    state <- map["attributes.state"]
-    status <- map["attributes.status"]
-    createdAt <- (map["attributes.createdAt"], DateTransform())
-    updatedAt <- (map["attributes.updatedAt"], DateTransform())
-    alert <- map["attributes.alert"]
-    priButton <- map["attributes.priButton"]
-    subButton <- map["attributes.subButton"]
-    nextEvent <- map["attributes.nextEvent"]
-  }
-
-  required public init?(map: Map) {}
-}
-
-class DateTransform: TransformType {
-
-  public typealias Object = Date
-  public typealias JSON = String
-
-  public init() {}
-
-  func transformFromJSON(_ value: Any?) -> Date? {
-    if value == nil { return nil }
-    return (value as? String)!.toDate()
-  }
-
-  func transformToJSON(_ value: Date?) -> String? {
-    return value?.toString()
-  }
-}
+//class DateTransform: TransformType {
+//
+//  public typealias Object = Date
+//  public typealias JSON = String
+//
+//  public init() {}
+//
+//  func transformFromJSON(_ value: Any?) -> Date? {
+//    if value == nil { return nil }
+//    return (value as? String)!.toDate()
+//  }
+//
+//  func transformToJSON(_ value: Date?) -> String? {
+//    return value?.toString()
+//  }
+//}
 
 
 open class UnSplash: AppMappable {

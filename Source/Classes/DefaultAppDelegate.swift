@@ -38,7 +38,7 @@ open class DefaultAppDelegate: UIResponder, UIApplicationDelegate, UITabBarContr
       center.requestAuthorization(options: [.alert, .badge, .sound], completionHandler: { (granted, error) in
         if granted {
           center.getNotificationSettings(completionHandler: { (settings) in
-            _logForAnyMode(settings, title: "settings")
+//            _logForAnyMode(settings, title: "settings")
           })
           DispatchQueue.main.async(execute: { UIApplication.shared.registerForRemoteNotifications() })
         } else {
@@ -68,7 +68,7 @@ open class DefaultAppDelegate: UIResponder, UIApplicationDelegate, UITabBarContr
   }
 
   open func enableTabBarController(_ delegate: UITabBarControllerDelegate, viewControllers: [UIViewController]!, titles: [String]!, images: [UIImage], selectedImages: [UIImage] = []) -> (UIWindow?, UITabBarController?) {
-    _logForAnyMode("work!")
+//    _logForAnyMode("work!")
     var _selectedImages = [UIImage]()
     if selectedImages.count > 0 {
       _selectedImages = selectedImages
@@ -89,7 +89,7 @@ open class DefaultAppDelegate: UIResponder, UIApplicationDelegate, UITabBarContr
 //  open func bootFrom(_ vcs: [UIViewController], liginStatus: Bool) { }
 
   open func bootFrom(_ vc: UIViewController) -> UIWindow? {
-    _logForAnyMode("work!")
+//    _logForAnyMode("work!")
     let window: UIWindow?  = UIWindow(frame: UIScreen.main.bounds)
     window!.rootViewController = vc
     window!.makeKeyAndVisible()
