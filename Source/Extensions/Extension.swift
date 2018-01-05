@@ -279,8 +279,9 @@ extension String {
   }
 
   public func toHtmlWithStyle(_ css: String = K.CSS.style) -> NSAttributedString? {
-    let html = "<html><head><style>\(css)</style></head><body>\(self)</body></html>"
+    let html = "<html><head><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><style>\(css)</style></head><body>\(self)</body></html>"
 //    return html.toHtml()
+    _logForUIMode(html, title: "html")
     return html.html2AttributedString
   }
 

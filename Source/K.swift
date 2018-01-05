@@ -96,8 +96,8 @@ public struct K {
     public static var collectionView = K.Color.body
     public static var buttonBg = UIColor.white // UIColor.fromRGB(38, green: 92, blue: 170)
     public static var button = K.Color.tabBarBackgroundColor // UIColor.fromRGB(240, green: 240, blue: 240)
-    public static var submitBg = K.Color.button
-    public static var submit = K.Color.buttonBg
+    public static var submitBg = K.Color.buttonBg
+    public static var submit = K.Color.button
 
     public static var barButtonItem = K.BarButtonItem.color
     public static var indicator = K.Color.navigator// UIColor.fromRGB(226, green: 53, blue: 0)
