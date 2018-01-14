@@ -7,9 +7,6 @@ import RSKImageCropper
 
 open class SWKAvatar: DefaultView, RSKImageCropViewControllerDelegate {
 
-  public func imageCropViewController(_ controller: RSKImageCropViewController, didCropImage croppedImage: UIImage, usingCropRect cropRect: CGRect, rotationAngle: CGFloat) {
-  }
-
   var background = UIView()
   let camera = UIButton()
   public var photo = UIImageView(image: getIcon(.user, options: ["color": UIColor.lightGray, "size": 64])
@@ -34,7 +31,7 @@ open class SWKAvatar: DefaultView, RSKImageCropViewControllerDelegate {
     openViewController(vc)
   }
 
-  open func imageCropViewController(_ controller: RSKImageCropViewController, didCropImage croppedImage: UIImage, usingCropRect cropRect: CGRect) {
+  public func imageCropViewController(_ controller: RSKImageCropViewController, didCropImage croppedImage: UIImage, usingCropRect cropRect: CGRect, rotationAngle: CGFloat) {
     controller.dismiss(animated: true) {
       self.photo.image = croppedImage
       self.photo.asFadable()
@@ -65,7 +62,7 @@ open class SWKAvatar: DefaultView, RSKImageCropViewControllerDelegate {
   }
 
   @objc func cameraTapped() {
-    openImagePicker()
+    openImagePicker(chooseSource: true)
   }
 
   open func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
@@ -73,7 +70,7 @@ open class SWKAvatar: DefaultView, RSKImageCropViewControllerDelegate {
     cropImage(image: picker.getImageFromInfo(info)!)
   }
 
-  var cameraSize: CGFloat { get { return width * 0.06 } }
+  var cameraSize: CGFloat { get { return width * 0.075 } }
 
   override open func layoutSubviews() {
     super.layoutSubviews()

@@ -726,14 +726,30 @@ extension UIView: UIImagePickerControllerDelegate, UINavigationControllerDelegat
   @discardableResult public func bottomBordered(_ color: UIColor = K.Line.Color.horizontal, width: CGFloat = 1.0, padding: CGFloat = 0) -> UIView { return addBorder(.bottom, color: color, width: width, padding: padding) }
   @discardableResult public func topBordered(_ color: UIColor = K.Line.Color.horizontal, width: CGFloat = 1.0, padding: CGFloat = 0) -> UIView { return addBorder(.top, color: color, width: width, padding: padding) }
 
-  @discardableResult public func openImagePicker(_ sourceType: UIImagePickerControllerSourceType = .camera) -> UIImagePickerController {
-    var type = sourceType
-    if _isSimulator() { type = .photoLibrary }
+  public func openImagePicker(_ sourceType: UIImagePickerControllerSourceType = .camera, chooseSource: Bool = false)  {
     let picker = UIImagePickerController()
     picker.delegate = self
-    picker.sourceType = type
-    parentViewController()!.present(picker, animated: true)
-    return picker
+    if _isSimulator() {
+      picker.sourceType = .photoLibrary
+      parentViewController()!.present(picker, animated: true)
+    } else {
+      if chooseSource == true {
+        let alert = UIAlertController(title: "相機/相簿", message: "請問使用相機或相簿？", preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "相機", style: .default, handler: { (action) in
+          picker.sourceType = .camera
+          self.parentViewController()!.present(picker, animated: true)
+        }))
+        alert.addAction(UIAlertAction(title: "相簿", style: .default, handler: { (action) in
+          picker.sourceType = .photoLibrary
+          self.parentViewController()!.present(picker, animated: true)
+        }))
+        alert.addAction(UIAlertAction(title: "取消", style: .cancel))
+        parentViewController()?.present(alert, animated: true, completion: {})
+      } else {
+        picker.sourceType = .camera
+        parentViewController()!.present(picker, animated: true)
+      }
+    }
   }
 }
 
