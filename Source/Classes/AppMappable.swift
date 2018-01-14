@@ -17,12 +17,14 @@ open class AppMappable: Mappable {
   public var priButton: String?
   public var subButton: String?
   public var nextEvent: String?
-  open func mapping(map: Map) {
+
+  static var TIMEFORMAT = K.Api.timeFormat
+  open func mapping(map: Map) {    
     id <- map["id"]
     state <- map["state"]
     status <- map["status"]
-    createdAt <- (map["created_at"], DateTransform())
-    updatedAt <- (map["updated_at"], DateTransform())
+    createdAt <- (map["created_at"], DateTransform(timeFormat:  AppMappable.TIMEFORMAT))
+    updatedAt <- (map["updated_at"], DateTransform(timeFormat:  AppMappable.TIMEFORMAT))
     alert <- map["alert"]
     priButton <- map["pri_button"]
     subButton <- map["sub_button"]
@@ -37,11 +39,15 @@ class DateTransform: TransformType {
   public typealias Object = Date
   public typealias JSON = String
 
-  public init() {}
+  public var timeFormat: String?
+
+  public init(timeFormat: String? = AppMappable.TIMEFORMAT) {
+    self.timeFormat = timeFormat
+  }
 
   public func transformFromJSON(_ value: Any?) -> Date? {
     if value == nil { return nil }
-    return (value as? String)!.toDate()
+    return (value as? String)!.toDate(timeFormat!)
   }
 
   public func transformToJSON(_ value: Date?) -> String? {

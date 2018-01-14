@@ -395,7 +395,7 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
     var input: AVCaptureDeviceInput!
     let output = AVCaptureStillImageOutput()
     let session = AVCaptureSession()
-    if !_isRealSimulator() {
+    if isReadDevice() {
     delayedJob(0.1) {
       do {
         session.sessionPreset = AVCaptureSession.Preset.photo
@@ -420,6 +420,8 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
         print(error.localizedDescription)
       }
       }
+    } else {
+
     }
     return (input, output, session)
   }
@@ -452,13 +454,19 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
 import AVFoundation
 extension AVCaptureStillImageOutput {
   public func getImage(onComplete: @escaping (_ image: UIImage) -> ()) {
-    let conneciton = connection(with: AVMediaType.video)
-    captureStillImageAsynchronously(from: conneciton!, completionHandler: { (buffer, error) in
-      let data = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(buffer!)
-      let provider = CGDataProvider(data: data! as CFData)
-      let cgImageRef = CGImage(jpegDataProviderSource: provider!, decode: nil, shouldInterpolate: true,  intent: CGColorRenderingIntent.defaultIntent)
-      let image = UIImage(cgImage: cgImageRef!, scale: 1.0, orientation: .right)
-      onComplete(image)
-    })
+    if isReadDevice() {
+      let conneciton = connection(with: AVMediaType.video)
+      captureStillImageAsynchronously(from: conneciton!, completionHandler: { (buffer, error) in
+        let data = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(buffer!)
+        let provider = CGDataProvider(data: data! as CFData)
+        let cgImageRef = CGImage(jpegDataProviderSource: provider!, decode: nil, shouldInterpolate: true,  intent: CGColorRenderingIntent.defaultIntent)
+        let image = UIImage(cgImage: cgImageRef!, scale: 1.0, orientation: .right)
+        onComplete(image)
+      })
+    } else {
+      Lorem.images(onComplete: { (photos) in
+        onComplete((photos.first?.small?.toUIImage())!)
+      })
+    }
   }
 }

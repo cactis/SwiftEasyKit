@@ -13,6 +13,8 @@ import IQKeyboardManagerSwift
 
 open class DefaultAppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegate, UNUserNotificationCenterDelegate {
 
+  open func preLoad() {}
+
   public var window: UIWindow?
   public var tabBarViewController: UITabBarController?
 

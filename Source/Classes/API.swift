@@ -5,6 +5,7 @@
 import Foundation
 import Alamofire
 import ObjectMapper
+import SwiftyUserDefaults
 
 extension String {
   public func hostUrl() -> String {
@@ -26,6 +27,20 @@ class PageMeta: Mappable {
 }
 
 open class API {
+
+  class public func getHtml(url: String, cached: Bool = true, onSuccess: @escaping (_ response: String) -> ()) {
+    if cached == true, let text = Defaults.object(forKey: url) as? String {
+      _logForUIMode("load from cache")
+      onSuccess(text)
+    } else {
+      _logForUIMode("load from web")
+      _logForUIMode(url, title: "url")
+      URLCache.shared.removeAllCachedResponses()
+      Alamofire.request(url).responseString { (response) in
+        onSuccess(response.result.value!)
+      }
+    }
+  }
 
   class public func upload(_ method: HTTPMethod = .post, url: String, data: Data, name: String = "file", fileName: String = "\(Lorem.token()).jpg", mimeType: String = "image/jpg", onComplete: @escaping (DataResponse<Any>) -> () = {_ in}) {
     Alamofire.upload(multipartFormData: { (form) in
@@ -70,7 +85,7 @@ open class API {
     let requestStartTime = NSDate()
     var requestTime: Double = 0
     let _url = URL(string: url.hostUrl().addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!)
-//    _logForUIMode(_url, title: "_url")
+    _logForUIMode(_url, title: "_url")
 //    _logForAnyMode(headers(), title: "headers")
     Alamofire.request(_url!, method: method, parameters: parameters, headers: headers()).responseJSON { response in
       requestTime = NSDate().timeIntervalSince(requestStartTime as Date)
@@ -99,32 +114,6 @@ open class API {
 
   class func processJSONResponse(_ response: DataResponse<Any>, run: (_ response: DataResponse<Any>, _ data: Any?) -> ()) {
     if Development.Log.API.request { _logForAnyMode(response.request!, title: "response.request") }
-//    _logForUIMode(response, title: "response")
-//    if value = response.result.value as? [String: AnyObject]
-//    if let fields = response.response?.allHeaderFields as? [String: String] {
-//      if let alert = fields["alert"] as? String {
-//        prompt(alert)
-//      }
-//    }
-//    if let alert = response.response?.allHeaderFields["alert"] as? String {
-//      prompt(Character(alert))
-//    }
-//      let _alert = String(bytes: alert.utf8, encoding: .utf8)
-//      let httpResponse = response.response as! HTTPURLResponse
-//    if let field = httpResponse.allHeaderFields["alert"] as? String {
-//      prompt(_alert)
-//      let ascii = asciiEscape(s: alert)
-//      print(ascii)
-//      print(alert.unicodeScalars)
-//      let b =  String(describing: UnicodeScalar(ascii))
-//      prompt(b)
-//      let a = String(describing: UnicodeScalar(alert))
-//      print(String(ascii))
-//      prompt(String(ascii: alert))
-
-//      prompt(a)
-//  prompt(String(alert.unicodeScalars))
-//    }
     switch response.result {
     case .success(let value):
       if value is NSArray { // 傳回陣列

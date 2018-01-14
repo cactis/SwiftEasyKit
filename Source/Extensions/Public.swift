@@ -205,6 +205,7 @@ public func _isWho(_ who: String) -> Bool {
 }
 public func _isSimulator() -> Bool { return TARGET_OS_SIMULATOR != 0 || Development.setDeviceAsSimulator == true }
 public func _isRealSimulator() -> Bool { return TARGET_OS_SIMULATOR != 0 }
+public func isReadDevice() -> Bool { return !_isRealSimulator() }
 
 public func _logError(_ err: NSError!) {
   _log(err.localizedDescription as AnyObject, title: "err")

@@ -29,7 +29,11 @@ open class DefaultViewController: UIViewController, UITextFieldDelegate, UITextV
     styleUI()  // 視覺化 UI 框架
     bindUI()   // 綁定 UI 事件
     bindData() // binding data
+  }
 
+  open override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+    appDelegate().preLoad()
   }
 
   override open func viewDidDisappear(_ animated: Bool) {

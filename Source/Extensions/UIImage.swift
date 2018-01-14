@@ -12,58 +12,19 @@ import Neon
 import SwiftRandom
 import Kingfisher
 import ObjectMapper
-//
-//open class AppMappable: Mappable {
-//  var id: Int?
-//  var createdAt: Date?
-//  var updatedAt: Date?
-//  var state: String?
-//  var status: String?
-//  var alert: String?
-//  var priButton: String?
-//  var subButton: String?
-//  var nextEvent: String?
-//  open func mapping(map: Map) {
-//    id <- map["id"]
-//    state <- map["attributes.state"]
-//    status <- map["attributes.status"]
-//    createdAt <- (map["attributes.createdAt"], DateTransform())
-//    updatedAt <- (map["attributes.updatedAt"], DateTransform())
-//    alert <- map["attributes.alert"]
-//    priButton <- map["attributes.priButton"]
-//    subButton <- map["attributes.subButton"]
-//    nextEvent <- map["attributes.nextEvent"]
-//  }
-//
-//  required public init?(map: Map) {}
-//}
 
-//class DateTransform: TransformType {
-//
-//  public typealias Object = Date
-//  public typealias JSON = String
-//
-//  public init() {}
-//
-//  func transformFromJSON(_ value: Any?) -> Date? {
-//    if value == nil { return nil }
-//    return (value as? String)!.toDate()
-//  }
-//
-//  func transformToJSON(_ value: Date?) -> String? {
-//    return value?.toString()
-//  }
-//}
+open class UnSplash: Mappable {
+  public required init?(map: Map) { }
 
-
-open class UnSplash: AppMappable {
   public var raw: String?
   public var full: String?
   public var regular: String?
   public var small: String?
   public var thumb: String?
-  override open func mapping(map: Map) {
-    super.mapping(map: map)
+//  override open func mapping(map: Map) {
+  public func mapping(map: Map) {
+//    AppMappable.TIMEFORMAT =  "yyyy-MM-dd'T'%H:%M:%S %z"
+//    super.mapping(map: map)
     raw <- map["urls.raw"]
     full <- map["urls.full"]
     regular <- map["urls.regular"]

@@ -79,7 +79,7 @@ extension UIImagePickerController {
 
 open class Lorem: LoremIpsum {
 
-  open class func images(keyword: String? = Lorem.firstName(), onComplete: @escaping (_ unsplashes: [UnSplash]) -> () ) {
+  open class func images(keyword: String? = "Sun", onComplete: @escaping (_ unsplashes: [UnSplash]) -> () ) {
     UnSplash.query(keyword: keyword, onComplete: { (unsplashes) in
       onComplete(unsplashes!)
     })
@@ -281,7 +281,7 @@ extension String {
   public func toHtmlWithStyle(_ css: String = K.CSS.style) -> NSAttributedString? {
     let html = "<html><head><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><style>\(css)</style></head><body>\(self)</body></html>"
 //    return html.toHtml()
-    _logForUIMode(html, title: "html")
+//    _logForUIMode(html, title: "html")
     return html.html2AttributedString
   }
 
@@ -313,9 +313,9 @@ extension String {
 
   public func toDate(_ dateFormat: String = K.Api.timeFormat) -> Date? {
     if self == "" { return nil }
-    let df = DateFormatter()
-    df.dateFormat = dateFormat
-    return df.date(from: self)! as Date
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = dateFormat
+    return dateFormatter.date(from: self)! as Date
   }
 }
 
