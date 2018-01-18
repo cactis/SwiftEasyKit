@@ -98,7 +98,7 @@ public struct K {
     public static var button = K.Color.tabBarBackgroundColor // UIColor.fromRGB(240, green: 240, blue: 240)
     public static var submitBg = K.Color.buttonBg
     public static var submit = K.Color.button
-
+    
     public static var barButtonItem = K.BarButtonItem.color
     public static var indicator = K.Color.navigator// UIColor.fromRGB(226, green: 53, blue: 0)
     public static var cartBg = UIColor.fromRGB(116, green: 166, blue: 221)
@@ -106,8 +106,8 @@ public struct K {
     public static var dark = UIColor.black
     public static var light = UIColor.gray.darker()
     public static var popup = UIColor.white
-    public static var checked = K.Color.buttonBg
-    public static var unchecked = UIColor.lightGray
+    public static var checked = K.Color.button
+    public static var unchecked = K.Color.text.lighter()
     public static var text = UIColor.darkGray//.darker()
     public static var facebook = UIColor.fromHex("3B5998")
     public static var google = UIColor.fromRGB(203, green: 52, blue: 37)
