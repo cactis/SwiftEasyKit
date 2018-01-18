@@ -153,7 +153,7 @@ s.dependency 'Eureka'
 s.dependency 'ImageRow'
 s.dependency 'IQKeyboardManagerSwift'
 s.dependency 'SwiftyUserDefaults'
-
+s.dependency 'DateToolsSwift'
 # s.dependency 'RandomKit'#, '1.6.0'
 # s.dependency 'SwiftSpinner'
 # s.dependency 'SwitchLoader'#, '~> 0.0.1'

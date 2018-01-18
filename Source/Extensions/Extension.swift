@@ -9,6 +9,8 @@ import Neon
 import SwiftRandom
 import Fakery
 
+import DateToolsSwift
+
 public let faker = Faker()
 
 public extension UIWindow {
@@ -404,7 +406,7 @@ extension Int {
 
 extension Date {
    public func timeAgo() -> String {
-    return toString()
+    return timeAgoSinceNow
    }
 
    public func toString(_ dateFormat: String = K.Api.shortDateFormat) -> String {
