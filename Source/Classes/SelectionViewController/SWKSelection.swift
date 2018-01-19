@@ -56,12 +56,12 @@ open class SWKSelection: SWKInput {
 
   @objc public func selfTapped() {
     vc = SWKSelectionViewController(title: self.label.text!, levelLimit: levelLimit)
+    vc.selectedData = selectedData
+    vc.collectionData = collectionData!
     vc.didSelect = { index, selected in
       self.selectedData = selected
       self.didSelect(selected)
     }
-    vc.selectedData = selectedData
-    vc.collectionData = collectionData!
     self.pushViewController(vc as UIViewController)
   }
 

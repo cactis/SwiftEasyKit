@@ -30,11 +30,11 @@ open class API {
 
   class public func getHtml(url: String, cached: Bool = true, onSuccess: @escaping (_ response: String) -> ()) {
     if cached == true, let text = Defaults.object(forKey: url) as? String {
-      _logForUIMode("load from cache")
+//      _logForUIMode("load from cache")
       onSuccess(text)
     } else {
-      _logForUIMode("load from web")
-      _logForUIMode(url, title: "url")
+//      _logForUIMode("load from web")
+//      _logForUIMode(url, title: "url")
       URLCache.shared.removeAllCachedResponses()
       Alamofire.request(url).responseString { (response) in
         onSuccess(response.result.value!)

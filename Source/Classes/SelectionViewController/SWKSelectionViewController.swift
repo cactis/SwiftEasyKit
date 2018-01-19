@@ -13,8 +13,12 @@ class SWKSelectionViewController: TableViewController {
   var collectionData = [SelectOption]() { didSet {
     tableView.reloadData() }}
 
-  var selectedData: SelectOption? { didSet { tableView.reloadData() } }
-  let cellHeight: CGFloat = 40
+  var selectedData: SelectOption? { didSet {
+    tableView.reloadData()
+//    let index = collectionData.ids.index(of: (selectedData?.id!)!)
+//    tableView.reloadRows(at: [IndexPath(item: index!, section: 0)], with: .fade)
+    } }
+  let cellHeight: CGFloat = 45
 
   var didSelect: (_ index: IndexPath, _ selected: SelectOption?) -> () = {_,_  in }
 
@@ -23,7 +27,7 @@ class SWKSelectionViewController: TableViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    titled(titleText!, token: "SVS")
+    titled(titleText!, token: "SWKSel")
   }
 
   init(title: String?, levelLimit: Int = 100) {
@@ -36,7 +40,7 @@ class SWKSelectionViewController: TableViewController {
     super.layoutUI()
     tableView = tableView(SelectionCell.self, identifier: CellIdentifier)
     view.layout([tableView])
-    if collectionData.count == 0 { seeds() }
+//    if collectionData.count == 0 { seeds() }
   }
 
   override func styleUI() {
@@ -44,11 +48,7 @@ class SWKSelectionViewController: TableViewController {
     tabBarHidden = true
     tableView.separatorStyle = .singleLine
     automaticallyAdjustsScrollViewInsets = false
-//    let bottomBorder = UIView(frame: CGRectMake(0, 0, self.tableView.frame.size.width, 1))
-//    tableView.tableFooterView = bottomBorder
   }
-
-//  public var viewTapped: (selected: SelectOption) -> () = {_ in}
 
   @objc override func cellTapped(_ sender: UITapGestureRecognizer) {
     _logForUIMode()
@@ -56,9 +56,9 @@ class SWKSelectionViewController: TableViewController {
     let selected = collectionData[index.row]
     // 以獨立頁面開啟
     if navigationController != nil {
-      // 打開下一層選單
+      // 若有子網址，打開下一層選單繼續選 // 或者被限定只選到第幾層
       if selected.children_url != nil && selected.level! < levelLimit {
-        selected.children({ (children) in
+        selected.getChildren({ (children) in
           let vc = SWKSelectionViewController(title: selected.forHuman)
           vc.collectionData = children!
           if ((selected.family?.contains(selected)) == true) {
@@ -69,7 +69,7 @@ class SWKSelectionViewController: TableViewController {
             vc.selectedData = selected
           }
           vc.didSelect = self.didSelect
-          self.pushViewController(vc, checked: false, delayed: 0.1)
+          self.pushViewController(vc, checked: false)//, delayed: 0.1)
         })
       } else {
         // 退回起始輸入頁面

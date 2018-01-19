@@ -89,11 +89,11 @@ open class SelectOption: Mappable {
       case .failure(let error):
         _logForUIMode(error.localizedDescription)
     }
-    onComplete(items)
+//    onComplete(items)
     }
   }
 
-  public func children(_ onComplete: @escaping (_ items: [SelectOption]?) -> ()) {
+  public func getChildren(_ onComplete: @escaping (_ items: [SelectOption]?) -> ()) {
     SelectOption.list(children_url) { (items) in
       onComplete(items)
     }
