@@ -165,6 +165,7 @@ public struct K {
   }
 
   public struct Size {
+    public static var normal = K.Size.Text.normal
     public static var barButtonItem = K.BarButtonItem.cgSize
     public struct Submit {
       public static var size = K.Size.Text.normal.larger(1.2)
@@ -187,7 +188,7 @@ public struct K {
     public struct Text {
       public static var tiny = K.Size.Text.normal.smaller(2)
       public static var small = K.Size.Text.normal.smaller()
-      public static var normal = CGFloat(12).em
+      public static var normal = Env.size(phone: 13, pad: 16)
       public static var medium = K.Size.Text.normal.larger(2)
       public static var large = K.Size.Text.normal.larger(4)
       public static var huge = K.Size.Text.normal.larger(20)

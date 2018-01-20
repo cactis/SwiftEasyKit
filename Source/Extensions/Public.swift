@@ -15,7 +15,7 @@ import SwiftRandom
 import KeychainSwift
 import ObjectMapper
 import PhotoSlider
-
+import AssistantKit
 
 //import EZLoadingActivity
 
@@ -497,6 +497,16 @@ public func verticalLayout(_ blocks: [UIView], heights: [CGFloat], padding: CGFl
       block.alignUnder(prevBlock, matchingLeftAndRightWithTopPadding: padding, height: heights[index])
     }
     prevBlock = block
+  }
+}
+
+public class Env {
+  public class var deviceType: Type { get {
+    return Device.type
+    }}
+
+  public class func size(phone: CGFloat, pad: CGFloat) -> CGFloat {
+    return Device.isPad ? pad : phone
   }
 }
 

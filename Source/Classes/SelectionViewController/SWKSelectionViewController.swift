@@ -18,7 +18,7 @@ class SWKSelectionViewController: TableViewController {
 //    let index = collectionData.ids.index(of: (selectedData?.id!)!)
 //    tableView.reloadRows(at: [IndexPath(item: index!, section: 0)], with: .fade)
     } }
-  let cellHeight: CGFloat = 45
+  let cellHeight: CGFloat = K.Size.normal * 3
 
   var didSelect: (_ index: IndexPath, _ selected: SelectOption?) -> () = {_,_  in }
 
