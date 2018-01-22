@@ -456,8 +456,8 @@ public func openPhotoSlider(photoSlider: PhotoSlider.ViewController, index: Int!
     let label = Label(rectInsets: UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)).multilinized().html(labelInfo!)
     label.colored(UIColor.black).backgroundColored(UIColor.white)
     photoSlider.view.addSubview(label)
-    let w = screenWidth() * 0.75
-    label.anchorTopCenter(withTopPadding: 50, width: w, height: label.getHeightBySizeThatFitsWithWidth(w))
+    let w = screenWidth() * 0.9
+    label.anchorTopCenter(withTopPadding: 100, width: w, height: label.getHeightBySizeThatFitsWithWidth(w))
   }
   photoSlider.currentPage = index
   photoSlider.modalPresentationStyle = .overFullScreen // .overCurrentContext
@@ -506,8 +506,16 @@ public class Env {
     }}
 
   public class func size(phone: CGFloat, pad: CGFloat) -> CGFloat {
-    return Device.isPad ? pad : phone
+    return Device.size(phone: phone, pad: pad)
   }
+
+  static public var family: ScreenFamily { get { return Device.screen.family } }
+
+  static public func size<T: Any>(old: T? = nil, small: T, medium: T, big: T) -> T {
+    _logForUIMode(Device.screen.family, title: "family")
+    return Device.size(old: old, small: small, medium: medium, big: big)
+  }
+
 }
 
 

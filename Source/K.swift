@@ -25,6 +25,7 @@ public struct K {
     public static var cable = ""
 
     public static var prefix = "/api"
+    public static var extra = ""
 
     public static var pushserver = "/user_devices"
     public static var pushserverSubscribe = ""
@@ -169,7 +170,7 @@ public struct K {
     public static var barButtonItem = K.BarButtonItem.cgSize
     public struct Submit {
       public static var size = K.Size.Text.normal.larger(1.2)
-      public static var height = K.Size.Submit.size * 2
+      public static var height = K.Size.Submit.size * 2.em
     }
 
     public struct ListButton {
@@ -188,7 +189,7 @@ public struct K {
     public struct Text {
       public static var tiny = K.Size.Text.normal.smaller(2)
       public static var small = K.Size.Text.normal.smaller()
-      public static var normal = Env.size(phone: 13, pad: 16)
+      public static var normal = CGFloat(Env.size(old: 13, small: 13, medium: 13, big: 14))
       public static var medium = K.Size.Text.normal.larger(2)
       public static var large = K.Size.Text.normal.larger(4)
       public static var huge = K.Size.Text.normal.larger(20)
