@@ -112,7 +112,9 @@ class SWKSelectionViewController: TableViewController {
     let item = collectionData[indexPath.row]
     let selectCell = (cell as! SelectionCell)
     selectCell.loadData(item)
-    if let _ =  selectedData { selectCell.checked = (selectedData?.family?.contains(item))! == true }
+    if selectedData != nil && selectedData?.family != nil {
+      selectCell.checked = (selectedData?.family?.contains(item))! == true
+    }
     cell.whenTapped(self, action: #selector(cellTapped(_:)))
     cell.layoutIfNeeded()
     return cell

@@ -6,6 +6,7 @@ import UIKit
 open class WebViewController: DefaultViewController, UIWebViewDelegate {
   public var webView = UIWebView()
   var url: String? { didSet {
+    _logForUIMode(url, title: "url")
     if url != nil {
       webView.loadRequest(URLRequest(url: URL(string: url!)!))
     }

@@ -104,8 +104,12 @@ open class SelectOption: Mappable {
 extension Sequence where Iterator.Element == SelectOption {
   var ids: [Int] { get { return map({$0.id!}) } }
 
-  func asBreadcrumb(_ separator: String = "/") -> String {
+  public func asBreadcrumb(_ separator: String = "/") -> String {
     return self.map({$0.name!}).join(separator)
+  }
+
+  public func prependDefaultOption(name: String! = "全部類別") -> [SelectOption] {
+    return [SelectOption(JSON: ["id": 0, "name": name, "level": 0])!] + self
   }
 
   public func contains(_ ele: SelectOption) -> Bool {
