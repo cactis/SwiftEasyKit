@@ -655,7 +655,7 @@ extension CGFloat {
 
   public var em: CGFloat {
     _logForUIMode(screenWidth(), title: "\(Env.family)")
-    return self * screenWidth() / Env.size(phone: 320, pad: 700)
+    return self * screenWidth() / Env.size(phone: 320, pad: 768)
   }
 
   public func smaller(_ n: CGFloat = 1) -> CGFloat {
