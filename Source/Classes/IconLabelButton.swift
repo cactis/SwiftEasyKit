@@ -49,7 +49,7 @@ open class IconLabelButton: DefaultView {
     super.layoutSubviews()
     if icon.image != nil {
       icon.anchorAndFillEdge(.top, xPad: xPad, yPad: yPad, otherSize: height * 0.75)
-      label.alignUnder(icon, matchingCenterWithTopPadding: padding, width: label.textWidth(), height: label.getHeightBySizeThatFitsWithWidth(label.width))
+      label.alignUnder(icon, matchingCenterWithTopPadding: padding, width: label.textWidth(), height: label.getHeightByWidth(label.width))
     } else {
       groupAndFill(group: .vertical, views: [label], padding: padding)
     }

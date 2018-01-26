@@ -169,10 +169,9 @@ extension UITextView {
 //    return self
 //  }
 
-  public func getHeightBySizeThatFitsWithWidth(width: CGFloat) -> CGFloat {
+  public func getHeightByWidth(_ width: CGFloat) -> CGFloat {
     return sizeThatFits(CGSize(width: width, height: 100000)).height
   }
-
 
   @discardableResult public func styled(options: NSDictionary = NSDictionary()) -> UITextView {
     text = text ?? Lorem.name()

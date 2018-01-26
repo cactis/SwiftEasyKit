@@ -184,7 +184,7 @@ extension UILabel {
     return self
   }
 
-  @discardableResult public func getHeightBySizeThatFitsWithWidth(_ width: CGFloat) -> CGFloat {
+  @discardableResult public func getHeightByWidth(_ width: CGFloat) -> CGFloat {
     return sizeThatFits(CGSize(width: width, height: 100000)).height
   }
 }

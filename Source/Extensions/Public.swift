@@ -60,7 +60,7 @@ public func prompt(_ msg: String?, style: PromptType = PromptType(), onTapped: @
   let yPad = 15.em
   
   let w = screenWidth() - 4 * xPad
-  let h = label.getHeightBySizeThatFitsWithWidth(w)
+  let h = label.getHeightByWidth(w)
   
   label.frame = CGRect(x: xPad, y: yPad, width: w, height: h)
   block.frame = CGRect(x: xPad, y: 0, width: w + 2 * xPad, height: label.bottomEdge() + yPad)
@@ -457,7 +457,7 @@ public func openPhotoSlider(photoSlider: PhotoSlider.ViewController, index: Int!
     label.colored(UIColor.black).backgroundColored(UIColor.white)
     photoSlider.view.addSubview(label)
     let w = screenWidth() * 0.9
-    label.anchorTopCenter(withTopPadding: 100, width: w, height: label.getHeightBySizeThatFitsWithWidth(w))
+    label.anchorTopCenter(withTopPadding: 100, width: w, height: label.getHeightByWidth(w))
   }
   photoSlider.currentPage = index
   photoSlider.modalPresentationStyle = .overFullScreen // .overCurrentContext

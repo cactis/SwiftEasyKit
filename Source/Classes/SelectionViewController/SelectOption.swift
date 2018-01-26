@@ -104,7 +104,7 @@ open class SelectOption: Mappable {
 extension Sequence where Iterator.Element == SelectOption {
   var ids: [Int] { get { return map({$0.id!}) } }
 
-  public func asBreadcrumb(_ separator: String = "/") -> String {
+  public func asBreadcrumb(_ separator: String = " / ") -> String {
     return self.map({$0.name!}).join(separator)
   }
 
