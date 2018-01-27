@@ -279,12 +279,16 @@ extension String {
   public func toAttributedString() -> NSAttributedString? {
     return toHtml()
   }
+  
+  public func wrapHtmlWithCss(_ css: String = K.CSS.style) -> String? {
+    let html = "<html><head><meta name='viewport' content='width=device-width, initial-scale=1.0'><style>\(css)</style></head><body>\(self)</body></html>".gsub("\n").gsub("\\'", withString: "'")
+    _logForUIMode(html, title: "html")
+    
+    return html
+  }
 
   public func toHtmlWithStyle(_ css: String = K.CSS.style) -> NSAttributedString? {
-    let html = "<html><head><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><style>\(css)</style></head><body>\(self)</body></html>"
-//    return html.toHtml()
-//    _logForUIMode(html, title: "html")
-    return html.html2AttributedString
+    return wrapHtmlWithCss(css)?.html2AttributedString
   }
 
   public func toHtml() -> NSAttributedString? {
@@ -811,6 +815,7 @@ extension Data {
   var html2AttributedString: NSAttributedString? {
     do {
       return try NSAttributedString(data: self, options: [.documentType: NSAttributedString.DocumentType.html, .characterEncoding: String.Encoding.utf8.rawValue], documentAttributes: nil)
+//      return try! NSAttributedString(data: self.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)!, options: [NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType], documentAttributes: nil)
     } catch {
       print("error:", error)
       return  nil
@@ -823,7 +828,15 @@ extension Data {
 
 extension String {
   var html2AttributedString: NSAttributedString? {
-    return Data(utf8).html2AttributedString
+    let htmlString = self
+    let htmlData = NSString(string: htmlString).data(using: String.Encoding.unicode.rawValue)
+    let options = [NSAttributedString.DocumentReadingOptionKey.documentType: NSAttributedString.DocumentType.html]
+    return try! NSAttributedString(data: htmlData!, options: options, documentAttributes: nil)
+
+    
+//    return try! NSAttributedString(data: self.data(using: String.Encoding.utf8, allowLossyConversion: false)!, options: [.documentType: NSAttributedString.DocumentType.html, .characterEncoding: String.Encoding.utf8.rawValue], documentAttributes: nil)
+//    return try! NSAttributedString(data: self.data(using: String.Encoding(rawValue: String.Encoding.unicode.rawValue), allowLossyConversion: true)!, options: [NSAttributedString.DocumentReadingOptionKey.documentType:NSAttributedString.DocumentType.html, NSAttributedString.DocumentReadingOptionKey.characterEncoding: String.Encoding.utf8.rawValue], documentAttributes: nil)
+//    return Data(utf8).html2AttributedString
   }
   var html2String: String {
     return html2AttributedString?.string ?? ""

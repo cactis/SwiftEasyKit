@@ -19,7 +19,7 @@ open class PopupView: DefaultView {
   override public init(frame: CGRect) {
     super.init(frame: frame)
     layout([contentView])
-    closeBtn = contentView.addImageView(UIImage.fontAwesomeIcon(name: .close, textColor: K.Color.buttonBg, size: CGSize(width: closeBtnSize, height: closeBtnSize)))
+    closeBtn = contentView.addImageView(UIImage.fontAwesomeIcon(name: .close, textColor: K.Color.button, size: CGSize(width: closeBtnSize, height: closeBtnSize)))
     closeBtn.whenTapped(self, action: #selector(closeBtnTapped(_:)))
   }
 
