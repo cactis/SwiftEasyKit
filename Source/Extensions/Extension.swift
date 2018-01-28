@@ -717,7 +717,7 @@ extension UITextField {
 
 extension UITableViewCell {
 
-  open func highlighted(duration: Double = 3) {
+  open func highlighted(duration: Double = 1.5) {
     setSelected(true, animated: true)
     self.asFadable()
     delayedJob(3) {
@@ -840,5 +840,12 @@ extension String {
   }
   var html2String: String {
     return html2AttributedString?.string ?? ""
+  }
+}
+
+extension UIWebView {
+  public func autoHeight(bottomPadding: CGFloat = 20) -> CGFloat {
+    let height = (stringByEvaluatingJavaScript(from: "document.body.offsetHeight;")?.int()?.cgFloat)! + bottomPadding
+    return height
   }
 }

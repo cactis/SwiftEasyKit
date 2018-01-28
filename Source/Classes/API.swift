@@ -57,7 +57,7 @@ open class API {
 //    _logForUIMode(K.Api.userToken)
   }
 
-  class public func get(_ url: String, parameters: [String: AnyObject] = [:], fileName: String? = #file, funcName: String? = #function, run: @escaping (_ response: DataResponse<Any>, _ data: Any?) -> ()) {
+  class public func get(_ url: String, parameters: [String: AnyObject] = [:], fileName: String? = #file, funcName: String? = #function, run: @escaping (_ response: DataResponse<Any>, _ data: Any?) -> () = {_,_ in }) {
     request(url: url, parameters: parameters, run: run)
   }
 

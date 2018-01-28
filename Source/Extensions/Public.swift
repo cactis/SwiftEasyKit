@@ -501,6 +501,11 @@ public func verticalLayout(_ blocks: [UIView], heights: [CGFloat], padding: CGFl
 }
 
 public class Env {
+  
+  public class func isPad() -> Bool {
+    return Device.isPad
+  }
+  
   public class var deviceType: Type { get {
     return Device.type
     }}
