@@ -281,10 +281,9 @@ extension String {
   }
   
   public func wrapHtmlWithCss(_ css: String = K.CSS.style) -> String? {
-    let html = "<html><head><meta name='viewport' content='width=device-width, initial-scale=1.0'><style>\(css)</style></head><body>\(self)</body></html>".gsub("\n").gsub("\\'", withString: "'")
-    _logForUIMode(html, title: "html")
-    
-    return html
+    let html = css.contains("http") ? "<html><head><meta name='viewport' content='width=device-width, initial-scale=1.0'><link rel='stylesheet' href='\(css)'/></head><body>\(self)</body></html>" : "<html><head><meta name='viewport' content='width=device-width, initial-scale=1.0'><style>\(css)</style></head><body>\(self)</body></html>"
+  
+    return html.gsub("\n").gsub("\\'", withString: "'")
   }
 
   public func toHtmlWithStyle(_ css: String = K.CSS.style) -> NSAttributedString? {

@@ -17,8 +17,10 @@ open class AppMappable: Mappable {
   public var priButton: String?
   public var subButton: String?
   public var nextEvent: String?
+  public var css: String?
 
   static var TIMEFORMAT = K.Api.timeFormat
+  
   open func mapping(map: Map) {    
     id <- map["id"]
     state <- map["state"]
@@ -29,6 +31,7 @@ open class AppMappable: Mappable {
     priButton <- map["pri_button"]
     subButton <- map["sub_button"]
     nextEvent <- map["next_event"]
+    css <- map["css"]
   }
 
   required public init?(map: Map) {}
