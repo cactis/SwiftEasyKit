@@ -22,7 +22,6 @@ open class SegmentWithViews: DefaultView, UIScrollViewDelegate {
   public var scrollViewBottomPadding: CGFloat?
 
   public init(titles: [String]!, iconCodes: [String]! = [], color: (active: UIColor, deactive: UIColor), size: CGFloat = K.Size.Text.normal, index: Int = 0, views: [UIView], direction: Direction = .vertical) {
-
     if iconCodes.count > 0 {
       self.segment = IconFontSegment(titles: titles, iconCodes: iconCodes, color: color, size: size, index: index, direction: direction)
     } else {
