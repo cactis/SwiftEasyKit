@@ -6,7 +6,7 @@ import UIKit
 
 open class ScrollableViewController: DefaultViewController {
 
-  var contentView = UIScrollView()
+  public var contentView = UIScrollView()
 
   init() {
 //    _logForUIMode()
