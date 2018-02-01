@@ -654,7 +654,12 @@ extension UIView: UIImagePickerControllerDelegate, UINavigationControllerDelegat
   @objc @discardableResult public func whenTapped(_ target: AnyObject, action: Selector) -> UIView {
     let tap = getSingleTap(target, action: action)
     enablTapped(tap)
-    //    tap.cancelsTouchesInView = true
+    return self
+  }
+  
+  @objc @discardableResult public func whenDoubleTapped(_ target: AnyObject, action: Selector) -> UIView {
+    let tap = getDoubleTap(target, action: action)
+    enablTapped(tap)
     return self
   }
 
@@ -664,6 +669,10 @@ extension UIView: UIImagePickerControllerDelegate, UINavigationControllerDelegat
       view.whenTapped(target, action: action)
     }
     return self
+  }
+  
+  @discardableResult private func getDoubleTap(_ target: AnyObject, action: Selector) -> UIGestureRecognizer {
+    return getTap(2, target: target, action: action)
   }
 
   @discardableResult private func getSingleTap(_ target: AnyObject, action: Selector) -> UIGestureRecognizer {

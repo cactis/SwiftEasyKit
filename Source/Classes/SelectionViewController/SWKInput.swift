@@ -43,7 +43,7 @@ open class SWKInput: DefaultView {
   public var label = UILabel()
   public var value = UITextField()
   public var data: String? { didSet { value.texted(data) } }
-  public var text: String { get { return value.text! } set { value.text = newValue } }
+  public var text: String? { get { return value.text } set { value.text = newValue } }
   public var prefix: String!
 
   public func valued(_ text: String?) { value.texted(text) }
