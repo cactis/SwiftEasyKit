@@ -20,6 +20,8 @@ open class DefaultAppDelegate: UIResponder, UIApplicationDelegate, UITabBarContr
 
   @discardableResult open func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
     UITabBar.appearance().tintColor = K.Color.tabBar
+//    UITabBarItem.appearance().setTitleTextAttributes([.foregroundColor: K.Color.tabBar], for: .selected)
+//        UITabBarItem.appearance().setTitleTextAttributes([.foregroundColor: K.Color.tabBar], for: .unsel)
     UITabBar.appearance().barTintColor = K.Color.tabBarBackgroundColor
     if #available(iOS 10.0, *) {
       UITabBar.appearance().unselectedItemTintColor = K.Color.tabBarUnselected
@@ -107,10 +109,10 @@ open class DefaultAppDelegate: UIResponder, UIApplicationDelegate, UITabBarContr
   }
 
 
-  public func icon(_ name: FontAwesome, selected: Bool = false) -> UIImage {
-    let size = 30
-    let color = selected ? K.Color.tabBar : K.Color.tabBarUnselected
-    return getIcon(name, options: ["color": color, "size": size])
-  }
+//  public func icon(_ name: FontAwesome, selected: Bool = false) -> UIImage {
+//    let size = 30
+//    let color = selected ? K.Color.tabBar : K.Color.tabBarUnselected
+//    return getIcon(name, options: ["color": color, "size": size])
+//  }
 
 }
