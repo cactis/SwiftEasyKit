@@ -188,6 +188,10 @@ extension UIGestureRecognizer {
 
 extension String {
 
+  public func urlWithPage(_ page: Int!) -> String {
+    return "\(self)/page/\(page!)"
+  }
+  
   public func int() -> Int? {
     return Int(self)
   }
