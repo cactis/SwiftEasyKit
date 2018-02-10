@@ -33,7 +33,7 @@ open class DefaultViewController: UIViewController, UITextFieldDelegate, UITextV
 
   open override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
-    appDelegate().preLoad()
+//    appDelegate().preLoad()
   }
 
   override open func viewDidDisappear(_ animated: Bool) {

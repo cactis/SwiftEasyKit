@@ -26,6 +26,7 @@ public struct K {
 
     public static var prefix = "/api"
     public static var extra = ""
+    public static var device: String?
 
     public static var pushserver = "/user_devices"
     public static var pushserverSubscribe = ""

@@ -78,6 +78,7 @@ open class API {
     var headers_ = ["app_id": appId, "file_name": (fileName! as NSString).lastPathComponent, "func_name": funcName!]
     headers_["Authorization"] = K.Api.userToken
     headers_["extra"] = K.Api.extra
+    headers_["device"] = K.Api.device
     return headers_
   }
 
