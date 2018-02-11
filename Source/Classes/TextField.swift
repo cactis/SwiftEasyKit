@@ -104,7 +104,11 @@ open class TextView: DefaultView, UITextViewDelegate {
   override open func layoutSubviews() {
     super.layoutSubviews()
     clearButton.anchorToEdge(.right, padding: 0, width: 14, height: 14)
-    field.anchorAndFillEdge(.left, xPad: 0, yPad: 0, otherSize: clearButton.leftEdge())
+    if field.isEditable {
+      field.anchorAndFillEdge(.left, xPad: 0, yPad: 0, otherSize: clearButton.leftEdge())
+    } else {
+      field.fillSuperview()
+    }
   }
 
   public func textViewDidBeginEditing(_ textView: UITextView) {
