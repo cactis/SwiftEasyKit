@@ -86,6 +86,7 @@ open class API {
     let indicator = indicatorStart()
     let requestStartTime = NSDate()
     var requestTime: Double = 0
+    _logForUIMode(url, title: "url")
     let _url = URL(string: url.hostUrl().addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!)
     _logForUIMode(_url, title: "_url")
 //    _logForAnyMode(headers(), title: "headers")
@@ -101,7 +102,6 @@ open class API {
 
   class func asciiEscape(s: String) -> String {
     var out : String = ""
-
     for char in s.unicodeScalars {
       var esc = "\(char)"
       if !char.isASCII {

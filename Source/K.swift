@@ -45,7 +45,7 @@ public struct K {
       public static var signIn = "/users/sign_in"
       public static var signOut = "/users/sign_out"
       public static var signUp = "/users"
-      public static var validateToken = "/validate-token"
+      public static var validateToken = "/validate_token"
     }
 
     public struct Response {
