@@ -9,7 +9,9 @@ open class DefaultTableView: DefaultView, UITableViewDataSource, UITableViewDele
   public var tableView: UITableView!
   public var cell: TableViewCell!
 
-  public var collectionData = [AnyObject]() { didSet { tableView.reloadData() } }
+  open var collectionData = [AnyObject]() { didSet {
+//    tableView.reloadData()
+    } }
 
   open func removeCell(tableView: UITableView, indexPath: NSIndexPath, onComplete: () -> ()) {
     tableView.beginUpdates()

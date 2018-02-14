@@ -324,7 +324,7 @@ extension String {
     if self == "" { return nil }
     let dateFormatter = DateFormatter()
     dateFormatter.dateFormat = dateFormat
-    return dateFormatter.date(from: self)! as Date
+    return dateFormatter.date(from: self) as? Date
   }
 }
 

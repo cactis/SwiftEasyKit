@@ -13,7 +13,9 @@ extension UIScrollView {
   }
 
   @discardableResult public func scrollToTop() -> UIScrollView {
-    setContentOffset(CGPoint(x: 0, y: 0), animated: true)
+    delayedJob {
+      self.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
+    }
     return self
   }
 

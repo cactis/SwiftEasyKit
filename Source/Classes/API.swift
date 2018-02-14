@@ -91,13 +91,13 @@ open class API {
     _logForUIMode(_url, title: "_url")
 //    _logForAnyMode(headers(), title: "headers")
     Alamofire.request(_url!, method: method, parameters: parameters, headers: headers()).responseJSON { response in
-      requestTime = NSDate().timeIntervalSince(requestStartTime as Date)
+//      requestTime = NSDate().timeIntervalSince(requestStartTime as Date)
       processJSONResponse(response, run: run)
       indicatorEnd(indicator: indicator)
     }
-    delayedJob(Development.delayed) {
-      _logForAnyMode(requestTime, title: "本次請求秒數: \(method),  \(url)")
-    }
+//    delayedJob(Development.delayed) {
+//      _logForAnyMode(requestTime, title: "本次請求秒數: \(method),  \(url)")
+//    }
   }
 
   class func asciiEscape(s: String) -> String {
@@ -148,7 +148,6 @@ open class API {
           default:
             run(response, response.result.value)
           }
-
         }
       } else {
         run(response, nil)
