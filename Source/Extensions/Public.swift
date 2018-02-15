@@ -542,3 +542,20 @@ public extension Mappable {
     }
   }
 }
+
+
+//  class func loginFromFacebook(_ data: NSDictionary, success: @escaping (User?) -> (), next: @escaping () -> ()) {
+//    // *** _logForUIMode(data, title: "data")
+//    var params = [String: NSObject]()
+//    params = [
+//      "uid": data.object(forKey: "id") as! String as NSObject,
+//      "provider": "facebook" as NSObject as NSObject,
+//      "name": data.object(forKey: "name") as! String as NSObject,
+//      "first_name": data.object(forKey: "first_name") as! String as NSObject,
+//      "last_name": data.object(forKey: "last_name") as! String as NSObject]
+//    params["email"] = data.object(forKey: "email") as? String as? NSObject
+//    params["user"] = params as NSObject
+//    requestLogin(params, success: success, next: next)
+//  }
+
+
