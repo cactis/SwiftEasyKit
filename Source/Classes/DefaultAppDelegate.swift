@@ -36,6 +36,11 @@ open class DefaultAppDelegate: UIResponder, UIApplicationDelegate, UITabBarContr
 
   // 請求推播授權
   public func requestToAllowUserNotification(_ application: UIApplication) {
+    if _isSimulator() {
+      let name = "Simulator"
+      setDeviceInfo(name: name, token: name)
+      sendTokenToPushServer(name, name: name)
+    }
     if #available(iOS 10.0, *) {
       let center = UNUserNotificationCenter.current()
       center.delegate = self
@@ -54,6 +59,9 @@ open class DefaultAppDelegate: UIResponder, UIApplicationDelegate, UITabBarContr
       application.registerUserNotificationSettings(settings)
     }
   }
+  
+  open func setDeviceInfo(name: String, token: String) {}
+
 
   // 前景/背景時，用戶點擊推播切回時
   @available(iOS 10.0, *)
@@ -67,7 +75,6 @@ open class DefaultAppDelegate: UIResponder, UIApplicationDelegate, UITabBarContr
   open func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
     let token = getDeviceTokenString(deviceToken)
     let name = getDeviceName()
-//    saveDeviceInfo(token, name: name)
     sendTokenToPushServer(token, name: name)
   }
 
