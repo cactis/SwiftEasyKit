@@ -40,8 +40,8 @@ extension UIResponder {
     application.registerForRemoteNotifications()
   }
 
-  open func sendTokenToPushServer(_ token: String, name: String, success: @escaping (_ response: DataResponse<Any>) -> () = {_ in }) {
-    PushServer.subscribeToken(appid: K.Api.appID, name: name, token: token, success: success)
+  open func sendTokenToPushServer(_ token: String, name: String, enabled: Bool = true, success: @escaping (_ response: DataResponse<Any>) -> () = {_ in }) {
+    PushServer.subscribeToken(appid: K.Api.appID, name: name, token: token, enabled: enabled, success: success)
   }
 
   open func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {

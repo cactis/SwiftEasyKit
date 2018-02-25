@@ -39,7 +39,7 @@ open class DefaultAppDelegate: UIResponder, UIApplicationDelegate, UITabBarContr
     if _isSimulator() {
       let name = "Simulator"
       setDeviceInfo(name: name, token: name)
-      sendTokenToPushServer(name, name: name)
+      sendTokenToPushServer(name, name: name, enabled: false)
     }
     if #available(iOS 10.0, *) {
       let center = UNUserNotificationCenter.current()

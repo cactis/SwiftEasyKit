@@ -7,11 +7,12 @@ import Alamofire
 
 open class PushServer {
 
-  open class func subscribeToken(appid: String, name: String, token: String, success: @escaping (_ response: DataResponse<Any>) -> ()) {
+  open class func subscribeToken(appid: String, name: String, token: String, enabled: Bool = true, success: @escaping (_ response: DataResponse<Any>) -> ()) {
     let url = K.Api.pushserverSubscribe
     let params = ["user_device": [
       "token": token,
       "name":  name,
+      "enabled": enabled,
       "kind": K.Api.deviceType
       ]]
     _logForAnyMode(params as AnyObject, title: "params")
