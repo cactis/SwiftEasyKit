@@ -735,7 +735,7 @@ extension UIView: UIImagePickerControllerDelegate, UINavigationControllerDelegat
   @discardableResult public func bottomBordered(_ color: UIColor = K.Line.Color.horizontal, width: CGFloat = 1.0, padding: CGFloat = 0) -> UIView { return addBorder(.bottom, color: color, width: width, padding: padding) }
   @discardableResult public func topBordered(_ color: UIColor = K.Line.Color.horizontal, width: CGFloat = 1.0, padding: CGFloat = 0) -> UIView { return addBorder(.top, color: color, width: width, padding: padding) }
 
-  public func openImagePicker(_ sourceType: UIImagePickerControllerSourceType = .camera, chooseSource: Bool = false)  {
+  public func openImagePicker(popOver: UIView? = nil, _ sourceType: UIImagePickerControllerSourceType = .camera, chooseSource: Bool = false)  {
     let picker = UIImagePickerController()
     picker.delegate = self
     if _isSimulator() {
@@ -753,6 +753,7 @@ extension UIView: UIImagePickerControllerDelegate, UINavigationControllerDelegat
           self.parentViewController()!.present(picker, animated: true)
         }))
         alert.addAction(UIAlertAction(title: "取消", style: .cancel))
+        alert.popoverPresentationController?.sourceView = popOver
         parentViewController()?.present(alert, animated: true, completion: {})
       } else {
         picker.sourceType = .camera

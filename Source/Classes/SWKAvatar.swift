@@ -62,7 +62,7 @@ open class SWKAvatar: DefaultView, RSKImageCropViewControllerDelegate {
   }
 
   @objc func cameraTapped() {
-    openImagePicker(chooseSource: true)
+    openImagePicker(popOver: camera, chooseSource: true)
   }
 
   open func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
