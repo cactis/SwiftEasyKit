@@ -6,7 +6,6 @@ import Foundation
 
 public struct K {
   
-  Developer
   public struct Prompt {
     public static var delay: Double = 3
   }
