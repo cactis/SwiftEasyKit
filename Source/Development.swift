@@ -16,6 +16,9 @@ public struct Development {
 
   public static var developer = "All"
   
+  public static var user = ""
+  public static var password = ""
+  
   public static var delayed: Double = 2000
   public static var autoRun = true
   public static var prompt = true
