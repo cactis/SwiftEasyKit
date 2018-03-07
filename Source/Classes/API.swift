@@ -53,8 +53,6 @@ open class API {
         prompt(error.localizedDescription)
       }
     }
-//    _logForUIMode(K.Api.userToken, title: "K.Api.userToken")
-//    _logForUIMode(K.Api.userToken)
   }
 
   class public func get(_ url: String, parameters: [String: AnyObject] = [:], fileName: String? = #file, funcName: String? = #function, run: @escaping (_ response: DataResponse<Any>, _ data: Any?) -> () = {_,_ in }) {
@@ -77,6 +75,8 @@ open class API {
     let appId = K.Api.appID
     var headers_ = ["app_id": appId, "file_name": (fileName! as NSString).lastPathComponent, "func_name": funcName!]
     headers_["Authorization"] = K.Api.userToken
+    headers_["userDeviceName"] = K.Api.userDeviceName
+    headers_["userDeviceToken"] = K.Api.userDeviceToken
     headers_["extra"] = K.Api.extra
     headers_["device"] = K.Api.device
     return headers_

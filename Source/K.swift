@@ -31,7 +31,12 @@ public struct K {
     public static var pushserver = "/user_devices"
     public static var pushserverSubscribe = ""
     public static var appID = ""
+    
+    // sending in headers
     public static var userToken = ""
+    public static var userDeviceToken = ""
+    public static var userDeviceName = ""
+    
     public static var deviceType = "iOS"
     public static var userTokenKey = "userToken"
     public static var deviceTokenKey = "deviceToken"
