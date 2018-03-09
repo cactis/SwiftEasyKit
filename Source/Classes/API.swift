@@ -73,7 +73,7 @@ open class API {
 
   class func headers(_ fileName: String? = #file, funcName: String? = #function) -> [String: String] {
     let appId = K.Api.appID
-    var headers_ = ["app_id": appId, "file_name": (fileName! as NSString).lastPathComponent, "func_name": funcName!]
+    var headers_ = ["appId": appId, "fileName": (fileName! as NSString).lastPathComponent, "funcName": funcName!]
     headers_["Authorization"] = K.Api.userToken
     headers_["userDeviceName"] = K.Api.userDeviceName
     headers_["userDeviceToken"] = K.Api.userDeviceToken
