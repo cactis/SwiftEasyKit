@@ -9,7 +9,7 @@ import SwiftyUserDefaults
 
 extension String {
   public func hostUrl() -> String {
-    return self.contains("http") ? self : "\(K.Api.host)\(self)"
+    return self.contains(K.Api.http) ? self : "\(K.Api.host)\(self)"
   }
 }
 
@@ -81,16 +81,34 @@ open class API {
     headers_["device"] = K.Api.device
     return headers_
   }
+  
+  private static var manager: Alamofire.SessionManager = {
+    
+    // Create the server trust policies
+    let serverTrustPolicies: [String: ServerTrustPolicy] = [
+      "goodsforfree.com.tw": .disableEvaluation
+    ]
+    
+    // Create custom manager
+    let configuration = URLSessionConfiguration.default
+    configuration.httpAdditionalHeaders = Alamofire.SessionManager.defaultHTTPHeaders
+    let manager = Alamofire.SessionManager(
+      configuration: URLSessionConfiguration.default,
+      serverTrustPolicyManager: ServerTrustPolicyManager(policies: serverTrustPolicies)
+    )
+    
+    return manager
+  }()
 
   class public func request(_ method: HTTPMethod = .get, url: String, parameters: [String: AnyObject] = [:], fileName: String? = #file, funcName: String? = #function, run: @escaping (_ response: DataResponse<Any>, _ data: Any?) -> ()) {
     let indicator = indicatorStart()
     let requestStartTime = NSDate()
     var requestTime: Double = 0
-    _logForUIMode(url, title: "url")
+//    _logForUIMode(url, title: "url")
     let _url = URL(string: url.hostUrl().addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!)
     _logForUIMode(_url, title: "_url")
 //    _logForAnyMode(headers(), title: "headers")
-    Alamofire.request(_url!, method: method, parameters: parameters, headers: headers()).responseJSON { response in
+    manager.request(_url!, method: method, parameters: parameters, headers: headers()).responseJSON { response in
 //      requestTime = NSDate().timeIntervalSince(requestStartTime as Date)
       processJSONResponse(response, run: run)
       indicatorEnd(indicator: indicator)
@@ -187,3 +205,26 @@ extension String {
   }
 }
 
+
+class NetworkManager {
+  static let sharedInstance = NetworkManager()
+  
+  let defaultManager: Alamofire.SessionManager = {
+    let serverTrustPolicies: [String: ServerTrustPolicy] = [
+//      "test.example.com": .pinCertificates(
+////        certificates: ServerTrustPolicy.(),
+//        validateCertificateChain: true,
+//        validateHost: true
+//      ),
+      "api.goodsforfree.com.tw": .disableEvaluation
+    ]
+    
+    let configuration = URLSessionConfiguration.default
+    configuration.httpAdditionalHeaders = Alamofire.SessionManager.defaultHTTPHeaders
+    
+    return Alamofire.SessionManager(
+      configuration: configuration,
+      serverTrustPolicyManager: ServerTrustPolicyManager(policies: serverTrustPolicies)
+    )
+  }()
+}

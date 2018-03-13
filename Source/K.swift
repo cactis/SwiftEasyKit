@@ -24,6 +24,8 @@ public struct K {
     public static var local = ""
     public static var cable = ""
 
+//    public static var sslOnly = false
+    public static var http = "http"
     public static var prefix = "/api"
     public static var extra = ""
     public static var device: String?
