@@ -31,7 +31,7 @@ public struct K {
     public static var device: String?
 
     public static var pushserver = "/user_devices"
-    public static var pushserverSubscribe = ""
+    public static var pushserverSubscribe = "/user_devices"
     public static var appID = ""
     
     // sending in headers

@@ -108,7 +108,7 @@ open class API {
     let _url = URL(string: url.hostUrl().addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!)
     _logForUIMode(_url, title: "_url")
 //    _logForAnyMode(headers(), title: "headers")
-    manager.request(_url!, method: method, parameters: parameters, headers: headers()).responseJSON { response in
+    Alamofire.request(_url!, method: method, parameters: parameters, headers: headers()).responseJSON { response in
 //      requestTime = NSDate().timeIntervalSince(requestStartTime as Date)
       processJSONResponse(response, run: run)
       indicatorEnd(indicator: indicator)
@@ -144,11 +144,14 @@ open class API {
         switch (response.response?.statusCode)! {
         case 400, 404, 405, 422:
           prompt(message ?? "路徑錯誤!")
+        case 401: //InvalidToken
+          prompt(message)
+        case 403: // InvalidPermission
+          prompt(message)
+        case 406: //406 Not Acceptable
+          prompt(message)
         case 440:
           prompt(message)
-          delayedJob({
-            appDelegate().redirectToLogin()
-          })
         case 500:
           prompt(message ?? "伺服器內部錯誤，請稍後再試。")
           appDelegate().did500Error()
