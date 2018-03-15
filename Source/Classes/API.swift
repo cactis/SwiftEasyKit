@@ -142,15 +142,20 @@ open class API {
         if let debug = item.value(forKey: "debug") as? String { if _isWho("CT") { prompt(debug) } }
         let message = item.value(forKey: K.Api.Response.message) as? String
         switch (response.response?.statusCode)! {
-        case 400, 404, 405, 422:
+        case 400: // Bad Request
+          prompt(message ?? "請求錯誤!")
+        case 404, 405, 422:
           prompt(message ?? "路徑錯誤!")
         case 401: //InvalidToken
           prompt(message)
+          delayedJob({
+            appDelegate().redirectToLogin()
+          })
         case 403: // InvalidPermission
           prompt(message)
         case 406: //406 Not Acceptable
           prompt(message)
-        case 440:
+        case 440: // Login Time-out
           prompt(message)
         case 500:
           prompt(message ?? "伺服器內部錯誤，請稍後再試。")
