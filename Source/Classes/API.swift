@@ -106,7 +106,7 @@ open class API {
     var requestTime: Double = 0
 //    _logForUIMode(url, title: "url")
     let _url = URL(string: url.hostUrl().addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!)
-    _logForUIMode(_url, title: "_url")
+    _logForUIMode(_url, title: "\(method): _url")
 //    _logForAnyMode(headers(), title: "headers")
     Alamofire.request(_url!, method: method, parameters: parameters, headers: headers()).responseJSON { response in
 //      requestTime = NSDate().timeIntervalSince(requestStartTime as Date)
@@ -144,8 +144,10 @@ open class API {
         switch (response.response?.statusCode)! {
         case 400: // Bad Request
           prompt(message ?? "請求錯誤!")
-        case 404, 405, 422:
+        case 404:
           prompt(message ?? "路徑錯誤!")
+        case 405, 422:
+          prompt(message ?? "資料異動錯誤!")
         case 401: //InvalidToken
           prompt(message)
           delayedJob({
