@@ -147,7 +147,7 @@ open class API {
         case 404:
           prompt(message ?? "路徑錯誤!")
         case 405, 422:
-          prompt(message ?? "資料異動錯誤!")
+          prompt(message)
         case 401: //InvalidToken
           prompt(message)
           delayedJob({
