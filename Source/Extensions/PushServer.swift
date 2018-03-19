@@ -7,6 +7,13 @@ import Alamofire
 
 open class PushServer {
 
+  open class func subscribeToken(name: String?, token: String?) {
+    if name != nil && token != nil {
+      subscribeToken(appid: K.Api.appID, name: name!, token: token!, success: { (data) in
+      })
+    }
+  }
+  
   open class func subscribeToken(appid: String, name: String, token: String, enabled: Bool = true, success: @escaping (_ response: DataResponse<Any>) -> ()) {
     let url = K.Api.pushserverSubscribe
     let params = ["user_device": [

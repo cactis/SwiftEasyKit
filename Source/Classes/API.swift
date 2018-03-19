@@ -74,11 +74,16 @@ open class API {
   class func headers(_ fileName: String? = #file, funcName: String? = #function) -> [String: String] {
     let appId = K.Api.appID
     var headers_ = ["appId": appId, "fileName": (fileName! as NSString).lastPathComponent, "funcName": funcName!]
+    headers_["Accept"] = "application/json"
+    headers_["Accept-Charset"] = "utf-8"
     headers_["Authorization"] = K.Api.userToken
-    headers_["userDeviceName"] = K.Api.userDeviceName
-    headers_["userDeviceToken"] = K.Api.userDeviceToken
+//    headers_["userDeviceName"] = K.Api.userDeviceName
+//    headers_["userDeviceToken"] = K.Api.userDeviceToken
     headers_["extra"] = K.Api.extra
     headers_["device"] = K.Api.device
+    print(1)
+    print(K.Api.userDeviceName)
+    print(2)
     return headers_
   }
   
@@ -101,9 +106,9 @@ open class API {
   }()
 
   class public func request(_ method: HTTPMethod = .get, url: String, parameters: [String: AnyObject] = [:], fileName: String? = #file, funcName: String? = #function, run: @escaping (_ response: DataResponse<Any>, _ data: Any?) -> ()) {
-    let indicator = indicatorStart()
-    let requestStartTime = NSDate()
-    var requestTime: Double = 0
+//    let indicator = indicatorStart()
+//    let requestStartTime = NSDate()
+//    var requestTime: Double = 0
 //    _logForUIMode(url, title: "url")
     let _url = URL(string: url.hostUrl().addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!)
     _logForUIMode(_url, title: "\(method): _url")
@@ -111,7 +116,7 @@ open class API {
     Alamofire.request(_url!, method: method, parameters: parameters, headers: headers()).responseJSON { response in
 //      requestTime = NSDate().timeIntervalSince(requestStartTime as Date)
       processJSONResponse(response, run: run)
-      indicatorEnd(indicator: indicator)
+//      indicatorEnd(indicator: indicator)
     }
 //    delayedJob(Development.delayed) {
 //      _logForAnyMode(requestTime, title: "本次請求秒數: \(method),  \(url)")
