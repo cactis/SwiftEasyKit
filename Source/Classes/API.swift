@@ -81,9 +81,9 @@ open class API {
     headers_["userDeviceToken"] = K.Api.userDeviceToken
     headers_["extra"] = K.Api.extra
     headers_["device"] = K.Api.device
-    print(1)
-    print(K.Api.userDeviceName)
-    print(2)
+//    print(1)
+//    print(K.Api.userDeviceName)
+//    print(2)
     return headers_
   }
   
