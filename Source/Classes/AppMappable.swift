@@ -24,7 +24,7 @@ open class AppMappable: Mappable {
   
   open func mapping(map: Map) {    
     id <- map["id"]
-    state <- map["aasm_state"]
+    state <- map["state"]
 //    state <- map["state"]
 //    status <- map["status"]
     createdAt <- (map["created_at"], DateTransform(timeFormat:  AppMappable.TIMEFORMAT))
