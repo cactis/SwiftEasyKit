@@ -77,8 +77,8 @@ open class API {
     headers_["Accept"] = "application/json"
     headers_["Accept-Charset"] = "utf-8"
     headers_["Authorization"] = K.Api.userToken
-    headers_["userDeviceName"] = K.Api.userDeviceName
-    headers_["userDeviceToken"] = K.Api.userDeviceToken
+//    headers_["userDeviceName"] = K.Api.userDeviceName
+//    headers_["userDeviceToken"] = K.Api.userDeviceToken
     headers_["extra"] = K.Api.extra
     headers_["device"] = K.Api.device
 //    print(1)

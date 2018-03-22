@@ -36,11 +36,11 @@ open class DefaultAppDelegate: UIResponder, UIApplicationDelegate, UITabBarContr
 
   // 請求推播授權
   public func requestToAllowUserNotification(_ application: UIApplication) {
-    if _isSimulator() {
-      let name = "😁😁😁Simulator-\(Development.developer)"
-      setDeviceInfo(name: name, token: name)
-      sendTokenToPushServer(name, name: name, enabled: false)
-    }
+//    if _isSimulator() {
+//      let name = "😁😁😁Simulator-\(Development.developer)"
+//      setDeviceInfo(name: name, token: name)
+//      sendTokenToPushServer(name, name: name, enabled: false)
+//    }
     if #available(iOS 10.0, *) {
       let center = UNUserNotificationCenter.current()
       center.delegate = self
