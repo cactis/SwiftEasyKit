@@ -204,7 +204,7 @@ public func _isWho(_ who: String) -> Bool {
   //  _logForAnyMode(_isSimulator() && who == Development.developer && !_isRunningTest())
   return _isSimulator() && who == Development.developer && !_isRunningTest()
 }
-public func _isSimulator() -> Bool { return TARGET_OS_SIMULATOR != 0 || Development.setDeviceAsSimulator == true }
+public func _isSimulator() -> Bool { return TARGET_OS_SIMULATOR != 0 || Development.setDeviceAsSimulator == true || !Development.setSimulatorAsDevice == true }
 public func _isRealSimulator() -> Bool { return TARGET_OS_SIMULATOR != 0 }
 public func isReadDevice() -> Bool { return !_isRealSimulator() }
 
