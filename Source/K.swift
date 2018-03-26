@@ -170,6 +170,22 @@ public struct K {
     public static var titles = [String]()
     public static var images = [String]()
   }
+  
+  public struct Camera {
+    public struct Authorization {
+      public static var title = "相機授權"
+      public static var message = "需要相機授權"
+    }
+    public struct AuthorizationFailed {
+      public static var title = "沒有相機的授權"
+      public static var message = "要到控制中心開啟權限"
+    }
+    
+    public struct ChooseSource {
+      public static var title = "相機/相簿"
+      public static var message = "請問使用相機或相簿？"
+    }    
+  }
 
   public struct Image {
     public static var jpegCompression: CGFloat = 0.2

@@ -368,13 +368,13 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
     if AVCaptureDevice.authorizationStatus(for: .video) == .authorized {
       ready()
     } else {
-      alert(self, title: "相機授權", message: "需要相機授權", onCompletion: {
+      alert(self, title: K.Camera.Authorization.title, message: K.Camera.Authorization.message, onCompletion: {
       }, okHandler: { (ok) in
         AVCaptureDevice.requestAccess(for: .video, completionHandler: { (granted: Bool) in
           if granted {
             ready()
           } else {
-            alert(self, title: "沒有相機的授權", message: "要到控制中心開啟權限", onCompletion: {
+            alert(self, title: K.Camera.AuthorizationFailed.title, message: K.Camera.AuthorizationFailed.message, onCompletion: {
             }, okHandler: { (ok) in
               UIApplication.shared.openURL(URL(string: UIApplicationOpenSettingsURLString)!)
             })

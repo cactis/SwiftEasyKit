@@ -743,7 +743,7 @@ extension UIView: UIImagePickerControllerDelegate, UINavigationControllerDelegat
       parentViewController()!.present(picker, animated: true)
     } else {
       if chooseSource == true {
-        let alert = UIAlertController(title: "相機/相簿", message: "請問使用相機或相簿？", preferredStyle: .actionSheet)
+        let alert = UIAlertController(title: K.Camera.ChooseSource.title, message: K.Camera.ChooseSource.message, preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "相機", style: .default, handler: { (action) in
           picker.sourceType = .camera
           self.parentViewController()!.present(picker, animated: true)
