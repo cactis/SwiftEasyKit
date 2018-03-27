@@ -36,6 +36,7 @@ public struct K {
     
     // sending in headers
     public static var userToken = ""
+    public static var userName = ""
     public static var userDeviceToken = ""
     public static var userDeviceName = ""
     

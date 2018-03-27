@@ -17,7 +17,7 @@ class PageMeta: Mappable {
   var perPage: Int?
   var totalPages: Int?
   var totalObjects: Int?
-
+  
   func mapping(map: Map) {
     perPage <- map["per_page"]
     totalPages <- map["total_pages"]
@@ -27,21 +27,21 @@ class PageMeta: Mappable {
 }
 
 open class API {
-
+  
   class public func getHtml(url: String, cached: Bool = true, onSuccess: @escaping (_ response: String) -> ()) {
     if cached == true, let text = Defaults.object(forKey: url) as? String {
-//      _logForUIMode("load from cache")
+      //      _logForUIMode("load from cache")
       onSuccess(text)
     } else {
-//      _logForUIMode("load from web")
-//      _logForUIMode(url, title: "url")
+      //      _logForUIMode("load from web")
+      //      _logForUIMode(url, title: "url")
       URLCache.shared.removeAllCachedResponses()
       Alamofire.request(url).responseString { (response) in
         onSuccess(response.result.value!)
       }
     }
   }
-
+  
   class public func upload(_ method: HTTPMethod = .post, url: String, data: Data, name: String = "file", fileName: String = "\(Lorem.token()).jpg", mimeType: String = "image/jpg", onComplete: @escaping (DataResponse<Any>) -> () = {_ in}) {
     Alamofire.upload(multipartFormData: { (form) in
       form.append(data, withName: name, fileName: fileName, mimeType: mimeType)
@@ -54,23 +54,23 @@ open class API {
       }
     }
   }
-
+  
   class public func get(_ url: String, parameters: [String: AnyObject] = [:], fileName: String? = #file, funcName: String? = #function, run: @escaping (_ response: DataResponse<Any>, _ data: Any?) -> ()) {
     request(url: url, parameters: parameters, run: run)
   }
-
+  
   class public func post(_ url: String, parameters: [String: AnyObject] = [:], fileName: String? = #file, funcName: String? = #function, run: @escaping (_ response: DataResponse<Any>, _ data: Any?) -> ()) {
     request(.post, url: url, parameters: parameters, run: run)
   }
-
+  
   class public func put(_ url: String, parameters: [String: AnyObject] = [:], fileName: String? = #file, funcName: String? = #function, run: @escaping (_ response: DataResponse<Any>, _ data: Any?) -> ()) {
     request(.put, url: url, parameters: parameters, run: run)
   }
-
+  
   class public func delete(_ url: String, parameters: [String: AnyObject] = [:], fileName: String? = #file, funcName: String? = #function, run: @escaping (_ response: DataResponse<Any>, _ data: Any?) -> ()) {
     request(.delete, url: url, parameters: parameters, run: run)
   }
-
+  
   class func headers(_ fileName: String? = #file, funcName: String? = #function) -> [String: String] {
     let appId = K.Api.appID
     var headers_ = ["appId": appId, "fileName": (fileName! as NSString).lastPathComponent, "funcName": funcName!]
@@ -78,12 +78,13 @@ open class API {
     headers_["Accept-Charset"] = "utf-8"
     headers_["Authorization"] = K.Api.userToken
 //    headers_["userDeviceName"] = K.Api.userDeviceName
-//    headers_["userDeviceToken"] = K.Api.userDeviceToken
+    headers_["userDeviceName"] = String(htmlEncodedString: K.Api.userDeviceName)
+    headers_["userDeviceToken"] = K.Api.userDeviceToken
     headers_["extra"] = K.Api.extra
     headers_["device"] = K.Api.device
-//    print(1)
-//    print(K.Api.userDeviceName)
-//    print(2)
+    //    print(1)
+    //    print(K.Api.userDeviceName)
+    //    print(2)
     return headers_
   }
   
@@ -104,25 +105,25 @@ open class API {
     
     return manager
   }()
-
+  
   class public func request(_ method: HTTPMethod = .get, url: String, parameters: [String: AnyObject] = [:], fileName: String? = #file, funcName: String? = #function, run: @escaping (_ response: DataResponse<Any>, _ data: Any?) -> ()) {
-//    let indicator = indicatorStart()
-//    let requestStartTime = NSDate()
-//    var requestTime: Double = 0
-//    _logForUIMode(url, title: "url")
+    //    let indicator = indicatorStart()
+    //    let requestStartTime = NSDate()
+    //    var requestTime: Double = 0
+    //    _logForUIMode(url, title: "url")
     let _url = URL(string: url.hostUrl().addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!)
     _logForUIMode(_url, title: "\(method): _url")
-//    _logForAnyMode(headers(), title: "headers")
+    //    _logForAnyMode(headers(), title: "headers")
     Alamofire.request(_url!, method: method, parameters: parameters, headers: headers()).responseJSON { response in
-//      requestTime = NSDate().timeIntervalSince(requestStartTime as Date)
+      //      requestTime = NSDate().timeIntervalSince(requestStartTime as Date)
       processJSONResponse(response, run: run)
-//      indicatorEnd(indicator: indicator)
+      //      indicatorEnd(indicator: indicator)
     }
-//    delayedJob(Development.delayed) {
-//      _logForAnyMode(requestTime, title: "本次請求秒數: \(method),  \(url)")
-//    }
+    //    delayedJob(Development.delayed) {
+    //      _logForAnyMode(requestTime, title: "本次請求秒數: \(method),  \(url)")
+    //    }
   }
-
+  
   class func asciiEscape(s: String) -> String {
     var out : String = ""
     for char in s.unicodeScalars {
@@ -136,7 +137,7 @@ open class API {
     }
     return out
   }
-
+  
   class func processJSONResponse(_ response: DataResponse<Any>, run: (_ response: DataResponse<Any>, _ data: Any?) -> ()) {
     if Development.Log.API.request { _logForAnyMode(response.request!, title: "response.request") }
     switch response.result {
@@ -189,7 +190,7 @@ open class API {
       prompt((response.result.error?.localizedDescription)!)
     }
   }
-
+  
 }
 //
 //extension String {
@@ -208,7 +209,7 @@ extension String.UnicodeScalarView {
     _self.append(contentsOf: ascii.map(UnicodeScalar.init))
     self = _self
   }
-
+  
   public init(ascii: UInt8...) {
     self.init(ascii: ascii)
   }
@@ -226,11 +227,11 @@ class NetworkManager {
   
   let defaultManager: Alamofire.SessionManager = {
     let serverTrustPolicies: [String: ServerTrustPolicy] = [
-//      "test.example.com": .pinCertificates(
-////        certificates: ServerTrustPolicy.(),
-//        validateCertificateChain: true,
-//        validateHost: true
-//      ),
+      //      "test.example.com": .pinCertificates(
+      ////        certificates: ServerTrustPolicy.(),
+      //        validateCertificateChain: true,
+      //        validateHost: true
+      //      ),
       "api.goodsforfree.com.tw": .disableEvaluation
     ]
     
@@ -243,3 +244,26 @@ class NetworkManager {
     )
   }()
 }
+
+extension String {
+  
+  init?(htmlEncodedString: String) {
+    
+    guard let data = htmlEncodedString.data(using: .utf8) else {
+      return nil
+    }
+    
+    let options: [NSAttributedString.DocumentReadingOptionKey: Any] = [
+      NSAttributedString.DocumentReadingOptionKey(rawValue: NSAttributedString.DocumentAttributeKey.documentType.rawValue): NSAttributedString.DocumentType.html,
+      NSAttributedString.DocumentReadingOptionKey(rawValue: NSAttributedString.DocumentAttributeKey.characterEncoding.rawValue): String.Encoding.utf8.rawValue
+    ]
+    
+    guard let attributedString = try? NSAttributedString(data: data, options: options, documentAttributes: nil) else {
+      return nil
+    }
+    
+    self.init(attributedString.string)
+  }
+  
+}
+
