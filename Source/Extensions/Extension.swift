@@ -9,7 +9,7 @@ import Neon
 import SwiftRandom
 import Fakery
 
-import DateToolsSwift
+//import DateToolsSwift
 
 public let faker = Faker()
 
@@ -412,8 +412,14 @@ extension Int {
 }
 
 extension Date {
+  
    public func timeAgo() -> String {
-    return timeAgoSinceNow
+    let ti = NSInteger(self.timeIntervalSinceNow) * -1 - 8 * 60 * 60
+    let ms = Int(ti)
+    let seconds = ti % 60
+    let minutes = (ti / 60) % 60
+    let hours = (ti / 3600)
+    return ms < 60 ? "\(ms) 秒前" : (ms < 60 * 60 ? "\(minutes) 分鐘前" : (hours < 24 ? "\(hours) 小時前" : "\(Int(hours / 24)) 天前"))
    }
 
    public func toString(_ dateFormat: String = K.Api.shortDateFormat) -> String {
