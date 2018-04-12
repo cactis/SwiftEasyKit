@@ -183,7 +183,7 @@ open class ImagesCollectionView: CollectionView {
         checkedImage.backgroundColored(UIColor.white)
         checkedImage.image = checkedIcon
         checkedImage.anchorInCorner(.bottomRight, xPad: p, yPad: p, width: s, height: s)
-        checkedImage.radiused(K.Color.buttonBg.withAlphaComponent(0.2).cgColor as! CGFloat)
+//        checkedImage.radiused(K.Color.buttonBg.withAlphaComponent(0.2).cgColor as! CGFloat)
       }
     }
   }
