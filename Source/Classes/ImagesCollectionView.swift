@@ -78,11 +78,11 @@ open class ImagesCollectionView: CollectionView {
     layout([collectionView])
   }
 
-//  override open func styleUI() {
-//    super.styleUI()
-//    let s: CGFloat = [height.int, 20].max()!.cgFloat / 7 * 5
-//    collectionViewLayout.itemSize = CGSize(width: s, height:  s)
-//  }
+  override open func styleUI() {
+    super.styleUI()
+    let s: CGFloat = [height.int, 20].max()!.cgFloat / 7 * 5
+    collectionViewLayout.itemSize = CGSize(width: s, height:  s)
+  }
 
   override open func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     return collectionData.count
@@ -155,15 +155,15 @@ open class ImagesCollectionView: CollectionView {
       layout([placeHolder, photo, checkedImage])
     }
 
-//    override open func styleUI() {
-//      super.styleUI()
+    override open func styleUI() {
+      super.styleUI()
 //      let w = width * 0.2
 //      placeHolder.fillSuperview(left: w, right: w, top: w, bottom: w)
-//      photo.styledAsFill()
+      photo.styledAsFill()
 //      //      checkedImage.backgroundColored(UIColor.white)
 //      checkedImage.isHidden = true
 //      bringSubviewToFront(checkedImage)
-//    }
+    }
 
     override open func layoutSubviews() {
       super.layoutSubviews()
