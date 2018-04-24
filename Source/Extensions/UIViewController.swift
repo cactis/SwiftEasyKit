@@ -150,7 +150,7 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
   }
 
   @discardableResult public func navBarHeight() -> CGFloat {
-    return (navigationController != nil) ? (navigationController?.navigationBar.height)! : 0
+    return (navigationController != nil) ? (navigationController?.navigationBar.intrinsicContentSize.height)! : 0
   }
 
   @discardableResult public func tabBarHeight() -> CGFloat {
