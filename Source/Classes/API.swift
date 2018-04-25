@@ -86,6 +86,7 @@ open class API {
     //    print(1)
     //    print(K.Api.userDeviceName)
     //    print(2)
+    _logForUIMode(headers_)
     return headers_
   }
   
