@@ -36,12 +36,14 @@ public struct K {
     
     // sending in headers
     public static var userToken = ""
+    public static var memberToken = ""
     public static var userName = ""
     public static var userDeviceToken = ""
     public static var userDeviceName = ""
     
     public static var deviceType = "iOS"
     public static var userTokenKey = "userToken"
+    public static var memberTokenKey = "memberToken"
     public static var deviceTokenKey = "deviceToken"
     public static var deviceNameKey = "deviceName"
     public static var phoneKey = "phone"

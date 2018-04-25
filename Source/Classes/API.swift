@@ -76,7 +76,8 @@ open class API {
     var headers_ = ["appId": appId, "fileName": (fileName! as NSString).lastPathComponent, "funcName": funcName!]
     headers_["Accept"] = "application/json"
     headers_["Accept-Charset"] = "utf-8"
-    headers_["Authorization"] = K.Api.userToken
+    headers_["Authorization1"] = K.Api.memberToken
+    headers_["Authorization2"] = K.Api.userToken
 //    headers_["userDeviceName"] = K.Api.userDeviceName
     headers_["userDeviceName"] = String(htmlEncodedString: K.Api.userDeviceName)
     headers_["userDeviceToken"] = K.Api.userDeviceToken
@@ -107,21 +108,11 @@ open class API {
   }()
   
   class public func request(_ method: HTTPMethod = .get, url: String, parameters: [String: AnyObject] = [:], fileName: String? = #file, funcName: String? = #function, run: @escaping (_ response: DataResponse<Any>, _ data: Any?) -> ()) {
-    //    let indicator = indicatorStart()
-    //    let requestStartTime = NSDate()
-    //    var requestTime: Double = 0
-    //    _logForUIMode(url, title: "url")
     let _url = URL(string: url.hostUrl().addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!)
     _logForUIMode(_url, title: "\(method): _url")
-    //    _logForAnyMode(headers(), title: "headers")
     Alamofire.request(_url!, method: method, parameters: parameters, headers: headers()).responseJSON { response in
-      //      requestTime = NSDate().timeIntervalSince(requestStartTime as Date)
       processJSONResponse(response, run: run)
-      //      indicatorEnd(indicator: indicator)
     }
-    //    delayedJob(Development.delayed) {
-    //      _logForAnyMode(requestTime, title: "本次請求秒數: \(method),  \(url)")
-    //    }
   }
   
   class func asciiEscape(s: String) -> String {
