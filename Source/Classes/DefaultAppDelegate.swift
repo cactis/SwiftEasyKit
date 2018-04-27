@@ -30,7 +30,8 @@ open class DefaultAppDelegate: UIResponder, UIApplicationDelegate, UITabBarContr
     }
     // 請求推播授權
     requestToAllowUserNotification(application)
-    IQKeyboardManager.sharedManager().enable = true
+//    IQKeyboardManager.sharedManager().enable = true
+    IQKeyboardManager.shared.enable = true
     return true
   }
 
