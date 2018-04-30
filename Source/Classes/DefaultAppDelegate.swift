@@ -116,6 +116,10 @@ open class DefaultAppDelegate: UIResponder, UIApplicationDelegate, UITabBarContr
   open func did500Error() {
     _logForAnyMode()
   }
+  
+  open func didInvalidToken() {
+    _logForAnyMode()
+  }
 
 
 //  public func icon(_ name: FontAwesome, selected: Bool = false) -> UIImage {

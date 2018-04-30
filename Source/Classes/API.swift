@@ -148,9 +148,7 @@ open class API {
           prompt(message)
         case 401: //InvalidToken
           prompt(message)
-          delayedJob({
-            appDelegate().redirectToLogin()
-          })
+          appDelegate().didInvalidToken()
         case 403: // InvalidPermission
           prompt(message)
         case 406: //406 Not Acceptable
