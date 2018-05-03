@@ -323,12 +323,12 @@ extension String {
 
   public func toDate(_ dateFormat: String = K.Api.timeFormat) -> Date? {
     if self == "" { return nil }
-    _logForUIMode(self, title: "self")
+//    _logForUIMode(self, title: "self")
     let dateFormatter = DateFormatter()
 //    dateFormatter.timeZone = TimeZone(abbreviation: "Asia/Taipei")
     dateFormatter.dateFormat = dateFormat
     let date = (dateFormatter.date(from: self) as? Date)?.addingTimeInterval(60 * 60 * 8)
-    _logForUIMode(date, title: "date")
+//    _logForUIMode(date, title: "date")
     return date
   }
 }
@@ -419,11 +419,11 @@ extension Int {
 extension Date {
   
    public func timeAgo() -> String {
-    _logForUIMode(self, title: "title")
+//    _logForUIMode(self, title: "title")
     let ti = -1 * NSInteger(self.timeIntervalSinceNow - 8 * 60 * 60)
-    _logForUIMode(ti, title: "ti")
+//    _logForUIMode(ti, title: "ti")
     let ms = Int(ti)
-    _logForUIMode(ms, title: "ms")
+//    _logForUIMode(ms, title: "ms")
     let seconds = ti % 60
     let minutes = (ti / 60) % 60
     let hours = (ti / 3600)
@@ -432,7 +432,7 @@ extension Date {
 
    public func toString(_ dateFormat: String = K.Api.shortDateFormat) -> String {
 //   if self == nil { return "" }
-    _logForUIMode(self, title: "self")
+//    _logForUIMode(self, title: "self")
    let dateFormatter = DateFormatter()
    dateFormatter.dateFormat = dateFormat
   return dateFormatter.string(from: self as Date)

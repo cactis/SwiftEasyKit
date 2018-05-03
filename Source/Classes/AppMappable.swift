@@ -13,6 +13,7 @@ open class AppMappable: Mappable {
   public var updatedAt: Date?
   public var state: String?
 //  public var status: String?
+  public var token: String?
   public var alert: String?
   public var priButton: String?
   public var subButton: String?
@@ -27,6 +28,7 @@ open class AppMappable: Mappable {
     state <- map["state"]
 //    state <- map["state"]
 //    status <- map["status"]
+    token <- map["token"]
     createdAt <- (map["created_at"], DateTransform(timeFormat:  AppMappable.TIMEFORMAT))
     updatedAt <- (map["updated_at"], DateTransform(timeFormat:  AppMappable.TIMEFORMAT))
     alert <- map["alert"]

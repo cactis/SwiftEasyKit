@@ -181,7 +181,7 @@ public func _autoRunForUIMode(_ funcName: String = #function, fileName: String =
 
 public func _autoRun(_ funcName: String = #function, fileName: String = #file, column: Int = #column, line: Int = #line, run: @escaping () -> ()) {
   if Development.autoRun && !_isRunningTest() {
-    _logForUIMode()
+//    _logForUIMode()
 //    print("=== autoRun in \(Development.mode): \(funcName) of \((fileName as NSString).lastPathComponent) \(line):\(column) ===")
     _delayedJob { () -> () in
       run()
@@ -518,7 +518,7 @@ public class Env {
   static public var family: ScreenFamily { get { return Device.screen.family } }
 
   static public func size<T: Any>(old: T? = nil, small: T, medium: T, big: T) -> T {
-    _logForUIMode(Device.screen.family, title: "family")
+//    _logForUIMode(Device.screen.family, title: "family")
     return Device.size(old: old, small: small, medium: medium, big: big)
   }
 
