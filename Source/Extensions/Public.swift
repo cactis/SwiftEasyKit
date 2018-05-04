@@ -46,7 +46,7 @@ public func prompt(_ msgs: [String], runWith: (_ msg: String) -> String = { msg 
 
 public func prompt(_ msg: String?, style: PromptType = PromptType(), onTapped: @escaping () -> () = {}) {
   //  if !Development.prompt { return }
-  let message = msg ?? "(異常錯誤：未被追蹤到的錯誤。)"
+  let message = msg ?? (_isSimulator() ? "(異常錯誤：未被追蹤到的錯誤。)" : "")
   UIApplication.shared.isStatusBarHidden = true
   let notification = UIButton()
   let block = DefaultView()
