@@ -76,6 +76,7 @@ open class API {
     var headers_ = ["appId": appId, "fileName": (fileName! as NSString).lastPathComponent, "funcName": funcName!]
     headers_["Accept"] = "application/json"
     headers_["Accept-Charset"] = "utf-8"
+    _logForUIMode("\(K.Api.memberToken); \(K.Api.userToken)", title: "\(K.Api.memberToken); \(K.Api.userToken)")
     headers_["Accesstokens"] = "\(K.Api.memberToken); \(K.Api.userToken)"
 //    headers_["userDeviceName"] = K.Api.userDeviceName
     headers_["userDeviceName"] = String(htmlEncodedString: K.Api.userDeviceName)
