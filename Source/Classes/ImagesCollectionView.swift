@@ -195,6 +195,8 @@ open class Photo: Mappable {
 
   public var id: Int?
   public var url: String?
+  public var thumbUrl: String?
+  public var smallUrl: String?
 
   public var image: UIImage?
   public var checked: Bool! = false
@@ -202,6 +204,8 @@ open class Photo: Mappable {
   public func mapping(map: Map) {
     id <- map["id"]
     url <- map["file_url"]
+    thumbUrl <- map["thumb_file_url"]
+    smallUrl <- map["small_file_url"]
   }
 
   public init(id: Int?, url: String?) {
