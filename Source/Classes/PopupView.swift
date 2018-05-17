@@ -5,7 +5,7 @@ import UIKit
 
 open class PopupView: DefaultView {
 
-  public var delegate: UIView!
+  open var delegate: UIView!
 
   public var contentView = UIScrollView()
   public var closeBtn: UIImageView!
