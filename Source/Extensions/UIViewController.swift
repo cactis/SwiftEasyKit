@@ -179,6 +179,20 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
     return view.height() - barHeight// - 44 //(navigationController?.navigationBar.height)!
   }
 
+  
+  @discardableResult public func addLeftBarButtonItem(iconCode: String, action: Selector) -> UIBarButtonItem {
+    let item = newBarButtonItem(iconCode: iconCode, action: action)
+    var items: [UIBarButtonItem] = [UIBarButtonItem]()
+    if let _item = self.navigationItem.leftBarButtonItem {
+      item.imageInsets = UIEdgeInsetsMake(0, -25, 0, 0)
+      items = [_item, item]
+    } else {
+      items = [item]
+    }
+    self.navigationItem.leftBarButtonItems = items
+    return item
+  }
+  
   @discardableResult public func addLeftBarButtonItem(_ image: UIImage, action: Selector) -> UIBarButtonItem {
     let item = newBarButtonItem(image, action: action)
     var items: [UIBarButtonItem] = [UIBarButtonItem]()

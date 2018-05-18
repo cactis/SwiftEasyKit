@@ -230,7 +230,8 @@ public func _logForUIMode(_ title: String = "", funcName: String = #function, fi
 }
 
 public func _logForUIMode(_ obj: Any?, title: String = "", funcName: String = #function, fileName: String = #file, column: Int = #column, line: Int = #line) {
-  if _isUIMode() {
+//  if _isUIMode() {
+  if Development.mode == "UI Design" {
     _log(obj, title: title, funcName: funcName, fileName: fileName, column: column, line: line)
   }
 }
