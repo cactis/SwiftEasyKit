@@ -111,7 +111,9 @@ open class API {
   class public func request(_ method: HTTPMethod = .get, url: String, parameters: [String: AnyObject] = [:], fileName: String? = #file, funcName: String? = #function, run: @escaping (_ response: DataResponse<Any>, _ data: Any?) -> ()) {
     let _url = URL(string: url.hostUrl().addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!)
     _logForUIMode(_url, title: "\(method): _url")
-    Alamofire.request(_url!, method: method, parameters: parameters, headers: headers()).responseJSON { response in
+    
+//    Alamofire.request(_url!, method: method, parameters: parameters, headers: headers()).responseJSON { response in
+    manager.request(_url!, method: method, parameters: parameters, headers: headers()).responseJSON { response in
       processJSONResponse(response, run: run)
     }
   }
@@ -222,7 +224,7 @@ class NetworkManager {
       //        validateCertificateChain: true,
       //        validateHost: true
       //      ),
-      "api.goodsforfree.com.tw": .disableEvaluation
+      "goodsforfree.com.tw": .disableEvaluation
     ]
     
     let configuration = URLSessionConfiguration.default
