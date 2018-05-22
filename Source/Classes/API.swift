@@ -34,7 +34,7 @@ open class API {
       onSuccess(text)
     } else {
       //      _logForUIMode("load from web")
-      //      _logForUIMode(url, title: "url")
+      _logForUIMode(url, title: "url")
       URLCache.shared.removeAllCachedResponses()
       Alamofire.request(url).responseString { (response) in
         onSuccess(response.result.value!)
