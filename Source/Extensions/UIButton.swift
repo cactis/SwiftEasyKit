@@ -238,8 +238,16 @@ extension UIButton {
     }
     return handlerWithDelayed
   }
-
+  
   @discardableResult public func imageFromText(_ drawText: NSString, color: UIColor = K.Color.button) -> UIButton {
+    let button = UIButton(type: .custom)
+//  let title = "\(G.Icons.comment) 留言板"
+    button.texted(drawText as String).colored(K.BarButtonItem.color).sizeToFit()
+//  button.titleLabel!.font = UIFont(name: K.Font.icon, size: K.BarButtonItem.size)
+    return button
+  }
+
+  @discardableResult public func imageFromText____(_ drawText: NSString, color: UIColor = K.Color.button) -> UIButton {
     let s = height * 0.5
     let textColor: UIColor = color
     let textFont: UIFont = UIFont(name: K.Font.icon, size: s)!
@@ -253,10 +261,12 @@ extension UIButton {
     let rect = CGRect(x: 0, y: 0, width: width, height: height)
     image.draw(in: rect)
     drawText.draw(in: rect, withAttributes: textFontAttributes)
-
-    let newImage: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
-    UIGraphicsEndImageContext()
-    setImage(newImage, for: .normal)
+    
+    if UIGraphicsGetImageFromCurrentImageContext() != nil {
+      let newImage: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
+      UIGraphicsEndImageContext()
+      setImage(newImage, for: .normal)
+    }
     return self
   }
 }
