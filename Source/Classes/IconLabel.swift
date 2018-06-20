@@ -126,6 +126,11 @@ open class IconLabel: DefaultView {
       layout([label])
     }
   }
+  
+  open override func styleUI() {
+    super.styleUI()
+    label.aligned(.left)
+  }
 
   public func setIconFont() {
     if !iconCode.isEmpty {
@@ -152,7 +157,7 @@ open class IconLabel: DefaultView {
       case .IconFont:
         let w = (labelWidth_ ?? label.textWidth())
         iconBorder.anchorAndFillEdge(.left, xPad: (width - s - paddingBetween - w) / 2, yPad: height * 0.1, otherSize: s)
-        label.align(toTheRightOf: iconBorder, matchingTopWithLeftPadding: paddingBetween * 0.4, width: w, height: iconBorder.height)
+        label.align(toTheRightOf: iconBorder, matchingTopWithLeftPadding: paddingBetween * 0.1, width: w, height: iconBorder.height)
       case .UIImage:
         let s = height * 0.8
         let h = height * 0.1
