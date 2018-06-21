@@ -664,9 +664,10 @@ extension UIView: UIImagePickerControllerDelegate, UINavigationControllerDelegat
   }
 
   @objc @discardableResult public func whenTappedWithSubviews(_ target: AnyObject, action: Selector) -> UIView {
+    isUserInteractionEnabled = true
     whenTapped(target, action: action)
     subviews.forEach { (view) -> () in
-      view.whenTapped(target, action: action)
+      view.whenTappedWithSubviews(target, action: action)
     }
     return self
   }
