@@ -23,6 +23,7 @@ extension UIImage {
       }
     })
   }
+  
   open class func loadFromURL(_ url: String, onComplete: @escaping (UIImage) -> ()){
     let hostUrl = url.hostUrl()
     ImageDownloader.default.downloadImage(with: URL(string: hostUrl)!, retrieveImageTask: nil, options: [], progressBlock: nil, completionHandler: { (image, error, url, data) in
