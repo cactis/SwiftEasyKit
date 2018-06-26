@@ -28,8 +28,11 @@ extension UIImage {
     let hostUrl = url.hostUrl()
     ImageDownloader.default.downloadImage(with: URL(string: hostUrl)!, retrieveImageTask: nil, options: [], progressBlock: nil, completionHandler: { (image, error, url, data) in
       DispatchQueue.main.async {
-        onComplete(image!)
+        if let _ = image {
+          onComplete(image!)
+        }
       }
+      
     })
   }
 }
