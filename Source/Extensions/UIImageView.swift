@@ -32,7 +32,6 @@ extension UIImage {
           onComplete(image!)
         }
       }
-      
     })
   }
 }
