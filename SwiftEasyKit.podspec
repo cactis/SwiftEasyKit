@@ -137,7 +137,7 @@ s.dependency 'Alamofire'#, '3.4.1'
 s.dependency 'Bond'#, '4.3.1'
 s.dependency 'Facade'
 s.dependency 'Fakery'#, '1.2.0'
-s.dependency 'FontAwesome.swift'#, '1.3.0'#, '0.7.3'
+s.dependency 'FontAwesome.swift', '1.3.2'#, '0.7.3'
 s.dependency 'JSQMessagesViewController'
 s.dependency 'KeychainSwift'#, '~> 3.0'
 s.dependency 'Kingfisher'#, '3.10.4'#, '2.4.1' 3.10.4
