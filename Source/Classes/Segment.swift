@@ -317,8 +317,8 @@ open class Segment: DefaultView {
     }
   }
 
-  @objc public func tabTapped(_ sender: AnyObject) {
-    index = group.groups.index(of: sender.view!!)!
+  @objc public func tabTapped(_ sender: UITapGestureRecognizer) {
+    index = group.groups.index(of: sender.view!)!
     segmentTapped()
     changed()
     reConstraints()
